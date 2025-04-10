@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+]
+
+[workspace.package]
+edition = "2021"
+description = "A collection of (yet another) math-related libraries FFI bindings"
+repository = "https://github.com/RESTGroup/rstsr-ffi"
+keywords = ["blas", "lapack", "ffi"]
+categories = ["science"]
+license = "Apache-2.0"
+
+[workspace.dependencies]

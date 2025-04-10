@@ -1,0 +1,18 @@
+[package]
+name = "rstsr-openblas-ffi"
+version.workspace = "0.2.6"
+description = "Yet another OpenBLAS FFI bindings"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+readme = "readme.md"
+
+[dependencies]
+
+[features]
+default = []
+ilp64 = []
+openmp = []
