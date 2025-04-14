@@ -1,4 +1,4 @@
-# RSTSR sub-project OpenBLAS-FFI
+# OpenBLAS FFI bindings
 
 This crate contains OpenBLAS FFI bindings.
 

@@ -1,4 +1,4 @@
-# Netlib LAPACK FFI bindgens
+# Netlib LAPACK FFI bindings
 
 This crate contains netlib (reference) LAPACK FFI bindings.
 
