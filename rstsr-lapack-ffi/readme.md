@@ -2,9 +2,9 @@
 
 This crate contains netlib (reference) LAPACK FFI bindings.
 
-Current FFI version is (LAPACK v3.12.1)[https://github.com/Reference-LAPACK/lapack/releases/tag/v3.12.1].
+Current FFI version is [LAPACK v3.12.1](https://github.com/Reference-LAPACK/lapack/releases/tag/v3.12.1).
 
-Netlib LAPACK (C/Fortran) source code is available on (github)[https://github.com/Reference-LAPACK/lapack].
+Netlib LAPACK (C/Fortran) source code is available on [github](https://github.com/Reference-LAPACK/lapack).
 
 This crate is not official bindgen project. It is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest).
 

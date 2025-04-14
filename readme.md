@@ -2,7 +2,7 @@
 
 This project is a collection of (yet another) math-related libraries FFI bindings.
 
-This project is certainly developed to serve (or potentially serve) rust tensor toolkit RSTSR and rust electronic structure toolkit REST. However, though there's `rstsr` in FFI binding names, this repository is technically not related to RSTSR (no dependencies related to RSTSR or its components).
+This project is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest). However, though there's `rstsr` in FFI binding names, this repository is technically not related to RSTSR (no dependencies related to RSTSR or its components).
 
 ## Motivation
 

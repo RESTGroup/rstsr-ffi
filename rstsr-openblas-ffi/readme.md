@@ -2,15 +2,15 @@
 
 This crate contains OpenBLAS FFI bindings.
 
-Current FFI version is (OpenBLAS v0.3.29)[https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.29].
+Current FFI version is [OpenBLAS v0.3.29](https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.29).
 
-OpenBLAS (C/Fortran/ASM) source code is available on (github)[https://github.com/OpenMathLib/OpenBLAS].
+OpenBLAS (C/Fortran/ASM) source code is available on [github](https://github.com/OpenMathLib/OpenBLAS).
 
 This crate is not official bindgen project. It is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest).
 
 - **Audience**: Anyone uses OpenBLAS function may also find it useful, not only RSTSR or REST program developers.
-- **FFI-only**: Program developer is not required to actually install every components in LAPACK (especially LAPACKE). Rust FFI bindings is only declaration.
-- **Do not include LAPACK and LAPACKE**: For LAPACK or LAPACKE, we refer to netlib LAPACK FFI bindings (such as (`lapack-sys`)[https://crates.io/crates/lapack-sys] or `rstsr-lapack-ffi`). OpenBLAS's declaration of LAPACK functions is no difference to netlib LAPACK, but only different in implementation.
+- **FFI-only**: Program developer is not required to actually install every components in OpenBLAS. Rust FFI bindings is only declaration.
+- **Do not include LAPACK and LAPACKE**: For LAPACK or LAPACKE, we refer to netlib LAPACK FFI bindings (such as [`lapack-sys`](https://crates.io/crates/lapack-sys) or `rstsr-lapack-ffi`). OpenBLAS's declaration of LAPACK functions is no difference to netlib LAPACK, but only different in implementation.
 
 ## Cargo features
 
