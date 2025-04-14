@@ -1,0 +1,16 @@
+[package]
+name = "rstsr-lapack-ffi"
+version = "0.1.0"
+description = "Yet another OpenBLAS FFI bindings"
+readme = "readme.md"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+
+[dependencies]
+
+[features]
+ilp64 = []
