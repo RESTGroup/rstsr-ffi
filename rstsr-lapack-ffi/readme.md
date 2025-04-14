@@ -20,3 +20,8 @@ This crate is not official bindgen project. It is originally intended to serve r
 
 - `header`: Header files copied (or renamed) from original source.
 - `scripts`: Script to generate FFI bindgens.
+- `src`: FFI bindings:
+    - `blas`
+    - `cblas`
+    - `lapack`
+    - `lapacke`

@@ -50,7 +50,7 @@ shutil.move(f"{path_header}/lapacke_mangling_with_flags.h.in", f"{path_header}/l
 
 # ### Copy to temporary directory
 
-shutil.rmtree(path_temp)
+shutil.rmtree(path_temp, ignore_errors=True)
 shutil.copytree(path_header, path_temp)
 
 # +

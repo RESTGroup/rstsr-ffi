@@ -1,9 +1,5 @@
-#![allow(clippy::needless_return)]
-#![allow(clippy::unnecessary_cast)]
-#![doc = include_str!("../readme.md")]
-
 pub mod cblas;
-pub mod ffi;
-pub mod threading;
+pub mod f77blas;
 
-pub use crate::threading::{get_num_threads, get_parallel, set_num_threads, with_num_threads};
+#[cfg(all(feature = "quad_precision", feature = "ex_precision"))]
+compile_error!("Cannot enable both quad and extended precision features at the same time.");

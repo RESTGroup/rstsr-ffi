@@ -1,7 +1,7 @@
 [package]
 name = "rstsr-openblas-ffi"
-version = "0.2.6"
-description = "Yet another OpenBLAS FFI bindings"
+version = "0.3.0"
+description = "OpenBLAS FFI bindings"
 readme = "readme.md"
 
 edition.workspace = true
@@ -15,4 +15,5 @@ license.workspace = true
 [features]
 default = []
 ilp64 = []
-openmp = []
+quad_precision = []
+ex_precision = []
