@@ -136,13 +136,13 @@ pub type blas_int = i32;
 #[cfg(feature = "ilp64")]
 pub type blas_int = i64;
 
-#[cfg(feature = "quad_precision")]
+#[cfg(all(feature = "quad_precision", not(feature = "ex_precision")))]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct xdouble {
     pub x: [::core::os::raw::c_ulong; 2usize],
 }
-#[cfg(feature = "ex_precision")]
+#[cfg(all(feature = "ex_precision", not(feature = "quad_precision")))]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct xdouble {
@@ -153,6 +153,13 @@ pub struct xdouble {
 #[derive(Debug, Copy, Clone)]
 pub struct xdouble {
     pub x: f64,
+}
+// This is a workaround for cargo feature conflict
+#[cfg(all(feature = "quad_precision", feature = "ex_precision"))]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct xdouble {
+    pub _phantom: (),
 }
 """ + "\n\n" + token
 # -
