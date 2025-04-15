@@ -4,6 +4,13 @@ This project is a collection of (yet another) math-related libraries FFI binding
 
 This project is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest). However, though there's `rstsr` in FFI binding names, this repository is technically not related to RSTSR (no dependencies related to RSTSR or its components).
 
+## Current bindings
+
+| crate | crate version | FFI library | FFI version |
+|--|--|--|--|
+| rstsr-lapack-ffi | v0.1.1 | Reference LAPACK | v3.12.1 |
+| rstsr-openblas-ffi | v0.3.1 | OpenBLAS | v0.3.29 |
+
 ## Motivation
 
 Motivation of this repository, is that we want some of the following features:
