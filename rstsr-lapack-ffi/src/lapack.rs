@@ -44,7 +44,7 @@ pub type LAPACK_Z_SELECT2 = Option<
     ) -> lapack_int,
 >;
 unsafe extern "C" {
-    pub fn lsame_(ca: *const c_char, cb: *const c_char, arg1: usize, arg2: usize) -> lapack_int;
+    pub fn lsame_(ca: *const c_char, cb: *const c_char) -> lapack_int;
     pub fn cbbcsd_(
         jobu1: *const c_char,
         jobu2: *const c_char,
@@ -75,11 +75,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn dbbcsd_(
         jobu1: *const c_char,
@@ -111,11 +106,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn sbbcsd_(
         jobu1: *const c_char,
@@ -147,11 +137,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn zbbcsd_(
         jobu1: *const c_char,
@@ -183,11 +168,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn dbdsdc_(
         uplo: *const c_char,
@@ -204,8 +184,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sbdsdc_(
         uplo: *const c_char,
@@ -222,8 +200,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cbdsqr_(
         uplo: *const c_char,
@@ -241,7 +217,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dbdsqr_(
         uplo: *const c_char,
@@ -259,7 +234,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sbdsqr_(
         uplo: *const c_char,
@@ -277,7 +251,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zbdsqr_(
         uplo: *const c_char,
@@ -295,7 +268,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dbdsvdx_(
         uplo: *const c_char,
@@ -315,9 +287,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sbdsvdx_(
         uplo: *const c_char,
@@ -337,9 +306,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ddisna_(
         job: *const c_char,
@@ -348,7 +314,6 @@ unsafe extern "C" {
         D: *const f64,
         SEP: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sdisna_(
         job: *const c_char,
@@ -357,7 +322,6 @@ unsafe extern "C" {
         D: *const f32,
         SEP: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgbbrd_(
         vect: *const c_char,
@@ -379,7 +343,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgbbrd_(
         vect: *const c_char,
@@ -400,7 +363,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgbbrd_(
         vect: *const c_char,
@@ -421,7 +383,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgbbrd_(
         vect: *const c_char,
@@ -443,7 +404,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgbcon_(
         norm: *const c_char,
@@ -458,7 +418,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgbcon_(
         norm: *const c_char,
@@ -473,7 +432,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgbcon_(
         norm: *const c_char,
@@ -488,7 +446,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgbcon_(
         norm: *const c_char,
@@ -503,7 +460,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgbequ_(
         m: *const lapack_int,
@@ -637,7 +593,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgbrfs_(
         trans: *const c_char,
@@ -659,7 +614,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgbrfs_(
         trans: *const c_char,
@@ -681,7 +635,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgbrfs_(
         trans: *const c_char,
@@ -703,7 +656,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgbrfsx_(
         trans: *const c_char,
@@ -733,8 +685,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgbrfsx_(
         trans: *const c_char,
@@ -764,8 +714,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgbrfsx_(
         trans: *const c_char,
@@ -795,8 +743,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgbrfsx_(
         trans: *const c_char,
@@ -826,8 +772,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgbsv_(
         n: *const lapack_int,
@@ -902,9 +846,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgbsvx_(
         fact: *const c_char,
@@ -931,9 +872,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgbsvx_(
         fact: *const c_char,
@@ -960,9 +898,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgbsvx_(
         fact: *const c_char,
@@ -989,9 +924,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgbsvxx_(
         fact: *const c_char,
@@ -1023,9 +955,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgbsvxx_(
         fact: *const c_char,
@@ -1057,9 +986,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgbsvxx_(
         fact: *const c_char,
@@ -1091,9 +1017,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgbsvxx_(
         fact: *const c_char,
@@ -1125,9 +1048,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgbtrf_(
         m: *const lapack_int,
@@ -1181,7 +1101,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgbtrs_(
         trans: *const c_char,
@@ -1195,7 +1114,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgbtrs_(
         trans: *const c_char,
@@ -1209,7 +1127,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgbtrs_(
         trans: *const c_char,
@@ -1223,7 +1140,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgebak_(
         job: *const c_char,
@@ -1236,8 +1152,6 @@ unsafe extern "C" {
         V: *mut __BindgenComplex<f32>,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgebak_(
         job: *const c_char,
@@ -1250,8 +1164,6 @@ unsafe extern "C" {
         V: *mut f64,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgebak_(
         job: *const c_char,
@@ -1264,8 +1176,6 @@ unsafe extern "C" {
         V: *mut f32,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgebak_(
         job: *const c_char,
@@ -1278,8 +1188,6 @@ unsafe extern "C" {
         V: *mut __BindgenComplex<f64>,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgebal_(
         job: *const c_char,
@@ -1290,7 +1198,6 @@ unsafe extern "C" {
         ihi: *mut lapack_int,
         scale: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgebal_(
         job: *const c_char,
@@ -1301,7 +1208,6 @@ unsafe extern "C" {
         ihi: *mut lapack_int,
         scale: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgebal_(
         job: *const c_char,
@@ -1312,7 +1218,6 @@ unsafe extern "C" {
         ihi: *mut lapack_int,
         scale: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgebal_(
         job: *const c_char,
@@ -1323,7 +1228,6 @@ unsafe extern "C" {
         ihi: *mut lapack_int,
         scale: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgebrd_(
         m: *const lapack_int,
@@ -1387,7 +1291,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgecon_(
         norm: *const c_char,
@@ -1399,7 +1302,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgecon_(
         norm: *const c_char,
@@ -1411,7 +1313,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgecon_(
         norm: *const c_char,
@@ -1423,7 +1324,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgeequ_(
         m: *const lapack_int,
@@ -1537,8 +1437,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgees_(
         jobvs: *const c_char,
@@ -1556,8 +1454,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgees_(
         jobvs: *const c_char,
@@ -1575,8 +1471,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgees_(
         jobvs: *const c_char,
@@ -1594,8 +1488,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgeesx_(
         jobvs: *const c_char,
@@ -1616,9 +1508,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgeesx_(
         jobvs: *const c_char,
@@ -1641,9 +1530,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgeesx_(
         jobvs: *const c_char,
@@ -1666,9 +1552,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgeesx_(
         jobvs: *const c_char,
@@ -1689,9 +1572,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgeev_(
         jobvl: *const c_char,
@@ -1708,8 +1588,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgeev_(
         jobvl: *const c_char,
@@ -1726,8 +1604,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgeev_(
         jobvl: *const c_char,
@@ -1744,8 +1620,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgeev_(
         jobvl: *const c_char,
@@ -1762,8 +1636,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgeevx_(
         balanc: *const c_char,
@@ -1788,10 +1660,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dgeevx_(
         balanc: *const c_char,
@@ -1817,10 +1685,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn sgeevx_(
         balanc: *const c_char,
@@ -1846,10 +1710,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn zgeevx_(
         balanc: *const c_char,
@@ -1874,10 +1734,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn cgehrd_(
         n: *const lapack_int,
@@ -1945,12 +1801,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn dgejsv_(
         joba: *const c_char,
@@ -1972,12 +1822,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn sgejsv_(
         joba: *const c_char,
@@ -1999,12 +1843,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn zgejsv_(
         joba: *const c_char,
@@ -2028,12 +1866,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn cgelq_(
         m: *const lapack_int,
@@ -2167,7 +1999,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgels_(
         trans: *const c_char,
@@ -2181,7 +2012,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgels_(
         trans: *const c_char,
@@ -2195,7 +2025,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgels_(
         trans: *const c_char,
@@ -2209,7 +2038,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgelsd_(
         m: *const lapack_int,
@@ -2416,8 +2244,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgemlq_(
         side: *const c_char,
@@ -2434,8 +2260,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgemlq_(
         side: *const c_char,
@@ -2452,8 +2276,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgemlq_(
         side: *const c_char,
@@ -2470,8 +2292,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgemqr_(
         side: *const c_char,
@@ -2488,8 +2308,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgemqr_(
         side: *const c_char,
@@ -2506,8 +2324,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgemqr_(
         side: *const c_char,
@@ -2524,8 +2340,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgemqr_(
         side: *const c_char,
@@ -2542,8 +2356,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgemqrt_(
         side: *const c_char,
@@ -2560,8 +2372,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgemqrt_(
         side: *const c_char,
@@ -2578,8 +2388,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgemqrt_(
         side: *const c_char,
@@ -2596,8 +2404,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgemqrt_(
         side: *const c_char,
@@ -2614,8 +2420,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgeql2_(
         m: *const lapack_int,
@@ -3075,7 +2879,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgerfs_(
         trans: *const c_char,
@@ -3095,7 +2898,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgerfs_(
         trans: *const c_char,
@@ -3115,7 +2917,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgerfs_(
         trans: *const c_char,
@@ -3135,7 +2936,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgerfsx_(
         trans: *const c_char,
@@ -3163,8 +2963,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgerfsx_(
         trans: *const c_char,
@@ -3192,8 +2990,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgerfsx_(
         trans: *const c_char,
@@ -3221,8 +3017,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgerfsx_(
         trans: *const c_char,
@@ -3250,8 +3044,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgerq2_(
         m: *const lapack_int,
@@ -3345,7 +3137,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgesdd_(
         jobz: *const c_char,
@@ -3362,7 +3153,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgesdd_(
         jobz: *const c_char,
@@ -3379,7 +3169,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgesdd_(
         jobz: *const c_char,
@@ -3397,7 +3186,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgedmd_(
         jobs: *const c_char,
@@ -3431,10 +3219,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dgedmd_(
         jobs: *const c_char,
@@ -3467,10 +3251,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn sgedmd_(
         jobs: *const c_char,
@@ -3503,10 +3283,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn zgedmd_(
         jobs: *const c_char,
@@ -3540,10 +3316,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn cgedmdq_(
         jobs: *const c_char,
@@ -3581,12 +3353,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn dgedmdq_(
         jobs: *const c_char,
@@ -3623,12 +3389,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn sgedmdq_(
         jobs: *const c_char,
@@ -3665,12 +3425,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn zgedmdq_(
         jobs: *const c_char,
@@ -3708,12 +3462,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn cgesv_(
         n: *const lapack_int,
@@ -3802,8 +3550,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgesvd_(
         jobu: *const c_char,
@@ -3820,8 +3566,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgesvd_(
         jobu: *const c_char,
@@ -3838,8 +3582,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgesvd_(
         jobu: *const c_char,
@@ -3857,8 +3599,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgesvdq_(
         joba: *const c_char,
@@ -3883,11 +3623,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn dgesvdq_(
         joba: *const c_char,
@@ -3912,11 +3647,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn sgesvdq_(
         joba: *const c_char,
@@ -3941,11 +3671,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn zgesvdq_(
         joba: *const c_char,
@@ -3970,11 +3695,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn cgesvdx_(
         jobu: *const c_char,
@@ -3999,9 +3719,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgesvdx_(
         jobu: *const c_char,
@@ -4025,9 +3742,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgesvdx_(
         jobu: *const c_char,
@@ -4051,9 +3765,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgesvdx_(
         jobu: *const c_char,
@@ -4078,9 +3789,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgesvj_(
         joba: *const c_char,
@@ -4099,9 +3807,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgesvj_(
         joba: *const c_char,
@@ -4118,9 +3823,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgesvj_(
         joba: *const c_char,
@@ -4137,9 +3839,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgesvj_(
         joba: *const c_char,
@@ -4158,9 +3857,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgesvx_(
         fact: *const c_char,
@@ -4185,9 +3881,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgesvx_(
         fact: *const c_char,
@@ -4212,9 +3905,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgesvx_(
         fact: *const c_char,
@@ -4239,9 +3929,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgesvx_(
         fact: *const c_char,
@@ -4266,9 +3953,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgesvxx_(
         fact: *const c_char,
@@ -4298,9 +3982,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgesvxx_(
         fact: *const c_char,
@@ -4330,9 +4011,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgesvxx_(
         fact: *const c_char,
@@ -4362,9 +4040,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgesvxx_(
         fact: *const c_char,
@@ -4394,9 +4069,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgetf2_(
         m: *const lapack_int,
@@ -4540,7 +4212,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgetrs_(
         trans: *const c_char,
@@ -4552,7 +4223,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgetrs_(
         trans: *const c_char,
@@ -4564,7 +4234,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgetrs_(
         trans: *const c_char,
@@ -4576,7 +4245,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgetsls_(
         trans: *const c_char,
@@ -4590,7 +4258,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgetsls_(
         trans: *const c_char,
@@ -4604,7 +4271,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgetsls_(
         trans: *const c_char,
@@ -4618,7 +4284,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgetsls_(
         trans: *const c_char,
@@ -4632,7 +4297,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgetsqrhrt_(
         m: *const lapack_int,
@@ -4702,8 +4366,6 @@ unsafe extern "C" {
         V: *mut __BindgenComplex<f32>,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dggbak_(
         job: *const c_char,
@@ -4717,8 +4379,6 @@ unsafe extern "C" {
         V: *mut f64,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sggbak_(
         job: *const c_char,
@@ -4732,8 +4392,6 @@ unsafe extern "C" {
         V: *mut f32,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zggbak_(
         job: *const c_char,
@@ -4747,8 +4405,6 @@ unsafe extern "C" {
         V: *mut __BindgenComplex<f64>,
         ldv: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cggbal_(
         job: *const c_char,
@@ -4763,7 +4419,6 @@ unsafe extern "C" {
         rscale: *mut f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dggbal_(
         job: *const c_char,
@@ -4778,7 +4433,6 @@ unsafe extern "C" {
         rscale: *mut f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sggbal_(
         job: *const c_char,
@@ -4793,7 +4447,6 @@ unsafe extern "C" {
         rscale: *mut f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zggbal_(
         job: *const c_char,
@@ -4808,7 +4461,6 @@ unsafe extern "C" {
         rscale: *mut f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgges_(
         jobvsl: *const c_char,
@@ -4832,9 +4484,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgges_(
         jobvsl: *const c_char,
@@ -4858,9 +4507,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgges_(
         jobvsl: *const c_char,
@@ -4884,9 +4530,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgges_(
         jobvsl: *const c_char,
@@ -4910,9 +4553,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgges3_(
         jobvsl: *const c_char,
@@ -4936,9 +4576,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dgges3_(
         jobvsl: *const c_char,
@@ -4962,9 +4599,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sgges3_(
         jobvsl: *const c_char,
@@ -4988,9 +4622,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zgges3_(
         jobvsl: *const c_char,
@@ -5014,9 +4645,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cggesx_(
         jobvsl: *const c_char,
@@ -5045,10 +4673,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dggesx_(
         jobvsl: *const c_char,
@@ -5077,10 +4701,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn sggesx_(
         jobvsl: *const c_char,
@@ -5109,10 +4729,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn zggesx_(
         jobvsl: *const c_char,
@@ -5141,10 +4757,6 @@ unsafe extern "C" {
         liwork: *const lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn cggev_(
         jobvl: *const c_char,
@@ -5164,8 +4776,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dggev_(
         jobvl: *const c_char,
@@ -5185,8 +4795,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sggev_(
         jobvl: *const c_char,
@@ -5206,8 +4814,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zggev_(
         jobvl: *const c_char,
@@ -5227,8 +4833,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cggev3_(
         jobvl: *const c_char,
@@ -5248,8 +4852,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dggev3_(
         jobvl: *const c_char,
@@ -5269,8 +4871,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sggev3_(
         jobvl: *const c_char,
@@ -5290,8 +4890,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zggev3_(
         jobvl: *const c_char,
@@ -5311,8 +4909,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cggevx_(
         balanc: *const c_char,
@@ -5344,10 +4940,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dggevx_(
         balanc: *const c_char,
@@ -5379,10 +4971,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn sggevx_(
         balanc: *const c_char,
@@ -5414,10 +5002,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn zggevx_(
         balanc: *const c_char,
@@ -5449,10 +5033,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         BWORK: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn cggglm_(
         n: *const lapack_int,
@@ -5531,8 +5111,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgghd3_(
         compq: *const c_char,
@@ -5551,8 +5129,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgghd3_(
         compq: *const c_char,
@@ -5571,8 +5147,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgghd3_(
         compq: *const c_char,
@@ -5591,8 +5165,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgghrd_(
         compq: *const c_char,
@@ -5609,8 +5181,6 @@ unsafe extern "C" {
         Z: *mut __BindgenComplex<f32>,
         ldz: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgghrd_(
         compq: *const c_char,
@@ -5627,8 +5197,6 @@ unsafe extern "C" {
         Z: *mut f64,
         ldz: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgghrd_(
         compq: *const c_char,
@@ -5645,8 +5213,6 @@ unsafe extern "C" {
         Z: *mut f32,
         ldz: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgghrd_(
         compq: *const c_char,
@@ -5663,8 +5229,6 @@ unsafe extern "C" {
         Z: *mut __BindgenComplex<f64>,
         ldz: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgglse_(
         m: *const lapack_int,
@@ -5863,9 +5427,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn sggsvd_(
         jobu: *const c_char,
@@ -5891,9 +5452,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn dggsvd_(
         jobu: *const c_char,
@@ -5919,9 +5477,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn zggsvd_(
         jobu: *const c_char,
@@ -5948,9 +5503,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn cggsvd3_(
         jobu: *const c_char,
@@ -5978,9 +5530,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dggsvd3_(
         jobu: *const c_char,
@@ -6007,9 +5556,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sggsvd3_(
         jobu: *const c_char,
@@ -6036,9 +5582,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zggsvd3_(
         jobu: *const c_char,
@@ -6066,9 +5609,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sggsvp_(
         jobu: *const c_char,
@@ -6095,9 +5635,6 @@ unsafe extern "C" {
         tau: *mut f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn dggsvp_(
         jobu: *const c_char,
@@ -6124,9 +5661,6 @@ unsafe extern "C" {
         tau: *mut f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn cggsvp_(
         jobu: *const c_char,
@@ -6154,9 +5688,6 @@ unsafe extern "C" {
         tau: *mut __BindgenComplex<f32>,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn zggsvp_(
         jobu: *const c_char,
@@ -6184,9 +5715,6 @@ unsafe extern "C" {
         tau: *mut __BindgenComplex<f64>,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_int;
     pub fn cggsvp3_(
         jobu: *const c_char,
@@ -6215,9 +5743,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dggsvp3_(
         jobu: *const c_char,
@@ -6245,9 +5770,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sggsvp3_(
         jobu: *const c_char,
@@ -6275,9 +5797,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zggsvp3_(
         jobu: *const c_char,
@@ -6306,9 +5825,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cgtcon_(
         norm: *const c_char,
@@ -6322,7 +5838,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgtcon_(
         norm: *const c_char,
@@ -6337,7 +5852,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgtcon_(
         norm: *const c_char,
@@ -6352,7 +5866,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgtcon_(
         norm: *const c_char,
@@ -6366,7 +5879,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgtrfs_(
         trans: *const c_char,
@@ -6389,7 +5901,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgtrfs_(
         trans: *const c_char,
@@ -6412,7 +5923,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgtrfs_(
         trans: *const c_char,
@@ -6435,7 +5945,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgtrfs_(
         trans: *const c_char,
@@ -6458,7 +5967,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cgtsv_(
         n: *const lapack_int,
@@ -6523,8 +6031,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dgtsvx_(
         fact: *const c_char,
@@ -6549,8 +6055,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sgtsvx_(
         fact: *const c_char,
@@ -6575,8 +6079,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zgtsvx_(
         fact: *const c_char,
@@ -6601,8 +6103,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cgttrf_(
         n: *const lapack_int,
@@ -6652,7 +6152,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dgttrs_(
         trans: *const c_char,
@@ -6666,7 +6165,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sgttrs_(
         trans: *const c_char,
@@ -6680,7 +6178,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zgttrs_(
         trans: *const c_char,
@@ -6694,7 +6191,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chbev_(
         jobz: *const c_char,
@@ -6709,8 +6205,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbev_(
         jobz: *const c_char,
@@ -6725,8 +6219,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbev_2stage_(
         jobz: *const c_char,
@@ -6742,8 +6234,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbev_2stage_(
         jobz: *const c_char,
@@ -6759,8 +6249,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbevd_(
         jobz: *const c_char,
@@ -6779,8 +6267,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbevd_(
         jobz: *const c_char,
@@ -6799,8 +6285,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbevd_2stage_(
         jobz: *const c_char,
@@ -6819,8 +6303,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbevd_2stage_(
         jobz: *const c_char,
@@ -6839,8 +6321,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbevx_(
         jobz: *const c_char,
@@ -6866,9 +6346,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhbevx_(
         jobz: *const c_char,
@@ -6894,9 +6371,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chbevx_2stage_(
         jobz: *const c_char,
@@ -6923,9 +6397,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhbevx_2stage_(
         jobz: *const c_char,
@@ -6952,9 +6423,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chbgst_(
         vect: *const c_char,
@@ -6971,8 +6439,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbgst_(
         vect: *const c_char,
@@ -6989,8 +6455,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbgv_(
         jobz: *const c_char,
@@ -7008,8 +6472,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbgv_(
         jobz: *const c_char,
@@ -7027,8 +6489,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbgvd_(
         jobz: *const c_char,
@@ -7050,8 +6510,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbgvd_(
         jobz: *const c_char,
@@ -7073,8 +6531,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chbgvx_(
         jobz: *const c_char,
@@ -7103,9 +6559,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhbgvx_(
         jobz: *const c_char,
@@ -7134,9 +6587,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chbtrd_(
         vect: *const c_char,
@@ -7151,8 +6601,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhbtrd_(
         vect: *const c_char,
@@ -7167,8 +6615,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn checon_(
         uplo: *const c_char,
@@ -7180,7 +6626,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhecon_(
         uplo: *const c_char,
@@ -7192,7 +6637,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn checon_3_(
         uplo: *const c_char,
@@ -7205,7 +6649,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhecon_3_(
         uplo: *const c_char,
@@ -7218,7 +6661,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cheequb_(
         uplo: *const c_char,
@@ -7230,7 +6672,6 @@ unsafe extern "C" {
         amax: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zheequb_(
         uplo: *const c_char,
@@ -7242,7 +6683,6 @@ unsafe extern "C" {
         amax: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cheev_(
         jobz: *const c_char,
@@ -7255,8 +6695,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zheev_(
         jobz: *const c_char,
@@ -7269,8 +6707,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cheev_2stage_(
         jobz: *const c_char,
@@ -7283,8 +6719,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zheev_2stage_(
         jobz: *const c_char,
@@ -7297,8 +6731,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cheevd_(
         jobz: *const c_char,
@@ -7314,8 +6746,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zheevd_(
         jobz: *const c_char,
@@ -7331,8 +6761,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cheevd_2stage_(
         jobz: *const c_char,
@@ -7348,8 +6776,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zheevd_2stage_(
         jobz: *const c_char,
@@ -7365,8 +6791,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cheevr_(
         jobz: *const c_char,
@@ -7392,9 +6816,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zheevr_(
         jobz: *const c_char,
@@ -7420,9 +6841,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cheevr_2stage_(
         jobz: *const c_char,
@@ -7448,9 +6866,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zheevr_2stage_(
         jobz: *const c_char,
@@ -7476,9 +6891,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cheevx_(
         jobz: *const c_char,
@@ -7502,9 +6914,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zheevx_(
         jobz: *const c_char,
@@ -7528,9 +6937,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cheevx_2stage_(
         jobz: *const c_char,
@@ -7554,9 +6960,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zheevx_2stage_(
         jobz: *const c_char,
@@ -7580,9 +6983,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chegst_(
         itype: *const lapack_int,
@@ -7593,7 +6993,6 @@ unsafe extern "C" {
         B: *const __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhegst_(
         itype: *const lapack_int,
@@ -7604,7 +7003,6 @@ unsafe extern "C" {
         B: *const __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chegv_(
         itype: *const lapack_int,
@@ -7620,8 +7018,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhegv_(
         itype: *const lapack_int,
@@ -7637,8 +7033,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chegv_2stage_(
         itype: *const lapack_int,
@@ -7654,8 +7048,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhegv_2stage_(
         itype: *const lapack_int,
@@ -7671,8 +7063,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chegvd_(
         itype: *const lapack_int,
@@ -7691,8 +7081,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhegvd_(
         itype: *const lapack_int,
@@ -7711,8 +7099,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chegvx_(
         itype: *const lapack_int,
@@ -7739,9 +7125,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhegvx_(
         itype: *const lapack_int,
@@ -7768,9 +7151,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cherfs_(
         uplo: *const c_char,
@@ -7790,7 +7170,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zherfs_(
         uplo: *const c_char,
@@ -7810,7 +7189,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cherfsx_(
         uplo: *const c_char,
@@ -7837,8 +7215,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zherfsx_(
         uplo: *const c_char,
@@ -7865,8 +7241,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chesv_(
         uplo: *const c_char,
@@ -7880,7 +7254,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhesv_(
         uplo: *const c_char,
@@ -7894,7 +7267,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chesv_aa_(
         uplo: *const c_char,
@@ -7908,7 +7280,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhesv_aa_(
         uplo: *const c_char,
@@ -7922,7 +7293,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chesv_aa_2stage_(
         uplo: *const c_char,
@@ -7939,7 +7309,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhesv_aa_2stage_(
         uplo: *const c_char,
@@ -7956,7 +7325,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chesv_rk_(
         uplo: *const c_char,
@@ -7971,7 +7339,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhesv_rk_(
         uplo: *const c_char,
@@ -7986,7 +7353,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chesv_rook_(
         uplo: *const c_char,
@@ -8000,7 +7366,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhesv_rook_(
         uplo: *const c_char,
@@ -8014,7 +7379,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chesvx_(
         fact: *const c_char,
@@ -8037,8 +7401,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhesvx_(
         fact: *const c_char,
@@ -8061,8 +7423,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chesvxx_(
         fact: *const c_char,
@@ -8091,9 +7451,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhesvxx_(
         fact: *const c_char,
@@ -8122,9 +7479,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cheswapr_(
         uplo: *const c_char,
@@ -8133,7 +7487,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn zheswapr_(
         uplo: *const c_char,
@@ -8142,7 +7495,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn chetrd_(
         uplo: *const c_char,
@@ -8155,7 +7507,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrd_(
         uplo: *const c_char,
@@ -8168,7 +7519,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrd_2stage_(
         vect: *const c_char,
@@ -8184,8 +7534,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhetrd_2stage_(
         vect: *const c_char,
@@ -8201,8 +7549,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chetrf_(
         uplo: *const c_char,
@@ -8213,7 +7559,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrf_(
         uplo: *const c_char,
@@ -8224,7 +7569,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrf_aa_(
         uplo: *const c_char,
@@ -8235,7 +7579,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrf_aa_(
         uplo: *const c_char,
@@ -8246,7 +7589,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrf_aa_2stage_(
         uplo: *const c_char,
@@ -8260,7 +7602,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrf_aa_2stage_(
         uplo: *const c_char,
@@ -8274,7 +7615,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrf_rk_(
         uplo: *const c_char,
@@ -8286,7 +7626,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrf_rk_(
         uplo: *const c_char,
@@ -8298,7 +7637,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrf_rook_(
         uplo: *const c_char,
@@ -8309,7 +7647,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrf_rook_(
         uplo: *const c_char,
@@ -8320,7 +7657,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetri_(
         uplo: *const c_char,
@@ -8330,7 +7666,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetri_(
         uplo: *const c_char,
@@ -8340,7 +7675,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetri2_(
         uplo: *const c_char,
@@ -8351,7 +7685,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetri2_(
         uplo: *const c_char,
@@ -8362,7 +7695,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetri2x_(
         uplo: *const c_char,
@@ -8373,7 +7705,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetri2x_(
         uplo: *const c_char,
@@ -8384,7 +7715,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetri_3_(
         uplo: *const c_char,
@@ -8396,7 +7726,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetri_3_(
         uplo: *const c_char,
@@ -8408,7 +7737,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs_(
         uplo: *const c_char,
@@ -8420,7 +7748,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs_(
         uplo: *const c_char,
@@ -8432,7 +7759,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs2_(
         uplo: *const c_char,
@@ -8445,7 +7771,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs2_(
         uplo: *const c_char,
@@ -8458,7 +7783,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs_3_(
         uplo: *const c_char,
@@ -8471,7 +7795,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs_3_(
         uplo: *const c_char,
@@ -8484,7 +7807,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs_aa_(
         uplo: *const c_char,
@@ -8498,7 +7820,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs_aa_(
         uplo: *const c_char,
@@ -8512,7 +7833,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs_aa_2stage_(
         uplo: *const c_char,
@@ -8527,7 +7847,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs_aa_2stage_(
         uplo: *const c_char,
@@ -8542,7 +7861,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chetrs_rook_(
         uplo: *const c_char,
@@ -8554,7 +7872,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhetrs_rook_(
         uplo: *const c_char,
@@ -8566,7 +7883,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chfrk_(
         transr: *const c_char,
@@ -8579,9 +7895,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         beta: *const f32,
         C: *mut __BindgenComplex<f32>,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhfrk_(
         transr: *const c_char,
@@ -8594,9 +7907,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         beta: *const f64,
         C: *mut __BindgenComplex<f64>,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chgeqz_(
         job: *const c_char,
@@ -8619,9 +7929,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dhgeqz_(
         job: *const c_char,
@@ -8644,9 +7951,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn shgeqz_(
         job: *const c_char,
@@ -8669,9 +7973,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhgeqz_(
         job: *const c_char,
@@ -8694,9 +7995,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chpcon_(
         uplo: *const c_char,
@@ -8707,7 +8005,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhpcon_(
         uplo: *const c_char,
@@ -8718,7 +8015,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chpev_(
         jobz: *const c_char,
@@ -8731,8 +8027,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhpev_(
         jobz: *const c_char,
@@ -8745,8 +8039,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chpevd_(
         jobz: *const c_char,
@@ -8763,8 +8055,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhpevd_(
         jobz: *const c_char,
@@ -8781,8 +8071,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chpevx_(
         jobz: *const c_char,
@@ -8804,9 +8092,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhpevx_(
         jobz: *const c_char,
@@ -8828,9 +8113,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chpgst_(
         itype: *const lapack_int,
@@ -8839,7 +8121,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f32>,
         BP: *const __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhpgst_(
         itype: *const lapack_int,
@@ -8848,7 +8129,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f64>,
         BP: *const __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chpgv_(
         itype: *const lapack_int,
@@ -8863,8 +8143,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhpgv_(
         itype: *const lapack_int,
@@ -8879,8 +8157,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chpgvd_(
         itype: *const lapack_int,
@@ -8899,8 +8175,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhpgvd_(
         itype: *const lapack_int,
@@ -8919,8 +8193,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chpgvx_(
         itype: *const lapack_int,
@@ -8944,9 +8216,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhpgvx_(
         itype: *const lapack_int,
@@ -8970,9 +8239,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chprfs_(
         uplo: *const c_char,
@@ -8990,7 +8256,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhprfs_(
         uplo: *const c_char,
@@ -9008,7 +8273,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chpsv_(
         uplo: *const c_char,
@@ -9019,7 +8283,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhpsv_(
         uplo: *const c_char,
@@ -9030,7 +8293,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chpsvx_(
         fact: *const c_char,
@@ -9050,8 +8312,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhpsvx_(
         fact: *const c_char,
@@ -9071,8 +8331,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn chptrd_(
         uplo: *const c_char,
@@ -9082,7 +8340,6 @@ unsafe extern "C" {
         E: *mut f32,
         tau: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhptrd_(
         uplo: *const c_char,
@@ -9092,7 +8349,6 @@ unsafe extern "C" {
         E: *mut f64,
         tau: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chptrf_(
         uplo: *const c_char,
@@ -9100,7 +8356,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f32>,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhptrf_(
         uplo: *const c_char,
@@ -9108,7 +8363,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f64>,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chptri_(
         uplo: *const c_char,
@@ -9117,7 +8371,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhptri_(
         uplo: *const c_char,
@@ -9126,7 +8379,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chptrs_(
         uplo: *const c_char,
@@ -9137,7 +8389,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zhptrs_(
         uplo: *const c_char,
@@ -9148,7 +8399,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn chsein_(
         side: *const c_char,
@@ -9170,9 +8420,6 @@ unsafe extern "C" {
         IFAILL: *mut lapack_int,
         IFAILR: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dhsein_(
         side: *const c_char,
@@ -9194,9 +8441,6 @@ unsafe extern "C" {
         IFAILL: *mut lapack_int,
         IFAILR: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn shsein_(
         side: *const c_char,
@@ -9218,9 +8462,6 @@ unsafe extern "C" {
         IFAILL: *mut lapack_int,
         IFAILR: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zhsein_(
         side: *const c_char,
@@ -9242,9 +8483,6 @@ unsafe extern "C" {
         IFAILL: *mut lapack_int,
         IFAILR: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn chseqr_(
         job: *const c_char,
@@ -9260,8 +8498,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dhseqr_(
         job: *const c_char,
@@ -9278,8 +8514,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn shseqr_(
         job: *const c_char,
@@ -9296,8 +8530,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zhseqr_(
         job: *const c_char,
@@ -9313,8 +8545,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn clacgv_(n: *const lapack_int, X: *mut __BindgenComplex<f32>, incx: *const lapack_int);
     pub fn zlacgv_(n: *const lapack_int, X: *mut __BindgenComplex<f64>, incx: *const lapack_int);
@@ -9360,7 +8590,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn zlacp2_(
         uplo: *const c_char,
@@ -9370,7 +8599,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn clacpy_(
         uplo: *const c_char,
@@ -9380,7 +8608,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn dlacpy_(
         uplo: *const c_char,
@@ -9390,7 +8617,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut f64,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn slacpy_(
         uplo: *const c_char,
@@ -9400,7 +8626,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut f32,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn zlacpy_(
         uplo: *const c_char,
@@ -9410,7 +8635,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
-        arg1: usize,
     );
     pub fn clacrm_(
         m: *const lapack_int,
@@ -9578,8 +8802,8 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
     );
-    pub fn dlamch_(cmach: *const c_char, arg1: usize) -> f64;
-    pub fn slamch_(cmach: *const c_char, arg1: usize) -> lapack_float_return;
+    pub fn dlamch_(cmach: *const c_char) -> f64;
+    pub fn slamch_(cmach: *const c_char) -> lapack_float_return;
     pub fn clangb_(
         norm: *const c_char,
         n: *const lapack_int,
@@ -9588,7 +8812,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f32>,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn dlangb_(
         norm: *const c_char,
@@ -9598,7 +8821,6 @@ unsafe extern "C" {
         AB: *const f64,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn slangb_(
         norm: *const c_char,
@@ -9608,7 +8830,6 @@ unsafe extern "C" {
         AB: *const f32,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn zlangb_(
         norm: *const c_char,
@@ -9618,7 +8839,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f64>,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn clange_(
         norm: *const c_char,
@@ -9627,7 +8847,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn dlange_(
         norm: *const c_char,
@@ -9636,7 +8855,6 @@ unsafe extern "C" {
         A: *const f64,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn slange_(
         norm: *const c_char,
@@ -9645,7 +8863,6 @@ unsafe extern "C" {
         A: *const f32,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn zlange_(
         norm: *const c_char,
@@ -9654,7 +8871,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn clangt_(
         norm: *const c_char,
@@ -9662,7 +8878,6 @@ unsafe extern "C" {
         DL: *const __BindgenComplex<f32>,
         D: *const __BindgenComplex<f32>,
         DU: *const __BindgenComplex<f32>,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn dlangt_(
         norm: *const c_char,
@@ -9670,7 +8885,6 @@ unsafe extern "C" {
         DL: *const f64,
         D: *const f64,
         DU: *const f64,
-        arg1: usize,
     ) -> f64;
     pub fn slangt_(
         norm: *const c_char,
@@ -9678,7 +8892,6 @@ unsafe extern "C" {
         DL: *const f32,
         D: *const f32,
         DU: *const f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn zlangt_(
         norm: *const c_char,
@@ -9686,7 +8899,6 @@ unsafe extern "C" {
         DL: *const __BindgenComplex<f64>,
         D: *const __BindgenComplex<f64>,
         DU: *const __BindgenComplex<f64>,
-        arg1: usize,
     ) -> f64;
     pub fn clanhb_(
         norm: *const c_char,
@@ -9696,8 +8908,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f32>,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlanhb_(
         norm: *const c_char,
@@ -9707,8 +8917,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f64>,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn clanhe_(
         norm: *const c_char,
@@ -9717,8 +8925,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlanhe_(
         norm: *const c_char,
@@ -9727,8 +8933,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn clanhp_(
         norm: *const c_char,
@@ -9736,8 +8940,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f32>,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlanhp_(
         norm: *const c_char,
@@ -9745,8 +8947,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f64>,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn clanhs_(
         norm: *const c_char,
@@ -9754,7 +8954,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn dlanhs_(
         norm: *const c_char,
@@ -9762,7 +8961,6 @@ unsafe extern "C" {
         A: *const f64,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn slanhs_(
         norm: *const c_char,
@@ -9770,7 +8968,6 @@ unsafe extern "C" {
         A: *const f32,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn zlanhs_(
         norm: *const c_char,
@@ -9778,21 +8975,18 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     ) -> f64;
     pub fn clanht_(
         norm: *const c_char,
         n: *const lapack_int,
         D: *const f32,
         E: *const __BindgenComplex<f32>,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn zlanht_(
         norm: *const c_char,
         n: *const lapack_int,
         D: *const f64,
         E: *const __BindgenComplex<f64>,
-        arg1: usize,
     ) -> f64;
     pub fn clansb_(
         norm: *const c_char,
@@ -9802,8 +8996,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f32>,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn dlansb_(
         norm: *const c_char,
@@ -9813,8 +9005,6 @@ unsafe extern "C" {
         AB: *const f64,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn slansb_(
         norm: *const c_char,
@@ -9824,8 +9014,6 @@ unsafe extern "C" {
         AB: *const f32,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlansb_(
         norm: *const c_char,
@@ -9835,8 +9023,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f64>,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn clansp_(
         norm: *const c_char,
@@ -9844,8 +9030,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f32>,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn dlansp_(
         norm: *const c_char,
@@ -9853,8 +9037,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const f64,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn slansp_(
         norm: *const c_char,
@@ -9862,8 +9044,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const f32,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlansp_(
         norm: *const c_char,
@@ -9871,22 +9051,13 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f64>,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
-    pub fn dlanst_(
-        norm: *const c_char,
-        n: *const lapack_int,
-        D: *const f64,
-        E: *const f64,
-        arg1: usize,
-    ) -> f64;
+    pub fn dlanst_(norm: *const c_char, n: *const lapack_int, D: *const f64, E: *const f64) -> f64;
     pub fn slanst_(
         norm: *const c_char,
         n: *const lapack_int,
         D: *const f32,
         E: *const f32,
-        arg1: usize,
     ) -> lapack_float_return;
     pub fn clansy_(
         norm: *const c_char,
@@ -9895,8 +9066,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn dlansy_(
         norm: *const c_char,
@@ -9905,8 +9074,6 @@ unsafe extern "C" {
         A: *const f64,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn slansy_(
         norm: *const c_char,
@@ -9915,8 +9082,6 @@ unsafe extern "C" {
         A: *const f32,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
     ) -> lapack_float_return;
     pub fn zlansy_(
         norm: *const c_char,
@@ -9925,8 +9090,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
     ) -> f64;
     pub fn clantb_(
         norm: *const c_char,
@@ -9937,9 +9100,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f32>,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn dlantb_(
         norm: *const c_char,
@@ -9950,9 +9110,6 @@ unsafe extern "C" {
         AB: *const f64,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn slantb_(
         norm: *const c_char,
@@ -9963,9 +9120,6 @@ unsafe extern "C" {
         AB: *const f32,
         ldab: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn zlantb_(
         norm: *const c_char,
@@ -9976,9 +9130,6 @@ unsafe extern "C" {
         AB: *const __BindgenComplex<f64>,
         ldab: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn clantp_(
         norm: *const c_char,
@@ -9987,9 +9138,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f32>,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn dlantp_(
         norm: *const c_char,
@@ -9998,9 +9146,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const f64,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn slantp_(
         norm: *const c_char,
@@ -10009,9 +9154,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const f32,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn zlantp_(
         norm: *const c_char,
@@ -10020,9 +9162,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *const __BindgenComplex<f64>,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn clantr_(
         norm: *const c_char,
@@ -10033,9 +9172,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn dlantr_(
         norm: *const c_char,
@@ -10046,9 +9182,6 @@ unsafe extern "C" {
         A: *const f64,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn slantr_(
         norm: *const c_char,
@@ -10059,9 +9192,6 @@ unsafe extern "C" {
         A: *const f32,
         lda: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> lapack_float_return;
     pub fn zlantr_(
         norm: *const c_char,
@@ -10072,9 +9202,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         lda: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     ) -> f64;
     pub fn clapmr_(
         forwrd: *const lapack_int,
@@ -10176,7 +9303,6 @@ unsafe extern "C" {
         C: *mut __BindgenComplex<f32>,
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
-        arg1: usize,
     );
     pub fn dlarf_(
         side: *const c_char,
@@ -10188,7 +9314,6 @@ unsafe extern "C" {
         C: *mut f64,
         ldc: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     );
     pub fn slarf_(
         side: *const c_char,
@@ -10200,7 +9325,6 @@ unsafe extern "C" {
         C: *mut f32,
         ldc: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     );
     pub fn zlarf_(
         side: *const c_char,
@@ -10212,7 +9336,6 @@ unsafe extern "C" {
         C: *mut __BindgenComplex<f64>,
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
-        arg1: usize,
     );
     pub fn clarfb_(
         side: *const c_char,
@@ -10230,10 +9353,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dlarfb_(
         side: *const c_char,
@@ -10251,10 +9370,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f64,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn slarfb_(
         side: *const c_char,
@@ -10272,10 +9387,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f32,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn zlarfb_(
         side: *const c_char,
@@ -10293,10 +9404,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn clarfg_(
         n: *const lapack_int,
@@ -10336,8 +9443,6 @@ unsafe extern "C" {
         tau: *const __BindgenComplex<f32>,
         T: *mut __BindgenComplex<f32>,
         ldt: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dlarft_(
         direct: *const c_char,
@@ -10349,8 +9454,6 @@ unsafe extern "C" {
         tau: *const f64,
         T: *mut f64,
         ldt: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn slarft_(
         direct: *const c_char,
@@ -10362,8 +9465,6 @@ unsafe extern "C" {
         tau: *const f32,
         T: *mut f32,
         ldt: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zlarft_(
         direct: *const c_char,
@@ -10375,8 +9476,6 @@ unsafe extern "C" {
         tau: *const __BindgenComplex<f64>,
         T: *mut __BindgenComplex<f64>,
         ldt: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn clarfx_(
         side: *const c_char,
@@ -10387,7 +9486,6 @@ unsafe extern "C" {
         C: *mut __BindgenComplex<f32>,
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
-        arg1: usize,
     );
     pub fn dlarfx_(
         side: *const c_char,
@@ -10398,7 +9496,6 @@ unsafe extern "C" {
         C: *mut f64,
         ldc: *const lapack_int,
         work: *mut f64,
-        arg1: usize,
     );
     pub fn slarfx_(
         side: *const c_char,
@@ -10409,7 +9506,6 @@ unsafe extern "C" {
         C: *mut f32,
         ldc: *const lapack_int,
         work: *mut f32,
-        arg1: usize,
     );
     pub fn zlarfx_(
         side: *const c_char,
@@ -10420,7 +9516,6 @@ unsafe extern "C" {
         C: *mut __BindgenComplex<f64>,
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
-        arg1: usize,
     );
     pub fn clarnv_(
         idist: *const lapack_int,
@@ -10461,7 +9556,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dlascl_(
         type_: *const c_char,
@@ -10474,7 +9568,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn slascl_(
         type_: *const c_char,
@@ -10487,7 +9580,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zlascl_(
         type_: *const c_char,
@@ -10500,7 +9592,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn claset_(
         uplo: *const c_char,
@@ -10510,7 +9601,6 @@ unsafe extern "C" {
         beta: *const __BindgenComplex<f32>,
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
-        arg1: usize,
     );
     pub fn dlaset_(
         uplo: *const c_char,
@@ -10520,7 +9610,6 @@ unsafe extern "C" {
         beta: *const f64,
         A: *mut f64,
         lda: *const lapack_int,
-        arg1: usize,
     );
     pub fn slaset_(
         uplo: *const c_char,
@@ -10530,7 +9619,6 @@ unsafe extern "C" {
         beta: *const f32,
         A: *mut f32,
         lda: *const lapack_int,
-        arg1: usize,
     );
     pub fn zlaset_(
         uplo: *const c_char,
@@ -10540,22 +9628,9 @@ unsafe extern "C" {
         beta: *const __BindgenComplex<f64>,
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
-        arg1: usize,
     );
-    pub fn dlasrt_(
-        id: *const c_char,
-        n: *const lapack_int,
-        D: *mut f64,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
-    pub fn slasrt_(
-        id: *const c_char,
-        n: *const lapack_int,
-        D: *mut f32,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
+    pub fn dlasrt_(id: *const c_char, n: *const lapack_int, D: *mut f64, info: *mut lapack_int);
+    pub fn slasrt_(id: *const c_char, n: *const lapack_int, D: *mut f32, info: *mut lapack_int);
     pub fn classq_(
         n: *const lapack_int,
         X: *const __BindgenComplex<f32>,
@@ -10637,9 +9712,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dlatms_(
         m: *const lapack_int,
@@ -10658,9 +9730,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn slatms_(
         m: *const lapack_int,
@@ -10679,9 +9748,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zlatms_(
         m: *const lapack_int,
@@ -10700,9 +9766,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn clauum_(
         uplo: *const c_char,
@@ -10710,7 +9773,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dlauum_(
         uplo: *const c_char,
@@ -10718,7 +9780,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn slauum_(
         uplo: *const c_char,
@@ -10726,7 +9787,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zlauum_(
         uplo: *const c_char,
@@ -10734,7 +9794,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ilaver_(
         vers_major: *mut lapack_int,
@@ -10750,7 +9809,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sopgtr_(
         uplo: *const c_char,
@@ -10761,7 +9819,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dopmtr_(
         side: *const c_char,
@@ -10775,9 +9832,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sopmtr_(
         side: *const c_char,
@@ -10791,9 +9845,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dorbdb_(
         trans: *const c_char,
@@ -10818,8 +9869,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sorbdb_(
         trans: *const c_char,
@@ -10844,8 +9893,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dorcsd_(
         jobu1: *const c_char,
@@ -10878,12 +9925,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn sorcsd_(
         jobu1: *const c_char,
@@ -10916,12 +9957,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn dorcsd2by1_(
         jobu1: *const c_char,
@@ -10945,9 +9980,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sorcsd2by1_(
         jobu1: *const c_char,
@@ -10971,9 +10003,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dorgbr_(
         vect: *const c_char,
@@ -10986,7 +10015,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sorgbr_(
         vect: *const c_char,
@@ -10999,7 +10027,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dorghr_(
         n: *const lapack_int,
@@ -11120,7 +10147,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sorgtr_(
         uplo: *const c_char,
@@ -11131,7 +10157,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dorgtsqr_row_(
         m: *const lapack_int,
@@ -11196,9 +10221,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sormbr_(
         vect: *const c_char,
@@ -11215,9 +10237,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dormhr_(
         side: *const c_char,
@@ -11234,8 +10253,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormhr_(
         side: *const c_char,
@@ -11252,8 +10269,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormlq_(
         side: *const c_char,
@@ -11269,8 +10284,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormlq_(
         side: *const c_char,
@@ -11286,8 +10299,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormql_(
         side: *const c_char,
@@ -11303,8 +10314,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormql_(
         side: *const c_char,
@@ -11320,8 +10329,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormqr_(
         side: *const c_char,
@@ -11337,8 +10344,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormqr_(
         side: *const c_char,
@@ -11354,8 +10359,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormrq_(
         side: *const c_char,
@@ -11371,8 +10374,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormrq_(
         side: *const c_char,
@@ -11388,8 +10389,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormrz_(
         side: *const c_char,
@@ -11406,8 +10405,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sormrz_(
         side: *const c_char,
@@ -11424,8 +10421,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dormtr_(
         side: *const c_char,
@@ -11441,9 +10436,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sormtr_(
         side: *const c_char,
@@ -11459,9 +10451,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cpbcon_(
         uplo: *const c_char,
@@ -11474,7 +10463,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbcon_(
         uplo: *const c_char,
@@ -11487,7 +10475,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbcon_(
         uplo: *const c_char,
@@ -11500,7 +10487,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbcon_(
         uplo: *const c_char,
@@ -11513,7 +10499,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbequ_(
         uplo: *const c_char,
@@ -11525,7 +10510,6 @@ unsafe extern "C" {
         scond: *mut f32,
         amax: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbequ_(
         uplo: *const c_char,
@@ -11537,7 +10521,6 @@ unsafe extern "C" {
         scond: *mut f64,
         amax: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbequ_(
         uplo: *const c_char,
@@ -11549,7 +10532,6 @@ unsafe extern "C" {
         scond: *mut f32,
         amax: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbequ_(
         uplo: *const c_char,
@@ -11561,7 +10543,6 @@ unsafe extern "C" {
         scond: *mut f64,
         amax: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbrfs_(
         uplo: *const c_char,
@@ -11581,7 +10562,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbrfs_(
         uplo: *const c_char,
@@ -11601,7 +10581,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbrfs_(
         uplo: *const c_char,
@@ -11621,7 +10600,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbrfs_(
         uplo: *const c_char,
@@ -11641,7 +10619,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbstf_(
         uplo: *const c_char,
@@ -11650,7 +10627,6 @@ unsafe extern "C" {
         AB: *mut __BindgenComplex<f32>,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbstf_(
         uplo: *const c_char,
@@ -11659,7 +10635,6 @@ unsafe extern "C" {
         AB: *mut f64,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbstf_(
         uplo: *const c_char,
@@ -11668,7 +10643,6 @@ unsafe extern "C" {
         AB: *mut f32,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbstf_(
         uplo: *const c_char,
@@ -11677,7 +10651,6 @@ unsafe extern "C" {
         AB: *mut __BindgenComplex<f64>,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbsv_(
         uplo: *const c_char,
@@ -11689,7 +10662,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbsv_(
         uplo: *const c_char,
@@ -11701,7 +10673,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbsv_(
         uplo: *const c_char,
@@ -11713,7 +10684,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbsv_(
         uplo: *const c_char,
@@ -11725,7 +10695,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbsvx_(
         fact: *const c_char,
@@ -11749,9 +10718,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dpbsvx_(
         fact: *const c_char,
@@ -11775,9 +10741,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn spbsvx_(
         fact: *const c_char,
@@ -11801,9 +10764,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zpbsvx_(
         fact: *const c_char,
@@ -11827,9 +10787,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cpbtrf_(
         uplo: *const c_char,
@@ -11838,7 +10795,6 @@ unsafe extern "C" {
         AB: *mut __BindgenComplex<f32>,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbtrf_(
         uplo: *const c_char,
@@ -11847,7 +10803,6 @@ unsafe extern "C" {
         AB: *mut f64,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbtrf_(
         uplo: *const c_char,
@@ -11856,7 +10811,6 @@ unsafe extern "C" {
         AB: *mut f32,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbtrf_(
         uplo: *const c_char,
@@ -11865,7 +10819,6 @@ unsafe extern "C" {
         AB: *mut __BindgenComplex<f64>,
         ldab: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpbtrs_(
         uplo: *const c_char,
@@ -11877,7 +10830,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpbtrs_(
         uplo: *const c_char,
@@ -11889,7 +10841,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spbtrs_(
         uplo: *const c_char,
@@ -11901,7 +10852,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpbtrs_(
         uplo: *const c_char,
@@ -11913,7 +10863,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpftrf_(
         transr: *const c_char,
@@ -11921,8 +10870,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dpftrf_(
         transr: *const c_char,
@@ -11930,8 +10877,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn spftrf_(
         transr: *const c_char,
@@ -11939,8 +10884,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zpftrf_(
         transr: *const c_char,
@@ -11948,8 +10891,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cpftri_(
         transr: *const c_char,
@@ -11957,8 +10898,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dpftri_(
         transr: *const c_char,
@@ -11966,8 +10905,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn spftri_(
         transr: *const c_char,
@@ -11975,8 +10912,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zpftri_(
         transr: *const c_char,
@@ -11984,8 +10919,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cpftrs_(
         transr: *const c_char,
@@ -11996,8 +10929,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dpftrs_(
         transr: *const c_char,
@@ -12008,8 +10939,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn spftrs_(
         transr: *const c_char,
@@ -12020,8 +10949,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zpftrs_(
         transr: *const c_char,
@@ -12032,8 +10959,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cpocon_(
         uplo: *const c_char,
@@ -12045,7 +10970,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpocon_(
         uplo: *const c_char,
@@ -12057,7 +10981,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spocon_(
         uplo: *const c_char,
@@ -12069,7 +10992,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpocon_(
         uplo: *const c_char,
@@ -12081,7 +11003,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpoequ_(
         n: *const lapack_int,
@@ -12172,7 +11093,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dporfs_(
         uplo: *const c_char,
@@ -12191,7 +11111,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sporfs_(
         uplo: *const c_char,
@@ -12210,7 +11129,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zporfs_(
         uplo: *const c_char,
@@ -12229,7 +11147,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cporfsx_(
         uplo: *const c_char,
@@ -12255,8 +11172,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dporfsx_(
         uplo: *const c_char,
@@ -12282,8 +11197,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sporfsx_(
         uplo: *const c_char,
@@ -12309,8 +11222,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zporfsx_(
         uplo: *const c_char,
@@ -12336,8 +11247,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cposv_(
         uplo: *const c_char,
@@ -12348,7 +11257,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dposv_(
         uplo: *const c_char,
@@ -12359,7 +11267,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sposv_(
         uplo: *const c_char,
@@ -12370,7 +11277,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zposv_(
         uplo: *const c_char,
@@ -12381,7 +11287,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsposv_(
         uplo: *const c_char,
@@ -12397,7 +11302,6 @@ unsafe extern "C" {
         swork: *mut f32,
         iter: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zcposv_(
         uplo: *const c_char,
@@ -12414,7 +11318,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         iter: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cposvx_(
         fact: *const c_char,
@@ -12437,9 +11340,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dposvx_(
         fact: *const c_char,
@@ -12462,9 +11362,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sposvx_(
         fact: *const c_char,
@@ -12487,9 +11384,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zposvx_(
         fact: *const c_char,
@@ -12512,9 +11406,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cposvxx_(
         fact: *const c_char,
@@ -12542,9 +11433,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dposvxx_(
         fact: *const c_char,
@@ -12572,9 +11460,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sposvxx_(
         fact: *const c_char,
@@ -12602,9 +11487,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zposvxx_(
         fact: *const c_char,
@@ -12632,9 +11514,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cpotf2_(
         uplo: *const c_char,
@@ -12642,7 +11521,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpotf2_(
         uplo: *const c_char,
@@ -12650,7 +11528,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spotf2_(
         uplo: *const c_char,
@@ -12658,7 +11535,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpotf2_(
         uplo: *const c_char,
@@ -12666,7 +11542,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpotrf_(
         uplo: *const c_char,
@@ -12674,7 +11549,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpotrf_(
         uplo: *const c_char,
@@ -12682,7 +11556,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spotrf_(
         uplo: *const c_char,
@@ -12690,7 +11563,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpotrf_(
         uplo: *const c_char,
@@ -12698,7 +11570,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpotrf2_(
         uplo: *const c_char,
@@ -12706,7 +11577,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpotrf2_(
         uplo: *const c_char,
@@ -12714,7 +11584,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spotrf2_(
         uplo: *const c_char,
@@ -12722,7 +11591,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpotrf2_(
         uplo: *const c_char,
@@ -12730,7 +11598,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpotri_(
         uplo: *const c_char,
@@ -12738,7 +11605,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpotri_(
         uplo: *const c_char,
@@ -12746,7 +11612,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spotri_(
         uplo: *const c_char,
@@ -12754,7 +11619,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpotri_(
         uplo: *const c_char,
@@ -12762,7 +11626,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpotrs_(
         uplo: *const c_char,
@@ -12773,7 +11636,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpotrs_(
         uplo: *const c_char,
@@ -12784,7 +11646,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spotrs_(
         uplo: *const c_char,
@@ -12795,7 +11656,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpotrs_(
         uplo: *const c_char,
@@ -12806,7 +11666,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cppcon_(
         uplo: *const c_char,
@@ -12817,7 +11676,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dppcon_(
         uplo: *const c_char,
@@ -12828,7 +11686,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sppcon_(
         uplo: *const c_char,
@@ -12839,7 +11696,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zppcon_(
         uplo: *const c_char,
@@ -12850,7 +11706,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cppequ_(
         uplo: *const c_char,
@@ -12860,7 +11715,6 @@ unsafe extern "C" {
         scond: *mut f32,
         amax: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dppequ_(
         uplo: *const c_char,
@@ -12870,7 +11724,6 @@ unsafe extern "C" {
         scond: *mut f64,
         amax: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sppequ_(
         uplo: *const c_char,
@@ -12880,7 +11733,6 @@ unsafe extern "C" {
         scond: *mut f32,
         amax: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zppequ_(
         uplo: *const c_char,
@@ -12890,7 +11742,6 @@ unsafe extern "C" {
         scond: *mut f64,
         amax: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpprfs_(
         uplo: *const c_char,
@@ -12907,7 +11758,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpprfs_(
         uplo: *const c_char,
@@ -12924,7 +11774,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spprfs_(
         uplo: *const c_char,
@@ -12941,7 +11790,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpprfs_(
         uplo: *const c_char,
@@ -12958,7 +11806,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cppsv_(
         uplo: *const c_char,
@@ -12968,7 +11815,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dppsv_(
         uplo: *const c_char,
@@ -12978,7 +11824,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sppsv_(
         uplo: *const c_char,
@@ -12988,7 +11833,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zppsv_(
         uplo: *const c_char,
@@ -12998,7 +11842,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cppsvx_(
         fact: *const c_char,
@@ -13019,9 +11862,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dppsvx_(
         fact: *const c_char,
@@ -13042,9 +11882,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sppsvx_(
         fact: *const c_char,
@@ -13065,9 +11902,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zppsvx_(
         fact: *const c_char,
@@ -13088,65 +11922,34 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cpptrf_(
         uplo: *const c_char,
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
-    pub fn dpptrf_(
-        uplo: *const c_char,
-        n: *const lapack_int,
-        AP: *mut f64,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
-    pub fn spptrf_(
-        uplo: *const c_char,
-        n: *const lapack_int,
-        AP: *mut f32,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
+    pub fn dpptrf_(uplo: *const c_char, n: *const lapack_int, AP: *mut f64, info: *mut lapack_int);
+    pub fn spptrf_(uplo: *const c_char, n: *const lapack_int, AP: *mut f32, info: *mut lapack_int);
     pub fn zpptrf_(
         uplo: *const c_char,
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpptri_(
         uplo: *const c_char,
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
-    pub fn dpptri_(
-        uplo: *const c_char,
-        n: *const lapack_int,
-        AP: *mut f64,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
-    pub fn spptri_(
-        uplo: *const c_char,
-        n: *const lapack_int,
-        AP: *mut f32,
-        info: *mut lapack_int,
-        arg1: usize,
-    );
+    pub fn dpptri_(uplo: *const c_char, n: *const lapack_int, AP: *mut f64, info: *mut lapack_int);
+    pub fn spptri_(uplo: *const c_char, n: *const lapack_int, AP: *mut f32, info: *mut lapack_int);
     pub fn zpptri_(
         uplo: *const c_char,
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpptrs_(
         uplo: *const c_char,
@@ -13156,7 +11959,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpptrs_(
         uplo: *const c_char,
@@ -13166,7 +11968,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spptrs_(
         uplo: *const c_char,
@@ -13176,7 +11977,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpptrs_(
         uplo: *const c_char,
@@ -13186,7 +11986,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpstrf_(
         uplo: *const c_char,
@@ -13198,7 +11997,6 @@ unsafe extern "C" {
         tol: *const f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpstrf_(
         uplo: *const c_char,
@@ -13210,7 +12008,6 @@ unsafe extern "C" {
         tol: *const f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spstrf_(
         uplo: *const c_char,
@@ -13222,7 +12019,6 @@ unsafe extern "C" {
         tol: *const f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpstrf_(
         uplo: *const c_char,
@@ -13234,7 +12030,6 @@ unsafe extern "C" {
         tol: *const f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cptcon_(
         n: *const lapack_int,
@@ -13281,7 +12076,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpteqr_(
         compz: *const c_char,
@@ -13292,7 +12086,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn spteqr_(
         compz: *const c_char,
@@ -13303,7 +12096,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zpteqr_(
         compz: *const c_char,
@@ -13314,7 +12106,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cptrfs_(
         uplo: *const c_char,
@@ -13333,7 +12124,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dptrfs_(
         n: *const lapack_int,
@@ -13384,7 +12174,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cptsv_(
         n: *const lapack_int,
@@ -13440,7 +12229,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dptsvx_(
         fact: *const c_char,
@@ -13459,7 +12247,6 @@ unsafe extern "C" {
         berr: *mut f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sptsvx_(
         fact: *const c_char,
@@ -13478,7 +12265,6 @@ unsafe extern "C" {
         berr: *mut f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zptsvx_(
         fact: *const c_char,
@@ -13498,7 +12284,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cpttrf_(
         n: *const lapack_int,
@@ -13523,7 +12308,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dpttrs_(
         n: *const lapack_int,
@@ -13552,7 +12336,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsbev_(
         jobz: *const c_char,
@@ -13566,8 +12349,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbev_(
         jobz: *const c_char,
@@ -13581,8 +12362,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbev_2stage_(
         jobz: *const c_char,
@@ -13597,8 +12376,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbev_2stage_(
         jobz: *const c_char,
@@ -13613,8 +12390,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbevd_(
         jobz: *const c_char,
@@ -13631,8 +12406,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbevd_(
         jobz: *const c_char,
@@ -13649,8 +12422,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbevd_2stage_(
         jobz: *const c_char,
@@ -13667,8 +12438,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbevd_2stage_(
         jobz: *const c_char,
@@ -13685,8 +12454,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbevx_(
         jobz: *const c_char,
@@ -13711,9 +12478,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssbevx_(
         jobz: *const c_char,
@@ -13738,9 +12502,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsbevx_2stage_(
         jobz: *const c_char,
@@ -13766,9 +12527,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssbevx_2stage_(
         jobz: *const c_char,
@@ -13794,9 +12552,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsbgst_(
         vect: *const c_char,
@@ -13812,8 +12567,6 @@ unsafe extern "C" {
         ldx: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbgst_(
         vect: *const c_char,
@@ -13829,8 +12582,6 @@ unsafe extern "C" {
         ldx: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbgv_(
         jobz: *const c_char,
@@ -13847,8 +12598,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbgv_(
         jobz: *const c_char,
@@ -13865,8 +12614,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbgvd_(
         jobz: *const c_char,
@@ -13886,8 +12633,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbgvd_(
         jobz: *const c_char,
@@ -13907,8 +12652,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsbgvx_(
         jobz: *const c_char,
@@ -13936,9 +12679,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssbgvx_(
         jobz: *const c_char,
@@ -13966,9 +12706,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsbtrd_(
         vect: *const c_char,
@@ -13983,8 +12720,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssbtrd_(
         vect: *const c_char,
@@ -13999,8 +12734,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsfrk_(
         transr: *const c_char,
@@ -14013,9 +12746,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         beta: *const f64,
         C: *mut f64,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssfrk_(
         transr: *const c_char,
@@ -14028,9 +12758,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         beta: *const f32,
         C: *mut f32,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cspcon_(
         uplo: *const c_char,
@@ -14041,7 +12768,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dspcon_(
         uplo: *const c_char,
@@ -14053,7 +12779,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sspcon_(
         uplo: *const c_char,
@@ -14065,7 +12790,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zspcon_(
         uplo: *const c_char,
@@ -14076,7 +12800,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dspev_(
         jobz: *const c_char,
@@ -14088,8 +12811,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sspev_(
         jobz: *const c_char,
@@ -14101,8 +12822,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dspevd_(
         jobz: *const c_char,
@@ -14117,8 +12836,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sspevd_(
         jobz: *const c_char,
@@ -14133,8 +12850,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dspevx_(
         jobz: *const c_char,
@@ -14155,9 +12870,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sspevx_(
         jobz: *const c_char,
@@ -14178,9 +12890,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dspgst_(
         itype: *const lapack_int,
@@ -14189,7 +12898,6 @@ unsafe extern "C" {
         AP: *mut f64,
         BP: *const f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sspgst_(
         itype: *const lapack_int,
@@ -14198,7 +12906,6 @@ unsafe extern "C" {
         AP: *mut f32,
         BP: *const f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dspgv_(
         itype: *const lapack_int,
@@ -14212,8 +12919,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sspgv_(
         itype: *const lapack_int,
@@ -14227,8 +12932,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dspgvd_(
         itype: *const lapack_int,
@@ -14245,8 +12948,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sspgvd_(
         itype: *const lapack_int,
@@ -14263,8 +12964,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dspgvx_(
         itype: *const lapack_int,
@@ -14287,9 +12986,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn sspgvx_(
         itype: *const lapack_int,
@@ -14312,9 +13008,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn csprfs_(
         uplo: *const c_char,
@@ -14332,7 +13025,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsprfs_(
         uplo: *const c_char,
@@ -14350,7 +13042,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssprfs_(
         uplo: *const c_char,
@@ -14368,7 +13059,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsprfs_(
         uplo: *const c_char,
@@ -14386,7 +13076,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cspsv_(
         uplo: *const c_char,
@@ -14397,7 +13086,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dspsv_(
         uplo: *const c_char,
@@ -14408,7 +13096,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sspsv_(
         uplo: *const c_char,
@@ -14419,7 +13106,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zspsv_(
         uplo: *const c_char,
@@ -14430,7 +13116,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cspsvx_(
         fact: *const c_char,
@@ -14450,8 +13135,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dspsvx_(
         fact: *const c_char,
@@ -14471,8 +13154,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sspsvx_(
         fact: *const c_char,
@@ -14492,8 +13173,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zspsvx_(
         fact: *const c_char,
@@ -14513,8 +13192,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsptrd_(
         uplo: *const c_char,
@@ -14524,7 +13201,6 @@ unsafe extern "C" {
         E: *mut f64,
         tau: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssptrd_(
         uplo: *const c_char,
@@ -14534,7 +13210,6 @@ unsafe extern "C" {
         E: *mut f32,
         tau: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csptrf_(
         uplo: *const c_char,
@@ -14542,7 +13217,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f32>,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsptrf_(
         uplo: *const c_char,
@@ -14550,7 +13224,6 @@ unsafe extern "C" {
         AP: *mut f64,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssptrf_(
         uplo: *const c_char,
@@ -14558,7 +13231,6 @@ unsafe extern "C" {
         AP: *mut f32,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsptrf_(
         uplo: *const c_char,
@@ -14566,7 +13238,6 @@ unsafe extern "C" {
         AP: *mut __BindgenComplex<f64>,
         ipiv: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csptri_(
         uplo: *const c_char,
@@ -14575,7 +13246,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsptri_(
         uplo: *const c_char,
@@ -14584,7 +13254,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssptri_(
         uplo: *const c_char,
@@ -14593,7 +13262,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsptri_(
         uplo: *const c_char,
@@ -14602,7 +13270,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csptrs_(
         uplo: *const c_char,
@@ -14613,7 +13280,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsptrs_(
         uplo: *const c_char,
@@ -14624,7 +13290,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssptrs_(
         uplo: *const c_char,
@@ -14635,7 +13300,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsptrs_(
         uplo: *const c_char,
@@ -14646,7 +13310,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dstebz_(
         range: *const c_char,
@@ -14667,8 +13330,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sstebz_(
         range: *const c_char,
@@ -14689,8 +13350,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cstedc_(
         compz: *const c_char,
@@ -14706,7 +13365,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dstedc_(
         compz: *const c_char,
@@ -14720,7 +13378,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sstedc_(
         compz: *const c_char,
@@ -14734,7 +13391,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zstedc_(
         compz: *const c_char,
@@ -14750,7 +13406,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cstegr_(
         jobz: *const c_char,
@@ -14773,8 +13428,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dstegr_(
         jobz: *const c_char,
@@ -14797,8 +13450,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sstegr_(
         jobz: *const c_char,
@@ -14821,8 +13472,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zstegr_(
         jobz: *const c_char,
@@ -14845,8 +13494,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cstein_(
         n: *const lapack_int,
@@ -14930,8 +13577,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dstemr_(
         jobz: *const c_char,
@@ -14955,8 +13600,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sstemr_(
         jobz: *const c_char,
@@ -14980,8 +13623,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zstemr_(
         jobz: *const c_char,
@@ -15005,8 +13646,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csteqr_(
         compz: *const c_char,
@@ -15017,7 +13656,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsteqr_(
         compz: *const c_char,
@@ -15028,7 +13666,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssteqr_(
         compz: *const c_char,
@@ -15039,7 +13676,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsteqr_(
         compz: *const c_char,
@@ -15050,7 +13686,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsterf_(n: *const lapack_int, D: *mut f64, E: *mut f64, info: *mut lapack_int);
     pub fn ssterf_(n: *const lapack_int, D: *mut f32, E: *mut f32, info: *mut lapack_int);
@@ -15063,7 +13698,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sstev_(
         jobz: *const c_char,
@@ -15074,7 +13708,6 @@ unsafe extern "C" {
         ldz: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dstevd_(
         jobz: *const c_char,
@@ -15088,7 +13721,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn sstevd_(
         jobz: *const c_char,
@@ -15102,7 +13734,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dstevr_(
         jobz: *const c_char,
@@ -15125,8 +13756,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sstevr_(
         jobz: *const c_char,
@@ -15149,8 +13778,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dstevx_(
         jobz: *const c_char,
@@ -15171,8 +13798,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn sstevx_(
         jobz: *const c_char,
@@ -15193,8 +13818,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csycon_(
         uplo: *const c_char,
@@ -15206,7 +13829,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsycon_(
         uplo: *const c_char,
@@ -15219,7 +13841,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssycon_(
         uplo: *const c_char,
@@ -15232,7 +13853,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsycon_(
         uplo: *const c_char,
@@ -15244,7 +13864,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csycon_3_(
         uplo: *const c_char,
@@ -15257,7 +13876,6 @@ unsafe extern "C" {
         rcond: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsycon_3_(
         uplo: *const c_char,
@@ -15271,7 +13889,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssycon_3_(
         uplo: *const c_char,
@@ -15285,7 +13902,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsycon_3_(
         uplo: *const c_char,
@@ -15298,7 +13914,6 @@ unsafe extern "C" {
         rcond: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csyconv_(
         uplo: *const c_char,
@@ -15309,8 +13924,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         E: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyconv_(
         uplo: *const c_char,
@@ -15321,8 +13934,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         E: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyconv_(
         uplo: *const c_char,
@@ -15333,8 +13944,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         E: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zsyconv_(
         uplo: *const c_char,
@@ -15345,8 +13954,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         E: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csyequb_(
         uplo: *const c_char,
@@ -15358,7 +13965,6 @@ unsafe extern "C" {
         amax: *mut f32,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsyequb_(
         uplo: *const c_char,
@@ -15370,7 +13976,6 @@ unsafe extern "C" {
         amax: *mut f64,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssyequb_(
         uplo: *const c_char,
@@ -15382,7 +13987,6 @@ unsafe extern "C" {
         amax: *mut f32,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsyequb_(
         uplo: *const c_char,
@@ -15394,7 +13998,6 @@ unsafe extern "C" {
         amax: *mut f64,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsyev_(
         jobz: *const c_char,
@@ -15406,8 +14009,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyev_(
         jobz: *const c_char,
@@ -15419,8 +14020,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyev_2stage_(
         jobz: *const c_char,
@@ -15432,8 +14031,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyev_2stage_(
         jobz: *const c_char,
@@ -15445,8 +14042,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyevd_(
         jobz: *const c_char,
@@ -15460,8 +14055,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyevd_(
         jobz: *const c_char,
@@ -15475,8 +14068,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyevd_2stage_(
         jobz: *const c_char,
@@ -15490,8 +14081,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyevd_2stage_(
         jobz: *const c_char,
@@ -15505,8 +14094,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyevr_(
         jobz: *const c_char,
@@ -15530,9 +14117,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssyevr_(
         jobz: *const c_char,
@@ -15556,9 +14140,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsyevr_2stage_(
         jobz: *const c_char,
@@ -15582,9 +14163,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssyevr_2stage_(
         jobz: *const c_char,
@@ -15608,9 +14186,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsyevx_(
         jobz: *const c_char,
@@ -15633,9 +14208,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssyevx_(
         jobz: *const c_char,
@@ -15658,9 +14230,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsyevx_2stage_(
         jobz: *const c_char,
@@ -15683,9 +14252,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssyevx_2stage_(
         jobz: *const c_char,
@@ -15708,9 +14274,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsygst_(
         itype: *const lapack_int,
@@ -15721,7 +14284,6 @@ unsafe extern "C" {
         B: *const f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssygst_(
         itype: *const lapack_int,
@@ -15732,7 +14294,6 @@ unsafe extern "C" {
         B: *const f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsygv_(
         itype: *const lapack_int,
@@ -15747,8 +14308,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssygv_(
         itype: *const lapack_int,
@@ -15763,8 +14322,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsygv_2stage_(
         itype: *const lapack_int,
@@ -15779,8 +14336,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssygv_2stage_(
         itype: *const lapack_int,
@@ -15795,8 +14350,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsygvd_(
         itype: *const lapack_int,
@@ -15813,8 +14366,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssygvd_(
         itype: *const lapack_int,
@@ -15831,8 +14382,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsygvx_(
         itype: *const lapack_int,
@@ -15858,9 +14407,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssygvx_(
         itype: *const lapack_int,
@@ -15886,9 +14432,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         IFAIL: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn csyr_(
         uplo: *const c_char,
@@ -15898,7 +14441,6 @@ unsafe extern "C" {
         incx: *const lapack_int,
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
-        arg1: usize,
     );
     pub fn zsyr_(
         uplo: *const c_char,
@@ -15908,7 +14450,6 @@ unsafe extern "C" {
         incx: *const lapack_int,
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
-        arg1: usize,
     );
     pub fn csyrfs_(
         uplo: *const c_char,
@@ -15928,7 +14469,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsyrfs_(
         uplo: *const c_char,
@@ -15948,7 +14488,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssyrfs_(
         uplo: *const c_char,
@@ -15968,7 +14507,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsyrfs_(
         uplo: *const c_char,
@@ -15988,7 +14526,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csyrfsx_(
         uplo: *const c_char,
@@ -16015,8 +14552,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsyrfsx_(
         uplo: *const c_char,
@@ -16043,8 +14578,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssyrfsx_(
         uplo: *const c_char,
@@ -16071,8 +14604,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zsyrfsx_(
         uplo: *const c_char,
@@ -16099,8 +14630,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csysv_(
         uplo: *const c_char,
@@ -16114,7 +14643,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsysv_(
         uplo: *const c_char,
@@ -16128,7 +14656,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssysv_(
         uplo: *const c_char,
@@ -16142,7 +14669,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsysv_(
         uplo: *const c_char,
@@ -16156,7 +14682,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csysv_aa_(
         uplo: *const c_char,
@@ -16170,7 +14695,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsysv_aa_(
         uplo: *const c_char,
@@ -16184,7 +14708,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssysv_aa_(
         uplo: *const c_char,
@@ -16198,7 +14721,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsysv_aa_(
         uplo: *const c_char,
@@ -16212,7 +14734,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csysv_aa_2stage_(
         uplo: *const c_char,
@@ -16229,7 +14750,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsysv_aa_2stage_(
         uplo: *const c_char,
@@ -16246,7 +14766,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssysv_aa_2stage_(
         uplo: *const c_char,
@@ -16263,7 +14782,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsysv_aa_2stage_(
         uplo: *const c_char,
@@ -16280,7 +14798,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csysv_rk_(
         uplo: *const c_char,
@@ -16295,7 +14812,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsysv_rk_(
         uplo: *const c_char,
@@ -16310,7 +14826,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssysv_rk_(
         uplo: *const c_char,
@@ -16325,7 +14840,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsysv_rk_(
         uplo: *const c_char,
@@ -16340,7 +14854,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csysv_rook_(
         uplo: *const c_char,
@@ -16354,7 +14867,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsysv_rook_(
         uplo: *const c_char,
@@ -16368,7 +14880,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssysv_rook_(
         uplo: *const c_char,
@@ -16382,7 +14893,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsysv_rook_(
         uplo: *const c_char,
@@ -16396,7 +14906,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csysvx_(
         fact: *const c_char,
@@ -16419,8 +14928,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dsysvx_(
         fact: *const c_char,
@@ -16443,8 +14950,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssysvx_(
         fact: *const c_char,
@@ -16467,8 +14972,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zsysvx_(
         fact: *const c_char,
@@ -16491,8 +14994,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csysvxx_(
         fact: *const c_char,
@@ -16521,9 +15022,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dsysvxx_(
         fact: *const c_char,
@@ -16552,9 +15050,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ssysvxx_(
         fact: *const c_char,
@@ -16583,9 +15078,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zsysvxx_(
         fact: *const c_char,
@@ -16614,9 +15106,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn csyswapr_(
         uplo: *const c_char,
@@ -16625,7 +15114,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn dsyswapr_(
         uplo: *const c_char,
@@ -16634,7 +15122,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn ssyswapr_(
         uplo: *const c_char,
@@ -16643,7 +15130,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn zsyswapr_(
         uplo: *const c_char,
@@ -16652,7 +15138,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         i1: *const lapack_int,
         i2: *const lapack_int,
-        arg1: usize,
     );
     pub fn dsytrd_(
         uplo: *const c_char,
@@ -16665,7 +15150,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrd_(
         uplo: *const c_char,
@@ -16678,7 +15162,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrd_2stage_(
         vect: *const c_char,
@@ -16694,8 +15177,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ssytrd_2stage_(
         vect: *const c_char,
@@ -16711,8 +15192,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn csytrf_(
         uplo: *const c_char,
@@ -16723,7 +15202,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrf_(
         uplo: *const c_char,
@@ -16734,7 +15212,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrf_(
         uplo: *const c_char,
@@ -16745,7 +15222,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrf_(
         uplo: *const c_char,
@@ -16756,7 +15232,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrf_aa_(
         uplo: *const c_char,
@@ -16767,7 +15242,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrf_aa_(
         uplo: *const c_char,
@@ -16778,7 +15252,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrf_aa_(
         uplo: *const c_char,
@@ -16789,7 +15262,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrf_aa_(
         uplo: *const c_char,
@@ -16800,7 +15272,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrf_aa_2stage_(
         uplo: *const c_char,
@@ -16814,7 +15285,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrf_aa_2stage_(
         uplo: *const c_char,
@@ -16828,7 +15298,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrf_aa_2stage_(
         uplo: *const c_char,
@@ -16842,7 +15311,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrf_aa_2stage_(
         uplo: *const c_char,
@@ -16856,7 +15324,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrf_rk_(
         uplo: *const c_char,
@@ -16868,7 +15335,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrf_rk_(
         uplo: *const c_char,
@@ -16880,7 +15346,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrf_rk_(
         uplo: *const c_char,
@@ -16892,7 +15357,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrf_rk_(
         uplo: *const c_char,
@@ -16904,7 +15368,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrf_rook_(
         uplo: *const c_char,
@@ -16915,7 +15378,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrf_rook_(
         uplo: *const c_char,
@@ -16926,7 +15388,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrf_rook_(
         uplo: *const c_char,
@@ -16937,7 +15398,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrf_rook_(
         uplo: *const c_char,
@@ -16948,7 +15408,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytri_(
         uplo: *const c_char,
@@ -16958,7 +15417,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytri_(
         uplo: *const c_char,
@@ -16968,7 +15426,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytri_(
         uplo: *const c_char,
@@ -16978,7 +15435,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytri_(
         uplo: *const c_char,
@@ -16988,7 +15444,6 @@ unsafe extern "C" {
         ipiv: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytri2_(
         uplo: *const c_char,
@@ -16999,7 +15454,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytri2_(
         uplo: *const c_char,
@@ -17010,7 +15464,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytri2_(
         uplo: *const c_char,
@@ -17021,7 +15474,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytri2_(
         uplo: *const c_char,
@@ -17032,7 +15484,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytri2x_(
         uplo: *const c_char,
@@ -17043,7 +15494,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytri2x_(
         uplo: *const c_char,
@@ -17054,7 +15504,6 @@ unsafe extern "C" {
         work: *mut f64,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytri2x_(
         uplo: *const c_char,
@@ -17065,7 +15514,6 @@ unsafe extern "C" {
         work: *mut f32,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytri2x_(
         uplo: *const c_char,
@@ -17076,7 +15524,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         nb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytri_3_(
         uplo: *const c_char,
@@ -17088,7 +15535,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytri_3_(
         uplo: *const c_char,
@@ -17100,7 +15546,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytri_3_(
         uplo: *const c_char,
@@ -17112,7 +15557,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytri_3_(
         uplo: *const c_char,
@@ -17124,7 +15568,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs_(
         uplo: *const c_char,
@@ -17136,7 +15579,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs_(
         uplo: *const c_char,
@@ -17148,7 +15590,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs_(
         uplo: *const c_char,
@@ -17160,7 +15601,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs_(
         uplo: *const c_char,
@@ -17172,7 +15612,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs2_(
         uplo: *const c_char,
@@ -17185,7 +15624,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs2_(
         uplo: *const c_char,
@@ -17198,7 +15636,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs2_(
         uplo: *const c_char,
@@ -17211,7 +15648,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs2_(
         uplo: *const c_char,
@@ -17224,7 +15660,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs_3_(
         uplo: *const c_char,
@@ -17237,7 +15672,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs_3_(
         uplo: *const c_char,
@@ -17250,7 +15684,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs_3_(
         uplo: *const c_char,
@@ -17263,7 +15696,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs_3_(
         uplo: *const c_char,
@@ -17276,7 +15708,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs_aa_(
         uplo: *const c_char,
@@ -17290,7 +15721,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs_aa_(
         uplo: *const c_char,
@@ -17304,7 +15734,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs_aa_(
         uplo: *const c_char,
@@ -17318,7 +15747,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs_aa_(
         uplo: *const c_char,
@@ -17332,7 +15760,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs_aa_2stage_(
         uplo: *const c_char,
@@ -17347,7 +15774,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs_aa_2stage_(
         uplo: *const c_char,
@@ -17362,7 +15788,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs_aa_2stage_(
         uplo: *const c_char,
@@ -17377,7 +15802,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs_aa_2stage_(
         uplo: *const c_char,
@@ -17392,7 +15816,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn csytrs_rook_(
         uplo: *const c_char,
@@ -17404,7 +15827,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dsytrs_rook_(
         uplo: *const c_char,
@@ -17416,7 +15838,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ssytrs_rook_(
         uplo: *const c_char,
@@ -17428,7 +15849,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zsytrs_rook_(
         uplo: *const c_char,
@@ -17440,7 +15860,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ctbcon_(
         norm: *const c_char,
@@ -17454,9 +15873,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtbcon_(
         norm: *const c_char,
@@ -17470,9 +15886,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stbcon_(
         norm: *const c_char,
@@ -17486,9 +15899,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztbcon_(
         norm: *const c_char,
@@ -17502,9 +15912,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctbrfs_(
         uplo: *const c_char,
@@ -17524,9 +15931,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtbrfs_(
         uplo: *const c_char,
@@ -17546,9 +15950,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stbrfs_(
         uplo: *const c_char,
@@ -17568,9 +15969,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztbrfs_(
         uplo: *const c_char,
@@ -17590,9 +15988,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctbtrs_(
         uplo: *const c_char,
@@ -17606,9 +16001,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtbtrs_(
         uplo: *const c_char,
@@ -17622,9 +16014,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stbtrs_(
         uplo: *const c_char,
@@ -17638,9 +16027,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztbtrs_(
         uplo: *const c_char,
@@ -17654,9 +16040,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctfsm_(
         transr: *const c_char,
@@ -17670,11 +16053,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f32>,
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn dtfsm_(
         transr: *const c_char,
@@ -17688,11 +16066,6 @@ unsafe extern "C" {
         A: *const f64,
         B: *mut f64,
         ldb: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn stfsm_(
         transr: *const c_char,
@@ -17706,11 +16079,6 @@ unsafe extern "C" {
         A: *const f32,
         B: *mut f32,
         ldb: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn ztfsm_(
         transr: *const c_char,
@@ -17724,11 +16092,6 @@ unsafe extern "C" {
         A: *const __BindgenComplex<f64>,
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
     );
     pub fn ctftri_(
         transr: *const c_char,
@@ -17737,9 +16100,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtftri_(
         transr: *const c_char,
@@ -17748,9 +16108,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stftri_(
         transr: *const c_char,
@@ -17759,9 +16116,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztftri_(
         transr: *const c_char,
@@ -17770,9 +16124,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         A: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctfttp_(
         transr: *const c_char,
@@ -17781,8 +16132,6 @@ unsafe extern "C" {
         ARF: *const __BindgenComplex<f32>,
         AP: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtfttp_(
         transr: *const c_char,
@@ -17791,8 +16140,6 @@ unsafe extern "C" {
         ARF: *const f64,
         AP: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stfttp_(
         transr: *const c_char,
@@ -17801,8 +16148,6 @@ unsafe extern "C" {
         ARF: *const f32,
         AP: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztfttp_(
         transr: *const c_char,
@@ -17811,8 +16156,6 @@ unsafe extern "C" {
         ARF: *const __BindgenComplex<f64>,
         AP: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctfttr_(
         transr: *const c_char,
@@ -17822,8 +16165,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtfttr_(
         transr: *const c_char,
@@ -17833,8 +16174,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stfttr_(
         transr: *const c_char,
@@ -17844,8 +16183,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztfttr_(
         transr: *const c_char,
@@ -17855,8 +16192,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctgevc_(
         side: *const c_char,
@@ -17876,8 +16211,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtgevc_(
         side: *const c_char,
@@ -17896,8 +16229,6 @@ unsafe extern "C" {
         m: *mut lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stgevc_(
         side: *const c_char,
@@ -17916,8 +16247,6 @@ unsafe extern "C" {
         m: *mut lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztgevc_(
         side: *const c_char,
@@ -17937,8 +16266,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctgexc_(
         wantq: *const lapack_int,
@@ -18140,9 +16467,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         ncycle: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtgsja_(
         jobu: *const c_char,
@@ -18170,9 +16494,6 @@ unsafe extern "C" {
         work: *mut f64,
         ncycle: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stgsja_(
         jobu: *const c_char,
@@ -18200,9 +16521,6 @@ unsafe extern "C" {
         work: *mut f32,
         ncycle: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztgsja_(
         jobu: *const c_char,
@@ -18230,9 +16548,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         ncycle: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctgsna_(
         job: *const c_char,
@@ -18255,8 +16570,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtgsna_(
         job: *const c_char,
@@ -18279,8 +16592,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stgsna_(
         job: *const c_char,
@@ -18303,8 +16614,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztgsna_(
         job: *const c_char,
@@ -18327,8 +16636,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctgsyl_(
         trans: *const c_char,
@@ -18353,7 +16660,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dtgsyl_(
         trans: *const c_char,
@@ -18378,7 +16684,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn stgsyl_(
         trans: *const c_char,
@@ -18403,7 +16708,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ztgsyl_(
         trans: *const c_char,
@@ -18428,7 +16732,6 @@ unsafe extern "C" {
         lwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ctpcon_(
         norm: *const c_char,
@@ -18440,9 +16743,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtpcon_(
         norm: *const c_char,
@@ -18454,9 +16754,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stpcon_(
         norm: *const c_char,
@@ -18468,9 +16765,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztpcon_(
         norm: *const c_char,
@@ -18482,9 +16776,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctplqt_(
         m: *const lapack_int,
@@ -18608,8 +16899,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtpmlqt_(
         side: *const c_char,
@@ -18629,8 +16918,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stpmlqt_(
         side: *const c_char,
@@ -18650,8 +16937,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztpmlqt_(
         side: *const c_char,
@@ -18671,8 +16956,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctpmqrt_(
         side: *const c_char,
@@ -18692,8 +16975,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtpmqrt_(
         side: *const c_char,
@@ -18713,8 +16994,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stpmqrt_(
         side: *const c_char,
@@ -18734,8 +17013,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztpmqrt_(
         side: *const c_char,
@@ -18755,8 +17032,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctpqrt_(
         m: *const lapack_int,
@@ -18881,10 +17156,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn dtprfb_(
         side: *const c_char,
@@ -18905,10 +17176,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f64,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn stprfb_(
         side: *const c_char,
@@ -18929,10 +17196,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut f32,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn ztprfb_(
         side: *const c_char,
@@ -18953,10 +17216,6 @@ unsafe extern "C" {
         ldb: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         ldwork: *const lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
     );
     pub fn ctprfs_(
         uplo: *const c_char,
@@ -18974,9 +17233,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtprfs_(
         uplo: *const c_char,
@@ -18994,9 +17250,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stprfs_(
         uplo: *const c_char,
@@ -19014,9 +17267,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztprfs_(
         uplo: *const c_char,
@@ -19034,9 +17284,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctptri_(
         uplo: *const c_char,
@@ -19044,8 +17291,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtptri_(
         uplo: *const c_char,
@@ -19053,8 +17298,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stptri_(
         uplo: *const c_char,
@@ -19062,8 +17305,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztptri_(
         uplo: *const c_char,
@@ -19071,8 +17312,6 @@ unsafe extern "C" {
         n: *const lapack_int,
         AP: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctptrs_(
         uplo: *const c_char,
@@ -19084,9 +17323,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtptrs_(
         uplo: *const c_char,
@@ -19098,9 +17334,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn stptrs_(
         uplo: *const c_char,
@@ -19112,9 +17345,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztptrs_(
         uplo: *const c_char,
@@ -19126,9 +17356,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctpttf_(
         transr: *const c_char,
@@ -19137,8 +17364,6 @@ unsafe extern "C" {
         AP: *const __BindgenComplex<f32>,
         ARF: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtpttf_(
         transr: *const c_char,
@@ -19147,8 +17372,6 @@ unsafe extern "C" {
         AP: *const f64,
         ARF: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn stpttf_(
         transr: *const c_char,
@@ -19157,8 +17380,6 @@ unsafe extern "C" {
         AP: *const f32,
         ARF: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztpttf_(
         transr: *const c_char,
@@ -19167,8 +17388,6 @@ unsafe extern "C" {
         AP: *const __BindgenComplex<f64>,
         ARF: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctpttr_(
         uplo: *const c_char,
@@ -19177,7 +17396,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dtpttr_(
         uplo: *const c_char,
@@ -19186,7 +17404,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn stpttr_(
         uplo: *const c_char,
@@ -19195,7 +17412,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ztpttr_(
         uplo: *const c_char,
@@ -19204,7 +17420,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ctrcon_(
         norm: *const c_char,
@@ -19217,9 +17432,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtrcon_(
         norm: *const c_char,
@@ -19232,9 +17444,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn strcon_(
         norm: *const c_char,
@@ -19247,9 +17456,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztrcon_(
         norm: *const c_char,
@@ -19262,9 +17468,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctrevc_(
         side: *const c_char,
@@ -19282,8 +17485,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrevc_(
         side: *const c_char,
@@ -19300,8 +17501,6 @@ unsafe extern "C" {
         m: *mut lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strevc_(
         side: *const c_char,
@@ -19318,8 +17517,6 @@ unsafe extern "C" {
         m: *mut lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrevc_(
         side: *const c_char,
@@ -19337,8 +17534,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrevc3_(
         side: *const c_char,
@@ -19358,8 +17553,6 @@ unsafe extern "C" {
         rwork: *mut f32,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrevc3_(
         side: *const c_char,
@@ -19377,8 +17570,6 @@ unsafe extern "C" {
         work: *mut f64,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strevc3_(
         side: *const c_char,
@@ -19396,8 +17587,6 @@ unsafe extern "C" {
         work: *mut f32,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrevc3_(
         side: *const c_char,
@@ -19417,8 +17606,6 @@ unsafe extern "C" {
         rwork: *mut f64,
         lrwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrexc_(
         compq: *const c_char,
@@ -19430,7 +17617,6 @@ unsafe extern "C" {
         ifst: *const lapack_int,
         ilst: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dtrexc_(
         compq: *const c_char,
@@ -19443,7 +17629,6 @@ unsafe extern "C" {
         ilst: *mut lapack_int,
         work: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn strexc_(
         compq: *const c_char,
@@ -19456,7 +17641,6 @@ unsafe extern "C" {
         ilst: *mut lapack_int,
         work: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ztrexc_(
         compq: *const c_char,
@@ -19468,7 +17652,6 @@ unsafe extern "C" {
         ifst: *const lapack_int,
         ilst: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ctrrfs_(
         uplo: *const c_char,
@@ -19487,9 +17670,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtrrfs_(
         uplo: *const c_char,
@@ -19508,9 +17688,6 @@ unsafe extern "C" {
         work: *mut f64,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn strrfs_(
         uplo: *const c_char,
@@ -19529,9 +17706,6 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztrrfs_(
         uplo: *const c_char,
@@ -19550,9 +17724,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctrsen_(
         job: *const c_char,
@@ -19570,8 +17741,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrsen_(
         job: *const c_char,
@@ -19592,8 +17761,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strsen_(
         job: *const c_char,
@@ -19614,8 +17781,6 @@ unsafe extern "C" {
         iwork: *mut lapack_int,
         liwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrsen_(
         job: *const c_char,
@@ -19633,8 +17798,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrsna_(
         job: *const c_char,
@@ -19655,8 +17818,6 @@ unsafe extern "C" {
         ldwork: *const lapack_int,
         rwork: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrsna_(
         job: *const c_char,
@@ -19677,8 +17838,6 @@ unsafe extern "C" {
         ldwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strsna_(
         job: *const c_char,
@@ -19699,8 +17858,6 @@ unsafe extern "C" {
         ldwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrsna_(
         job: *const c_char,
@@ -19721,8 +17878,6 @@ unsafe extern "C" {
         ldwork: *const lapack_int,
         rwork: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrsyl_(
         trana: *const c_char,
@@ -19738,8 +17893,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         scale: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrsyl_(
         trana: *const c_char,
@@ -19755,8 +17908,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         scale: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strsyl_(
         trana: *const c_char,
@@ -19772,8 +17923,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         scale: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrsyl_(
         trana: *const c_char,
@@ -19789,8 +17938,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         scale: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrsyl3_(
         trana: *const c_char,
@@ -19808,8 +17955,6 @@ unsafe extern "C" {
         swork: *mut f32,
         ldswork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrsyl3_(
         trana: *const c_char,
@@ -19829,8 +17974,6 @@ unsafe extern "C" {
         swork: *mut f64,
         ldswork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strsyl3_(
         trana: *const c_char,
@@ -19850,8 +17993,6 @@ unsafe extern "C" {
         swork: *mut f32,
         ldswork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrsyl3_(
         trana: *const c_char,
@@ -19869,8 +18010,6 @@ unsafe extern "C" {
         swork: *mut f64,
         ldswork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrtri_(
         uplo: *const c_char,
@@ -19879,8 +18018,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f32>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrtri_(
         uplo: *const c_char,
@@ -19889,8 +18026,6 @@ unsafe extern "C" {
         A: *mut f64,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strtri_(
         uplo: *const c_char,
@@ -19899,8 +18034,6 @@ unsafe extern "C" {
         A: *mut f32,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrtri_(
         uplo: *const c_char,
@@ -19909,8 +18042,6 @@ unsafe extern "C" {
         A: *mut __BindgenComplex<f64>,
         lda: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrtrs_(
         uplo: *const c_char,
@@ -19923,9 +18054,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f32>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn dtrtrs_(
         uplo: *const c_char,
@@ -19938,9 +18066,6 @@ unsafe extern "C" {
         B: *mut f64,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn strtrs_(
         uplo: *const c_char,
@@ -19953,9 +18078,6 @@ unsafe extern "C" {
         B: *mut f32,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ztrtrs_(
         uplo: *const c_char,
@@ -19968,9 +18090,6 @@ unsafe extern "C" {
         B: *mut __BindgenComplex<f64>,
         ldb: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn ctrttf_(
         transr: *const c_char,
@@ -19980,8 +18099,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         ARF: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn dtrttf_(
         transr: *const c_char,
@@ -19991,8 +18108,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         ARF: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn strttf_(
         transr: *const c_char,
@@ -20002,8 +18117,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         ARF: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ztrttf_(
         transr: *const c_char,
@@ -20013,8 +18126,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         ARF: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn ctrttp_(
         uplo: *const c_char,
@@ -20023,7 +18134,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         AP: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn dtrttp_(
         uplo: *const c_char,
@@ -20032,7 +18142,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         AP: *mut f64,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn strttp_(
         uplo: *const c_char,
@@ -20041,7 +18150,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         AP: *mut f32,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ztrttp_(
         uplo: *const c_char,
@@ -20050,7 +18158,6 @@ unsafe extern "C" {
         lda: *const lapack_int,
         AP: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn ctzrzf_(
         m: *const lapack_int,
@@ -20115,8 +18222,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunbdb_(
         trans: *const c_char,
@@ -20141,8 +18246,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cuncsd_(
         jobu1: *const c_char,
@@ -20177,12 +18280,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn zuncsd_(
         jobu1: *const c_char,
@@ -20217,12 +18314,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
-        arg4: usize,
-        arg5: usize,
-        arg6: usize,
     );
     pub fn cuncsd2by1_(
         jobu1: *const c_char,
@@ -20248,9 +18339,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zuncsd2by1_(
         jobu1: *const c_char,
@@ -20276,9 +18364,6 @@ unsafe extern "C" {
         lrwork: *const lapack_int,
         iwork: *mut lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cungbr_(
         vect: *const c_char,
@@ -20291,7 +18376,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zungbr_(
         vect: *const c_char,
@@ -20304,7 +18388,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cunghr_(
         n: *const lapack_int,
@@ -20425,7 +18508,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zungtr_(
         uplo: *const c_char,
@@ -20436,7 +18518,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cungtsqr_row_(
         m: *const lapack_int,
@@ -20501,9 +18582,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zunmbr_(
         vect: *const c_char,
@@ -20520,9 +18598,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cunmhr_(
         side: *const c_char,
@@ -20539,8 +18614,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmhr_(
         side: *const c_char,
@@ -20557,8 +18630,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmlq_(
         side: *const c_char,
@@ -20574,8 +18645,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmlq_(
         side: *const c_char,
@@ -20591,8 +18660,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmql_(
         side: *const c_char,
@@ -20608,8 +18675,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmql_(
         side: *const c_char,
@@ -20625,8 +18690,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmqr_(
         side: *const c_char,
@@ -20642,8 +18705,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmqr_(
         side: *const c_char,
@@ -20659,8 +18720,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmrq_(
         side: *const c_char,
@@ -20676,8 +18735,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmrq_(
         side: *const c_char,
@@ -20693,8 +18750,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmrz_(
         side: *const c_char,
@@ -20711,8 +18766,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn zunmrz_(
         side: *const c_char,
@@ -20729,8 +18782,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
     );
     pub fn cunmtr_(
         side: *const c_char,
@@ -20746,9 +18797,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f32>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zunmtr_(
         side: *const c_char,
@@ -20764,9 +18812,6 @@ unsafe extern "C" {
         work: *mut __BindgenComplex<f64>,
         lwork: *const lapack_int,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn cupgtr_(
         uplo: *const c_char,
@@ -20777,7 +18822,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn zupgtr_(
         uplo: *const c_char,
@@ -20788,7 +18832,6 @@ unsafe extern "C" {
         ldq: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
     );
     pub fn cupmtr_(
         side: *const c_char,
@@ -20802,9 +18845,6 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f32>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
     pub fn zupmtr_(
         side: *const c_char,
@@ -20818,8 +18858,5 @@ unsafe extern "C" {
         ldc: *const lapack_int,
         work: *mut __BindgenComplex<f64>,
         info: *mut lapack_int,
-        arg1: usize,
-        arg2: usize,
-        arg3: usize,
     );
 }

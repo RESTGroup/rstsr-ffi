@@ -84,6 +84,9 @@ with open("cblas_f77.h", "r") as fin:
 
 token = token.replace("#define F77_INT int32_t", "typedef int32_t F77_INT;")
 
+# In C binding, fortran strlen end is probably not required
+token = token.replace("#define BLAS_FORTRAN_STRLEN_END", "")
+
 # +
 # write file cblas_f77_parse.h
 
@@ -216,7 +219,12 @@ token = ""
 with open("lapack.h", "r") as fin:
     token += fin.read()
 
+# +
 token = token.replace("#define lapack_int        int32_t", "typedef int32_t lapack_int;")
+
+# In C binding, fortran strlen end is probably not required
+token = token.replace("#define LAPACK_FORTRAN_STRLEN_END", "")
+# -
 
 with open("lapack_parse.h", "w") as fout:
     fout.write(token)

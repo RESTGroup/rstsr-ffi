@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-lapack-ffi"
-version = "0.1.1"
+version = "0.2.0"
 description = "Netlib LAPACK FFI bindings"
 readme = "readme.md"
 

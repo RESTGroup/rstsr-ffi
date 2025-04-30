@@ -25,3 +25,9 @@ This crate is not official bindgen project. It is originally intended to serve r
     - `cblas`
     - `lapack`
     - `lapacke`
+
+## Changelog
+
+- v0.2
+
+    - **API breaking change**: In v0.1, Fortran strlen option is included in f77blas and lapack binding. In v0.2, these arguments are muted. So for example, In v0.1 `dgemm_` will have 15 arguments: 13 arguments of usual usage + 2 arguments denotes string length of `transa` and `transb` arguments. In v0.2, `dgemm_` will have 13 arguments, the same to usual usage of Fortran equilvant.
