@@ -11,6 +11,8 @@ categories.workspace = true
 license.workspace = true
 
 [dependencies]
+libloading = { workspace = true }
 
 [features]
 ilp64 = []
+dynamic_loading = []
