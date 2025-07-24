@@ -11,9 +11,13 @@ categories.workspace = true
 license.workspace = true
 
 [dependencies]
+libloading = { workspace = true }
 
 [features]
 default = []
+
 ilp64 = []
+dynamic_loading = []
+
 quad_precision = []
 ex_precision = []

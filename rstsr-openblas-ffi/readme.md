@@ -2,7 +2,7 @@
 
 This crate contains OpenBLAS FFI bindings.
 
-Current FFI version is [OpenBLAS v0.3.29](https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.29).
+Current FFI version is [OpenBLAS v0.3.30](https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.30).
 
 OpenBLAS (C/Fortran/ASM) source code is available on [github](https://github.com/OpenMathLib/OpenBLAS).
 

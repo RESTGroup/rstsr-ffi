@@ -226,8 +226,8 @@ mod dynamic_loading_specific {
     }
 
     fn check_lib_loaded(lib: &DyLoadLib) -> bool {
-        SUBSTITUTION // more check conditions can be added here
-                     // !lib.__libraries.is_empty()
+        SUBSTITUTION // usually check some function is not `None`
+                     // e.g. lib.cblas_dgemm.is_some()
     }
 
     fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
@@ -248,6 +248,22 @@ Please check
         )
     }
 
+    fn panic_condition_not_met<S: Debug>(candidates: &[S]) -> ! {
+        panic!(
+            r#"
+This happens in module `{MOD_NAME}`.
+Unable to dynamically load the {LIB_NAME_SHOW} (`{LIB_NAME_LINK}`) shared library, due to condition unfulfilled.
+Condition: {SUBSTITUTION}
+Found libraries: {candidates:#?}
+
+Please check
+- if dynamic-loading is not desired, please disable the `dynamic_loading` feature in your `Cargo.toml` (by something like --no-default-features).
+- if you want to provide custom {LIB_NAME_SHOW} library, use environment variable `RSTSR_DYLOAD_{LIB_NAME}` or `RSTSR_DYLOAD` to specify the path to the library.
+- sequence of libraries matters: `RSTSR_DYLOAD_{LIB_NAME}` will be tried first, then `RSTSR_DYLOAD`, then system dynamic library search paths.
+"#
+        )
+    }
+
     pub unsafe fn dyload_lib() -> &'static DyLoadLib {
         static LIB: OnceLock<DyLoadLib> = OnceLock::new();
 
@@ -261,8 +277,11 @@ Please check
                 }
             }
             let lib = DyLoadLib::new(libraries, libraries_path);
-            if !check_lib_loaded(&lib) {
+            if lib.__libraries.is_empty() {
                 panic_no_lib_found(&candidates);
+            }
+            if !check_lib_loaded(&lib) {
+                panic_condition_not_met(&lib.__libraries_path);
             }
             lib
         })
