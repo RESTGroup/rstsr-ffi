@@ -5,9 +5,9 @@
 #![allow(clippy::too_many_arguments)]
 
 const MOD_NAME: &str = module_path!();
-const LIB_NAME: &str = "CBLAS"; // for code, e.g. "MKL"
-const LIB_NAME_SHOW: &str = "CBLAS"; // for display, e.g. "oneMKL"
-const LIB_NAME_LINK: &str = "blas"; // for linking, e.g. "mkl_rt"
+const LIB_NAME: &str = "LAPACK"; // for code, e.g. "MKL"
+const LIB_NAME_SHOW: &str = "LAPACK"; // for display, e.g. "oneMKL"
+const LIB_NAME_LINK: &str = "lapack"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]
 mod dynamic_loading_specific {
@@ -32,12 +32,6 @@ mod dynamic_loading_specific {
         let int_name = if cfg!(feature = "ilp64") { "ilp64" } else { "lp64" };
 
         candidates.extend(vec![
-            format!("{DLL_PREFIX}blas{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas_{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas-{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas_{int_name}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas-{int_name}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack_{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack-{int_type}{DLL_SUFFIX}"),
@@ -55,7 +49,7 @@ mod dynamic_loading_specific {
     }
 
     fn check_lib_loaded(lib: &DyLoadLib) -> bool {
-        !lib.__libraries.is_empty() && lib.cblas_dgemm.is_some()
+        !lib.__libraries.is_empty() && lib.dsyevd_.is_some()
     }
 
     fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
@@ -131,13 +125,17 @@ fn playground() {
     let l = unsafe { dyload_lib() };
     println!("Time taken to load CBLAS library: {:?}", time.elapsed());
     println!("Loaded CBLAS library: {:?}", l.__libraries);
-    println!("Loaded CBLAS library: {:?}", l.cblas_dgemm);
+    println!("Loaded CBLAS library: {:?}", l.dsyevd_);
 
     // test if the library is loaded correctly
-    let a: Vec<f64> = vec![1.0, 2.0, 3.0, 4.0];
-    let b: Vec<f64> = vec![5.0, 6.0, 7.0, 8.0];
-    let n = 4;
-    let incx = 1;
-    let c = unsafe { cblas_ddot(n, a.as_ptr(), incx, b.as_ptr(), incx) };
-    assert_eq!(c, 70.0);
+    let mut a: Vec<f64> = vec![2.0, 1.0, 3.0, 4.0];
+    let uplo = 'L';
+    let n = 2;
+    let lda = 2;
+    let mut info = 0;
+    unsafe {
+        dpotrf_(&uplo as *const _ as *const _, &n, a.as_mut_ptr(), &lda, &mut info);
+    }
+    println!("{a:?}");
+    assert_eq!(info, 0);
 }

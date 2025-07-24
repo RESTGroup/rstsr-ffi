@@ -32,18 +32,24 @@ mod dynamic_loading_specific {
         let int_name = if cfg!(feature = "ilp64") { "ilp64" } else { "lp64" };
 
         candidates.extend(vec![
-            format!("{DLL_PREFIX}{LIB_NAME_LINK}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}blas{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blas_{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blas-{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}blas{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blas_{int_name}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blas-{int_name}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}blas{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapack{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack_{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack-{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack_{int_name}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapack-{int_name}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapack{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke{int_type}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke_{int_type}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke-{int_type}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke_{int_name}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke-{int_name}{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}lapacke{DLL_SUFFIX}"),
         ]);
         candidates
     }

@@ -106,7 +106,7 @@ subprocess.run([
     "--merge-extern-blocks",
 ])
 
-# ### Post-processing: FFI
+# ### Post-processing
 
 with open("blas.rs", "r") as f:
     token = f.read()
@@ -136,7 +136,7 @@ pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
-# ### Post-processing: dynamic loading
+# ### Dynamic loading
 
 # +
 dir_relative = "blas"
@@ -181,7 +181,7 @@ subprocess.run([
     "--merge-extern-blocks",
 ])
 
-# ### Post-processing: FFI
+# ### Post-processing
 
 with open("cblas.rs", "r") as f:
     token = f.read()
@@ -215,7 +215,7 @@ pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
-# ### Post-processing: dynamic loading
+# ### Dynamic-loading
 
 # +
 dir_relative = "cblas"
@@ -226,9 +226,6 @@ for key, item in util_dyload.dyload_main(token).items():
     with open(f"{dir_relative}/{key}.rs", "w") as f:
         f.write(item)
 # -
-
-for name in ["blas", "cblas"]:
-    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
 
 # ## LAPACK handling
 
@@ -280,9 +277,7 @@ token = token.replace("::core::ffi::c_int", "c_int")
 token = token.replace("::core::option::Option", "Option")
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::c_char;
+pub(crate) use core::ffi::c_char;
 
 #[cfg(not(feature = "ilp64"))]
 pub type lapack_int = i32;
@@ -291,8 +286,17 @@ pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
-with open("lapack.rs", "w") as f:
-    f.write(token)
+# ### Dynamic-loading
+
+# +
+dir_relative = "lapack"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
 
 # ## LAPACKE handling
 
@@ -408,10 +412,10 @@ with open("lapacke_utils.rs", "w") as f:
 
 # ## Move FFI binding files to output
 
-for name in ["blas", "cblas"]:
+for name in ["blas", "cblas", "lapack"]:
     shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
 
-for name in ["lapack.rs", "lapacke.rs", "lapacke_utils.rs"]:
+for name in ["lapacke.rs", "lapacke_utils.rs"]:
     shutil.copy(f"{path_temp}/{name}", f"{path_out}/src/{name}")
 
 # ## Cargo fmt
