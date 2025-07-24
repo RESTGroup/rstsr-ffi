@@ -8,7 +8,7 @@ tarpaulin-report.html
 .idea
 book
 *.npy
-Untitled.ipynb
+Untitled*.ipynb
 mod_template.rs
 
 # bindgen

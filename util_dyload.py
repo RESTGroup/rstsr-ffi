@@ -48,11 +48,6 @@ def dyload_fn_split(node):
     return result
 
 
-def dyload_parameter_identifiers(node):
-    assert(node.type == "parameters")
-    return [n.children[0] for n in node.children if n.type == "parameter"]
-
-
 def dyload_main(token, token_extra=None):
     # 1. obtain all stuffs for usual ffi use cases
     parsed, node_extern = dyload_parse_file(token)
@@ -76,15 +71,17 @@ def dyload_main(token, token_extra=None):
     # 3. iterate by functions
     for node_fn in nodes_fn:
         dict_fn = dyload_fn_split(node_fn)
-        para_fn = dyload_parameter_identifiers(dict_fn["parameters"])
 
         visibility_modifier = dict_fn["visibility_modifier"].text.decode("utf8")
         identifier = dict_fn["identifier"].text.decode("utf8")
-        parameters = dict_fn["parameters"].text.decode("utf8")
+        
         return_type_string = ""
         if dict_fn["return_type"] is not None:
             return_type_string = " -> " + dict_fn["return_type"].text.decode("utf8")
-        parameters_called = ", ".join([n.text.decode("utf8") for n in para_fn])
+
+        nodes_para = [n for n in dict_fn["parameters"].children if n.type == "parameter"]
+        parameters = "(" + ", ".join([n.text.decode("utf8") for n in nodes_para]) + ")"
+        parameters_called = ", ".join([n.children[0].text.decode("utf8") for n in nodes_para])
 
         part_dyload_struct = f"""
             {visibility_modifier} {identifier}: Option<unsafe extern "C" fn{parameters}{return_type_string}>,
@@ -135,6 +132,7 @@ use super::*;
 
 pub struct DyLoadLib {{
     pub __libraries: Vec<libloading::Library>,
+    pub __libraries_path: Vec<String>,
     {token_dyload_struct}
 }}
     """
@@ -152,12 +150,14 @@ unsafe fn get_symbol<'f, F>(libs: &'f [Library], name: &[u8]) -> Option<Symbol<'
 }}
 
 impl DyLoadLib {{
-    pub unsafe fn new(libs: Vec<libloading::Library>) -> DyLoadLib {{
+    pub unsafe fn new(libs: Vec<libloading::Library>, libs_path: Vec<String>) -> DyLoadLib {{
         let mut result = DyLoadLib {{
             __libraries: vec![], // dummy here, set this field later
+            __libraries_path: vec![], // dummy here, set this field later
             {token_dyload_initializer}
         }};
         result.__libraries = libs;
+        result.__libraries_path = libs_path;
         result
     }}
 }}
@@ -190,6 +190,7 @@ DYLOAD_MOD_TEMPLATE = """/* Tips for developers:
 */
 
 #![allow(non_snake_case)]
+#![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::too_many_arguments)]
@@ -252,8 +253,14 @@ Please check
 
         LIB.get_or_init(|| {
             let candidates = get_lib_candidates();
-            let libraries = candidates.iter().filter_map(|name| Library::new(name).ok()).collect();
-            let lib = DyLoadLib::new(libraries);
+            let (mut libraries, mut libraries_path) = (vec![], vec![]);
+            for candidate in &candidates {
+                if let Ok(l) = Library::new(candidate) {
+                    libraries.push(l);
+                    libraries_path.push(candidate.to_string());
+                }
+            }
+            let lib = DyLoadLib::new(libraries, libraries_path);
             if !check_lib_loaded(&lib) {
                 panic_no_lib_found(&candidates);
             }

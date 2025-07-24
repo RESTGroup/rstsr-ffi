@@ -148,9 +148,6 @@ for key, item in util_dyload.dyload_main(token).items():
         f.write(item)
 # -
 
-for name in ["blas"]:
-    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
-
 # ## CBLAS handling
 
 # ### Pre-processing
@@ -184,7 +181,7 @@ subprocess.run([
     "--merge-extern-blocks",
 ])
 
-# ### Post-processing
+# ### Post-processing: FFI
 
 with open("cblas.rs", "r") as f:
     token = f.read()
@@ -209,9 +206,7 @@ token = token.replace("::core::ffi::c_int", "c_int")
 token = token.replace("::core::option::Option", "Option")
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::{c_char, c_void};
+pub(crate) use core::ffi::{c_char, c_void};
 
 #[cfg(not(feature = "ilp64"))]
 pub type blas_int = i32;
@@ -220,8 +215,20 @@ pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
-with open("cblas.rs", "w") as f:
-    f.write(token)
+# ### Post-processing: dynamic loading
+
+# +
+dir_relative = "cblas"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
+
+for name in ["blas", "cblas"]:
+    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
 
 # ## LAPACK handling
 
@@ -401,7 +408,10 @@ with open("lapacke_utils.rs", "w") as f:
 
 # ## Move FFI binding files to output
 
-for name in ["cblas.rs", "lapack.rs", "lapacke.rs", "lapacke_utils.rs"]:
+for name in ["blas", "cblas"]:
+    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
+
+for name in ["lapack.rs", "lapacke.rs", "lapacke_utils.rs"]:
     shutil.copy(f"{path_temp}/{name}", f"{path_out}/src/{name}")
 
 # ## Cargo fmt

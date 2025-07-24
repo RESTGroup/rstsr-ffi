@@ -10,9 +10,10 @@ unsafe fn get_symbol<'f, F>(libs: &'f [Library], name: &[u8]) -> Option<Symbol<'
 }
 
 impl DyLoadLib {
-    pub unsafe fn new(libs: Vec<libloading::Library>) -> DyLoadLib {
+    pub unsafe fn new(libs: Vec<libloading::Library>, libs_path: Vec<String>) -> DyLoadLib {
         let mut result = DyLoadLib {
-            __libraries: vec![], // dummy here, set this field later
+            __libraries: vec![],      // dummy here, set this field later
+            __libraries_path: vec![], // dummy here, set this field later
             xerbla_: get_symbol(&libs, b"xerbla_\0").map(|sym| *sym),
             srot_: get_symbol(&libs, b"srot_\0").map(|sym| *sym),
             srotg_: get_symbol(&libs, b"srotg_\0").map(|sym| *sym),
@@ -168,6 +169,7 @@ impl DyLoadLib {
             ztrsm_: get_symbol(&libs, b"ztrsm_\0").map(|sym| *sym),
         };
         result.__libraries = libs;
+        result.__libraries_path = libs_path;
         result
     }
 }
