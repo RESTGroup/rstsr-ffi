@@ -133,7 +133,7 @@ unsafe {node_extern.text.decode("utf8")}
 
 use super::*;
 
-pub struct Lib {{
+pub struct DyLoadLib {{
     pub __libraries: Vec<libloading::Library>,
     {token_dyload_struct}
 }}
@@ -151,9 +151,9 @@ unsafe fn get_symbol<'f, F>(libs: &'f [Library], name: &[u8]) -> Option<Symbol<'
     libs.iter().find_map(|lib| lib.get::<F>(name).ok())
 }}
 
-impl Lib {{
-    pub unsafe fn new(libs: Vec<libloading::Library>) -> Lib {{
-        let mut result = Lib {{
+impl DyLoadLib {{
+    pub unsafe fn new(libs: Vec<libloading::Library>) -> DyLoadLib {{
+        let mut result = DyLoadLib {{
             __libraries: vec![], // dummy here, set this field later
             {token_dyload_initializer}
         }};
@@ -181,4 +181,111 @@ use super::*;
         "dyload_struct": output_dyload_struct,
         "dyload_initializer": output_dyload_initializer,
         "dyload_compatible": output_dyload_compatible,
+        "mod_template": DYLOAD_MOD_TEMPLATE,
     }
+
+
+DYLOAD_MOD_TEMPLATE = """/* Tips for developers:
+   You may substitute the `SUBSTITUTION` for your specific library.
+*/
+
+#![allow(non_snake_case)]
+#![allow(clippy::missing_safety_doc)]
+#![allow(clippy::type_complexity)]
+#![allow(clippy::too_many_arguments)]
+
+const MOD_NAME: &str = module_path!();
+const LIB_NAME: &str = SUBSTITUTION; // for code, e.g. "MKL"
+const LIB_NAME_SHOW: &str = SUBSTITUTION; // for display, e.g. "oneMKL"
+const LIB_NAME_LINK: &str = SUBSTITUTION; // for linking, e.g. "mkl_rt"
+
+#[cfg(feature = "dynamic_loading")]
+mod dynamic_loading_specific {
+    use super::*;
+    use libloading::Library;
+    use std::fmt::Debug;
+    use std::sync::OnceLock;
+
+    fn get_lib_candidates() -> Vec<String> {
+        use std::env::consts::{DLL_PREFIX, DLL_SUFFIX};
+        let mut candidates = vec![];
+
+        // user defined candidates
+        for paths in [format!("RSTSR_DYLOAD_{LIB_NAME}").as_str(), "RSTSR_DYLOAD"] {
+            if let Ok(path) = std::env::var(paths) {
+                candidates.extend(path.split(":").map(|s| s.to_string()).collect::<Vec<_>>());
+            }
+        }
+
+        candidates.extend(vec![
+            format!("{DLL_PREFIX}{LIB_NAME_LINK}{DLL_SUFFIX}"),
+            SUBSTITUTION, // more candidates can be added here
+        ]);
+        candidates
+    }
+
+    fn check_lib_loaded(lib: &DyLoadLib) -> bool {
+        SUBSTITUTION // more check conditions can be added here
+                     // !lib.__libraries.is_empty()
+    }
+
+    fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
+        panic!(
+            r#"
+This happens in module `{MOD_NAME}`.
+Unable to dynamically load the {LIB_NAME_SHOW} (`{LIB_NAME_LINK}`) shared library.
+Candidates: {candidates:#?}
+
+Please check
+- if dynamic-loading is not desired, please disable the `dynamic_loading` feature in your `Cargo.toml` (by something like --no-default-features).
+- if you want to provide custom {LIB_NAME_SHOW} library, use environment variable `RSTSR_DYLOAD_{LIB_NAME}` or `RSTSR_DYLOAD` to specify the path to the library.
+- if `lib{LIB_NAME_LINK}.so` (linux) or `lib{LIB_NAME_LINK}.dylib` (macOS) or `lib{LIB_NAME_LINK}.dll` (Windows) is installed on your system.
+- if `LD_LIBRARY_PATH` (linux) or `DYLD_LIBRARY_PATH` (macOS) or `PATH` (Windows) environment variable is set correctly (any path that's visible to linker).
+- this crate does not use things like `LD_PRELOAD` or `DYLD_INSERT_LIBRARIES` to load the library.
+- this crate does not support static linking of libraries when dynamic-loading.
+"#
+        )
+    }
+
+    pub unsafe fn dyload_lib() -> &'static DyLoadLib {
+        static LIB: OnceLock<DyLoadLib> = OnceLock::new();
+
+        LIB.get_or_init(|| {
+            let candidates = get_lib_candidates();
+            let libraries = candidates.iter().filter_map(|name| Library::new(name).ok()).collect();
+            let lib = DyLoadLib::new(libraries);
+            if !check_lib_loaded(&lib) {
+                panic_no_lib_found(&candidates);
+            }
+            lib
+        })
+    }
+}
+
+#[cfg(feature = "dynamic_loading")]
+pub use dynamic_loading_specific::*;
+
+/* #region general configuration */
+
+pub(crate) mod ffi_base;
+pub use ffi_base::*;
+
+#[cfg(not(feature = "dynamic_loading"))]
+pub(crate) mod ffi_extern;
+#[cfg(not(feature = "dynamic_loading"))]
+pub use ffi_extern::*;
+
+#[cfg(feature = "dynamic_loading")]
+pub(crate) mod dyload_compatible;
+#[cfg(feature = "dynamic_loading")]
+pub(crate) mod dyload_initializer;
+#[cfg(feature = "dynamic_loading")]
+pub(crate) mod dyload_struct;
+
+#[cfg(feature = "dynamic_loading")]
+pub use dyload_compatible::*;
+#[cfg(feature = "dynamic_loading")]
+pub use dyload_struct::*;
+
+/* #endregion */
+"""
