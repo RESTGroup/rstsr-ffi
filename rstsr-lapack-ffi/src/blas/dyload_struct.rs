@@ -6,6 +6,7 @@ use super::*;
 
 pub struct DyLoadLib {
     pub __libraries: Vec<libloading::Library>,
+    pub __libraries_path: Vec<String>,
     pub xerbla_: Option<unsafe extern "C" fn(arg1: *mut c_char, arg2: *mut c_void)>,
     pub srot_: Option<
         unsafe extern "C" fn(
