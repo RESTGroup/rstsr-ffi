@@ -341,9 +341,7 @@ token = token.replace("::core::ffi::c_int", "c_int")
 token = token.replace("::core::option::Option", "Option")
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::{c_char, c_int};
+pub(crate) use core::ffi::{c_char, c_int};
 
 #[cfg(not(feature = "ilp64"))]
 pub type lapack_int = i32;
@@ -352,8 +350,17 @@ pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
-with open("lapacke.rs", "w") as f:
-    f.write(token)
+# ### Dynamic-loading
+
+# +
+dir_relative = "lapacke"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
 
 # ## LAPACKE_utils handling
 
@@ -396,9 +403,7 @@ token = token.replace("::core::ffi::c_int", "c_int")
 token = token.replace("::core::option::Option", "Option")
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::{c_char, c_int};
+pub(crate) use core::ffi::{c_char, c_int};
 
 #[cfg(not(feature = "ilp64"))]
 pub type lapack_int = i32;
@@ -407,16 +412,22 @@ pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
-with open("lapacke_utils.rs", "w") as f:
-    f.write(token)
+# ### Dynamic-loading
+
+# +
+dir_relative = "lapacke_utils"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
 
 # ## Move FFI binding files to output
 
-for name in ["blas", "cblas", "lapack"]:
+for name in ["blas", "cblas", "lapack", "lapacke_utils"]:
     shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
-
-for name in ["lapacke.rs", "lapacke_utils.rs"]:
-    shutil.copy(f"{path_temp}/{name}", f"{path_out}/src/{name}")
 
 # ## Cargo fmt
 
