@@ -9,7 +9,7 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 | crate | crate version | FFI library | FFI version |
 |--|--|--|--|
 | rstsr-lapack-ffi | v0.1.1 | Reference LAPACK | v3.12.1 |
-| rstsr-openblas-ffi | v0.3.1 | OpenBLAS | v0.3.29 |
+| rstsr-openblas-ffi | v0.3.1 | OpenBLAS | v0.3.30 |
 
 ## Motivation
 

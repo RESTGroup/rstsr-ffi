@@ -8,14 +8,15 @@ import subprocess
 import os
 import shutil
 
+import sys
+sys.path.append("../..")
+import util_dyload
+
 path_cwd = os.path.abspath(os.getcwd())
 
 # ## Bindgen configuration
 
 # Users may change the following fields for their needs.
-
-# Source code of Netlib Lapack
-path_repo = f"{os.getenv('HOME')}/Software/source/OpenBLAS-0.3.29"
 
 # Path for storing useful header files
 path_header = f"{path_cwd}/../header"
@@ -27,20 +28,6 @@ path_temp = f"{path_cwd}/tmp"
 path_out = f"{path_cwd}/.."
 
 # ## Copy necessary headers
-
-# ### Copy to header directory
-
-os.makedirs(path_header, exist_ok=True)
-os.makedirs(f"{path_out}/src", exist_ok=True)
-
-for name in ["common_interface.h", "cblas.h", "openblas_config_template.h"]:
-    shutil.copy(f"{path_repo}/{name}", f"{path_header}")
-
-# +
-# make a copy of config files
-
-shutil.move(f"{path_header}/openblas_config_template.h", f"{path_header}/common.h")
-# -
 
 # ### Copy to temporary directory
 
@@ -57,13 +44,14 @@ os.chdir(path_temp)
 
 # ### Pre-processing (common.h)
 
-with open("common.h", "r") as f:
+with open("openblas_config_template.h", "r") as f:
     token = f.read()
 
 # +
 # use typedef for xdouble
 
 token = token.replace("#define xdouble double", "typedef double xdouble;")
+token = "#define OPENBLAS_NEEDBUNDERSCORE\n" + token
 # -
 
 with open("common_parse.h", "w") as f:
@@ -127,9 +115,7 @@ token = token.replace("::core::option::Option", "Option")
 # add headers
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::{c_char, c_void, c_int};
+pub(crate) use core::ffi::{c_char, c_void, c_int};
 
 #[cfg(not(feature = "ilp64"))]
 pub type blas_int = i32;
@@ -162,10 +148,21 @@ pub struct xdouble {
     pub _phantom: (),
 }
 """ + "\n\n" + token
-# -
 
-with open("f77blas.rs", "w") as f:
-    f.write(token)
+# +
+dir_relative = "blas"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
+for name in ["blas"]:
+    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
+
+
+
 
 # ## CBLAS handling
 
