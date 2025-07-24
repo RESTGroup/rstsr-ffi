@@ -4,7 +4,7 @@
 
 use super::*;
 
-pub struct Lib {
+pub struct DyLoadLib {
     pub __libraries: Vec<libloading::Library>,
     pub xerbla_: Option<unsafe extern "C" fn(arg1: *mut c_char, arg2: *mut c_void)>,
     pub srot_: Option<

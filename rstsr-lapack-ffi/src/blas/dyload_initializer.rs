@@ -9,9 +9,9 @@ unsafe fn get_symbol<'f, F>(libs: &'f [Library], name: &[u8]) -> Option<Symbol<'
     libs.iter().find_map(|lib| lib.get::<F>(name).ok())
 }
 
-impl Lib {
-    pub unsafe fn new(libs: Vec<libloading::Library>) -> Lib {
-        let mut result = Lib {
+impl DyLoadLib {
+    pub unsafe fn new(libs: Vec<libloading::Library>) -> DyLoadLib {
+        let mut result = DyLoadLib {
             __libraries: vec![], // dummy here, set this field later
             xerbla_: get_symbol(&libs, b"xerbla_\0").map(|sym| *sym),
             srot_: get_symbol(&libs, b"srot_\0").map(|sym| *sym),
