@@ -5,9 +5,9 @@
 #![allow(clippy::too_many_arguments)]
 
 const MOD_NAME: &str = module_path!();
-const LIB_NAME: &str = "LAPACK"; // for code, e.g. "MKL"
-const LIB_NAME_SHOW: &str = "LAPACK"; // for display, e.g. "oneMKL"
-const LIB_NAME_LINK: &str = "lapack"; // for linking, e.g. "mkl_rt"
+const LIB_NAME: &str = "LAPACKE"; // for code, e.g. "MKL"
+const LIB_NAME_SHOW: &str = "LAPACKE"; // for display, e.g. "oneMKL"
+const LIB_NAME_LINK: &str = "lapacke"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]
 mod dynamic_loading_specific {
@@ -32,12 +32,6 @@ mod dynamic_loading_specific {
         let int_name = if cfg!(feature = "ilp64") { "ilp64" } else { "lp64" };
 
         candidates.extend(vec![
-            format!("{DLL_PREFIX}lapack{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack_{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack-{int_type}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack_{int_name}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack-{int_name}{DLL_SUFFIX}"),
-            format!("{DLL_PREFIX}lapack{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapacke{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapacke_{int_type}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}lapacke-{int_type}{DLL_SUFFIX}"),
@@ -49,7 +43,7 @@ mod dynamic_loading_specific {
     }
 
     fn check_lib_loaded(lib: &DyLoadLib) -> bool {
-        !lib.__libraries.is_empty() && lib.dsyevd_.is_some()
+        !lib.__libraries.is_empty() && lib.LAPACKE_dsyevd.is_some()
     }
 
     fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
@@ -123,19 +117,17 @@ fn playground() {
     // test libraries loaded
     let time = std::time::Instant::now();
     let l = unsafe { dyload_lib() };
-    println!("Time taken to load LAPACK library: {:?}", time.elapsed());
-    println!("Loaded LAPACK library: {:?}", l.__libraries);
-    println!("Loaded LAPACK library: {:?}", l.dsyevd_);
+    println!("Time taken to load LAPACKE library: {:?}", time.elapsed());
+    println!("Loaded LAPACKE library: {:?}", l.__libraries);
+    println!("Loaded LAPACKE library: {:?}", l.LAPACKE_dsyevd);
 
     // test if the library is loaded correctly
     let mut a: Vec<f64> = vec![2.0, 1.0, 3.0, 4.0];
+    let layout = LAPACK_COL_MAJOR;
     let uplo = 'L';
     let n = 2;
     let lda = 2;
-    let mut info = 0;
-    unsafe {
-        dpotrf_(&uplo as *const _ as *const _, &n, a.as_mut_ptr(), &lda, &mut info);
-    }
+    let info = unsafe { LAPACKE_dpotrf(layout, uplo as _, n, a.as_mut_ptr(), lda) };
     println!("{a:?}");
     assert_eq!(info, 0);
 }
