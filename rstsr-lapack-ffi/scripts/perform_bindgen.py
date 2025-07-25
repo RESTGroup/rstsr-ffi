@@ -426,7 +426,7 @@ for key, item in util_dyload.dyload_main(token).items():
 
 # ## Move FFI binding files to output
 
-for name in ["blas", "cblas", "lapack", "lapacke_utils"]:
+for name in ["blas", "cblas", "lapack", "lapacke", "lapacke_utils"]:
     shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
 
 # ## Cargo fmt
