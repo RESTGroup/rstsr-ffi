@@ -10,6 +10,7 @@ book
 *.npy
 Untitled*.ipynb
 mod_template.rs
+ffi_base_template.rs
 
 # bindgen
 blas_bindgen.h

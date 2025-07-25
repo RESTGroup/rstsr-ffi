@@ -7,14 +7,17 @@
 
 use super::*;
 
+#[inline(never)]
 pub unsafe fn lapack_make_complex_float(re: f32, im: f32) -> __BindgenComplex<f32> {
     dyload_lib().lapack_make_complex_float.unwrap()(re, im)
 }
 
+#[inline(never)]
 pub unsafe fn lapack_make_complex_double(re: f64, im: f64) -> __BindgenComplex<f64> {
     dyload_lib().lapack_make_complex_double.unwrap()(re, im)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsdc(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45,6 +48,7 @@ pub unsafe fn LAPACKE_sbdsdc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsdc(
     matrix_layout: c_int,
     uplo: c_char,
@@ -75,6 +79,7 @@ pub unsafe fn LAPACKE_dbdsdc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsqr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -109,6 +114,7 @@ pub unsafe fn LAPACKE_sbdsqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsqr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -143,6 +149,7 @@ pub unsafe fn LAPACKE_dbdsqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cbdsqr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -177,6 +184,7 @@ pub unsafe fn LAPACKE_cbdsqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zbdsqr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -211,6 +219,7 @@ pub unsafe fn LAPACKE_zbdsqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsvdx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -249,6 +258,7 @@ pub unsafe fn LAPACKE_sbdsvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsvdx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -287,6 +297,7 @@ pub unsafe fn LAPACKE_dbdsvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sdisna(
     job: c_char,
     m: lapack_int,
@@ -297,6 +308,7 @@ pub unsafe fn LAPACKE_sdisna(
     dyload_lib().LAPACKE_sdisna.unwrap()(job, m, n, d, sep)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ddisna(
     job: c_char,
     m: lapack_int,
@@ -307,6 +319,7 @@ pub unsafe fn LAPACKE_ddisna(
     dyload_lib().LAPACKE_ddisna.unwrap()(job, m, n, d, sep)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbbrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -347,6 +360,7 @@ pub unsafe fn LAPACKE_sgbbrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbbrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -387,6 +401,7 @@ pub unsafe fn LAPACKE_dgbbrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbbrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -427,6 +442,7 @@ pub unsafe fn LAPACKE_cgbbrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbbrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -467,6 +483,7 @@ pub unsafe fn LAPACKE_zgbbrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -493,6 +510,7 @@ pub unsafe fn LAPACKE_sgbcon(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -519,6 +537,7 @@ pub unsafe fn LAPACKE_dgbcon(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -545,6 +564,7 @@ pub unsafe fn LAPACKE_cgbcon(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -571,6 +591,7 @@ pub unsafe fn LAPACKE_zgbcon(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -601,6 +622,7 @@ pub unsafe fn LAPACKE_sgbequ(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -631,6 +653,7 @@ pub unsafe fn LAPACKE_dgbequ(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -661,6 +684,7 @@ pub unsafe fn LAPACKE_cgbequ(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -691,6 +715,7 @@ pub unsafe fn LAPACKE_zgbequ(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -721,6 +746,7 @@ pub unsafe fn LAPACKE_sgbequb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -751,6 +777,7 @@ pub unsafe fn LAPACKE_dgbequb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -781,6 +808,7 @@ pub unsafe fn LAPACKE_cgbequb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -811,6 +839,7 @@ pub unsafe fn LAPACKE_zgbequb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -851,6 +880,7 @@ pub unsafe fn LAPACKE_sgbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -891,6 +921,7 @@ pub unsafe fn LAPACKE_dgbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -931,6 +962,7 @@ pub unsafe fn LAPACKE_cgbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -971,6 +1003,7 @@ pub unsafe fn LAPACKE_zgbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbrfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -1027,6 +1060,7 @@ pub unsafe fn LAPACKE_sgbrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbrfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -1083,6 +1117,7 @@ pub unsafe fn LAPACKE_dgbrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbrfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -1139,6 +1174,7 @@ pub unsafe fn LAPACKE_cgbrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbrfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -1195,6 +1231,7 @@ pub unsafe fn LAPACKE_zgbrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -1210,6 +1247,7 @@ pub unsafe fn LAPACKE_sgbsv(
     dyload_lib().LAPACKE_sgbsv.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -1225,6 +1263,7 @@ pub unsafe fn LAPACKE_dgbsv(
     dyload_lib().LAPACKE_dgbsv.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -1240,6 +1279,7 @@ pub unsafe fn LAPACKE_cgbsv(
     dyload_lib().LAPACKE_cgbsv.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -1255,6 +1295,7 @@ pub unsafe fn LAPACKE_zgbsv(
     dyload_lib().LAPACKE_zgbsv.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1307,6 +1348,7 @@ pub unsafe fn LAPACKE_sgbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1359,6 +1401,7 @@ pub unsafe fn LAPACKE_dgbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1411,6 +1454,7 @@ pub unsafe fn LAPACKE_cgbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1463,6 +1507,7 @@ pub unsafe fn LAPACKE_zgbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1523,6 +1568,7 @@ pub unsafe fn LAPACKE_sgbsvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1583,6 +1629,7 @@ pub unsafe fn LAPACKE_dgbsvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1643,6 +1690,7 @@ pub unsafe fn LAPACKE_cgbsvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -1703,6 +1751,7 @@ pub unsafe fn LAPACKE_zgbsvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbtrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -1716,6 +1765,7 @@ pub unsafe fn LAPACKE_sgbtrf(
     dyload_lib().LAPACKE_sgbtrf.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbtrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -1729,6 +1779,7 @@ pub unsafe fn LAPACKE_dgbtrf(
     dyload_lib().LAPACKE_dgbtrf.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbtrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -1742,6 +1793,7 @@ pub unsafe fn LAPACKE_cgbtrf(
     dyload_lib().LAPACKE_cgbtrf.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbtrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -1755,6 +1807,7 @@ pub unsafe fn LAPACKE_zgbtrf(
     dyload_lib().LAPACKE_zgbtrf.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbtrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -1783,6 +1836,7 @@ pub unsafe fn LAPACKE_sgbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbtrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -1811,6 +1865,7 @@ pub unsafe fn LAPACKE_dgbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbtrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -1839,6 +1894,7 @@ pub unsafe fn LAPACKE_cgbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbtrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -1867,6 +1923,7 @@ pub unsafe fn LAPACKE_zgbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebak(
     matrix_layout: c_int,
     job: c_char,
@@ -1882,6 +1939,7 @@ pub unsafe fn LAPACKE_sgebak(
     dyload_lib().LAPACKE_sgebak.unwrap()(matrix_layout, job, side, n, ilo, ihi, scale, m, v, ldv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebak(
     matrix_layout: c_int,
     job: c_char,
@@ -1897,6 +1955,7 @@ pub unsafe fn LAPACKE_dgebak(
     dyload_lib().LAPACKE_dgebak.unwrap()(matrix_layout, job, side, n, ilo, ihi, scale, m, v, ldv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebak(
     matrix_layout: c_int,
     job: c_char,
@@ -1912,6 +1971,7 @@ pub unsafe fn LAPACKE_cgebak(
     dyload_lib().LAPACKE_cgebak.unwrap()(matrix_layout, job, side, n, ilo, ihi, scale, m, v, ldv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebak(
     matrix_layout: c_int,
     job: c_char,
@@ -1927,6 +1987,7 @@ pub unsafe fn LAPACKE_zgebak(
     dyload_lib().LAPACKE_zgebak.unwrap()(matrix_layout, job, side, n, ilo, ihi, scale, m, v, ldv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebal(
     matrix_layout: c_int,
     job: c_char,
@@ -1940,6 +2001,7 @@ pub unsafe fn LAPACKE_sgebal(
     dyload_lib().LAPACKE_sgebal.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebal(
     matrix_layout: c_int,
     job: c_char,
@@ -1953,6 +2015,7 @@ pub unsafe fn LAPACKE_dgebal(
     dyload_lib().LAPACKE_dgebal.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebal(
     matrix_layout: c_int,
     job: c_char,
@@ -1966,6 +2029,7 @@ pub unsafe fn LAPACKE_cgebal(
     dyload_lib().LAPACKE_cgebal.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebal(
     matrix_layout: c_int,
     job: c_char,
@@ -1979,6 +2043,7 @@ pub unsafe fn LAPACKE_zgebal(
     dyload_lib().LAPACKE_zgebal.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebrd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -1993,6 +2058,7 @@ pub unsafe fn LAPACKE_sgebrd(
     dyload_lib().LAPACKE_sgebrd.unwrap()(matrix_layout, m, n, a, lda, d, e, tauq, taup)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebrd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2007,6 +2073,7 @@ pub unsafe fn LAPACKE_dgebrd(
     dyload_lib().LAPACKE_dgebrd.unwrap()(matrix_layout, m, n, a, lda, d, e, tauq, taup)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebrd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2021,6 +2088,7 @@ pub unsafe fn LAPACKE_cgebrd(
     dyload_lib().LAPACKE_cgebrd.unwrap()(matrix_layout, m, n, a, lda, d, e, tauq, taup)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebrd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2035,6 +2103,7 @@ pub unsafe fn LAPACKE_zgebrd(
     dyload_lib().LAPACKE_zgebrd.unwrap()(matrix_layout, m, n, a, lda, d, e, tauq, taup)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgecon(
     matrix_layout: c_int,
     norm: c_char,
@@ -2047,6 +2116,7 @@ pub unsafe fn LAPACKE_sgecon(
     dyload_lib().LAPACKE_sgecon.unwrap()(matrix_layout, norm, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgecon(
     matrix_layout: c_int,
     norm: c_char,
@@ -2059,6 +2129,7 @@ pub unsafe fn LAPACKE_dgecon(
     dyload_lib().LAPACKE_dgecon.unwrap()(matrix_layout, norm, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgecon(
     matrix_layout: c_int,
     norm: c_char,
@@ -2071,6 +2142,7 @@ pub unsafe fn LAPACKE_cgecon(
     dyload_lib().LAPACKE_cgecon.unwrap()(matrix_layout, norm, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgecon(
     matrix_layout: c_int,
     norm: c_char,
@@ -2083,6 +2155,7 @@ pub unsafe fn LAPACKE_zgecon(
     dyload_lib().LAPACKE_zgecon.unwrap()(matrix_layout, norm, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2098,6 +2171,7 @@ pub unsafe fn LAPACKE_sgeequ(
     dyload_lib().LAPACKE_sgeequ.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2113,6 +2187,7 @@ pub unsafe fn LAPACKE_dgeequ(
     dyload_lib().LAPACKE_dgeequ.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2128,6 +2203,7 @@ pub unsafe fn LAPACKE_cgeequ(
     dyload_lib().LAPACKE_cgeequ.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeequ(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2143,6 +2219,7 @@ pub unsafe fn LAPACKE_zgeequ(
     dyload_lib().LAPACKE_zgeequ.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2158,6 +2235,7 @@ pub unsafe fn LAPACKE_sgeequb(
     dyload_lib().LAPACKE_sgeequb.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2173,6 +2251,7 @@ pub unsafe fn LAPACKE_dgeequb(
     dyload_lib().LAPACKE_dgeequb.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2188,6 +2267,7 @@ pub unsafe fn LAPACKE_cgeequb(
     dyload_lib().LAPACKE_cgeequb.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeequb(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2203,6 +2283,7 @@ pub unsafe fn LAPACKE_zgeequb(
     dyload_lib().LAPACKE_zgeequb.unwrap()(matrix_layout, m, n, a, lda, r, c, rowcnd, colcnd, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgees(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2233,6 +2314,7 @@ pub unsafe fn LAPACKE_sgees(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgees(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2263,6 +2345,7 @@ pub unsafe fn LAPACKE_dgees(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgees(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2291,6 +2374,7 @@ pub unsafe fn LAPACKE_cgees(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgees(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2319,6 +2403,7 @@ pub unsafe fn LAPACKE_zgees(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeesx(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2355,6 +2440,7 @@ pub unsafe fn LAPACKE_sgeesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeesx(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2391,6 +2477,7 @@ pub unsafe fn LAPACKE_dgeesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeesx(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2425,6 +2512,7 @@ pub unsafe fn LAPACKE_cgeesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeesx(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -2459,6 +2547,7 @@ pub unsafe fn LAPACKE_zgeesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -2489,6 +2578,7 @@ pub unsafe fn LAPACKE_sgeev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -2519,6 +2609,7 @@ pub unsafe fn LAPACKE_dgeev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -2547,6 +2638,7 @@ pub unsafe fn LAPACKE_cgeev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -2575,6 +2667,7 @@ pub unsafe fn LAPACKE_zgeev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -2621,6 +2714,7 @@ pub unsafe fn LAPACKE_sgeevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -2667,6 +2761,7 @@ pub unsafe fn LAPACKE_dgeevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -2711,6 +2806,7 @@ pub unsafe fn LAPACKE_cgeevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -2755,6 +2851,7 @@ pub unsafe fn LAPACKE_zgeevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgehrd(
     matrix_layout: c_int,
     n: lapack_int,
@@ -2767,6 +2864,7 @@ pub unsafe fn LAPACKE_sgehrd(
     dyload_lib().LAPACKE_sgehrd.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgehrd(
     matrix_layout: c_int,
     n: lapack_int,
@@ -2779,6 +2877,7 @@ pub unsafe fn LAPACKE_dgehrd(
     dyload_lib().LAPACKE_dgehrd.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgehrd(
     matrix_layout: c_int,
     n: lapack_int,
@@ -2791,6 +2890,7 @@ pub unsafe fn LAPACKE_cgehrd(
     dyload_lib().LAPACKE_cgehrd.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgehrd(
     matrix_layout: c_int,
     n: lapack_int,
@@ -2803,6 +2903,7 @@ pub unsafe fn LAPACKE_zgehrd(
     dyload_lib().LAPACKE_zgehrd.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgejsv(
     matrix_layout: c_int,
     joba: c_char,
@@ -2845,6 +2946,7 @@ pub unsafe fn LAPACKE_sgejsv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgejsv(
     matrix_layout: c_int,
     joba: c_char,
@@ -2887,6 +2989,7 @@ pub unsafe fn LAPACKE_dgejsv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgejsv(
     matrix_layout: c_int,
     joba: c_char,
@@ -2929,6 +3032,7 @@ pub unsafe fn LAPACKE_cgejsv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgejsv(
     matrix_layout: c_int,
     joba: c_char,
@@ -2971,6 +3075,7 @@ pub unsafe fn LAPACKE_zgejsv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelq2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2982,6 +3087,7 @@ pub unsafe fn LAPACKE_sgelq2(
     dyload_lib().LAPACKE_sgelq2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelq2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -2993,6 +3099,7 @@ pub unsafe fn LAPACKE_dgelq2(
     dyload_lib().LAPACKE_dgelq2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelq2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3004,6 +3111,7 @@ pub unsafe fn LAPACKE_cgelq2(
     dyload_lib().LAPACKE_cgelq2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelq2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3015,6 +3123,7 @@ pub unsafe fn LAPACKE_zgelq2(
     dyload_lib().LAPACKE_zgelq2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3026,6 +3135,7 @@ pub unsafe fn LAPACKE_sgelqf(
     dyload_lib().LAPACKE_sgelqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3037,6 +3147,7 @@ pub unsafe fn LAPACKE_dgelqf(
     dyload_lib().LAPACKE_dgelqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3048,6 +3159,7 @@ pub unsafe fn LAPACKE_cgelqf(
     dyload_lib().LAPACKE_cgelqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3059,6 +3171,7 @@ pub unsafe fn LAPACKE_zgelqf(
     dyload_lib().LAPACKE_zgelqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgels(
     matrix_layout: c_int,
     trans: c_char,
@@ -3073,6 +3186,7 @@ pub unsafe fn LAPACKE_sgels(
     dyload_lib().LAPACKE_sgels.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgels(
     matrix_layout: c_int,
     trans: c_char,
@@ -3087,6 +3201,7 @@ pub unsafe fn LAPACKE_dgels(
     dyload_lib().LAPACKE_dgels.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgels(
     matrix_layout: c_int,
     trans: c_char,
@@ -3101,6 +3216,7 @@ pub unsafe fn LAPACKE_cgels(
     dyload_lib().LAPACKE_cgels.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgels(
     matrix_layout: c_int,
     trans: c_char,
@@ -3115,6 +3231,7 @@ pub unsafe fn LAPACKE_zgels(
     dyload_lib().LAPACKE_zgels.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelsd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3131,6 +3248,7 @@ pub unsafe fn LAPACKE_sgelsd(
     dyload_lib().LAPACKE_sgelsd.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelsd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3147,6 +3265,7 @@ pub unsafe fn LAPACKE_dgelsd(
     dyload_lib().LAPACKE_dgelsd.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelsd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3163,6 +3282,7 @@ pub unsafe fn LAPACKE_cgelsd(
     dyload_lib().LAPACKE_cgelsd.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelsd(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3179,6 +3299,7 @@ pub unsafe fn LAPACKE_zgelsd(
     dyload_lib().LAPACKE_zgelsd.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelss(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3195,6 +3316,7 @@ pub unsafe fn LAPACKE_sgelss(
     dyload_lib().LAPACKE_sgelss.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelss(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3211,6 +3333,7 @@ pub unsafe fn LAPACKE_dgelss(
     dyload_lib().LAPACKE_dgelss.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelss(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3227,6 +3350,7 @@ pub unsafe fn LAPACKE_cgelss(
     dyload_lib().LAPACKE_cgelss.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelss(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3243,6 +3367,7 @@ pub unsafe fn LAPACKE_zgelss(
     dyload_lib().LAPACKE_zgelss.unwrap()(matrix_layout, m, n, nrhs, a, lda, b, ldb, s, rcond, rank)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelsy(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3271,6 +3396,7 @@ pub unsafe fn LAPACKE_sgelsy(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelsy(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3299,6 +3425,7 @@ pub unsafe fn LAPACKE_dgelsy(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelsy(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3327,6 +3454,7 @@ pub unsafe fn LAPACKE_cgelsy(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelsy(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3355,6 +3483,7 @@ pub unsafe fn LAPACKE_zgelsy(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqlf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3366,6 +3495,7 @@ pub unsafe fn LAPACKE_sgeqlf(
     dyload_lib().LAPACKE_sgeqlf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqlf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3377,6 +3507,7 @@ pub unsafe fn LAPACKE_dgeqlf(
     dyload_lib().LAPACKE_dgeqlf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqlf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3388,6 +3519,7 @@ pub unsafe fn LAPACKE_cgeqlf(
     dyload_lib().LAPACKE_cgeqlf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqlf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3399,6 +3531,7 @@ pub unsafe fn LAPACKE_zgeqlf(
     dyload_lib().LAPACKE_zgeqlf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqp3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3411,6 +3544,7 @@ pub unsafe fn LAPACKE_sgeqp3(
     dyload_lib().LAPACKE_sgeqp3.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqp3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3423,6 +3557,7 @@ pub unsafe fn LAPACKE_dgeqp3(
     dyload_lib().LAPACKE_dgeqp3.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqp3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3435,6 +3570,7 @@ pub unsafe fn LAPACKE_cgeqp3(
     dyload_lib().LAPACKE_cgeqp3.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqp3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3447,6 +3583,7 @@ pub unsafe fn LAPACKE_zgeqp3(
     dyload_lib().LAPACKE_zgeqp3.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqpf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3459,6 +3596,7 @@ pub unsafe fn LAPACKE_sgeqpf(
     dyload_lib().LAPACKE_sgeqpf.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqpf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3471,6 +3609,7 @@ pub unsafe fn LAPACKE_dgeqpf(
     dyload_lib().LAPACKE_dgeqpf.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqpf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3483,6 +3622,7 @@ pub unsafe fn LAPACKE_cgeqpf(
     dyload_lib().LAPACKE_cgeqpf.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqpf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3495,6 +3635,7 @@ pub unsafe fn LAPACKE_zgeqpf(
     dyload_lib().LAPACKE_zgeqpf.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqr2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3506,6 +3647,7 @@ pub unsafe fn LAPACKE_sgeqr2(
     dyload_lib().LAPACKE_sgeqr2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqr2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3517,6 +3659,7 @@ pub unsafe fn LAPACKE_dgeqr2(
     dyload_lib().LAPACKE_dgeqr2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqr2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3528,6 +3671,7 @@ pub unsafe fn LAPACKE_cgeqr2(
     dyload_lib().LAPACKE_cgeqr2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqr2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3539,6 +3683,7 @@ pub unsafe fn LAPACKE_zgeqr2(
     dyload_lib().LAPACKE_zgeqr2.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3550,6 +3695,7 @@ pub unsafe fn LAPACKE_sgeqrf(
     dyload_lib().LAPACKE_sgeqrf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3561,6 +3707,7 @@ pub unsafe fn LAPACKE_dgeqrf(
     dyload_lib().LAPACKE_dgeqrf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3572,6 +3719,7 @@ pub unsafe fn LAPACKE_cgeqrf(
     dyload_lib().LAPACKE_cgeqrf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3583,6 +3731,7 @@ pub unsafe fn LAPACKE_zgeqrf(
     dyload_lib().LAPACKE_zgeqrf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrfp(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3594,6 +3743,7 @@ pub unsafe fn LAPACKE_sgeqrfp(
     dyload_lib().LAPACKE_sgeqrfp.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrfp(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3605,6 +3755,7 @@ pub unsafe fn LAPACKE_dgeqrfp(
     dyload_lib().LAPACKE_dgeqrfp.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrfp(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3616,6 +3767,7 @@ pub unsafe fn LAPACKE_cgeqrfp(
     dyload_lib().LAPACKE_cgeqrfp.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrfp(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3627,6 +3779,7 @@ pub unsafe fn LAPACKE_zgeqrfp(
     dyload_lib().LAPACKE_zgeqrfp.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -3663,6 +3816,7 @@ pub unsafe fn LAPACKE_sgerfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -3699,6 +3853,7 @@ pub unsafe fn LAPACKE_dgerfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -3735,6 +3890,7 @@ pub unsafe fn LAPACKE_cgerfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -3771,6 +3927,7 @@ pub unsafe fn LAPACKE_zgerfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -3823,6 +3980,7 @@ pub unsafe fn LAPACKE_sgerfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -3875,6 +4033,7 @@ pub unsafe fn LAPACKE_dgerfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -3927,6 +4086,7 @@ pub unsafe fn LAPACKE_cgerfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerfsx(
     matrix_layout: c_int,
     trans: c_char,
@@ -3979,6 +4139,7 @@ pub unsafe fn LAPACKE_zgerfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -3990,6 +4151,7 @@ pub unsafe fn LAPACKE_sgerqf(
     dyload_lib().LAPACKE_sgerqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -4001,6 +4163,7 @@ pub unsafe fn LAPACKE_dgerqf(
     dyload_lib().LAPACKE_dgerqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -4012,6 +4175,7 @@ pub unsafe fn LAPACKE_cgerqf(
     dyload_lib().LAPACKE_cgerqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -4023,6 +4187,7 @@ pub unsafe fn LAPACKE_zgerqf(
     dyload_lib().LAPACKE_zgerqf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesdd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -4039,6 +4204,7 @@ pub unsafe fn LAPACKE_sgesdd(
     dyload_lib().LAPACKE_sgesdd.unwrap()(matrix_layout, jobz, m, n, a, lda, s, u, ldu, vt, ldvt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesdd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -4055,6 +4221,7 @@ pub unsafe fn LAPACKE_dgesdd(
     dyload_lib().LAPACKE_dgesdd.unwrap()(matrix_layout, jobz, m, n, a, lda, s, u, ldu, vt, ldvt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesdd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -4071,6 +4238,7 @@ pub unsafe fn LAPACKE_cgesdd(
     dyload_lib().LAPACKE_cgesdd.unwrap()(matrix_layout, jobz, m, n, a, lda, s, u, ldu, vt, ldvt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesdd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -4087,6 +4255,7 @@ pub unsafe fn LAPACKE_zgesdd(
     dyload_lib().LAPACKE_zgesdd.unwrap()(matrix_layout, jobz, m, n, a, lda, s, u, ldu, vt, ldvt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4100,6 +4269,7 @@ pub unsafe fn LAPACKE_sgesv(
     dyload_lib().LAPACKE_sgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4113,6 +4283,7 @@ pub unsafe fn LAPACKE_dgesv(
     dyload_lib().LAPACKE_dgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4126,6 +4297,7 @@ pub unsafe fn LAPACKE_cgesv(
     dyload_lib().LAPACKE_cgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4139,6 +4311,7 @@ pub unsafe fn LAPACKE_zgesv(
     dyload_lib().LAPACKE_zgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4155,6 +4328,7 @@ pub unsafe fn LAPACKE_dsgesv(
     dyload_lib().LAPACKE_dsgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb, x, ldx, iter)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zcgesv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -4171,6 +4345,7 @@ pub unsafe fn LAPACKE_zcgesv(
     dyload_lib().LAPACKE_zcgesv.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb, x, ldx, iter)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4203,6 +4378,7 @@ pub unsafe fn LAPACKE_sgesvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4235,6 +4411,7 @@ pub unsafe fn LAPACKE_dgesvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4267,6 +4444,7 @@ pub unsafe fn LAPACKE_cgesvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4299,6 +4477,7 @@ pub unsafe fn LAPACKE_zgesvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvdx(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4343,6 +4522,7 @@ pub unsafe fn LAPACKE_sgesvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvdx(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4387,6 +4567,7 @@ pub unsafe fn LAPACKE_dgesvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvdx(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4431,6 +4612,7 @@ pub unsafe fn LAPACKE_cgesvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvdx(
     matrix_layout: c_int,
     jobu: c_char,
@@ -4475,6 +4657,7 @@ pub unsafe fn LAPACKE_zgesvdx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvdq(
     matrix_layout: c_int,
     joba: c_char,
@@ -4513,6 +4696,7 @@ pub unsafe fn LAPACKE_sgesvdq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvdq(
     matrix_layout: c_int,
     joba: c_char,
@@ -4551,6 +4735,7 @@ pub unsafe fn LAPACKE_dgesvdq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvdq(
     matrix_layout: c_int,
     joba: c_char,
@@ -4589,6 +4774,7 @@ pub unsafe fn LAPACKE_cgesvdq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvdq(
     matrix_layout: c_int,
     joba: c_char,
@@ -4627,6 +4813,7 @@ pub unsafe fn LAPACKE_zgesvdq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvj(
     matrix_layout: c_int,
     joba: c_char,
@@ -4659,6 +4846,7 @@ pub unsafe fn LAPACKE_sgesvj(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvj(
     matrix_layout: c_int,
     joba: c_char,
@@ -4691,6 +4879,7 @@ pub unsafe fn LAPACKE_dgesvj(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvj(
     matrix_layout: c_int,
     joba: c_char,
@@ -4723,6 +4912,7 @@ pub unsafe fn LAPACKE_cgesvj(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvj(
     matrix_layout: c_int,
     joba: c_char,
@@ -4755,6 +4945,7 @@ pub unsafe fn LAPACKE_zgesvj(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -4803,6 +4994,7 @@ pub unsafe fn LAPACKE_sgesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -4851,6 +5043,7 @@ pub unsafe fn LAPACKE_dgesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -4899,6 +5092,7 @@ pub unsafe fn LAPACKE_cgesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -4947,6 +5141,7 @@ pub unsafe fn LAPACKE_zgesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -5003,6 +5198,7 @@ pub unsafe fn LAPACKE_sgesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -5059,6 +5255,7 @@ pub unsafe fn LAPACKE_dgesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -5115,6 +5312,7 @@ pub unsafe fn LAPACKE_cgesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -5171,6 +5369,7 @@ pub unsafe fn LAPACKE_zgesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5182,6 +5381,7 @@ pub unsafe fn LAPACKE_sgetf2(
     dyload_lib().LAPACKE_sgetf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5193,6 +5393,7 @@ pub unsafe fn LAPACKE_dgetf2(
     dyload_lib().LAPACKE_dgetf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5204,6 +5405,7 @@ pub unsafe fn LAPACKE_cgetf2(
     dyload_lib().LAPACKE_cgetf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5215,6 +5417,7 @@ pub unsafe fn LAPACKE_zgetf2(
     dyload_lib().LAPACKE_zgetf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5226,6 +5429,7 @@ pub unsafe fn LAPACKE_sgetrf(
     dyload_lib().LAPACKE_sgetrf.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5237,6 +5441,7 @@ pub unsafe fn LAPACKE_dgetrf(
     dyload_lib().LAPACKE_dgetrf.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5248,6 +5453,7 @@ pub unsafe fn LAPACKE_cgetrf(
     dyload_lib().LAPACKE_cgetrf.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5259,6 +5465,7 @@ pub unsafe fn LAPACKE_zgetrf(
     dyload_lib().LAPACKE_zgetrf.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5270,6 +5477,7 @@ pub unsafe fn LAPACKE_sgetrf2(
     dyload_lib().LAPACKE_sgetrf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5281,6 +5489,7 @@ pub unsafe fn LAPACKE_dgetrf2(
     dyload_lib().LAPACKE_dgetrf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5292,6 +5501,7 @@ pub unsafe fn LAPACKE_cgetrf2(
     dyload_lib().LAPACKE_cgetrf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrf2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -5303,6 +5513,7 @@ pub unsafe fn LAPACKE_zgetrf2(
     dyload_lib().LAPACKE_zgetrf2.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetri(
     matrix_layout: c_int,
     n: lapack_int,
@@ -5313,6 +5524,7 @@ pub unsafe fn LAPACKE_sgetri(
     dyload_lib().LAPACKE_sgetri.unwrap()(matrix_layout, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetri(
     matrix_layout: c_int,
     n: lapack_int,
@@ -5323,6 +5535,7 @@ pub unsafe fn LAPACKE_dgetri(
     dyload_lib().LAPACKE_dgetri.unwrap()(matrix_layout, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetri(
     matrix_layout: c_int,
     n: lapack_int,
@@ -5333,6 +5546,7 @@ pub unsafe fn LAPACKE_cgetri(
     dyload_lib().LAPACKE_cgetri.unwrap()(matrix_layout, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetri(
     matrix_layout: c_int,
     n: lapack_int,
@@ -5343,6 +5557,7 @@ pub unsafe fn LAPACKE_zgetri(
     dyload_lib().LAPACKE_zgetri.unwrap()(matrix_layout, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -5357,6 +5572,7 @@ pub unsafe fn LAPACKE_sgetrs(
     dyload_lib().LAPACKE_sgetrs.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -5371,6 +5587,7 @@ pub unsafe fn LAPACKE_dgetrs(
     dyload_lib().LAPACKE_dgetrs.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -5385,6 +5602,7 @@ pub unsafe fn LAPACKE_cgetrs(
     dyload_lib().LAPACKE_cgetrs.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -5399,6 +5617,7 @@ pub unsafe fn LAPACKE_zgetrs(
     dyload_lib().LAPACKE_zgetrs.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggbak(
     matrix_layout: c_int,
     job: c_char,
@@ -5427,6 +5646,7 @@ pub unsafe fn LAPACKE_sggbak(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggbak(
     matrix_layout: c_int,
     job: c_char,
@@ -5455,6 +5675,7 @@ pub unsafe fn LAPACKE_dggbak(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggbak(
     matrix_layout: c_int,
     job: c_char,
@@ -5483,6 +5704,7 @@ pub unsafe fn LAPACKE_cggbak(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggbak(
     matrix_layout: c_int,
     job: c_char,
@@ -5511,6 +5733,7 @@ pub unsafe fn LAPACKE_zggbak(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggbal(
     matrix_layout: c_int,
     job: c_char,
@@ -5539,6 +5762,7 @@ pub unsafe fn LAPACKE_sggbal(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggbal(
     matrix_layout: c_int,
     job: c_char,
@@ -5567,6 +5791,7 @@ pub unsafe fn LAPACKE_dggbal(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggbal(
     matrix_layout: c_int,
     job: c_char,
@@ -5595,6 +5820,7 @@ pub unsafe fn LAPACKE_cggbal(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggbal(
     matrix_layout: c_int,
     job: c_char,
@@ -5623,6 +5849,7 @@ pub unsafe fn LAPACKE_zggbal(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgges(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5665,6 +5892,7 @@ pub unsafe fn LAPACKE_sgges(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgges(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5707,6 +5935,7 @@ pub unsafe fn LAPACKE_dgges(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgges(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5747,6 +5976,7 @@ pub unsafe fn LAPACKE_cgges(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgges(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5787,6 +6017,7 @@ pub unsafe fn LAPACKE_zgges(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgges3(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5829,6 +6060,7 @@ pub unsafe fn LAPACKE_sgges3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgges3(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5871,6 +6103,7 @@ pub unsafe fn LAPACKE_dgges3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgges3(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5911,6 +6144,7 @@ pub unsafe fn LAPACKE_cgges3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgges3(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5951,6 +6185,7 @@ pub unsafe fn LAPACKE_zgges3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggesx(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -5999,6 +6234,7 @@ pub unsafe fn LAPACKE_sggesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggesx(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -6047,6 +6283,7 @@ pub unsafe fn LAPACKE_dggesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggesx(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -6093,6 +6330,7 @@ pub unsafe fn LAPACKE_cggesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggesx(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -6139,6 +6377,7 @@ pub unsafe fn LAPACKE_zggesx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6175,6 +6414,7 @@ pub unsafe fn LAPACKE_sggev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6211,6 +6451,7 @@ pub unsafe fn LAPACKE_dggev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6245,6 +6486,7 @@ pub unsafe fn LAPACKE_cggev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggev(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6279,6 +6521,7 @@ pub unsafe fn LAPACKE_zggev(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggev3(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6315,6 +6558,7 @@ pub unsafe fn LAPACKE_sggev3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggev3(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6351,6 +6595,7 @@ pub unsafe fn LAPACKE_dggev3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggev3(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6385,6 +6630,7 @@ pub unsafe fn LAPACKE_cggev3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggev3(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -6419,6 +6665,7 @@ pub unsafe fn LAPACKE_zggev3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -6475,6 +6722,7 @@ pub unsafe fn LAPACKE_sggevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -6531,6 +6779,7 @@ pub unsafe fn LAPACKE_dggevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -6585,6 +6834,7 @@ pub unsafe fn LAPACKE_cggevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggevx(
     matrix_layout: c_int,
     balanc: c_char,
@@ -6639,6 +6889,7 @@ pub unsafe fn LAPACKE_zggevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggglm(
     matrix_layout: c_int,
     n: lapack_int,
@@ -6655,6 +6906,7 @@ pub unsafe fn LAPACKE_sggglm(
     dyload_lib().LAPACKE_sggglm.unwrap()(matrix_layout, n, m, p, a, lda, b, ldb, d, x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggglm(
     matrix_layout: c_int,
     n: lapack_int,
@@ -6671,6 +6923,7 @@ pub unsafe fn LAPACKE_dggglm(
     dyload_lib().LAPACKE_dggglm.unwrap()(matrix_layout, n, m, p, a, lda, b, ldb, d, x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggglm(
     matrix_layout: c_int,
     n: lapack_int,
@@ -6687,6 +6940,7 @@ pub unsafe fn LAPACKE_cggglm(
     dyload_lib().LAPACKE_cggglm.unwrap()(matrix_layout, n, m, p, a, lda, b, ldb, d, x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggglm(
     matrix_layout: c_int,
     n: lapack_int,
@@ -6703,6 +6957,7 @@ pub unsafe fn LAPACKE_zggglm(
     dyload_lib().LAPACKE_zggglm.unwrap()(matrix_layout, n, m, p, a, lda, b, ldb, d, x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgghrd(
     matrix_layout: c_int,
     compq: c_char,
@@ -6737,6 +6992,7 @@ pub unsafe fn LAPACKE_sgghrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgghrd(
     matrix_layout: c_int,
     compq: c_char,
@@ -6771,6 +7027,7 @@ pub unsafe fn LAPACKE_dgghrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgghrd(
     matrix_layout: c_int,
     compq: c_char,
@@ -6805,6 +7062,7 @@ pub unsafe fn LAPACKE_cgghrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgghrd(
     matrix_layout: c_int,
     compq: c_char,
@@ -6839,6 +7097,7 @@ pub unsafe fn LAPACKE_zgghrd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgghd3(
     matrix_layout: c_int,
     compq: c_char,
@@ -6873,6 +7132,7 @@ pub unsafe fn LAPACKE_sgghd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgghd3(
     matrix_layout: c_int,
     compq: c_char,
@@ -6907,6 +7167,7 @@ pub unsafe fn LAPACKE_dgghd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgghd3(
     matrix_layout: c_int,
     compq: c_char,
@@ -6941,6 +7202,7 @@ pub unsafe fn LAPACKE_cgghd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgghd3(
     matrix_layout: c_int,
     compq: c_char,
@@ -6975,6 +7237,7 @@ pub unsafe fn LAPACKE_zgghd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgglse(
     matrix_layout: c_int,
     m: lapack_int,
@@ -6991,6 +7254,7 @@ pub unsafe fn LAPACKE_sgglse(
     dyload_lib().LAPACKE_sgglse.unwrap()(matrix_layout, m, n, p, a, lda, b, ldb, c, d, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgglse(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7007,6 +7271,7 @@ pub unsafe fn LAPACKE_dgglse(
     dyload_lib().LAPACKE_dgglse.unwrap()(matrix_layout, m, n, p, a, lda, b, ldb, c, d, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgglse(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7023,6 +7288,7 @@ pub unsafe fn LAPACKE_cgglse(
     dyload_lib().LAPACKE_cgglse.unwrap()(matrix_layout, m, n, p, a, lda, b, ldb, c, d, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgglse(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7039,6 +7305,7 @@ pub unsafe fn LAPACKE_zgglse(
     dyload_lib().LAPACKE_zgglse.unwrap()(matrix_layout, m, n, p, a, lda, b, ldb, c, d, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggqrf(
     matrix_layout: c_int,
     n: lapack_int,
@@ -7054,6 +7321,7 @@ pub unsafe fn LAPACKE_sggqrf(
     dyload_lib().LAPACKE_sggqrf.unwrap()(matrix_layout, n, m, p, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggqrf(
     matrix_layout: c_int,
     n: lapack_int,
@@ -7069,6 +7337,7 @@ pub unsafe fn LAPACKE_dggqrf(
     dyload_lib().LAPACKE_dggqrf.unwrap()(matrix_layout, n, m, p, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggqrf(
     matrix_layout: c_int,
     n: lapack_int,
@@ -7084,6 +7353,7 @@ pub unsafe fn LAPACKE_cggqrf(
     dyload_lib().LAPACKE_cggqrf.unwrap()(matrix_layout, n, m, p, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggqrf(
     matrix_layout: c_int,
     n: lapack_int,
@@ -7099,6 +7369,7 @@ pub unsafe fn LAPACKE_zggqrf(
     dyload_lib().LAPACKE_zggqrf.unwrap()(matrix_layout, n, m, p, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggrqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7114,6 +7385,7 @@ pub unsafe fn LAPACKE_sggrqf(
     dyload_lib().LAPACKE_sggrqf.unwrap()(matrix_layout, m, p, n, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggrqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7129,6 +7401,7 @@ pub unsafe fn LAPACKE_dggrqf(
     dyload_lib().LAPACKE_dggrqf.unwrap()(matrix_layout, m, p, n, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggrqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7144,6 +7417,7 @@ pub unsafe fn LAPACKE_cggrqf(
     dyload_lib().LAPACKE_cggrqf.unwrap()(matrix_layout, m, p, n, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggrqf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -7159,6 +7433,7 @@ pub unsafe fn LAPACKE_zggrqf(
     dyload_lib().LAPACKE_zggrqf.unwrap()(matrix_layout, m, p, n, a, lda, taua, b, ldb, taub)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7209,6 +7484,7 @@ pub unsafe fn LAPACKE_sggsvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7259,6 +7535,7 @@ pub unsafe fn LAPACKE_dggsvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7309,6 +7586,7 @@ pub unsafe fn LAPACKE_cggsvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvd(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7359,6 +7637,7 @@ pub unsafe fn LAPACKE_zggsvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvd3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7409,6 +7688,7 @@ pub unsafe fn LAPACKE_sggsvd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvd3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7459,6 +7739,7 @@ pub unsafe fn LAPACKE_dggsvd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvd3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7509,6 +7790,7 @@ pub unsafe fn LAPACKE_cggsvd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvd3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7559,6 +7841,7 @@ pub unsafe fn LAPACKE_zggsvd3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvp(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7607,6 +7890,7 @@ pub unsafe fn LAPACKE_sggsvp(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvp(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7655,6 +7939,7 @@ pub unsafe fn LAPACKE_dggsvp(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvp(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7703,6 +7988,7 @@ pub unsafe fn LAPACKE_cggsvp(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvp(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7751,6 +8037,7 @@ pub unsafe fn LAPACKE_zggsvp(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvp3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7799,6 +8086,7 @@ pub unsafe fn LAPACKE_sggsvp3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvp3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7847,6 +8135,7 @@ pub unsafe fn LAPACKE_dggsvp3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvp3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7895,6 +8184,7 @@ pub unsafe fn LAPACKE_cggsvp3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvp3(
     matrix_layout: c_int,
     jobu: c_char,
@@ -7943,6 +8233,7 @@ pub unsafe fn LAPACKE_zggsvp3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtcon(
     norm: c_char,
     n: lapack_int,
@@ -7957,6 +8248,7 @@ pub unsafe fn LAPACKE_sgtcon(
     dyload_lib().LAPACKE_sgtcon.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtcon(
     norm: c_char,
     n: lapack_int,
@@ -7971,6 +8263,7 @@ pub unsafe fn LAPACKE_dgtcon(
     dyload_lib().LAPACKE_dgtcon.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtcon(
     norm: c_char,
     n: lapack_int,
@@ -7985,6 +8278,7 @@ pub unsafe fn LAPACKE_cgtcon(
     dyload_lib().LAPACKE_cgtcon.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtcon(
     norm: c_char,
     n: lapack_int,
@@ -7999,6 +8293,7 @@ pub unsafe fn LAPACKE_zgtcon(
     dyload_lib().LAPACKE_zgtcon.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8041,6 +8336,7 @@ pub unsafe fn LAPACKE_sgtrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8083,6 +8379,7 @@ pub unsafe fn LAPACKE_dgtrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8125,6 +8422,7 @@ pub unsafe fn LAPACKE_cgtrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtrfs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8167,6 +8465,7 @@ pub unsafe fn LAPACKE_zgtrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -8180,6 +8479,7 @@ pub unsafe fn LAPACKE_sgtsv(
     dyload_lib().LAPACKE_sgtsv.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -8193,6 +8493,7 @@ pub unsafe fn LAPACKE_dgtsv(
     dyload_lib().LAPACKE_dgtsv.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -8206,6 +8507,7 @@ pub unsafe fn LAPACKE_cgtsv(
     dyload_lib().LAPACKE_cgtsv.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -8219,6 +8521,7 @@ pub unsafe fn LAPACKE_zgtsv(
     dyload_lib().LAPACKE_zgtsv.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -8265,6 +8568,7 @@ pub unsafe fn LAPACKE_sgtsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -8311,6 +8615,7 @@ pub unsafe fn LAPACKE_dgtsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -8357,6 +8662,7 @@ pub unsafe fn LAPACKE_cgtsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -8403,6 +8709,7 @@ pub unsafe fn LAPACKE_zgtsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgttrf(
     n: lapack_int,
     dl: *mut f32,
@@ -8414,6 +8721,7 @@ pub unsafe fn LAPACKE_sgttrf(
     dyload_lib().LAPACKE_sgttrf.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgttrf(
     n: lapack_int,
     dl: *mut f64,
@@ -8425,6 +8733,7 @@ pub unsafe fn LAPACKE_dgttrf(
     dyload_lib().LAPACKE_dgttrf.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgttrf(
     n: lapack_int,
     dl: *mut __BindgenComplex<f32>,
@@ -8436,6 +8745,7 @@ pub unsafe fn LAPACKE_cgttrf(
     dyload_lib().LAPACKE_cgttrf.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgttrf(
     n: lapack_int,
     dl: *mut __BindgenComplex<f64>,
@@ -8447,6 +8757,7 @@ pub unsafe fn LAPACKE_zgttrf(
     dyload_lib().LAPACKE_zgttrf.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgttrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8475,6 +8786,7 @@ pub unsafe fn LAPACKE_sgttrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgttrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8503,6 +8815,7 @@ pub unsafe fn LAPACKE_dgttrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgttrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8531,6 +8844,7 @@ pub unsafe fn LAPACKE_cgttrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgttrs(
     matrix_layout: c_int,
     trans: c_char,
@@ -8559,6 +8873,7 @@ pub unsafe fn LAPACKE_zgttrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8574,6 +8889,7 @@ pub unsafe fn LAPACKE_chbev(
     dyload_lib().LAPACKE_chbev.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8589,6 +8905,7 @@ pub unsafe fn LAPACKE_zhbev(
     dyload_lib().LAPACKE_zhbev.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8604,6 +8921,7 @@ pub unsafe fn LAPACKE_chbevd(
     dyload_lib().LAPACKE_chbevd.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8619,6 +8937,7 @@ pub unsafe fn LAPACKE_zhbevd(
     dyload_lib().LAPACKE_zhbevd.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8665,6 +8984,7 @@ pub unsafe fn LAPACKE_chbevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8711,6 +9031,7 @@ pub unsafe fn LAPACKE_zhbevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgst(
     matrix_layout: c_int,
     vect: c_char,
@@ -8741,6 +9062,7 @@ pub unsafe fn LAPACKE_chbgst(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgst(
     matrix_layout: c_int,
     vect: c_char,
@@ -8771,6 +9093,7 @@ pub unsafe fn LAPACKE_zhbgst(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgv(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8803,6 +9126,7 @@ pub unsafe fn LAPACKE_chbgv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgv(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8835,6 +9159,7 @@ pub unsafe fn LAPACKE_zhbgv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgvd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8867,6 +9192,7 @@ pub unsafe fn LAPACKE_chbgvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgvd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8899,6 +9225,7 @@ pub unsafe fn LAPACKE_zhbgvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgvx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -8951,6 +9278,7 @@ pub unsafe fn LAPACKE_chbgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgvx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9003,6 +9331,7 @@ pub unsafe fn LAPACKE_zhbgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbtrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -9019,6 +9348,7 @@ pub unsafe fn LAPACKE_chbtrd(
     dyload_lib().LAPACKE_chbtrd.unwrap()(matrix_layout, vect, uplo, n, kd, ab, ldab, d, e, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbtrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -9035,6 +9365,7 @@ pub unsafe fn LAPACKE_zhbtrd(
     dyload_lib().LAPACKE_zhbtrd.unwrap()(matrix_layout, vect, uplo, n, kd, ab, ldab, d, e, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_checon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9048,6 +9379,7 @@ pub unsafe fn LAPACKE_checon(
     dyload_lib().LAPACKE_checon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhecon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9061,6 +9393,7 @@ pub unsafe fn LAPACKE_zhecon(
     dyload_lib().LAPACKE_zhecon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9074,6 +9407,7 @@ pub unsafe fn LAPACKE_cheequb(
     dyload_lib().LAPACKE_cheequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9087,6 +9421,7 @@ pub unsafe fn LAPACKE_zheequb(
     dyload_lib().LAPACKE_zheequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9099,6 +9434,7 @@ pub unsafe fn LAPACKE_cheev(
     dyload_lib().LAPACKE_cheev.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9111,6 +9447,7 @@ pub unsafe fn LAPACKE_zheev(
     dyload_lib().LAPACKE_zheev.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9123,6 +9460,7 @@ pub unsafe fn LAPACKE_cheevd(
     dyload_lib().LAPACKE_cheevd.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9135,6 +9473,7 @@ pub unsafe fn LAPACKE_zheevd(
     dyload_lib().LAPACKE_zheevd.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9175,6 +9514,7 @@ pub unsafe fn LAPACKE_cheevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9215,6 +9555,7 @@ pub unsafe fn LAPACKE_zheevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9255,6 +9596,7 @@ pub unsafe fn LAPACKE_cheevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -9295,6 +9637,7 @@ pub unsafe fn LAPACKE_zheevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9308,6 +9651,7 @@ pub unsafe fn LAPACKE_chegst(
     dyload_lib().LAPACKE_chegst.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9321,6 +9665,7 @@ pub unsafe fn LAPACKE_zhegst(
     dyload_lib().LAPACKE_zhegst.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9336,6 +9681,7 @@ pub unsafe fn LAPACKE_chegv(
     dyload_lib().LAPACKE_chegv.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9351,6 +9697,7 @@ pub unsafe fn LAPACKE_zhegv(
     dyload_lib().LAPACKE_zhegv.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9366,6 +9713,7 @@ pub unsafe fn LAPACKE_chegvd(
     dyload_lib().LAPACKE_chegvd.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9381,6 +9729,7 @@ pub unsafe fn LAPACKE_zhegvd(
     dyload_lib().LAPACKE_zhegvd.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9427,6 +9776,7 @@ pub unsafe fn LAPACKE_chegvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -9473,6 +9823,7 @@ pub unsafe fn LAPACKE_zhegvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cherfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9509,6 +9860,7 @@ pub unsafe fn LAPACKE_cherfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zherfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9545,6 +9897,7 @@ pub unsafe fn LAPACKE_zherfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cherfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9595,6 +9948,7 @@ pub unsafe fn LAPACKE_cherfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zherfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9645,6 +9999,7 @@ pub unsafe fn LAPACKE_zherfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9659,6 +10014,7 @@ pub unsafe fn LAPACKE_chesv(
     dyload_lib().LAPACKE_chesv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9673,6 +10029,7 @@ pub unsafe fn LAPACKE_zhesv(
     dyload_lib().LAPACKE_zhesv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -9713,6 +10070,7 @@ pub unsafe fn LAPACKE_chesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -9753,6 +10111,7 @@ pub unsafe fn LAPACKE_zhesvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -9807,6 +10166,7 @@ pub unsafe fn LAPACKE_chesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -9861,6 +10221,7 @@ pub unsafe fn LAPACKE_zhesvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9874,6 +10235,7 @@ pub unsafe fn LAPACKE_chetrd(
     dyload_lib().LAPACKE_chetrd.unwrap()(matrix_layout, uplo, n, a, lda, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9887,6 +10249,7 @@ pub unsafe fn LAPACKE_zhetrd(
     dyload_lib().LAPACKE_zhetrd.unwrap()(matrix_layout, uplo, n, a, lda, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9898,6 +10261,7 @@ pub unsafe fn LAPACKE_chetrf(
     dyload_lib().LAPACKE_chetrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9909,6 +10273,7 @@ pub unsafe fn LAPACKE_zhetrf(
     dyload_lib().LAPACKE_zhetrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9920,6 +10285,7 @@ pub unsafe fn LAPACKE_chetri(
     dyload_lib().LAPACKE_chetri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9931,6 +10297,7 @@ pub unsafe fn LAPACKE_zhetri(
     dyload_lib().LAPACKE_zhetri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9945,6 +10312,7 @@ pub unsafe fn LAPACKE_chetrs(
     dyload_lib().LAPACKE_chetrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -9959,6 +10327,7 @@ pub unsafe fn LAPACKE_zhetrs(
     dyload_lib().LAPACKE_zhetrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chfrk(
     matrix_layout: c_int,
     transr: c_char,
@@ -9987,6 +10356,7 @@ pub unsafe fn LAPACKE_chfrk(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhfrk(
     matrix_layout: c_int,
     transr: c_char,
@@ -10015,6 +10385,7 @@ pub unsafe fn LAPACKE_zhfrk(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shgeqz(
     matrix_layout: c_int,
     job: c_char,
@@ -10057,6 +10428,7 @@ pub unsafe fn LAPACKE_shgeqz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhgeqz(
     matrix_layout: c_int,
     job: c_char,
@@ -10099,6 +10471,7 @@ pub unsafe fn LAPACKE_dhgeqz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chgeqz(
     matrix_layout: c_int,
     job: c_char,
@@ -10139,6 +10512,7 @@ pub unsafe fn LAPACKE_chgeqz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhgeqz(
     matrix_layout: c_int,
     job: c_char,
@@ -10179,6 +10553,7 @@ pub unsafe fn LAPACKE_zhgeqz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10191,6 +10566,7 @@ pub unsafe fn LAPACKE_chpcon(
     dyload_lib().LAPACKE_chpcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10203,6 +10579,7 @@ pub unsafe fn LAPACKE_zhpcon(
     dyload_lib().LAPACKE_zhpcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10216,6 +10593,7 @@ pub unsafe fn LAPACKE_chpev(
     dyload_lib().LAPACKE_chpev.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10229,6 +10607,7 @@ pub unsafe fn LAPACKE_zhpev(
     dyload_lib().LAPACKE_zhpev.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10242,6 +10621,7 @@ pub unsafe fn LAPACKE_chpevd(
     dyload_lib().LAPACKE_chpevd.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10255,6 +10635,7 @@ pub unsafe fn LAPACKE_zhpevd(
     dyload_lib().LAPACKE_zhpevd.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10293,6 +10674,7 @@ pub unsafe fn LAPACKE_chpevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -10331,6 +10713,7 @@ pub unsafe fn LAPACKE_zhpevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10342,6 +10725,7 @@ pub unsafe fn LAPACKE_chpgst(
     dyload_lib().LAPACKE_chpgst.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10353,6 +10737,7 @@ pub unsafe fn LAPACKE_zhpgst(
     dyload_lib().LAPACKE_zhpgst.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10368,6 +10753,7 @@ pub unsafe fn LAPACKE_chpgv(
     dyload_lib().LAPACKE_chpgv.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10383,6 +10769,7 @@ pub unsafe fn LAPACKE_zhpgv(
     dyload_lib().LAPACKE_zhpgv.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10398,6 +10785,7 @@ pub unsafe fn LAPACKE_chpgvd(
     dyload_lib().LAPACKE_chpgvd.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10413,6 +10801,7 @@ pub unsafe fn LAPACKE_zhpgvd(
     dyload_lib().LAPACKE_zhpgvd.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10455,6 +10844,7 @@ pub unsafe fn LAPACKE_chpgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -10497,6 +10887,7 @@ pub unsafe fn LAPACKE_zhpgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10529,6 +10920,7 @@ pub unsafe fn LAPACKE_chprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10561,6 +10953,7 @@ pub unsafe fn LAPACKE_zhprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10574,6 +10967,7 @@ pub unsafe fn LAPACKE_chpsv(
     dyload_lib().LAPACKE_chpsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10587,6 +10981,7 @@ pub unsafe fn LAPACKE_zhpsv(
     dyload_lib().LAPACKE_zhpsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -10623,6 +11018,7 @@ pub unsafe fn LAPACKE_chpsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -10659,6 +11055,7 @@ pub unsafe fn LAPACKE_zhpsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10671,6 +11068,7 @@ pub unsafe fn LAPACKE_chptrd(
     dyload_lib().LAPACKE_chptrd.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10683,6 +11081,7 @@ pub unsafe fn LAPACKE_zhptrd(
     dyload_lib().LAPACKE_zhptrd.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10693,6 +11092,7 @@ pub unsafe fn LAPACKE_chptrf(
     dyload_lib().LAPACKE_chptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10703,6 +11103,7 @@ pub unsafe fn LAPACKE_zhptrf(
     dyload_lib().LAPACKE_zhptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10713,6 +11114,7 @@ pub unsafe fn LAPACKE_chptri(
     dyload_lib().LAPACKE_chptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10723,6 +11125,7 @@ pub unsafe fn LAPACKE_zhptri(
     dyload_lib().LAPACKE_zhptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10736,6 +11139,7 @@ pub unsafe fn LAPACKE_chptrs(
     dyload_lib().LAPACKE_chptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -10749,6 +11153,7 @@ pub unsafe fn LAPACKE_zhptrs(
     dyload_lib().LAPACKE_zhptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shsein(
     matrix_layout: c_int,
     job: c_char,
@@ -10791,6 +11196,7 @@ pub unsafe fn LAPACKE_shsein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhsein(
     matrix_layout: c_int,
     job: c_char,
@@ -10833,6 +11239,7 @@ pub unsafe fn LAPACKE_dhsein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chsein(
     matrix_layout: c_int,
     job: c_char,
@@ -10873,6 +11280,7 @@ pub unsafe fn LAPACKE_chsein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhsein(
     matrix_layout: c_int,
     job: c_char,
@@ -10913,6 +11321,7 @@ pub unsafe fn LAPACKE_zhsein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shseqr(
     matrix_layout: c_int,
     job: c_char,
@@ -10943,6 +11352,7 @@ pub unsafe fn LAPACKE_shseqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhseqr(
     matrix_layout: c_int,
     job: c_char,
@@ -10973,6 +11383,7 @@ pub unsafe fn LAPACKE_dhseqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chseqr(
     matrix_layout: c_int,
     job: c_char,
@@ -10989,6 +11400,7 @@ pub unsafe fn LAPACKE_chseqr(
     dyload_lib().LAPACKE_chseqr.unwrap()(matrix_layout, job, compz, n, ilo, ihi, h, ldh, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhseqr(
     matrix_layout: c_int,
     job: c_char,
@@ -11005,6 +11417,7 @@ pub unsafe fn LAPACKE_zhseqr(
     dyload_lib().LAPACKE_zhseqr.unwrap()(matrix_layout, job, compz, n, ilo, ihi, h, ldh, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacgv(
     n: lapack_int,
     x: *mut __BindgenComplex<f32>,
@@ -11013,6 +11426,7 @@ pub unsafe fn LAPACKE_clacgv(
     dyload_lib().LAPACKE_clacgv.unwrap()(n, x, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacgv(
     n: lapack_int,
     x: *mut __BindgenComplex<f64>,
@@ -11021,6 +11435,7 @@ pub unsafe fn LAPACKE_zlacgv(
     dyload_lib().LAPACKE_zlacgv.unwrap()(n, x, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slacn2(
     n: lapack_int,
     v: *mut f32,
@@ -11033,6 +11448,7 @@ pub unsafe fn LAPACKE_slacn2(
     dyload_lib().LAPACKE_slacn2.unwrap()(n, v, x, isgn, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlacn2(
     n: lapack_int,
     v: *mut f64,
@@ -11045,6 +11461,7 @@ pub unsafe fn LAPACKE_dlacn2(
     dyload_lib().LAPACKE_dlacn2.unwrap()(n, v, x, isgn, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacn2(
     n: lapack_int,
     v: *mut __BindgenComplex<f32>,
@@ -11056,6 +11473,7 @@ pub unsafe fn LAPACKE_clacn2(
     dyload_lib().LAPACKE_clacn2.unwrap()(n, v, x, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacn2(
     n: lapack_int,
     v: *mut __BindgenComplex<f64>,
@@ -11067,6 +11485,7 @@ pub unsafe fn LAPACKE_zlacn2(
     dyload_lib().LAPACKE_zlacn2.unwrap()(n, v, x, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slacpy(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11080,6 +11499,7 @@ pub unsafe fn LAPACKE_slacpy(
     dyload_lib().LAPACKE_slacpy.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlacpy(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11093,6 +11513,7 @@ pub unsafe fn LAPACKE_dlacpy(
     dyload_lib().LAPACKE_dlacpy.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacpy(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11106,6 +11527,7 @@ pub unsafe fn LAPACKE_clacpy(
     dyload_lib().LAPACKE_clacpy.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacpy(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11119,6 +11541,7 @@ pub unsafe fn LAPACKE_zlacpy(
     dyload_lib().LAPACKE_zlacpy.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacp2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11132,6 +11555,7 @@ pub unsafe fn LAPACKE_clacp2(
     dyload_lib().LAPACKE_clacp2.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacp2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11145,6 +11569,7 @@ pub unsafe fn LAPACKE_zlacp2(
     dyload_lib().LAPACKE_zlacp2.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlag2c(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11157,6 +11582,7 @@ pub unsafe fn LAPACKE_zlag2c(
     dyload_lib().LAPACKE_zlag2c.unwrap()(matrix_layout, m, n, a, lda, sa, ldsa)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slag2d(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11169,6 +11595,7 @@ pub unsafe fn LAPACKE_slag2d(
     dyload_lib().LAPACKE_slag2d.unwrap()(matrix_layout, m, n, sa, ldsa, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlag2s(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11181,6 +11608,7 @@ pub unsafe fn LAPACKE_dlag2s(
     dyload_lib().LAPACKE_dlag2s.unwrap()(matrix_layout, m, n, a, lda, sa, ldsa)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clag2z(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11193,6 +11621,7 @@ pub unsafe fn LAPACKE_clag2z(
     dyload_lib().LAPACKE_clag2z.unwrap()(matrix_layout, m, n, sa, ldsa, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slagge(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11207,6 +11636,7 @@ pub unsafe fn LAPACKE_slagge(
     dyload_lib().LAPACKE_slagge.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlagge(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11221,6 +11651,7 @@ pub unsafe fn LAPACKE_dlagge(
     dyload_lib().LAPACKE_dlagge.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clagge(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11235,6 +11666,7 @@ pub unsafe fn LAPACKE_clagge(
     dyload_lib().LAPACKE_clagge.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlagge(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11249,14 +11681,17 @@ pub unsafe fn LAPACKE_zlagge(
     dyload_lib().LAPACKE_zlagge.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slamch(cmach: c_char) -> f32 {
     dyload_lib().LAPACKE_slamch.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlamch(cmach: c_char) -> f64 {
     dyload_lib().LAPACKE_dlamch.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slangb(
     matrix_layout: c_int,
     norm: c_char,
@@ -11269,6 +11704,7 @@ pub unsafe fn LAPACKE_slangb(
     dyload_lib().LAPACKE_slangb.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlangb(
     matrix_layout: c_int,
     norm: c_char,
@@ -11281,6 +11717,7 @@ pub unsafe fn LAPACKE_dlangb(
     dyload_lib().LAPACKE_dlangb.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clangb(
     matrix_layout: c_int,
     norm: c_char,
@@ -11293,6 +11730,7 @@ pub unsafe fn LAPACKE_clangb(
     dyload_lib().LAPACKE_clangb.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlangb(
     matrix_layout: c_int,
     norm: c_char,
@@ -11305,6 +11743,7 @@ pub unsafe fn LAPACKE_zlangb(
     dyload_lib().LAPACKE_zlangb.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slange(
     matrix_layout: c_int,
     norm: c_char,
@@ -11316,6 +11755,7 @@ pub unsafe fn LAPACKE_slange(
     dyload_lib().LAPACKE_slange.unwrap()(matrix_layout, norm, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlange(
     matrix_layout: c_int,
     norm: c_char,
@@ -11327,6 +11767,7 @@ pub unsafe fn LAPACKE_dlange(
     dyload_lib().LAPACKE_dlange.unwrap()(matrix_layout, norm, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clange(
     matrix_layout: c_int,
     norm: c_char,
@@ -11338,6 +11779,7 @@ pub unsafe fn LAPACKE_clange(
     dyload_lib().LAPACKE_clange.unwrap()(matrix_layout, norm, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlange(
     matrix_layout: c_int,
     norm: c_char,
@@ -11349,6 +11791,7 @@ pub unsafe fn LAPACKE_zlange(
     dyload_lib().LAPACKE_zlange.unwrap()(matrix_layout, norm, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clanhe(
     matrix_layout: c_int,
     norm: c_char,
@@ -11360,6 +11803,7 @@ pub unsafe fn LAPACKE_clanhe(
     dyload_lib().LAPACKE_clanhe.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlanhe(
     matrix_layout: c_int,
     norm: c_char,
@@ -11371,6 +11815,7 @@ pub unsafe fn LAPACKE_zlanhe(
     dyload_lib().LAPACKE_zlanhe.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacrm(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11385,6 +11830,7 @@ pub unsafe fn LAPACKE_clacrm(
     dyload_lib().LAPACKE_clacrm.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacrm(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11399,6 +11845,7 @@ pub unsafe fn LAPACKE_zlacrm(
     dyload_lib().LAPACKE_zlacrm.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarcm(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11413,6 +11860,7 @@ pub unsafe fn LAPACKE_clarcm(
     dyload_lib().LAPACKE_clarcm.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarcm(
     matrix_layout: c_int,
     m: lapack_int,
@@ -11427,6 +11875,7 @@ pub unsafe fn LAPACKE_zlarcm(
     dyload_lib().LAPACKE_zlarcm.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slansy(
     matrix_layout: c_int,
     norm: c_char,
@@ -11438,6 +11887,7 @@ pub unsafe fn LAPACKE_slansy(
     dyload_lib().LAPACKE_slansy.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlansy(
     matrix_layout: c_int,
     norm: c_char,
@@ -11449,6 +11899,7 @@ pub unsafe fn LAPACKE_dlansy(
     dyload_lib().LAPACKE_dlansy.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clansy(
     matrix_layout: c_int,
     norm: c_char,
@@ -11460,6 +11911,7 @@ pub unsafe fn LAPACKE_clansy(
     dyload_lib().LAPACKE_clansy.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlansy(
     matrix_layout: c_int,
     norm: c_char,
@@ -11471,6 +11923,7 @@ pub unsafe fn LAPACKE_zlansy(
     dyload_lib().LAPACKE_zlansy.unwrap()(matrix_layout, norm, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slantr(
     matrix_layout: c_int,
     norm: c_char,
@@ -11484,6 +11937,7 @@ pub unsafe fn LAPACKE_slantr(
     dyload_lib().LAPACKE_slantr.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlantr(
     matrix_layout: c_int,
     norm: c_char,
@@ -11497,6 +11951,7 @@ pub unsafe fn LAPACKE_dlantr(
     dyload_lib().LAPACKE_dlantr.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clantr(
     matrix_layout: c_int,
     norm: c_char,
@@ -11510,6 +11965,7 @@ pub unsafe fn LAPACKE_clantr(
     dyload_lib().LAPACKE_clantr.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlantr(
     matrix_layout: c_int,
     norm: c_char,
@@ -11523,6 +11979,7 @@ pub unsafe fn LAPACKE_zlantr(
     dyload_lib().LAPACKE_zlantr.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfb(
     matrix_layout: c_int,
     side: c_char,
@@ -11557,6 +12014,7 @@ pub unsafe fn LAPACKE_slarfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfb(
     matrix_layout: c_int,
     side: c_char,
@@ -11591,6 +12049,7 @@ pub unsafe fn LAPACKE_dlarfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfb(
     matrix_layout: c_int,
     side: c_char,
@@ -11625,6 +12084,7 @@ pub unsafe fn LAPACKE_clarfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfb(
     matrix_layout: c_int,
     side: c_char,
@@ -11659,6 +12119,7 @@ pub unsafe fn LAPACKE_zlarfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfg(
     n: lapack_int,
     alpha: *mut f32,
@@ -11669,6 +12130,7 @@ pub unsafe fn LAPACKE_slarfg(
     dyload_lib().LAPACKE_slarfg.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfg(
     n: lapack_int,
     alpha: *mut f64,
@@ -11679,6 +12141,7 @@ pub unsafe fn LAPACKE_dlarfg(
     dyload_lib().LAPACKE_dlarfg.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfg(
     n: lapack_int,
     alpha: *mut __BindgenComplex<f32>,
@@ -11689,6 +12152,7 @@ pub unsafe fn LAPACKE_clarfg(
     dyload_lib().LAPACKE_clarfg.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfg(
     n: lapack_int,
     alpha: *mut __BindgenComplex<f64>,
@@ -11699,6 +12163,7 @@ pub unsafe fn LAPACKE_zlarfg(
     dyload_lib().LAPACKE_zlarfg.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarft(
     matrix_layout: c_int,
     direct: c_char,
@@ -11714,6 +12179,7 @@ pub unsafe fn LAPACKE_slarft(
     dyload_lib().LAPACKE_slarft.unwrap()(matrix_layout, direct, storev, n, k, v, ldv, tau, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarft(
     matrix_layout: c_int,
     direct: c_char,
@@ -11729,6 +12195,7 @@ pub unsafe fn LAPACKE_dlarft(
     dyload_lib().LAPACKE_dlarft.unwrap()(matrix_layout, direct, storev, n, k, v, ldv, tau, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarft(
     matrix_layout: c_int,
     direct: c_char,
@@ -11744,6 +12211,7 @@ pub unsafe fn LAPACKE_clarft(
     dyload_lib().LAPACKE_clarft.unwrap()(matrix_layout, direct, storev, n, k, v, ldv, tau, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarft(
     matrix_layout: c_int,
     direct: c_char,
@@ -11759,6 +12227,7 @@ pub unsafe fn LAPACKE_zlarft(
     dyload_lib().LAPACKE_zlarft.unwrap()(matrix_layout, direct, storev, n, k, v, ldv, tau, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfx(
     matrix_layout: c_int,
     side: c_char,
@@ -11773,6 +12242,7 @@ pub unsafe fn LAPACKE_slarfx(
     dyload_lib().LAPACKE_slarfx.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfx(
     matrix_layout: c_int,
     side: c_char,
@@ -11787,6 +12257,7 @@ pub unsafe fn LAPACKE_dlarfx(
     dyload_lib().LAPACKE_dlarfx.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfx(
     matrix_layout: c_int,
     side: c_char,
@@ -11801,6 +12272,7 @@ pub unsafe fn LAPACKE_clarfx(
     dyload_lib().LAPACKE_clarfx.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfx(
     matrix_layout: c_int,
     side: c_char,
@@ -11815,6 +12287,7 @@ pub unsafe fn LAPACKE_zlarfx(
     dyload_lib().LAPACKE_zlarfx.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarnv(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -11824,6 +12297,7 @@ pub unsafe fn LAPACKE_slarnv(
     dyload_lib().LAPACKE_slarnv.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarnv(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -11833,6 +12307,7 @@ pub unsafe fn LAPACKE_dlarnv(
     dyload_lib().LAPACKE_dlarnv.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarnv(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -11842,6 +12317,7 @@ pub unsafe fn LAPACKE_clarnv(
     dyload_lib().LAPACKE_clarnv.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarnv(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -11851,6 +12327,7 @@ pub unsafe fn LAPACKE_zlarnv(
     dyload_lib().LAPACKE_zlarnv.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slascl(
     matrix_layout: c_int,
     type_: c_char,
@@ -11866,6 +12343,7 @@ pub unsafe fn LAPACKE_slascl(
     dyload_lib().LAPACKE_slascl.unwrap()(matrix_layout, type_, kl, ku, cfrom, cto, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlascl(
     matrix_layout: c_int,
     type_: c_char,
@@ -11881,6 +12359,7 @@ pub unsafe fn LAPACKE_dlascl(
     dyload_lib().LAPACKE_dlascl.unwrap()(matrix_layout, type_, kl, ku, cfrom, cto, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clascl(
     matrix_layout: c_int,
     type_: c_char,
@@ -11896,6 +12375,7 @@ pub unsafe fn LAPACKE_clascl(
     dyload_lib().LAPACKE_clascl.unwrap()(matrix_layout, type_, kl, ku, cfrom, cto, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlascl(
     matrix_layout: c_int,
     type_: c_char,
@@ -11911,6 +12391,7 @@ pub unsafe fn LAPACKE_zlascl(
     dyload_lib().LAPACKE_zlascl.unwrap()(matrix_layout, type_, kl, ku, cfrom, cto, m, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slaset(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11924,6 +12405,7 @@ pub unsafe fn LAPACKE_slaset(
     dyload_lib().LAPACKE_slaset.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlaset(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11937,6 +12419,7 @@ pub unsafe fn LAPACKE_dlaset(
     dyload_lib().LAPACKE_dlaset.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claset(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11950,6 +12433,7 @@ pub unsafe fn LAPACKE_claset(
     dyload_lib().LAPACKE_claset.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaset(
     matrix_layout: c_int,
     uplo: c_char,
@@ -11963,14 +12447,17 @@ pub unsafe fn LAPACKE_zlaset(
     dyload_lib().LAPACKE_zlaset.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slasrt(id: c_char, n: lapack_int, d: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_slasrt.unwrap()(id, n, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlasrt(id: c_char, n: lapack_int, d: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dlasrt.unwrap()(id, n, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slassq(
     n: lapack_int,
     x: *mut f32,
@@ -11981,6 +12468,7 @@ pub unsafe fn LAPACKE_slassq(
     dyload_lib().LAPACKE_slassq.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlassq(
     n: lapack_int,
     x: *mut f64,
@@ -11991,6 +12479,7 @@ pub unsafe fn LAPACKE_dlassq(
     dyload_lib().LAPACKE_dlassq.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_classq(
     n: lapack_int,
     x: *mut __BindgenComplex<f32>,
@@ -12001,6 +12490,7 @@ pub unsafe fn LAPACKE_classq(
     dyload_lib().LAPACKE_classq.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlassq(
     n: lapack_int,
     x: *mut __BindgenComplex<f64>,
@@ -12011,6 +12501,7 @@ pub unsafe fn LAPACKE_zlassq(
     dyload_lib().LAPACKE_zlassq.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slaswp(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12024,6 +12515,7 @@ pub unsafe fn LAPACKE_slaswp(
     dyload_lib().LAPACKE_slaswp.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlaswp(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12037,6 +12529,7 @@ pub unsafe fn LAPACKE_dlaswp(
     dyload_lib().LAPACKE_dlaswp.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claswp(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12050,6 +12543,7 @@ pub unsafe fn LAPACKE_claswp(
     dyload_lib().LAPACKE_claswp.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaswp(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12063,6 +12557,7 @@ pub unsafe fn LAPACKE_zlaswp(
     dyload_lib().LAPACKE_zlaswp.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slatms(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12099,6 +12594,7 @@ pub unsafe fn LAPACKE_slatms(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlatms(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12135,6 +12631,7 @@ pub unsafe fn LAPACKE_dlatms(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clatms(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12171,6 +12668,7 @@ pub unsafe fn LAPACKE_clatms(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlatms(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12207,6 +12705,7 @@ pub unsafe fn LAPACKE_zlatms(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slauum(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12217,6 +12716,7 @@ pub unsafe fn LAPACKE_slauum(
     dyload_lib().LAPACKE_slauum.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlauum(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12227,6 +12727,7 @@ pub unsafe fn LAPACKE_dlauum(
     dyload_lib().LAPACKE_dlauum.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clauum(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12237,6 +12738,7 @@ pub unsafe fn LAPACKE_clauum(
     dyload_lib().LAPACKE_clauum.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlauum(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12247,6 +12749,7 @@ pub unsafe fn LAPACKE_zlauum(
     dyload_lib().LAPACKE_zlauum.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sopgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12259,6 +12762,7 @@ pub unsafe fn LAPACKE_sopgtr(
     dyload_lib().LAPACKE_sopgtr.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dopgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12271,6 +12775,7 @@ pub unsafe fn LAPACKE_dopgtr(
     dyload_lib().LAPACKE_dopgtr.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sopmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -12286,6 +12791,7 @@ pub unsafe fn LAPACKE_sopmtr(
     dyload_lib().LAPACKE_sopmtr.unwrap()(matrix_layout, side, uplo, trans, m, n, ap, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dopmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -12301,6 +12807,7 @@ pub unsafe fn LAPACKE_dopmtr(
     dyload_lib().LAPACKE_dopmtr.unwrap()(matrix_layout, side, uplo, trans, m, n, ap, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -12314,6 +12821,7 @@ pub unsafe fn LAPACKE_sorgbr(
     dyload_lib().LAPACKE_sorgbr.unwrap()(matrix_layout, vect, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -12327,6 +12835,7 @@ pub unsafe fn LAPACKE_dorgbr(
     dyload_lib().LAPACKE_dorgbr.unwrap()(matrix_layout, vect, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorghr(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12339,6 +12848,7 @@ pub unsafe fn LAPACKE_sorghr(
     dyload_lib().LAPACKE_sorghr.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorghr(
     matrix_layout: c_int,
     n: lapack_int,
@@ -12351,6 +12861,7 @@ pub unsafe fn LAPACKE_dorghr(
     dyload_lib().LAPACKE_dorghr.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorglq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12363,6 +12874,7 @@ pub unsafe fn LAPACKE_sorglq(
     dyload_lib().LAPACKE_sorglq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorglq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12375,6 +12887,7 @@ pub unsafe fn LAPACKE_dorglq(
     dyload_lib().LAPACKE_dorglq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgql(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12387,6 +12900,7 @@ pub unsafe fn LAPACKE_sorgql(
     dyload_lib().LAPACKE_sorgql.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgql(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12399,6 +12913,7 @@ pub unsafe fn LAPACKE_dorgql(
     dyload_lib().LAPACKE_dorgql.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12411,6 +12926,7 @@ pub unsafe fn LAPACKE_sorgqr(
     dyload_lib().LAPACKE_sorgqr.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12423,6 +12939,7 @@ pub unsafe fn LAPACKE_dorgqr(
     dyload_lib().LAPACKE_dorgqr.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgrq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12435,6 +12952,7 @@ pub unsafe fn LAPACKE_sorgrq(
     dyload_lib().LAPACKE_sorgrq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgrq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12447,6 +12965,7 @@ pub unsafe fn LAPACKE_dorgrq(
     dyload_lib().LAPACKE_dorgrq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12458,6 +12977,7 @@ pub unsafe fn LAPACKE_sorgtr(
     dyload_lib().LAPACKE_sorgtr.unwrap()(matrix_layout, uplo, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12469,6 +12989,7 @@ pub unsafe fn LAPACKE_dorgtr(
     dyload_lib().LAPACKE_dorgtr.unwrap()(matrix_layout, uplo, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgtsqr_row(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12483,6 +13004,7 @@ pub unsafe fn LAPACKE_sorgtsqr_row(
     dyload_lib().LAPACKE_sorgtsqr_row.unwrap()(matrix_layout, m, n, mb, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgtsqr_row(
     matrix_layout: c_int,
     m: lapack_int,
@@ -12497,6 +13019,7 @@ pub unsafe fn LAPACKE_dorgtsqr_row(
     dyload_lib().LAPACKE_dorgtsqr_row.unwrap()(matrix_layout, m, n, mb, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -12527,6 +13050,7 @@ pub unsafe fn LAPACKE_sormbr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -12557,6 +13081,7 @@ pub unsafe fn LAPACKE_dormbr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormhr(
     matrix_layout: c_int,
     side: c_char,
@@ -12587,6 +13112,7 @@ pub unsafe fn LAPACKE_sormhr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormhr(
     matrix_layout: c_int,
     side: c_char,
@@ -12617,6 +13143,7 @@ pub unsafe fn LAPACKE_dormhr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormlq(
     matrix_layout: c_int,
     side: c_char,
@@ -12633,6 +13160,7 @@ pub unsafe fn LAPACKE_sormlq(
     dyload_lib().LAPACKE_sormlq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormlq(
     matrix_layout: c_int,
     side: c_char,
@@ -12649,6 +13177,7 @@ pub unsafe fn LAPACKE_dormlq(
     dyload_lib().LAPACKE_dormlq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormql(
     matrix_layout: c_int,
     side: c_char,
@@ -12665,6 +13194,7 @@ pub unsafe fn LAPACKE_sormql(
     dyload_lib().LAPACKE_sormql.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormql(
     matrix_layout: c_int,
     side: c_char,
@@ -12681,6 +13211,7 @@ pub unsafe fn LAPACKE_dormql(
     dyload_lib().LAPACKE_dormql.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormqr(
     matrix_layout: c_int,
     side: c_char,
@@ -12697,6 +13228,7 @@ pub unsafe fn LAPACKE_sormqr(
     dyload_lib().LAPACKE_sormqr.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormqr(
     matrix_layout: c_int,
     side: c_char,
@@ -12713,6 +13245,7 @@ pub unsafe fn LAPACKE_dormqr(
     dyload_lib().LAPACKE_dormqr.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormrq(
     matrix_layout: c_int,
     side: c_char,
@@ -12729,6 +13262,7 @@ pub unsafe fn LAPACKE_sormrq(
     dyload_lib().LAPACKE_sormrq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormrq(
     matrix_layout: c_int,
     side: c_char,
@@ -12745,6 +13279,7 @@ pub unsafe fn LAPACKE_dormrq(
     dyload_lib().LAPACKE_dormrq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormrz(
     matrix_layout: c_int,
     side: c_char,
@@ -12775,6 +13310,7 @@ pub unsafe fn LAPACKE_sormrz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormrz(
     matrix_layout: c_int,
     side: c_char,
@@ -12805,6 +13341,7 @@ pub unsafe fn LAPACKE_dormrz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormtr(
     matrix_layout: c_int,
     side: c_char,
@@ -12833,6 +13370,7 @@ pub unsafe fn LAPACKE_sormtr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormtr(
     matrix_layout: c_int,
     side: c_char,
@@ -12861,6 +13399,7 @@ pub unsafe fn LAPACKE_dormtr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12874,6 +13413,7 @@ pub unsafe fn LAPACKE_spbcon(
     dyload_lib().LAPACKE_spbcon.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12887,6 +13427,7 @@ pub unsafe fn LAPACKE_dpbcon(
     dyload_lib().LAPACKE_dpbcon.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12900,6 +13441,7 @@ pub unsafe fn LAPACKE_cpbcon(
     dyload_lib().LAPACKE_cpbcon.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12913,6 +13455,7 @@ pub unsafe fn LAPACKE_zpbcon(
     dyload_lib().LAPACKE_zpbcon.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12927,6 +13470,7 @@ pub unsafe fn LAPACKE_spbequ(
     dyload_lib().LAPACKE_spbequ.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12941,6 +13485,7 @@ pub unsafe fn LAPACKE_dpbequ(
     dyload_lib().LAPACKE_dpbequ.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12955,6 +13500,7 @@ pub unsafe fn LAPACKE_cpbequ(
     dyload_lib().LAPACKE_cpbequ.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -12969,6 +13515,7 @@ pub unsafe fn LAPACKE_zpbequ(
     dyload_lib().LAPACKE_zpbequ.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13005,6 +13552,7 @@ pub unsafe fn LAPACKE_spbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13041,6 +13589,7 @@ pub unsafe fn LAPACKE_dpbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13077,6 +13626,7 @@ pub unsafe fn LAPACKE_cpbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13113,6 +13663,7 @@ pub unsafe fn LAPACKE_zpbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbstf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13124,6 +13675,7 @@ pub unsafe fn LAPACKE_spbstf(
     dyload_lib().LAPACKE_spbstf.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbstf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13135,6 +13687,7 @@ pub unsafe fn LAPACKE_dpbstf(
     dyload_lib().LAPACKE_dpbstf.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbstf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13146,6 +13699,7 @@ pub unsafe fn LAPACKE_cpbstf(
     dyload_lib().LAPACKE_cpbstf.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbstf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13157,6 +13711,7 @@ pub unsafe fn LAPACKE_zpbstf(
     dyload_lib().LAPACKE_zpbstf.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13171,6 +13726,7 @@ pub unsafe fn LAPACKE_spbsv(
     dyload_lib().LAPACKE_spbsv.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13185,6 +13741,7 @@ pub unsafe fn LAPACKE_dpbsv(
     dyload_lib().LAPACKE_dpbsv.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13199,6 +13756,7 @@ pub unsafe fn LAPACKE_cpbsv(
     dyload_lib().LAPACKE_cpbsv.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13213,6 +13771,7 @@ pub unsafe fn LAPACKE_zpbsv(
     dyload_lib().LAPACKE_zpbsv.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -13257,6 +13816,7 @@ pub unsafe fn LAPACKE_spbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -13301,6 +13861,7 @@ pub unsafe fn LAPACKE_dpbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -13345,6 +13906,7 @@ pub unsafe fn LAPACKE_cpbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -13389,6 +13951,7 @@ pub unsafe fn LAPACKE_zpbsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbtrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13400,6 +13963,7 @@ pub unsafe fn LAPACKE_spbtrf(
     dyload_lib().LAPACKE_spbtrf.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbtrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13411,6 +13975,7 @@ pub unsafe fn LAPACKE_dpbtrf(
     dyload_lib().LAPACKE_dpbtrf.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbtrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13422,6 +13987,7 @@ pub unsafe fn LAPACKE_cpbtrf(
     dyload_lib().LAPACKE_cpbtrf.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbtrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13433,6 +13999,7 @@ pub unsafe fn LAPACKE_zpbtrf(
     dyload_lib().LAPACKE_zpbtrf.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13447,6 +14014,7 @@ pub unsafe fn LAPACKE_spbtrs(
     dyload_lib().LAPACKE_spbtrs.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13461,6 +14029,7 @@ pub unsafe fn LAPACKE_dpbtrs(
     dyload_lib().LAPACKE_dpbtrs.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13475,6 +14044,7 @@ pub unsafe fn LAPACKE_cpbtrs(
     dyload_lib().LAPACKE_cpbtrs.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13489,6 +14059,7 @@ pub unsafe fn LAPACKE_zpbtrs(
     dyload_lib().LAPACKE_zpbtrs.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftrf(
     matrix_layout: c_int,
     transr: c_char,
@@ -13499,6 +14070,7 @@ pub unsafe fn LAPACKE_spftrf(
     dyload_lib().LAPACKE_spftrf.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftrf(
     matrix_layout: c_int,
     transr: c_char,
@@ -13509,6 +14081,7 @@ pub unsafe fn LAPACKE_dpftrf(
     dyload_lib().LAPACKE_dpftrf.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftrf(
     matrix_layout: c_int,
     transr: c_char,
@@ -13519,6 +14092,7 @@ pub unsafe fn LAPACKE_cpftrf(
     dyload_lib().LAPACKE_cpftrf.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftrf(
     matrix_layout: c_int,
     transr: c_char,
@@ -13529,6 +14103,7 @@ pub unsafe fn LAPACKE_zpftrf(
     dyload_lib().LAPACKE_zpftrf.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -13539,6 +14114,7 @@ pub unsafe fn LAPACKE_spftri(
     dyload_lib().LAPACKE_spftri.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -13549,6 +14125,7 @@ pub unsafe fn LAPACKE_dpftri(
     dyload_lib().LAPACKE_dpftri.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -13559,6 +14136,7 @@ pub unsafe fn LAPACKE_cpftri(
     dyload_lib().LAPACKE_cpftri.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -13569,6 +14147,7 @@ pub unsafe fn LAPACKE_zpftri(
     dyload_lib().LAPACKE_zpftri.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftrs(
     matrix_layout: c_int,
     transr: c_char,
@@ -13582,6 +14161,7 @@ pub unsafe fn LAPACKE_spftrs(
     dyload_lib().LAPACKE_spftrs.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftrs(
     matrix_layout: c_int,
     transr: c_char,
@@ -13595,6 +14175,7 @@ pub unsafe fn LAPACKE_dpftrs(
     dyload_lib().LAPACKE_dpftrs.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftrs(
     matrix_layout: c_int,
     transr: c_char,
@@ -13608,6 +14189,7 @@ pub unsafe fn LAPACKE_cpftrs(
     dyload_lib().LAPACKE_cpftrs.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftrs(
     matrix_layout: c_int,
     transr: c_char,
@@ -13621,6 +14203,7 @@ pub unsafe fn LAPACKE_zpftrs(
     dyload_lib().LAPACKE_zpftrs.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spocon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13633,6 +14216,7 @@ pub unsafe fn LAPACKE_spocon(
     dyload_lib().LAPACKE_spocon.unwrap()(matrix_layout, uplo, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpocon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13645,6 +14229,7 @@ pub unsafe fn LAPACKE_dpocon(
     dyload_lib().LAPACKE_dpocon.unwrap()(matrix_layout, uplo, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpocon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13657,6 +14242,7 @@ pub unsafe fn LAPACKE_cpocon(
     dyload_lib().LAPACKE_cpocon.unwrap()(matrix_layout, uplo, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpocon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13669,6 +14255,7 @@ pub unsafe fn LAPACKE_zpocon(
     dyload_lib().LAPACKE_zpocon.unwrap()(matrix_layout, uplo, n, a, lda, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spoequ(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13681,6 +14268,7 @@ pub unsafe fn LAPACKE_spoequ(
     dyload_lib().LAPACKE_spoequ.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpoequ(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13693,6 +14281,7 @@ pub unsafe fn LAPACKE_dpoequ(
     dyload_lib().LAPACKE_dpoequ.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpoequ(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13705,6 +14294,7 @@ pub unsafe fn LAPACKE_cpoequ(
     dyload_lib().LAPACKE_cpoequ.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpoequ(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13717,6 +14307,7 @@ pub unsafe fn LAPACKE_zpoequ(
     dyload_lib().LAPACKE_zpoequ.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spoequb(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13729,6 +14320,7 @@ pub unsafe fn LAPACKE_spoequb(
     dyload_lib().LAPACKE_spoequb.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpoequb(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13741,6 +14333,7 @@ pub unsafe fn LAPACKE_dpoequb(
     dyload_lib().LAPACKE_dpoequb.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpoequb(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13753,6 +14346,7 @@ pub unsafe fn LAPACKE_cpoequb(
     dyload_lib().LAPACKE_cpoequb.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpoequb(
     matrix_layout: c_int,
     n: lapack_int,
@@ -13765,6 +14359,7 @@ pub unsafe fn LAPACKE_zpoequb(
     dyload_lib().LAPACKE_zpoequb.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sporfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13799,6 +14394,7 @@ pub unsafe fn LAPACKE_sporfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dporfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13833,6 +14429,7 @@ pub unsafe fn LAPACKE_dporfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cporfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13867,6 +14464,7 @@ pub unsafe fn LAPACKE_cporfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zporfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13901,6 +14499,7 @@ pub unsafe fn LAPACKE_zporfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sporfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13949,6 +14548,7 @@ pub unsafe fn LAPACKE_sporfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dporfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -13997,6 +14597,7 @@ pub unsafe fn LAPACKE_dporfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cporfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14045,6 +14646,7 @@ pub unsafe fn LAPACKE_cporfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zporfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14093,6 +14695,7 @@ pub unsafe fn LAPACKE_zporfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14106,6 +14709,7 @@ pub unsafe fn LAPACKE_sposv(
     dyload_lib().LAPACKE_sposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14119,6 +14723,7 @@ pub unsafe fn LAPACKE_dposv(
     dyload_lib().LAPACKE_dposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14132,6 +14737,7 @@ pub unsafe fn LAPACKE_cposv(
     dyload_lib().LAPACKE_cposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14145,6 +14751,7 @@ pub unsafe fn LAPACKE_zposv(
     dyload_lib().LAPACKE_zposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14161,6 +14768,7 @@ pub unsafe fn LAPACKE_dsposv(
     dyload_lib().LAPACKE_dsposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb, x, ldx, iter)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zcposv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14177,6 +14785,7 @@ pub unsafe fn LAPACKE_zcposv(
     dyload_lib().LAPACKE_zcposv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb, x, ldx, iter)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14219,6 +14828,7 @@ pub unsafe fn LAPACKE_sposvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14261,6 +14871,7 @@ pub unsafe fn LAPACKE_dposvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14303,6 +14914,7 @@ pub unsafe fn LAPACKE_cposvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14345,6 +14957,7 @@ pub unsafe fn LAPACKE_zposvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14397,6 +15010,7 @@ pub unsafe fn LAPACKE_sposvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14449,6 +15063,7 @@ pub unsafe fn LAPACKE_dposvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14501,6 +15116,7 @@ pub unsafe fn LAPACKE_cposvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -14553,6 +15169,7 @@ pub unsafe fn LAPACKE_zposvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrf2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14563,6 +15180,7 @@ pub unsafe fn LAPACKE_spotrf2(
     dyload_lib().LAPACKE_spotrf2.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrf2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14573,6 +15191,7 @@ pub unsafe fn LAPACKE_dpotrf2(
     dyload_lib().LAPACKE_dpotrf2.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrf2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14583,6 +15202,7 @@ pub unsafe fn LAPACKE_cpotrf2(
     dyload_lib().LAPACKE_cpotrf2.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrf2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14593,6 +15213,7 @@ pub unsafe fn LAPACKE_zpotrf2(
     dyload_lib().LAPACKE_zpotrf2.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14603,6 +15224,7 @@ pub unsafe fn LAPACKE_spotrf(
     dyload_lib().LAPACKE_spotrf.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14613,6 +15235,7 @@ pub unsafe fn LAPACKE_dpotrf(
     dyload_lib().LAPACKE_dpotrf.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14623,6 +15246,7 @@ pub unsafe fn LAPACKE_cpotrf(
     dyload_lib().LAPACKE_cpotrf.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14633,6 +15257,7 @@ pub unsafe fn LAPACKE_zpotrf(
     dyload_lib().LAPACKE_zpotrf.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14643,6 +15268,7 @@ pub unsafe fn LAPACKE_spotri(
     dyload_lib().LAPACKE_spotri.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14653,6 +15279,7 @@ pub unsafe fn LAPACKE_dpotri(
     dyload_lib().LAPACKE_dpotri.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14663,6 +15290,7 @@ pub unsafe fn LAPACKE_cpotri(
     dyload_lib().LAPACKE_cpotri.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14673,6 +15301,7 @@ pub unsafe fn LAPACKE_zpotri(
     dyload_lib().LAPACKE_zpotri.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14686,6 +15315,7 @@ pub unsafe fn LAPACKE_spotrs(
     dyload_lib().LAPACKE_spotrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14699,6 +15329,7 @@ pub unsafe fn LAPACKE_dpotrs(
     dyload_lib().LAPACKE_dpotrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14712,6 +15343,7 @@ pub unsafe fn LAPACKE_cpotrs(
     dyload_lib().LAPACKE_cpotrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14725,6 +15357,7 @@ pub unsafe fn LAPACKE_zpotrs(
     dyload_lib().LAPACKE_zpotrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14736,6 +15369,7 @@ pub unsafe fn LAPACKE_sppcon(
     dyload_lib().LAPACKE_sppcon.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14747,6 +15381,7 @@ pub unsafe fn LAPACKE_dppcon(
     dyload_lib().LAPACKE_dppcon.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14758,6 +15393,7 @@ pub unsafe fn LAPACKE_cppcon(
     dyload_lib().LAPACKE_cppcon.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14769,6 +15405,7 @@ pub unsafe fn LAPACKE_zppcon(
     dyload_lib().LAPACKE_zppcon.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14781,6 +15418,7 @@ pub unsafe fn LAPACKE_sppequ(
     dyload_lib().LAPACKE_sppequ.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14793,6 +15431,7 @@ pub unsafe fn LAPACKE_dppequ(
     dyload_lib().LAPACKE_dppequ.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14805,6 +15444,7 @@ pub unsafe fn LAPACKE_cppequ(
     dyload_lib().LAPACKE_cppequ.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppequ(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14817,6 +15457,7 @@ pub unsafe fn LAPACKE_zppequ(
     dyload_lib().LAPACKE_zppequ.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14847,6 +15488,7 @@ pub unsafe fn LAPACKE_spprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14877,6 +15519,7 @@ pub unsafe fn LAPACKE_dpprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14907,6 +15550,7 @@ pub unsafe fn LAPACKE_cpprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14937,6 +15581,7 @@ pub unsafe fn LAPACKE_zpprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14949,6 +15594,7 @@ pub unsafe fn LAPACKE_sppsv(
     dyload_lib().LAPACKE_sppsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14961,6 +15607,7 @@ pub unsafe fn LAPACKE_dppsv(
     dyload_lib().LAPACKE_dppsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14973,6 +15620,7 @@ pub unsafe fn LAPACKE_cppsv(
     dyload_lib().LAPACKE_cppsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -14985,6 +15633,7 @@ pub unsafe fn LAPACKE_zppsv(
     dyload_lib().LAPACKE_zppsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15023,6 +15672,7 @@ pub unsafe fn LAPACKE_sppsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15061,6 +15711,7 @@ pub unsafe fn LAPACKE_dppsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15099,6 +15750,7 @@ pub unsafe fn LAPACKE_cppsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15137,6 +15789,7 @@ pub unsafe fn LAPACKE_zppsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15146,6 +15799,7 @@ pub unsafe fn LAPACKE_spptrf(
     dyload_lib().LAPACKE_spptrf.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15155,6 +15809,7 @@ pub unsafe fn LAPACKE_dpptrf(
     dyload_lib().LAPACKE_dpptrf.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15164,6 +15819,7 @@ pub unsafe fn LAPACKE_cpptrf(
     dyload_lib().LAPACKE_cpptrf.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15173,6 +15829,7 @@ pub unsafe fn LAPACKE_zpptrf(
     dyload_lib().LAPACKE_zpptrf.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15182,6 +15839,7 @@ pub unsafe fn LAPACKE_spptri(
     dyload_lib().LAPACKE_spptri.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15191,6 +15849,7 @@ pub unsafe fn LAPACKE_dpptri(
     dyload_lib().LAPACKE_dpptri.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15200,6 +15859,7 @@ pub unsafe fn LAPACKE_cpptri(
     dyload_lib().LAPACKE_cpptri.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15209,6 +15869,7 @@ pub unsafe fn LAPACKE_zpptri(
     dyload_lib().LAPACKE_zpptri.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15221,6 +15882,7 @@ pub unsafe fn LAPACKE_spptrs(
     dyload_lib().LAPACKE_spptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15233,6 +15895,7 @@ pub unsafe fn LAPACKE_dpptrs(
     dyload_lib().LAPACKE_dpptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15245,6 +15908,7 @@ pub unsafe fn LAPACKE_cpptrs(
     dyload_lib().LAPACKE_cpptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15257,6 +15921,7 @@ pub unsafe fn LAPACKE_zpptrs(
     dyload_lib().LAPACKE_zpptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spstrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15270,6 +15935,7 @@ pub unsafe fn LAPACKE_spstrf(
     dyload_lib().LAPACKE_spstrf.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpstrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15283,6 +15949,7 @@ pub unsafe fn LAPACKE_dpstrf(
     dyload_lib().LAPACKE_dpstrf.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpstrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15296,6 +15963,7 @@ pub unsafe fn LAPACKE_cpstrf(
     dyload_lib().LAPACKE_cpstrf.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpstrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15309,6 +15977,7 @@ pub unsafe fn LAPACKE_zpstrf(
     dyload_lib().LAPACKE_zpstrf.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptcon(
     n: lapack_int,
     d: *const f32,
@@ -15319,6 +15988,7 @@ pub unsafe fn LAPACKE_sptcon(
     dyload_lib().LAPACKE_sptcon.unwrap()(n, d, e, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptcon(
     n: lapack_int,
     d: *const f64,
@@ -15329,6 +15999,7 @@ pub unsafe fn LAPACKE_dptcon(
     dyload_lib().LAPACKE_dptcon.unwrap()(n, d, e, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptcon(
     n: lapack_int,
     d: *const f32,
@@ -15339,6 +16010,7 @@ pub unsafe fn LAPACKE_cptcon(
     dyload_lib().LAPACKE_cptcon.unwrap()(n, d, e, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptcon(
     n: lapack_int,
     d: *const f64,
@@ -15349,6 +16021,7 @@ pub unsafe fn LAPACKE_zptcon(
     dyload_lib().LAPACKE_zptcon.unwrap()(n, d, e, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -15361,6 +16034,7 @@ pub unsafe fn LAPACKE_spteqr(
     dyload_lib().LAPACKE_spteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -15373,6 +16047,7 @@ pub unsafe fn LAPACKE_dpteqr(
     dyload_lib().LAPACKE_dpteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -15385,6 +16060,7 @@ pub unsafe fn LAPACKE_cpteqr(
     dyload_lib().LAPACKE_cpteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -15397,6 +16073,7 @@ pub unsafe fn LAPACKE_zpteqr(
     dyload_lib().LAPACKE_zpteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptrfs(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15429,6 +16106,7 @@ pub unsafe fn LAPACKE_sptrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptrfs(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15461,6 +16139,7 @@ pub unsafe fn LAPACKE_dptrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15495,6 +16174,7 @@ pub unsafe fn LAPACKE_cptrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15529,6 +16209,7 @@ pub unsafe fn LAPACKE_zptrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15541,6 +16222,7 @@ pub unsafe fn LAPACKE_sptsv(
     dyload_lib().LAPACKE_sptsv.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15553,6 +16235,7 @@ pub unsafe fn LAPACKE_dptsv(
     dyload_lib().LAPACKE_dptsv.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15565,6 +16248,7 @@ pub unsafe fn LAPACKE_cptsv(
     dyload_lib().LAPACKE_cptsv.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptsv(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15577,6 +16261,7 @@ pub unsafe fn LAPACKE_zptsv(
     dyload_lib().LAPACKE_zptsv.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15613,6 +16298,7 @@ pub unsafe fn LAPACKE_sptsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15649,6 +16335,7 @@ pub unsafe fn LAPACKE_dptsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15685,6 +16372,7 @@ pub unsafe fn LAPACKE_cptsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -15721,14 +16409,17 @@ pub unsafe fn LAPACKE_zptsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spttrf(n: lapack_int, d: *mut f32, e: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_spttrf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpttrf(n: lapack_int, d: *mut f64, e: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dpttrf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpttrf(
     n: lapack_int,
     d: *mut f32,
@@ -15737,6 +16428,7 @@ pub unsafe fn LAPACKE_cpttrf(
     dyload_lib().LAPACKE_cpttrf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpttrf(
     n: lapack_int,
     d: *mut f64,
@@ -15745,6 +16437,7 @@ pub unsafe fn LAPACKE_zpttrf(
     dyload_lib().LAPACKE_zpttrf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spttrs(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15757,6 +16450,7 @@ pub unsafe fn LAPACKE_spttrs(
     dyload_lib().LAPACKE_spttrs.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpttrs(
     matrix_layout: c_int,
     n: lapack_int,
@@ -15769,6 +16463,7 @@ pub unsafe fn LAPACKE_dpttrs(
     dyload_lib().LAPACKE_dpttrs.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpttrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15782,6 +16477,7 @@ pub unsafe fn LAPACKE_cpttrs(
     dyload_lib().LAPACKE_cpttrs.unwrap()(matrix_layout, uplo, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpttrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -15795,6 +16491,7 @@ pub unsafe fn LAPACKE_zpttrs(
     dyload_lib().LAPACKE_zpttrs.unwrap()(matrix_layout, uplo, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15810,6 +16507,7 @@ pub unsafe fn LAPACKE_ssbev(
     dyload_lib().LAPACKE_ssbev.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15825,6 +16523,7 @@ pub unsafe fn LAPACKE_dsbev(
     dyload_lib().LAPACKE_dsbev.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15840,6 +16539,7 @@ pub unsafe fn LAPACKE_ssbevd(
     dyload_lib().LAPACKE_ssbevd.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15855,6 +16555,7 @@ pub unsafe fn LAPACKE_dsbevd(
     dyload_lib().LAPACKE_dsbevd.unwrap()(matrix_layout, jobz, uplo, n, kd, ab, ldab, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15901,6 +16602,7 @@ pub unsafe fn LAPACKE_ssbevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -15947,6 +16649,7 @@ pub unsafe fn LAPACKE_dsbevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgst(
     matrix_layout: c_int,
     vect: c_char,
@@ -15977,6 +16680,7 @@ pub unsafe fn LAPACKE_ssbgst(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgst(
     matrix_layout: c_int,
     vect: c_char,
@@ -16007,6 +16711,7 @@ pub unsafe fn LAPACKE_dsbgst(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgv(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16039,6 +16744,7 @@ pub unsafe fn LAPACKE_ssbgv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgv(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16071,6 +16777,7 @@ pub unsafe fn LAPACKE_dsbgv(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgvd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16103,6 +16810,7 @@ pub unsafe fn LAPACKE_ssbgvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgvd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16135,6 +16843,7 @@ pub unsafe fn LAPACKE_dsbgvd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgvx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16187,6 +16896,7 @@ pub unsafe fn LAPACKE_ssbgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgvx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16239,6 +16949,7 @@ pub unsafe fn LAPACKE_dsbgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbtrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -16255,6 +16966,7 @@ pub unsafe fn LAPACKE_ssbtrd(
     dyload_lib().LAPACKE_ssbtrd.unwrap()(matrix_layout, vect, uplo, n, kd, ab, ldab, d, e, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbtrd(
     matrix_layout: c_int,
     vect: c_char,
@@ -16271,6 +16983,7 @@ pub unsafe fn LAPACKE_dsbtrd(
     dyload_lib().LAPACKE_dsbtrd.unwrap()(matrix_layout, vect, uplo, n, kd, ab, ldab, d, e, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssfrk(
     matrix_layout: c_int,
     transr: c_char,
@@ -16299,6 +17012,7 @@ pub unsafe fn LAPACKE_ssfrk(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsfrk(
     matrix_layout: c_int,
     transr: c_char,
@@ -16327,6 +17041,7 @@ pub unsafe fn LAPACKE_dsfrk(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16339,6 +17054,7 @@ pub unsafe fn LAPACKE_sspcon(
     dyload_lib().LAPACKE_sspcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16351,6 +17067,7 @@ pub unsafe fn LAPACKE_dspcon(
     dyload_lib().LAPACKE_dspcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16363,6 +17080,7 @@ pub unsafe fn LAPACKE_cspcon(
     dyload_lib().LAPACKE_cspcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspcon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16375,6 +17093,7 @@ pub unsafe fn LAPACKE_zspcon(
     dyload_lib().LAPACKE_zspcon.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16388,6 +17107,7 @@ pub unsafe fn LAPACKE_sspev(
     dyload_lib().LAPACKE_sspev.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16401,6 +17121,7 @@ pub unsafe fn LAPACKE_dspev(
     dyload_lib().LAPACKE_dspev.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16414,6 +17135,7 @@ pub unsafe fn LAPACKE_sspevd(
     dyload_lib().LAPACKE_sspevd.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16427,6 +17149,7 @@ pub unsafe fn LAPACKE_dspevd(
     dyload_lib().LAPACKE_dspevd.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16465,6 +17188,7 @@ pub unsafe fn LAPACKE_sspevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -16503,6 +17227,7 @@ pub unsafe fn LAPACKE_dspevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16514,6 +17239,7 @@ pub unsafe fn LAPACKE_sspgst(
     dyload_lib().LAPACKE_sspgst.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16525,6 +17251,7 @@ pub unsafe fn LAPACKE_dspgst(
     dyload_lib().LAPACKE_dspgst.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16540,6 +17267,7 @@ pub unsafe fn LAPACKE_sspgv(
     dyload_lib().LAPACKE_sspgv.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16555,6 +17283,7 @@ pub unsafe fn LAPACKE_dspgv(
     dyload_lib().LAPACKE_dspgv.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16570,6 +17299,7 @@ pub unsafe fn LAPACKE_sspgvd(
     dyload_lib().LAPACKE_sspgvd.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16585,6 +17315,7 @@ pub unsafe fn LAPACKE_dspgvd(
     dyload_lib().LAPACKE_dspgvd.unwrap()(matrix_layout, itype, jobz, uplo, n, ap, bp, w, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16627,6 +17358,7 @@ pub unsafe fn LAPACKE_sspgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -16669,6 +17401,7 @@ pub unsafe fn LAPACKE_dspgvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16701,6 +17434,7 @@ pub unsafe fn LAPACKE_ssprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16733,6 +17467,7 @@ pub unsafe fn LAPACKE_dsprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16765,6 +17500,7 @@ pub unsafe fn LAPACKE_csprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16797,6 +17533,7 @@ pub unsafe fn LAPACKE_zsprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16810,6 +17547,7 @@ pub unsafe fn LAPACKE_sspsv(
     dyload_lib().LAPACKE_sspsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16823,6 +17561,7 @@ pub unsafe fn LAPACKE_dspsv(
     dyload_lib().LAPACKE_dspsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16836,6 +17575,7 @@ pub unsafe fn LAPACKE_cspsv(
     dyload_lib().LAPACKE_cspsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspsv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -16849,6 +17589,7 @@ pub unsafe fn LAPACKE_zspsv(
     dyload_lib().LAPACKE_zspsv.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -16885,6 +17626,7 @@ pub unsafe fn LAPACKE_sspsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -16921,6 +17663,7 @@ pub unsafe fn LAPACKE_dspsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -16957,6 +17700,7 @@ pub unsafe fn LAPACKE_cspsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspsvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -16993,6 +17737,7 @@ pub unsafe fn LAPACKE_zspsvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17005,6 +17750,7 @@ pub unsafe fn LAPACKE_ssptrd(
     dyload_lib().LAPACKE_ssptrd.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17017,6 +17763,7 @@ pub unsafe fn LAPACKE_dsptrd(
     dyload_lib().LAPACKE_dsptrd.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17027,6 +17774,7 @@ pub unsafe fn LAPACKE_ssptrf(
     dyload_lib().LAPACKE_ssptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17037,6 +17785,7 @@ pub unsafe fn LAPACKE_dsptrf(
     dyload_lib().LAPACKE_dsptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17047,6 +17796,7 @@ pub unsafe fn LAPACKE_csptrf(
     dyload_lib().LAPACKE_csptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17057,6 +17807,7 @@ pub unsafe fn LAPACKE_zsptrf(
     dyload_lib().LAPACKE_zsptrf.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17067,6 +17818,7 @@ pub unsafe fn LAPACKE_ssptri(
     dyload_lib().LAPACKE_ssptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17077,6 +17829,7 @@ pub unsafe fn LAPACKE_dsptri(
     dyload_lib().LAPACKE_dsptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17087,6 +17840,7 @@ pub unsafe fn LAPACKE_csptri(
     dyload_lib().LAPACKE_csptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17097,6 +17851,7 @@ pub unsafe fn LAPACKE_zsptri(
     dyload_lib().LAPACKE_zsptri.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17110,6 +17865,7 @@ pub unsafe fn LAPACKE_ssptrs(
     dyload_lib().LAPACKE_ssptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17123,6 +17879,7 @@ pub unsafe fn LAPACKE_dsptrs(
     dyload_lib().LAPACKE_dsptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17136,6 +17893,7 @@ pub unsafe fn LAPACKE_csptrs(
     dyload_lib().LAPACKE_csptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17149,6 +17907,7 @@ pub unsafe fn LAPACKE_zsptrs(
     dyload_lib().LAPACKE_zsptrs.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstebz(
     range: c_char,
     order: c_char,
@@ -17171,6 +17930,7 @@ pub unsafe fn LAPACKE_sstebz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstebz(
     range: c_char,
     order: c_char,
@@ -17193,6 +17953,7 @@ pub unsafe fn LAPACKE_dstebz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstedc(
     matrix_layout: c_int,
     compz: c_char,
@@ -17205,6 +17966,7 @@ pub unsafe fn LAPACKE_sstedc(
     dyload_lib().LAPACKE_sstedc.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstedc(
     matrix_layout: c_int,
     compz: c_char,
@@ -17217,6 +17979,7 @@ pub unsafe fn LAPACKE_dstedc(
     dyload_lib().LAPACKE_dstedc.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstedc(
     matrix_layout: c_int,
     compz: c_char,
@@ -17229,6 +17992,7 @@ pub unsafe fn LAPACKE_cstedc(
     dyload_lib().LAPACKE_cstedc.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstedc(
     matrix_layout: c_int,
     compz: c_char,
@@ -17241,6 +18005,7 @@ pub unsafe fn LAPACKE_zstedc(
     dyload_lib().LAPACKE_zstedc.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstegr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17279,6 +18044,7 @@ pub unsafe fn LAPACKE_sstegr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstegr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17317,6 +18083,7 @@ pub unsafe fn LAPACKE_dstegr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstegr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17355,6 +18122,7 @@ pub unsafe fn LAPACKE_cstegr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstegr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17393,6 +18161,7 @@ pub unsafe fn LAPACKE_zstegr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstein(
     matrix_layout: c_int,
     n: lapack_int,
@@ -17421,6 +18190,7 @@ pub unsafe fn LAPACKE_sstein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstein(
     matrix_layout: c_int,
     n: lapack_int,
@@ -17449,6 +18219,7 @@ pub unsafe fn LAPACKE_dstein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstein(
     matrix_layout: c_int,
     n: lapack_int,
@@ -17477,6 +18248,7 @@ pub unsafe fn LAPACKE_cstein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstein(
     matrix_layout: c_int,
     n: lapack_int,
@@ -17505,6 +18277,7 @@ pub unsafe fn LAPACKE_zstein(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstemr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17545,6 +18318,7 @@ pub unsafe fn LAPACKE_sstemr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstemr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17585,6 +18359,7 @@ pub unsafe fn LAPACKE_dstemr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstemr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17625,6 +18400,7 @@ pub unsafe fn LAPACKE_cstemr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstemr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17665,6 +18441,7 @@ pub unsafe fn LAPACKE_zstemr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -17677,6 +18454,7 @@ pub unsafe fn LAPACKE_ssteqr(
     dyload_lib().LAPACKE_ssteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -17689,6 +18467,7 @@ pub unsafe fn LAPACKE_dsteqr(
     dyload_lib().LAPACKE_dsteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -17701,6 +18480,7 @@ pub unsafe fn LAPACKE_csteqr(
     dyload_lib().LAPACKE_csteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsteqr(
     matrix_layout: c_int,
     compz: c_char,
@@ -17713,14 +18493,17 @@ pub unsafe fn LAPACKE_zsteqr(
     dyload_lib().LAPACKE_zsteqr.unwrap()(matrix_layout, compz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssterf(n: lapack_int, d: *mut f32, e: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_ssterf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsterf(n: lapack_int, d: *mut f64, e: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dsterf.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17733,6 +18516,7 @@ pub unsafe fn LAPACKE_sstev(
     dyload_lib().LAPACKE_sstev.unwrap()(matrix_layout, jobz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17745,6 +18529,7 @@ pub unsafe fn LAPACKE_dstev(
     dyload_lib().LAPACKE_dstev.unwrap()(matrix_layout, jobz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17757,6 +18542,7 @@ pub unsafe fn LAPACKE_sstevd(
     dyload_lib().LAPACKE_sstevd.unwrap()(matrix_layout, jobz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17769,6 +18555,7 @@ pub unsafe fn LAPACKE_dstevd(
     dyload_lib().LAPACKE_dstevd.unwrap()(matrix_layout, jobz, n, d, e, z, ldz)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17807,6 +18594,7 @@ pub unsafe fn LAPACKE_sstevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17845,6 +18633,7 @@ pub unsafe fn LAPACKE_dstevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17883,6 +18672,7 @@ pub unsafe fn LAPACKE_sstevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -17921,6 +18711,7 @@ pub unsafe fn LAPACKE_dstevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssycon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17934,6 +18725,7 @@ pub unsafe fn LAPACKE_ssycon(
     dyload_lib().LAPACKE_ssycon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsycon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17947,6 +18739,7 @@ pub unsafe fn LAPACKE_dsycon(
     dyload_lib().LAPACKE_dsycon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csycon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17960,6 +18753,7 @@ pub unsafe fn LAPACKE_csycon(
     dyload_lib().LAPACKE_csycon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsycon(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17973,6 +18767,7 @@ pub unsafe fn LAPACKE_zsycon(
     dyload_lib().LAPACKE_zsycon.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17986,6 +18781,7 @@ pub unsafe fn LAPACKE_ssyequb(
     dyload_lib().LAPACKE_ssyequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -17999,6 +18795,7 @@ pub unsafe fn LAPACKE_dsyequb(
     dyload_lib().LAPACKE_dsyequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18012,6 +18809,7 @@ pub unsafe fn LAPACKE_csyequb(
     dyload_lib().LAPACKE_csyequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyequb(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18025,6 +18823,7 @@ pub unsafe fn LAPACKE_zsyequb(
     dyload_lib().LAPACKE_zsyequb.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18037,6 +18836,7 @@ pub unsafe fn LAPACKE_ssyev(
     dyload_lib().LAPACKE_ssyev.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyev(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18049,6 +18849,7 @@ pub unsafe fn LAPACKE_dsyev(
     dyload_lib().LAPACKE_dsyev.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18061,6 +18862,7 @@ pub unsafe fn LAPACKE_ssyevd(
     dyload_lib().LAPACKE_ssyevd.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevd(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18073,6 +18875,7 @@ pub unsafe fn LAPACKE_dsyevd(
     dyload_lib().LAPACKE_dsyevd.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18113,6 +18916,7 @@ pub unsafe fn LAPACKE_ssyevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevr(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18153,6 +18957,7 @@ pub unsafe fn LAPACKE_dsyevr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18193,6 +18998,7 @@ pub unsafe fn LAPACKE_ssyevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevx(
     matrix_layout: c_int,
     jobz: c_char,
@@ -18233,6 +19039,7 @@ pub unsafe fn LAPACKE_dsyevx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18246,6 +19053,7 @@ pub unsafe fn LAPACKE_ssygst(
     dyload_lib().LAPACKE_ssygst.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygst(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18259,6 +19067,7 @@ pub unsafe fn LAPACKE_dsygst(
     dyload_lib().LAPACKE_dsygst.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18274,6 +19083,7 @@ pub unsafe fn LAPACKE_ssygv(
     dyload_lib().LAPACKE_ssygv.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygv(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18289,6 +19099,7 @@ pub unsafe fn LAPACKE_dsygv(
     dyload_lib().LAPACKE_dsygv.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18304,6 +19115,7 @@ pub unsafe fn LAPACKE_ssygvd(
     dyload_lib().LAPACKE_ssygvd.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygvd(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18319,6 +19131,7 @@ pub unsafe fn LAPACKE_dsygvd(
     dyload_lib().LAPACKE_dsygvd.unwrap()(matrix_layout, itype, jobz, uplo, n, a, lda, b, ldb, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18365,6 +19178,7 @@ pub unsafe fn LAPACKE_ssygvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygvx(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -18411,6 +19225,7 @@ pub unsafe fn LAPACKE_dsygvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18447,6 +19262,7 @@ pub unsafe fn LAPACKE_ssyrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18483,6 +19299,7 @@ pub unsafe fn LAPACKE_dsyrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18519,6 +19336,7 @@ pub unsafe fn LAPACKE_csyrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18555,6 +19373,7 @@ pub unsafe fn LAPACKE_zsyrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyrfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18605,6 +19424,7 @@ pub unsafe fn LAPACKE_ssyrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyrfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18655,6 +19475,7 @@ pub unsafe fn LAPACKE_dsyrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyrfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18705,6 +19526,7 @@ pub unsafe fn LAPACKE_csyrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyrfsx(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18755,6 +19577,7 @@ pub unsafe fn LAPACKE_zsyrfsx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18769,6 +19592,7 @@ pub unsafe fn LAPACKE_ssysv(
     dyload_lib().LAPACKE_ssysv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18783,6 +19607,7 @@ pub unsafe fn LAPACKE_dsysv(
     dyload_lib().LAPACKE_dsysv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18797,6 +19622,7 @@ pub unsafe fn LAPACKE_csysv(
     dyload_lib().LAPACKE_csysv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -18811,6 +19637,7 @@ pub unsafe fn LAPACKE_zsysv(
     dyload_lib().LAPACKE_zsysv.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -18851,6 +19678,7 @@ pub unsafe fn LAPACKE_ssysvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -18891,6 +19719,7 @@ pub unsafe fn LAPACKE_dsysvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -18931,6 +19760,7 @@ pub unsafe fn LAPACKE_csysvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysvx(
     matrix_layout: c_int,
     fact: c_char,
@@ -18971,6 +19801,7 @@ pub unsafe fn LAPACKE_zsysvx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -19025,6 +19856,7 @@ pub unsafe fn LAPACKE_ssysvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -19079,6 +19911,7 @@ pub unsafe fn LAPACKE_dsysvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -19133,6 +19966,7 @@ pub unsafe fn LAPACKE_csysvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysvxx(
     matrix_layout: c_int,
     fact: c_char,
@@ -19187,6 +20021,7 @@ pub unsafe fn LAPACKE_zsysvxx(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19200,6 +20035,7 @@ pub unsafe fn LAPACKE_ssytrd(
     dyload_lib().LAPACKE_ssytrd.unwrap()(matrix_layout, uplo, n, a, lda, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrd(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19213,6 +20049,7 @@ pub unsafe fn LAPACKE_dsytrd(
     dyload_lib().LAPACKE_dsytrd.unwrap()(matrix_layout, uplo, n, a, lda, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19224,6 +20061,7 @@ pub unsafe fn LAPACKE_ssytrf(
     dyload_lib().LAPACKE_ssytrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19235,6 +20073,7 @@ pub unsafe fn LAPACKE_dsytrf(
     dyload_lib().LAPACKE_dsytrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19246,6 +20085,7 @@ pub unsafe fn LAPACKE_csytrf(
     dyload_lib().LAPACKE_csytrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19257,6 +20097,7 @@ pub unsafe fn LAPACKE_zsytrf(
     dyload_lib().LAPACKE_zsytrf.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19268,6 +20109,7 @@ pub unsafe fn LAPACKE_ssytri(
     dyload_lib().LAPACKE_ssytri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19279,6 +20121,7 @@ pub unsafe fn LAPACKE_dsytri(
     dyload_lib().LAPACKE_dsytri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19290,6 +20133,7 @@ pub unsafe fn LAPACKE_csytri(
     dyload_lib().LAPACKE_csytri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19301,6 +20145,7 @@ pub unsafe fn LAPACKE_zsytri(
     dyload_lib().LAPACKE_zsytri.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19315,6 +20160,7 @@ pub unsafe fn LAPACKE_ssytrs(
     dyload_lib().LAPACKE_ssytrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19329,6 +20175,7 @@ pub unsafe fn LAPACKE_dsytrs(
     dyload_lib().LAPACKE_dsytrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19343,6 +20190,7 @@ pub unsafe fn LAPACKE_csytrs(
     dyload_lib().LAPACKE_csytrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19357,6 +20205,7 @@ pub unsafe fn LAPACKE_zsytrs(
     dyload_lib().LAPACKE_zsytrs.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -19371,6 +20220,7 @@ pub unsafe fn LAPACKE_stbcon(
     dyload_lib().LAPACKE_stbcon.unwrap()(matrix_layout, norm, uplo, diag, n, kd, ab, ldab, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -19385,6 +20235,7 @@ pub unsafe fn LAPACKE_dtbcon(
     dyload_lib().LAPACKE_dtbcon.unwrap()(matrix_layout, norm, uplo, diag, n, kd, ab, ldab, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -19399,6 +20250,7 @@ pub unsafe fn LAPACKE_ctbcon(
     dyload_lib().LAPACKE_ctbcon.unwrap()(matrix_layout, norm, uplo, diag, n, kd, ab, ldab, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -19413,6 +20265,7 @@ pub unsafe fn LAPACKE_ztbcon(
     dyload_lib().LAPACKE_ztbcon.unwrap()(matrix_layout, norm, uplo, diag, n, kd, ab, ldab, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19449,6 +20302,7 @@ pub unsafe fn LAPACKE_stbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19485,6 +20339,7 @@ pub unsafe fn LAPACKE_dtbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19521,6 +20376,7 @@ pub unsafe fn LAPACKE_ctbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19557,6 +20413,7 @@ pub unsafe fn LAPACKE_ztbrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19585,6 +20442,7 @@ pub unsafe fn LAPACKE_stbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19613,6 +20471,7 @@ pub unsafe fn LAPACKE_dtbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19641,6 +20500,7 @@ pub unsafe fn LAPACKE_ctbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -19669,6 +20529,7 @@ pub unsafe fn LAPACKE_ztbtrs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfsm(
     matrix_layout: c_int,
     transr: c_char,
@@ -19699,6 +20560,7 @@ pub unsafe fn LAPACKE_stfsm(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfsm(
     matrix_layout: c_int,
     transr: c_char,
@@ -19729,6 +20591,7 @@ pub unsafe fn LAPACKE_dtfsm(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfsm(
     matrix_layout: c_int,
     transr: c_char,
@@ -19759,6 +20622,7 @@ pub unsafe fn LAPACKE_ctfsm(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfsm(
     matrix_layout: c_int,
     transr: c_char,
@@ -19789,6 +20653,7 @@ pub unsafe fn LAPACKE_ztfsm(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -19800,6 +20665,7 @@ pub unsafe fn LAPACKE_stftri(
     dyload_lib().LAPACKE_stftri.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -19811,6 +20677,7 @@ pub unsafe fn LAPACKE_dtftri(
     dyload_lib().LAPACKE_dtftri.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -19822,6 +20689,7 @@ pub unsafe fn LAPACKE_ctftri(
     dyload_lib().LAPACKE_ctftri.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztftri(
     matrix_layout: c_int,
     transr: c_char,
@@ -19833,6 +20701,7 @@ pub unsafe fn LAPACKE_ztftri(
     dyload_lib().LAPACKE_ztftri.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfttp(
     matrix_layout: c_int,
     transr: c_char,
@@ -19844,6 +20713,7 @@ pub unsafe fn LAPACKE_stfttp(
     dyload_lib().LAPACKE_stfttp.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfttp(
     matrix_layout: c_int,
     transr: c_char,
@@ -19855,6 +20725,7 @@ pub unsafe fn LAPACKE_dtfttp(
     dyload_lib().LAPACKE_dtfttp.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfttp(
     matrix_layout: c_int,
     transr: c_char,
@@ -19866,6 +20737,7 @@ pub unsafe fn LAPACKE_ctfttp(
     dyload_lib().LAPACKE_ctfttp.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfttp(
     matrix_layout: c_int,
     transr: c_char,
@@ -19877,6 +20749,7 @@ pub unsafe fn LAPACKE_ztfttp(
     dyload_lib().LAPACKE_ztfttp.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfttr(
     matrix_layout: c_int,
     transr: c_char,
@@ -19889,6 +20762,7 @@ pub unsafe fn LAPACKE_stfttr(
     dyload_lib().LAPACKE_stfttr.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfttr(
     matrix_layout: c_int,
     transr: c_char,
@@ -19901,6 +20775,7 @@ pub unsafe fn LAPACKE_dtfttr(
     dyload_lib().LAPACKE_dtfttr.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfttr(
     matrix_layout: c_int,
     transr: c_char,
@@ -19913,6 +20788,7 @@ pub unsafe fn LAPACKE_ctfttr(
     dyload_lib().LAPACKE_ctfttr.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfttr(
     matrix_layout: c_int,
     transr: c_char,
@@ -19925,6 +20801,7 @@ pub unsafe fn LAPACKE_ztfttr(
     dyload_lib().LAPACKE_ztfttr.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgevc(
     matrix_layout: c_int,
     side: c_char,
@@ -19961,6 +20838,7 @@ pub unsafe fn LAPACKE_stgevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgevc(
     matrix_layout: c_int,
     side: c_char,
@@ -19997,6 +20875,7 @@ pub unsafe fn LAPACKE_dtgevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgevc(
     matrix_layout: c_int,
     side: c_char,
@@ -20033,6 +20912,7 @@ pub unsafe fn LAPACKE_ctgevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgevc(
     matrix_layout: c_int,
     side: c_char,
@@ -20069,6 +20949,7 @@ pub unsafe fn LAPACKE_ztgevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgexc(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -20103,6 +20984,7 @@ pub unsafe fn LAPACKE_stgexc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgexc(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -20137,6 +21019,7 @@ pub unsafe fn LAPACKE_dtgexc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgexc(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -20171,6 +21054,7 @@ pub unsafe fn LAPACKE_ctgexc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgexc(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -20205,6 +21089,7 @@ pub unsafe fn LAPACKE_ztgexc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsen(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -20253,6 +21138,7 @@ pub unsafe fn LAPACKE_stgsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsen(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -20301,6 +21187,7 @@ pub unsafe fn LAPACKE_dtgsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsen(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -20347,6 +21234,7 @@ pub unsafe fn LAPACKE_ctgsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsen(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -20393,6 +21281,7 @@ pub unsafe fn LAPACKE_ztgsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsja(
     matrix_layout: c_int,
     jobu: c_char,
@@ -20447,6 +21336,7 @@ pub unsafe fn LAPACKE_stgsja(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsja(
     matrix_layout: c_int,
     jobu: c_char,
@@ -20501,6 +21391,7 @@ pub unsafe fn LAPACKE_dtgsja(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsja(
     matrix_layout: c_int,
     jobu: c_char,
@@ -20555,6 +21446,7 @@ pub unsafe fn LAPACKE_ctgsja(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsja(
     matrix_layout: c_int,
     jobu: c_char,
@@ -20609,6 +21501,7 @@ pub unsafe fn LAPACKE_ztgsja(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsna(
     matrix_layout: c_int,
     job: c_char,
@@ -20649,6 +21542,7 @@ pub unsafe fn LAPACKE_stgsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsna(
     matrix_layout: c_int,
     job: c_char,
@@ -20689,6 +21583,7 @@ pub unsafe fn LAPACKE_dtgsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsna(
     matrix_layout: c_int,
     job: c_char,
@@ -20729,6 +21624,7 @@ pub unsafe fn LAPACKE_ctgsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsna(
     matrix_layout: c_int,
     job: c_char,
@@ -20769,6 +21665,7 @@ pub unsafe fn LAPACKE_ztgsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsyl(
     matrix_layout: c_int,
     trans: c_char,
@@ -20813,6 +21710,7 @@ pub unsafe fn LAPACKE_stgsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsyl(
     matrix_layout: c_int,
     trans: c_char,
@@ -20857,6 +21755,7 @@ pub unsafe fn LAPACKE_dtgsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsyl(
     matrix_layout: c_int,
     trans: c_char,
@@ -20901,6 +21800,7 @@ pub unsafe fn LAPACKE_ctgsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsyl(
     matrix_layout: c_int,
     trans: c_char,
@@ -20945,6 +21845,7 @@ pub unsafe fn LAPACKE_ztgsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -20957,6 +21858,7 @@ pub unsafe fn LAPACKE_stpcon(
     dyload_lib().LAPACKE_stpcon.unwrap()(matrix_layout, norm, uplo, diag, n, ap, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -20969,6 +21871,7 @@ pub unsafe fn LAPACKE_dtpcon(
     dyload_lib().LAPACKE_dtpcon.unwrap()(matrix_layout, norm, uplo, diag, n, ap, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -20981,6 +21884,7 @@ pub unsafe fn LAPACKE_ctpcon(
     dyload_lib().LAPACKE_ctpcon.unwrap()(matrix_layout, norm, uplo, diag, n, ap, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -20993,6 +21897,7 @@ pub unsafe fn LAPACKE_ztpcon(
     dyload_lib().LAPACKE_ztpcon.unwrap()(matrix_layout, norm, uplo, diag, n, ap, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21025,6 +21930,7 @@ pub unsafe fn LAPACKE_stprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21057,6 +21963,7 @@ pub unsafe fn LAPACKE_dtprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21089,6 +21996,7 @@ pub unsafe fn LAPACKE_ctprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztprfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21121,6 +22029,7 @@ pub unsafe fn LAPACKE_ztprfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21131,6 +22040,7 @@ pub unsafe fn LAPACKE_stptri(
     dyload_lib().LAPACKE_stptri.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21141,6 +22051,7 @@ pub unsafe fn LAPACKE_dtptri(
     dyload_lib().LAPACKE_dtptri.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21151,6 +22062,7 @@ pub unsafe fn LAPACKE_ctptri(
     dyload_lib().LAPACKE_ctptri.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztptri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21161,6 +22073,7 @@ pub unsafe fn LAPACKE_ztptri(
     dyload_lib().LAPACKE_ztptri.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21175,6 +22088,7 @@ pub unsafe fn LAPACKE_stptrs(
     dyload_lib().LAPACKE_stptrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21189,6 +22103,7 @@ pub unsafe fn LAPACKE_dtptrs(
     dyload_lib().LAPACKE_dtptrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21203,6 +22118,7 @@ pub unsafe fn LAPACKE_ctptrs(
     dyload_lib().LAPACKE_ctptrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztptrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21217,6 +22133,7 @@ pub unsafe fn LAPACKE_ztptrs(
     dyload_lib().LAPACKE_ztptrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -21228,6 +22145,7 @@ pub unsafe fn LAPACKE_stpttf(
     dyload_lib().LAPACKE_stpttf.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -21239,6 +22157,7 @@ pub unsafe fn LAPACKE_dtpttf(
     dyload_lib().LAPACKE_dtpttf.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -21250,6 +22169,7 @@ pub unsafe fn LAPACKE_ctpttf(
     dyload_lib().LAPACKE_ctpttf.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -21261,6 +22181,7 @@ pub unsafe fn LAPACKE_ztpttf(
     dyload_lib().LAPACKE_ztpttf.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpttr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21272,6 +22193,7 @@ pub unsafe fn LAPACKE_stpttr(
     dyload_lib().LAPACKE_stpttr.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpttr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21283,6 +22205,7 @@ pub unsafe fn LAPACKE_dtpttr(
     dyload_lib().LAPACKE_dtpttr.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpttr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21294,6 +22217,7 @@ pub unsafe fn LAPACKE_ctpttr(
     dyload_lib().LAPACKE_ctpttr.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpttr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21305,6 +22229,7 @@ pub unsafe fn LAPACKE_ztpttr(
     dyload_lib().LAPACKE_ztpttr.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -21318,6 +22243,7 @@ pub unsafe fn LAPACKE_strcon(
     dyload_lib().LAPACKE_strcon.unwrap()(matrix_layout, norm, uplo, diag, n, a, lda, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -21331,6 +22257,7 @@ pub unsafe fn LAPACKE_dtrcon(
     dyload_lib().LAPACKE_dtrcon.unwrap()(matrix_layout, norm, uplo, diag, n, a, lda, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -21344,6 +22271,7 @@ pub unsafe fn LAPACKE_ctrcon(
     dyload_lib().LAPACKE_ctrcon.unwrap()(matrix_layout, norm, uplo, diag, n, a, lda, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrcon(
     matrix_layout: c_int,
     norm: c_char,
@@ -21357,6 +22285,7 @@ pub unsafe fn LAPACKE_ztrcon(
     dyload_lib().LAPACKE_ztrcon.unwrap()(matrix_layout, norm, uplo, diag, n, a, lda, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strevc(
     matrix_layout: c_int,
     side: c_char,
@@ -21389,6 +22318,7 @@ pub unsafe fn LAPACKE_strevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrevc(
     matrix_layout: c_int,
     side: c_char,
@@ -21421,6 +22351,7 @@ pub unsafe fn LAPACKE_dtrevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrevc(
     matrix_layout: c_int,
     side: c_char,
@@ -21453,6 +22384,7 @@ pub unsafe fn LAPACKE_ctrevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrevc(
     matrix_layout: c_int,
     side: c_char,
@@ -21485,6 +22417,7 @@ pub unsafe fn LAPACKE_ztrevc(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strexc(
     matrix_layout: c_int,
     compq: c_char,
@@ -21499,6 +22432,7 @@ pub unsafe fn LAPACKE_strexc(
     dyload_lib().LAPACKE_strexc.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrexc(
     matrix_layout: c_int,
     compq: c_char,
@@ -21513,6 +22447,7 @@ pub unsafe fn LAPACKE_dtrexc(
     dyload_lib().LAPACKE_dtrexc.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrexc(
     matrix_layout: c_int,
     compq: c_char,
@@ -21527,6 +22462,7 @@ pub unsafe fn LAPACKE_ctrexc(
     dyload_lib().LAPACKE_ctrexc.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrexc(
     matrix_layout: c_int,
     compq: c_char,
@@ -21541,6 +22477,7 @@ pub unsafe fn LAPACKE_ztrexc(
     dyload_lib().LAPACKE_ztrexc.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21575,6 +22512,7 @@ pub unsafe fn LAPACKE_strrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21609,6 +22547,7 @@ pub unsafe fn LAPACKE_dtrrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21643,6 +22582,7 @@ pub unsafe fn LAPACKE_ctrrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrrfs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -21677,6 +22617,7 @@ pub unsafe fn LAPACKE_ztrrfs(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsen(
     matrix_layout: c_int,
     job: c_char,
@@ -21711,6 +22652,7 @@ pub unsafe fn LAPACKE_strsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsen(
     matrix_layout: c_int,
     job: c_char,
@@ -21745,6 +22687,7 @@ pub unsafe fn LAPACKE_dtrsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsen(
     matrix_layout: c_int,
     job: c_char,
@@ -21777,6 +22720,7 @@ pub unsafe fn LAPACKE_ctrsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsen(
     matrix_layout: c_int,
     job: c_char,
@@ -21809,6 +22753,7 @@ pub unsafe fn LAPACKE_ztrsen(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsna(
     matrix_layout: c_int,
     job: c_char,
@@ -21845,6 +22790,7 @@ pub unsafe fn LAPACKE_strsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsna(
     matrix_layout: c_int,
     job: c_char,
@@ -21881,6 +22827,7 @@ pub unsafe fn LAPACKE_dtrsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsna(
     matrix_layout: c_int,
     job: c_char,
@@ -21917,6 +22864,7 @@ pub unsafe fn LAPACKE_ctrsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsna(
     matrix_layout: c_int,
     job: c_char,
@@ -21953,6 +22901,7 @@ pub unsafe fn LAPACKE_ztrsna(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsyl(
     matrix_layout: c_int,
     trana: c_char,
@@ -21985,6 +22934,7 @@ pub unsafe fn LAPACKE_strsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsyl(
     matrix_layout: c_int,
     trana: c_char,
@@ -22017,6 +22967,7 @@ pub unsafe fn LAPACKE_dtrsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsyl(
     matrix_layout: c_int,
     trana: c_char,
@@ -22049,6 +23000,7 @@ pub unsafe fn LAPACKE_ctrsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsyl(
     matrix_layout: c_int,
     trana: c_char,
@@ -22081,6 +23033,7 @@ pub unsafe fn LAPACKE_ztrsyl(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsyl3(
     matrix_layout: c_int,
     trana: c_char,
@@ -22113,6 +23066,7 @@ pub unsafe fn LAPACKE_strsyl3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsyl3(
     matrix_layout: c_int,
     trana: c_char,
@@ -22145,6 +23099,7 @@ pub unsafe fn LAPACKE_dtrsyl3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsyl3(
     matrix_layout: c_int,
     trana: c_char,
@@ -22177,6 +23132,7 @@ pub unsafe fn LAPACKE_ztrsyl3(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strtri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22188,6 +23144,7 @@ pub unsafe fn LAPACKE_strtri(
     dyload_lib().LAPACKE_strtri.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrtri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22199,6 +23156,7 @@ pub unsafe fn LAPACKE_dtrtri(
     dyload_lib().LAPACKE_dtrtri.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrtri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22210,6 +23168,7 @@ pub unsafe fn LAPACKE_ctrtri(
     dyload_lib().LAPACKE_ctrtri.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrtri(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22221,6 +23180,7 @@ pub unsafe fn LAPACKE_ztrtri(
     dyload_lib().LAPACKE_ztrtri.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22236,6 +23196,7 @@ pub unsafe fn LAPACKE_strtrs(
     dyload_lib().LAPACKE_strtrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22251,6 +23212,7 @@ pub unsafe fn LAPACKE_dtrtrs(
     dyload_lib().LAPACKE_dtrtrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22266,6 +23228,7 @@ pub unsafe fn LAPACKE_ctrtrs(
     dyload_lib().LAPACKE_ctrtrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrtrs(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22281,6 +23244,7 @@ pub unsafe fn LAPACKE_ztrtrs(
     dyload_lib().LAPACKE_ztrtrs.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -22293,6 +23257,7 @@ pub unsafe fn LAPACKE_strttf(
     dyload_lib().LAPACKE_strttf.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -22305,6 +23270,7 @@ pub unsafe fn LAPACKE_dtrttf(
     dyload_lib().LAPACKE_dtrttf.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -22317,6 +23283,7 @@ pub unsafe fn LAPACKE_ctrttf(
     dyload_lib().LAPACKE_ctrttf.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrttf(
     matrix_layout: c_int,
     transr: c_char,
@@ -22329,6 +23296,7 @@ pub unsafe fn LAPACKE_ztrttf(
     dyload_lib().LAPACKE_ztrttf.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strttp(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22340,6 +23308,7 @@ pub unsafe fn LAPACKE_strttp(
     dyload_lib().LAPACKE_strttp.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrttp(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22351,6 +23320,7 @@ pub unsafe fn LAPACKE_dtrttp(
     dyload_lib().LAPACKE_dtrttp.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrttp(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22362,6 +23332,7 @@ pub unsafe fn LAPACKE_ctrttp(
     dyload_lib().LAPACKE_ctrttp.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrttp(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22373,6 +23344,7 @@ pub unsafe fn LAPACKE_ztrttp(
     dyload_lib().LAPACKE_ztrttp.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stzrzf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22384,6 +23356,7 @@ pub unsafe fn LAPACKE_stzrzf(
     dyload_lib().LAPACKE_stzrzf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtzrzf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22395,6 +23368,7 @@ pub unsafe fn LAPACKE_dtzrzf(
     dyload_lib().LAPACKE_dtzrzf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctzrzf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22406,6 +23380,7 @@ pub unsafe fn LAPACKE_ctzrzf(
     dyload_lib().LAPACKE_ctzrzf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztzrzf(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22417,6 +23392,7 @@ pub unsafe fn LAPACKE_ztzrzf(
     dyload_lib().LAPACKE_ztzrzf.unwrap()(matrix_layout, m, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -22430,6 +23406,7 @@ pub unsafe fn LAPACKE_cungbr(
     dyload_lib().LAPACKE_cungbr.unwrap()(matrix_layout, vect, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -22443,6 +23420,7 @@ pub unsafe fn LAPACKE_zungbr(
     dyload_lib().LAPACKE_zungbr.unwrap()(matrix_layout, vect, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunghr(
     matrix_layout: c_int,
     n: lapack_int,
@@ -22455,6 +23433,7 @@ pub unsafe fn LAPACKE_cunghr(
     dyload_lib().LAPACKE_cunghr.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunghr(
     matrix_layout: c_int,
     n: lapack_int,
@@ -22467,6 +23446,7 @@ pub unsafe fn LAPACKE_zunghr(
     dyload_lib().LAPACKE_zunghr.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunglq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22479,6 +23459,7 @@ pub unsafe fn LAPACKE_cunglq(
     dyload_lib().LAPACKE_cunglq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunglq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22491,6 +23472,7 @@ pub unsafe fn LAPACKE_zunglq(
     dyload_lib().LAPACKE_zunglq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungql(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22503,6 +23485,7 @@ pub unsafe fn LAPACKE_cungql(
     dyload_lib().LAPACKE_cungql.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungql(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22515,6 +23498,7 @@ pub unsafe fn LAPACKE_zungql(
     dyload_lib().LAPACKE_zungql.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22527,6 +23511,7 @@ pub unsafe fn LAPACKE_cungqr(
     dyload_lib().LAPACKE_cungqr.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22539,6 +23524,7 @@ pub unsafe fn LAPACKE_zungqr(
     dyload_lib().LAPACKE_zungqr.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungrq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22551,6 +23537,7 @@ pub unsafe fn LAPACKE_cungrq(
     dyload_lib().LAPACKE_cungrq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungrq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22563,6 +23550,7 @@ pub unsafe fn LAPACKE_zungrq(
     dyload_lib().LAPACKE_zungrq.unwrap()(matrix_layout, m, n, k, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22574,6 +23562,7 @@ pub unsafe fn LAPACKE_cungtr(
     dyload_lib().LAPACKE_cungtr.unwrap()(matrix_layout, uplo, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22585,6 +23574,7 @@ pub unsafe fn LAPACKE_zungtr(
     dyload_lib().LAPACKE_zungtr.unwrap()(matrix_layout, uplo, n, a, lda, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungtsqr_row(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22599,6 +23589,7 @@ pub unsafe fn LAPACKE_cungtsqr_row(
     dyload_lib().LAPACKE_cungtsqr_row.unwrap()(matrix_layout, m, n, mb, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungtsqr_row(
     matrix_layout: c_int,
     m: lapack_int,
@@ -22613,6 +23604,7 @@ pub unsafe fn LAPACKE_zungtsqr_row(
     dyload_lib().LAPACKE_zungtsqr_row.unwrap()(matrix_layout, m, n, mb, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -22643,6 +23635,7 @@ pub unsafe fn LAPACKE_cunmbr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmbr(
     matrix_layout: c_int,
     vect: c_char,
@@ -22673,6 +23666,7 @@ pub unsafe fn LAPACKE_zunmbr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmhr(
     matrix_layout: c_int,
     side: c_char,
@@ -22703,6 +23697,7 @@ pub unsafe fn LAPACKE_cunmhr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmhr(
     matrix_layout: c_int,
     side: c_char,
@@ -22733,6 +23728,7 @@ pub unsafe fn LAPACKE_zunmhr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmlq(
     matrix_layout: c_int,
     side: c_char,
@@ -22749,6 +23745,7 @@ pub unsafe fn LAPACKE_cunmlq(
     dyload_lib().LAPACKE_cunmlq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmlq(
     matrix_layout: c_int,
     side: c_char,
@@ -22765,6 +23762,7 @@ pub unsafe fn LAPACKE_zunmlq(
     dyload_lib().LAPACKE_zunmlq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmql(
     matrix_layout: c_int,
     side: c_char,
@@ -22781,6 +23779,7 @@ pub unsafe fn LAPACKE_cunmql(
     dyload_lib().LAPACKE_cunmql.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmql(
     matrix_layout: c_int,
     side: c_char,
@@ -22797,6 +23796,7 @@ pub unsafe fn LAPACKE_zunmql(
     dyload_lib().LAPACKE_zunmql.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmqr(
     matrix_layout: c_int,
     side: c_char,
@@ -22813,6 +23813,7 @@ pub unsafe fn LAPACKE_cunmqr(
     dyload_lib().LAPACKE_cunmqr.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmqr(
     matrix_layout: c_int,
     side: c_char,
@@ -22829,6 +23830,7 @@ pub unsafe fn LAPACKE_zunmqr(
     dyload_lib().LAPACKE_zunmqr.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmrq(
     matrix_layout: c_int,
     side: c_char,
@@ -22845,6 +23847,7 @@ pub unsafe fn LAPACKE_cunmrq(
     dyload_lib().LAPACKE_cunmrq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmrq(
     matrix_layout: c_int,
     side: c_char,
@@ -22861,6 +23864,7 @@ pub unsafe fn LAPACKE_zunmrq(
     dyload_lib().LAPACKE_zunmrq.unwrap()(matrix_layout, side, trans, m, n, k, a, lda, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmrz(
     matrix_layout: c_int,
     side: c_char,
@@ -22891,6 +23895,7 @@ pub unsafe fn LAPACKE_cunmrz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmrz(
     matrix_layout: c_int,
     side: c_char,
@@ -22921,6 +23926,7 @@ pub unsafe fn LAPACKE_zunmrz(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -22949,6 +23955,7 @@ pub unsafe fn LAPACKE_cunmtr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -22977,6 +23984,7 @@ pub unsafe fn LAPACKE_zunmtr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cupgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -22989,6 +23997,7 @@ pub unsafe fn LAPACKE_cupgtr(
     dyload_lib().LAPACKE_cupgtr.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zupgtr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23001,6 +24010,7 @@ pub unsafe fn LAPACKE_zupgtr(
     dyload_lib().LAPACKE_zupgtr.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cupmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -23016,6 +24026,7 @@ pub unsafe fn LAPACKE_cupmtr(
     dyload_lib().LAPACKE_cupmtr.unwrap()(matrix_layout, side, uplo, trans, m, n, ap, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zupmtr(
     matrix_layout: c_int,
     side: c_char,
@@ -23031,6 +24042,7 @@ pub unsafe fn LAPACKE_zupmtr(
     dyload_lib().LAPACKE_zupmtr.unwrap()(matrix_layout, side, uplo, trans, m, n, ap, tau, c, ldc)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsdc_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23065,6 +24077,7 @@ pub unsafe fn LAPACKE_sbdsdc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsdc_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23099,6 +24112,7 @@ pub unsafe fn LAPACKE_dbdsdc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsvdx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23139,6 +24153,7 @@ pub unsafe fn LAPACKE_sbdsvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsvdx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23179,6 +24194,7 @@ pub unsafe fn LAPACKE_dbdsvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbdsqr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23215,6 +24231,7 @@ pub unsafe fn LAPACKE_sbdsqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbdsqr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23251,6 +24268,7 @@ pub unsafe fn LAPACKE_dbdsqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cbdsqr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23287,6 +24305,7 @@ pub unsafe fn LAPACKE_cbdsqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zbdsqr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -23323,6 +24342,7 @@ pub unsafe fn LAPACKE_zbdsqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sdisna_work(
     job: c_char,
     m: lapack_int,
@@ -23333,6 +24353,7 @@ pub unsafe fn LAPACKE_sdisna_work(
     dyload_lib().LAPACKE_sdisna_work.unwrap()(job, m, n, d, sep)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ddisna_work(
     job: c_char,
     m: lapack_int,
@@ -23343,6 +24364,7 @@ pub unsafe fn LAPACKE_ddisna_work(
     dyload_lib().LAPACKE_ddisna_work.unwrap()(job, m, n, d, sep)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbbrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -23385,6 +24407,7 @@ pub unsafe fn LAPACKE_sgbbrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbbrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -23427,6 +24450,7 @@ pub unsafe fn LAPACKE_dgbbrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbbrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -23471,6 +24495,7 @@ pub unsafe fn LAPACKE_cgbbrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbbrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -23515,6 +24540,7 @@ pub unsafe fn LAPACKE_zgbbrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -23545,6 +24571,7 @@ pub unsafe fn LAPACKE_sgbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -23575,6 +24602,7 @@ pub unsafe fn LAPACKE_dgbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -23605,6 +24633,7 @@ pub unsafe fn LAPACKE_cgbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -23635,6 +24664,7 @@ pub unsafe fn LAPACKE_zgbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23665,6 +24695,7 @@ pub unsafe fn LAPACKE_sgbequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23695,6 +24726,7 @@ pub unsafe fn LAPACKE_dgbequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23725,6 +24757,7 @@ pub unsafe fn LAPACKE_cgbequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23755,6 +24788,7 @@ pub unsafe fn LAPACKE_zgbequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23785,6 +24819,7 @@ pub unsafe fn LAPACKE_sgbequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23815,6 +24850,7 @@ pub unsafe fn LAPACKE_dgbequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23845,6 +24881,7 @@ pub unsafe fn LAPACKE_cgbequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -23875,6 +24912,7 @@ pub unsafe fn LAPACKE_zgbequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -23919,6 +24957,7 @@ pub unsafe fn LAPACKE_sgbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -23963,6 +25002,7 @@ pub unsafe fn LAPACKE_dgbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24007,6 +25047,7 @@ pub unsafe fn LAPACKE_cgbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24051,6 +25092,7 @@ pub unsafe fn LAPACKE_zgbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbrfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24111,6 +25153,7 @@ pub unsafe fn LAPACKE_sgbrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbrfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24171,6 +25214,7 @@ pub unsafe fn LAPACKE_dgbrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbrfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24231,6 +25275,7 @@ pub unsafe fn LAPACKE_cgbrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbrfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24291,6 +25336,7 @@ pub unsafe fn LAPACKE_zgbrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -24306,6 +25352,7 @@ pub unsafe fn LAPACKE_sgbsv_work(
     dyload_lib().LAPACKE_sgbsv_work.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -24321,6 +25368,7 @@ pub unsafe fn LAPACKE_dgbsv_work(
     dyload_lib().LAPACKE_dgbsv_work.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -24336,6 +25384,7 @@ pub unsafe fn LAPACKE_cgbsv_work(
     dyload_lib().LAPACKE_cgbsv_work.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -24351,6 +25400,7 @@ pub unsafe fn LAPACKE_zgbsv_work(
     dyload_lib().LAPACKE_zgbsv_work.unwrap()(matrix_layout, n, kl, ku, nrhs, ab, ldab, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24405,6 +25455,7 @@ pub unsafe fn LAPACKE_sgbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24459,6 +25510,7 @@ pub unsafe fn LAPACKE_dgbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24513,6 +25565,7 @@ pub unsafe fn LAPACKE_cgbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24567,6 +25620,7 @@ pub unsafe fn LAPACKE_zgbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbsvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24631,6 +25685,7 @@ pub unsafe fn LAPACKE_sgbsvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbsvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24695,6 +25750,7 @@ pub unsafe fn LAPACKE_dgbsvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbsvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24759,6 +25815,7 @@ pub unsafe fn LAPACKE_cgbsvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbsvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -24823,6 +25880,7 @@ pub unsafe fn LAPACKE_zgbsvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbtrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -24836,6 +25894,7 @@ pub unsafe fn LAPACKE_sgbtrf_work(
     dyload_lib().LAPACKE_sgbtrf_work.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbtrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -24849,6 +25908,7 @@ pub unsafe fn LAPACKE_dgbtrf_work(
     dyload_lib().LAPACKE_dgbtrf_work.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbtrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -24862,6 +25922,7 @@ pub unsafe fn LAPACKE_cgbtrf_work(
     dyload_lib().LAPACKE_cgbtrf_work.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbtrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -24875,6 +25936,7 @@ pub unsafe fn LAPACKE_zgbtrf_work(
     dyload_lib().LAPACKE_zgbtrf_work.unwrap()(matrix_layout, m, n, kl, ku, ab, ldab, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgbtrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24903,6 +25965,7 @@ pub unsafe fn LAPACKE_sgbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgbtrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24931,6 +25994,7 @@ pub unsafe fn LAPACKE_dgbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgbtrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24959,6 +26023,7 @@ pub unsafe fn LAPACKE_cgbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgbtrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -24987,6 +26052,7 @@ pub unsafe fn LAPACKE_zgbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25013,6 +26079,7 @@ pub unsafe fn LAPACKE_sgebak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25039,6 +26106,7 @@ pub unsafe fn LAPACKE_dgebak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25065,6 +26133,7 @@ pub unsafe fn LAPACKE_cgebak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25091,6 +26160,7 @@ pub unsafe fn LAPACKE_zgebak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25104,6 +26174,7 @@ pub unsafe fn LAPACKE_sgebal_work(
     dyload_lib().LAPACKE_sgebal_work.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25117,6 +26188,7 @@ pub unsafe fn LAPACKE_dgebal_work(
     dyload_lib().LAPACKE_dgebal_work.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25130,6 +26202,7 @@ pub unsafe fn LAPACKE_cgebal_work(
     dyload_lib().LAPACKE_cgebal_work.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -25143,6 +26216,7 @@ pub unsafe fn LAPACKE_zgebal_work(
     dyload_lib().LAPACKE_zgebal_work.unwrap()(matrix_layout, job, n, a, lda, ilo, ihi, scale)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgebrd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25171,6 +26245,7 @@ pub unsafe fn LAPACKE_sgebrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgebrd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25199,6 +26274,7 @@ pub unsafe fn LAPACKE_dgebrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgebrd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25227,6 +26303,7 @@ pub unsafe fn LAPACKE_cgebrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgebrd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25255,6 +26332,7 @@ pub unsafe fn LAPACKE_zgebrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgecon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -25279,6 +26357,7 @@ pub unsafe fn LAPACKE_sgecon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgecon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -25303,6 +26382,7 @@ pub unsafe fn LAPACKE_dgecon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgecon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -25327,6 +26407,7 @@ pub unsafe fn LAPACKE_cgecon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgecon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -25351,6 +26432,7 @@ pub unsafe fn LAPACKE_zgecon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25377,6 +26459,7 @@ pub unsafe fn LAPACKE_sgeequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25403,6 +26486,7 @@ pub unsafe fn LAPACKE_dgeequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25429,6 +26513,7 @@ pub unsafe fn LAPACKE_cgeequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeequ_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25455,6 +26540,7 @@ pub unsafe fn LAPACKE_zgeequ_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25481,6 +26567,7 @@ pub unsafe fn LAPACKE_sgeequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25507,6 +26594,7 @@ pub unsafe fn LAPACKE_dgeequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25533,6 +26621,7 @@ pub unsafe fn LAPACKE_cgeequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeequb_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -25559,6 +26648,7 @@ pub unsafe fn LAPACKE_zgeequb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgees_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25595,6 +26685,7 @@ pub unsafe fn LAPACKE_sgees_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgees_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25631,6 +26722,7 @@ pub unsafe fn LAPACKE_dgees_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgees_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25667,6 +26759,7 @@ pub unsafe fn LAPACKE_cgees_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgees_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25703,6 +26796,7 @@ pub unsafe fn LAPACKE_zgees_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeesx_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25749,6 +26843,7 @@ pub unsafe fn LAPACKE_sgeesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeesx_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25795,6 +26890,7 @@ pub unsafe fn LAPACKE_dgeesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeesx_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25837,6 +26933,7 @@ pub unsafe fn LAPACKE_cgeesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeesx_work(
     matrix_layout: c_int,
     jobvs: c_char,
@@ -25879,6 +26976,7 @@ pub unsafe fn LAPACKE_zgeesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -25913,6 +27011,7 @@ pub unsafe fn LAPACKE_sgeev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -25947,6 +27046,7 @@ pub unsafe fn LAPACKE_dgeev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -25981,6 +27081,7 @@ pub unsafe fn LAPACKE_cgeev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -26015,6 +27116,7 @@ pub unsafe fn LAPACKE_zgeev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -26067,6 +27169,7 @@ pub unsafe fn LAPACKE_sgeevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -26119,6 +27222,7 @@ pub unsafe fn LAPACKE_dgeevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -26169,6 +27273,7 @@ pub unsafe fn LAPACKE_cgeevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -26219,6 +27324,7 @@ pub unsafe fn LAPACKE_zgeevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgehrd_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -26233,6 +27339,7 @@ pub unsafe fn LAPACKE_sgehrd_work(
     dyload_lib().LAPACKE_sgehrd_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgehrd_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -26247,6 +27354,7 @@ pub unsafe fn LAPACKE_dgehrd_work(
     dyload_lib().LAPACKE_dgehrd_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgehrd_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -26261,6 +27369,7 @@ pub unsafe fn LAPACKE_cgehrd_work(
     dyload_lib().LAPACKE_cgehrd_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgehrd_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -26275,6 +27384,7 @@ pub unsafe fn LAPACKE_zgehrd_work(
     dyload_lib().LAPACKE_zgehrd_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgejsv_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -26319,6 +27429,7 @@ pub unsafe fn LAPACKE_sgejsv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgejsv_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -26363,6 +27474,7 @@ pub unsafe fn LAPACKE_dgejsv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgejsv_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -26411,6 +27523,7 @@ pub unsafe fn LAPACKE_cgejsv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgejsv_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -26459,6 +27572,7 @@ pub unsafe fn LAPACKE_zgejsv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelq2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26471,6 +27585,7 @@ pub unsafe fn LAPACKE_sgelq2_work(
     dyload_lib().LAPACKE_sgelq2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelq2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26483,6 +27598,7 @@ pub unsafe fn LAPACKE_dgelq2_work(
     dyload_lib().LAPACKE_dgelq2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelq2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26495,6 +27611,7 @@ pub unsafe fn LAPACKE_cgelq2_work(
     dyload_lib().LAPACKE_cgelq2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelq2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26507,6 +27624,7 @@ pub unsafe fn LAPACKE_zgelq2_work(
     dyload_lib().LAPACKE_zgelq2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26520,6 +27638,7 @@ pub unsafe fn LAPACKE_sgelqf_work(
     dyload_lib().LAPACKE_sgelqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26533,6 +27652,7 @@ pub unsafe fn LAPACKE_dgelqf_work(
     dyload_lib().LAPACKE_dgelqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26546,6 +27666,7 @@ pub unsafe fn LAPACKE_cgelqf_work(
     dyload_lib().LAPACKE_cgelqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26559,6 +27680,7 @@ pub unsafe fn LAPACKE_zgelqf_work(
     dyload_lib().LAPACKE_zgelqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgels_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -26587,6 +27709,7 @@ pub unsafe fn LAPACKE_sgels_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgels_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -26615,6 +27738,7 @@ pub unsafe fn LAPACKE_dgels_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgels_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -26643,6 +27767,7 @@ pub unsafe fn LAPACKE_cgels_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgels_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -26671,6 +27796,7 @@ pub unsafe fn LAPACKE_zgels_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelsd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26705,6 +27831,7 @@ pub unsafe fn LAPACKE_sgelsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelsd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26739,6 +27866,7 @@ pub unsafe fn LAPACKE_dgelsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelsd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26775,6 +27903,7 @@ pub unsafe fn LAPACKE_cgelsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelsd_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26811,6 +27940,7 @@ pub unsafe fn LAPACKE_zgelsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelss_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26843,6 +27973,7 @@ pub unsafe fn LAPACKE_sgelss_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelss_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26875,6 +28006,7 @@ pub unsafe fn LAPACKE_dgelss_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelss_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26909,6 +28041,7 @@ pub unsafe fn LAPACKE_cgelss_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelss_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26943,6 +28076,7 @@ pub unsafe fn LAPACKE_zgelss_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelsy_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -26975,6 +28109,7 @@ pub unsafe fn LAPACKE_sgelsy_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelsy_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27007,6 +28142,7 @@ pub unsafe fn LAPACKE_dgelsy_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelsy_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27041,6 +28177,7 @@ pub unsafe fn LAPACKE_cgelsy_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelsy_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27075,6 +28212,7 @@ pub unsafe fn LAPACKE_zgelsy_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqlf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27088,6 +28226,7 @@ pub unsafe fn LAPACKE_sgeqlf_work(
     dyload_lib().LAPACKE_sgeqlf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqlf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27101,6 +28240,7 @@ pub unsafe fn LAPACKE_dgeqlf_work(
     dyload_lib().LAPACKE_dgeqlf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqlf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27114,6 +28254,7 @@ pub unsafe fn LAPACKE_cgeqlf_work(
     dyload_lib().LAPACKE_cgeqlf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqlf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27127,6 +28268,7 @@ pub unsafe fn LAPACKE_zgeqlf_work(
     dyload_lib().LAPACKE_zgeqlf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqp3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27141,6 +28283,7 @@ pub unsafe fn LAPACKE_sgeqp3_work(
     dyload_lib().LAPACKE_sgeqp3_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqp3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27155,6 +28298,7 @@ pub unsafe fn LAPACKE_dgeqp3_work(
     dyload_lib().LAPACKE_dgeqp3_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqp3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27181,6 +28325,7 @@ pub unsafe fn LAPACKE_cgeqp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqp3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27207,6 +28352,7 @@ pub unsafe fn LAPACKE_zgeqp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqpf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27220,6 +28366,7 @@ pub unsafe fn LAPACKE_sgeqpf_work(
     dyload_lib().LAPACKE_sgeqpf_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqpf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27233,6 +28380,7 @@ pub unsafe fn LAPACKE_dgeqpf_work(
     dyload_lib().LAPACKE_dgeqpf_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqpf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27247,6 +28395,7 @@ pub unsafe fn LAPACKE_cgeqpf_work(
     dyload_lib().LAPACKE_cgeqpf_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqpf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27261,6 +28410,7 @@ pub unsafe fn LAPACKE_zgeqpf_work(
     dyload_lib().LAPACKE_zgeqpf_work.unwrap()(matrix_layout, m, n, a, lda, jpvt, tau, work, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqr2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27273,6 +28423,7 @@ pub unsafe fn LAPACKE_sgeqr2_work(
     dyload_lib().LAPACKE_sgeqr2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqr2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27285,6 +28436,7 @@ pub unsafe fn LAPACKE_dgeqr2_work(
     dyload_lib().LAPACKE_dgeqr2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqr2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27297,6 +28449,7 @@ pub unsafe fn LAPACKE_cgeqr2_work(
     dyload_lib().LAPACKE_cgeqr2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqr2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27309,6 +28462,7 @@ pub unsafe fn LAPACKE_zgeqr2_work(
     dyload_lib().LAPACKE_zgeqr2_work.unwrap()(matrix_layout, m, n, a, lda, tau, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27322,6 +28476,7 @@ pub unsafe fn LAPACKE_sgeqrf_work(
     dyload_lib().LAPACKE_sgeqrf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27335,6 +28490,7 @@ pub unsafe fn LAPACKE_dgeqrf_work(
     dyload_lib().LAPACKE_dgeqrf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27348,6 +28504,7 @@ pub unsafe fn LAPACKE_cgeqrf_work(
     dyload_lib().LAPACKE_cgeqrf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27361,6 +28518,7 @@ pub unsafe fn LAPACKE_zgeqrf_work(
     dyload_lib().LAPACKE_zgeqrf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrfp_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27374,6 +28532,7 @@ pub unsafe fn LAPACKE_sgeqrfp_work(
     dyload_lib().LAPACKE_sgeqrfp_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrfp_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27387,6 +28546,7 @@ pub unsafe fn LAPACKE_dgeqrfp_work(
     dyload_lib().LAPACKE_dgeqrfp_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrfp_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27400,6 +28560,7 @@ pub unsafe fn LAPACKE_cgeqrfp_work(
     dyload_lib().LAPACKE_cgeqrfp_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrfp_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27413,6 +28574,7 @@ pub unsafe fn LAPACKE_zgeqrfp_work(
     dyload_lib().LAPACKE_zgeqrfp_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27453,6 +28615,7 @@ pub unsafe fn LAPACKE_sgerfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27493,6 +28656,7 @@ pub unsafe fn LAPACKE_dgerfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27533,6 +28697,7 @@ pub unsafe fn LAPACKE_cgerfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27573,6 +28738,7 @@ pub unsafe fn LAPACKE_zgerfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27629,6 +28795,7 @@ pub unsafe fn LAPACKE_sgerfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27685,6 +28852,7 @@ pub unsafe fn LAPACKE_dgerfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27741,6 +28909,7 @@ pub unsafe fn LAPACKE_cgerfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerfsx_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -27797,6 +28966,7 @@ pub unsafe fn LAPACKE_zgerfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgerqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27810,6 +28980,7 @@ pub unsafe fn LAPACKE_sgerqf_work(
     dyload_lib().LAPACKE_sgerqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgerqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27823,6 +28994,7 @@ pub unsafe fn LAPACKE_dgerqf_work(
     dyload_lib().LAPACKE_dgerqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgerqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27836,6 +29008,7 @@ pub unsafe fn LAPACKE_cgerqf_work(
     dyload_lib().LAPACKE_cgerqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgerqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -27849,6 +29022,7 @@ pub unsafe fn LAPACKE_zgerqf_work(
     dyload_lib().LAPACKE_zgerqf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesdd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -27883,6 +29057,7 @@ pub unsafe fn LAPACKE_sgesdd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesdd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -27917,6 +29092,7 @@ pub unsafe fn LAPACKE_dgesdd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesdd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -27953,6 +29129,7 @@ pub unsafe fn LAPACKE_cgesdd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesdd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -27989,6 +29166,7 @@ pub unsafe fn LAPACKE_zgesdd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgedmd_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28055,6 +29233,7 @@ pub unsafe fn LAPACKE_sgedmd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgedmd_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28121,6 +29300,7 @@ pub unsafe fn LAPACKE_dgedmd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgedmd_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28189,6 +29369,7 @@ pub unsafe fn LAPACKE_cgedmd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgedmd_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28257,6 +29438,7 @@ pub unsafe fn LAPACKE_zgedmd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgedmdq_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28331,6 +29513,7 @@ pub unsafe fn LAPACKE_sgedmdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgedmdq_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28405,6 +29588,7 @@ pub unsafe fn LAPACKE_dgedmdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgedmdq_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28481,6 +29665,7 @@ pub unsafe fn LAPACKE_cgedmdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgedmdq_work(
     matrix_layout: c_int,
     jobs: c_char,
@@ -28557,6 +29742,7 @@ pub unsafe fn LAPACKE_zgedmdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28570,6 +29756,7 @@ pub unsafe fn LAPACKE_sgesv_work(
     dyload_lib().LAPACKE_sgesv_work.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28583,6 +29770,7 @@ pub unsafe fn LAPACKE_dgesv_work(
     dyload_lib().LAPACKE_dgesv_work.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28596,6 +29784,7 @@ pub unsafe fn LAPACKE_cgesv_work(
     dyload_lib().LAPACKE_cgesv_work.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28609,6 +29798,7 @@ pub unsafe fn LAPACKE_zgesv_work(
     dyload_lib().LAPACKE_zgesv_work.unwrap()(matrix_layout, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28641,6 +29831,7 @@ pub unsafe fn LAPACKE_dsgesv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zcgesv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -28675,6 +29866,7 @@ pub unsafe fn LAPACKE_zcgesv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28709,6 +29901,7 @@ pub unsafe fn LAPACKE_sgesvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28743,6 +29936,7 @@ pub unsafe fn LAPACKE_dgesvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28779,6 +29973,7 @@ pub unsafe fn LAPACKE_cgesvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28815,6 +30010,7 @@ pub unsafe fn LAPACKE_zgesvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvdx_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28863,6 +30059,7 @@ pub unsafe fn LAPACKE_sgesvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvdx_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28911,6 +30108,7 @@ pub unsafe fn LAPACKE_dgesvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvdx_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -28961,6 +30159,7 @@ pub unsafe fn LAPACKE_cgesvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvdx_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -29011,6 +30210,7 @@ pub unsafe fn LAPACKE_zgesvdx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvdq_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29061,6 +30261,7 @@ pub unsafe fn LAPACKE_sgesvdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvdq_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29111,6 +30312,7 @@ pub unsafe fn LAPACKE_dgesvdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvdq_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29161,6 +30363,7 @@ pub unsafe fn LAPACKE_cgesvdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvdq_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29211,6 +30414,7 @@ pub unsafe fn LAPACKE_zgesvdq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvj_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29245,6 +30449,7 @@ pub unsafe fn LAPACKE_sgesvj_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvj_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29279,6 +30484,7 @@ pub unsafe fn LAPACKE_dgesvj_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvj_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29317,6 +30523,7 @@ pub unsafe fn LAPACKE_cgesvj_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvj_work(
     matrix_layout: c_int,
     joba: c_char,
@@ -29355,6 +30562,7 @@ pub unsafe fn LAPACKE_zgesvj_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29405,6 +30613,7 @@ pub unsafe fn LAPACKE_sgesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29455,6 +30664,7 @@ pub unsafe fn LAPACKE_dgesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29505,6 +30715,7 @@ pub unsafe fn LAPACKE_cgesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29555,6 +30766,7 @@ pub unsafe fn LAPACKE_zgesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29615,6 +30827,7 @@ pub unsafe fn LAPACKE_sgesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29675,6 +30888,7 @@ pub unsafe fn LAPACKE_dgesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29735,6 +30949,7 @@ pub unsafe fn LAPACKE_cgesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -29795,6 +31010,7 @@ pub unsafe fn LAPACKE_zgesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29806,6 +31022,7 @@ pub unsafe fn LAPACKE_sgetf2_work(
     dyload_lib().LAPACKE_sgetf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29817,6 +31034,7 @@ pub unsafe fn LAPACKE_dgetf2_work(
     dyload_lib().LAPACKE_dgetf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29828,6 +31046,7 @@ pub unsafe fn LAPACKE_cgetf2_work(
     dyload_lib().LAPACKE_cgetf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29839,6 +31058,7 @@ pub unsafe fn LAPACKE_zgetf2_work(
     dyload_lib().LAPACKE_zgetf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29850,6 +31070,7 @@ pub unsafe fn LAPACKE_sgetrf_work(
     dyload_lib().LAPACKE_sgetrf_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29861,6 +31082,7 @@ pub unsafe fn LAPACKE_dgetrf_work(
     dyload_lib().LAPACKE_dgetrf_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29872,6 +31094,7 @@ pub unsafe fn LAPACKE_cgetrf_work(
     dyload_lib().LAPACKE_cgetrf_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29883,6 +31106,7 @@ pub unsafe fn LAPACKE_zgetrf_work(
     dyload_lib().LAPACKE_zgetrf_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29894,6 +31118,7 @@ pub unsafe fn LAPACKE_sgetrf2_work(
     dyload_lib().LAPACKE_sgetrf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29905,6 +31130,7 @@ pub unsafe fn LAPACKE_dgetrf2_work(
     dyload_lib().LAPACKE_dgetrf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29916,6 +31142,7 @@ pub unsafe fn LAPACKE_cgetrf2_work(
     dyload_lib().LAPACKE_cgetrf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrf2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -29927,6 +31154,7 @@ pub unsafe fn LAPACKE_zgetrf2_work(
     dyload_lib().LAPACKE_zgetrf2_work.unwrap()(matrix_layout, m, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetri_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -29939,6 +31167,7 @@ pub unsafe fn LAPACKE_sgetri_work(
     dyload_lib().LAPACKE_sgetri_work.unwrap()(matrix_layout, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetri_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -29951,6 +31180,7 @@ pub unsafe fn LAPACKE_dgetri_work(
     dyload_lib().LAPACKE_dgetri_work.unwrap()(matrix_layout, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetri_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -29963,6 +31193,7 @@ pub unsafe fn LAPACKE_cgetri_work(
     dyload_lib().LAPACKE_cgetri_work.unwrap()(matrix_layout, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetri_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -29975,6 +31206,7 @@ pub unsafe fn LAPACKE_zgetri_work(
     dyload_lib().LAPACKE_zgetri_work.unwrap()(matrix_layout, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -29989,6 +31221,7 @@ pub unsafe fn LAPACKE_sgetrs_work(
     dyload_lib().LAPACKE_sgetrs_work.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -30003,6 +31236,7 @@ pub unsafe fn LAPACKE_dgetrs_work(
     dyload_lib().LAPACKE_dgetrs_work.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -30017,6 +31251,7 @@ pub unsafe fn LAPACKE_cgetrs_work(
     dyload_lib().LAPACKE_cgetrs_work.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -30031,6 +31266,7 @@ pub unsafe fn LAPACKE_zgetrs_work(
     dyload_lib().LAPACKE_zgetrs_work.unwrap()(matrix_layout, trans, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggbak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30059,6 +31295,7 @@ pub unsafe fn LAPACKE_sggbak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggbak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30087,6 +31324,7 @@ pub unsafe fn LAPACKE_dggbak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggbak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30115,6 +31353,7 @@ pub unsafe fn LAPACKE_cggbak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggbak_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30143,6 +31382,7 @@ pub unsafe fn LAPACKE_zggbak_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggbal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30173,6 +31413,7 @@ pub unsafe fn LAPACKE_sggbal_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggbal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30203,6 +31444,7 @@ pub unsafe fn LAPACKE_dggbal_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggbal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30233,6 +31475,7 @@ pub unsafe fn LAPACKE_cggbal_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggbal_work(
     matrix_layout: c_int,
     job: c_char,
@@ -30263,6 +31506,7 @@ pub unsafe fn LAPACKE_zggbal_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgges_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30311,6 +31555,7 @@ pub unsafe fn LAPACKE_sgges_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgges_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30359,6 +31604,7 @@ pub unsafe fn LAPACKE_dgges_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgges_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30407,6 +31653,7 @@ pub unsafe fn LAPACKE_cgges_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgges_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30455,6 +31702,7 @@ pub unsafe fn LAPACKE_zgges_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgges3_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30503,6 +31751,7 @@ pub unsafe fn LAPACKE_sgges3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgges3_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30551,6 +31800,7 @@ pub unsafe fn LAPACKE_dgges3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgges3_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30599,6 +31849,7 @@ pub unsafe fn LAPACKE_cgges3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgges3_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30647,6 +31898,7 @@ pub unsafe fn LAPACKE_zgges3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggesx_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30705,6 +31957,7 @@ pub unsafe fn LAPACKE_sggesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggesx_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30763,6 +32016,7 @@ pub unsafe fn LAPACKE_dggesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggesx_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30821,6 +32075,7 @@ pub unsafe fn LAPACKE_cggesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggesx_work(
     matrix_layout: c_int,
     jobvsl: c_char,
@@ -30879,6 +32134,7 @@ pub unsafe fn LAPACKE_zggesx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -30919,6 +32175,7 @@ pub unsafe fn LAPACKE_sggev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -30959,6 +32216,7 @@ pub unsafe fn LAPACKE_dggev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -30999,6 +32257,7 @@ pub unsafe fn LAPACKE_cggev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggev_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -31039,6 +32298,7 @@ pub unsafe fn LAPACKE_zggev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggev3_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -31079,6 +32339,7 @@ pub unsafe fn LAPACKE_sggev3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggev3_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -31119,6 +32380,7 @@ pub unsafe fn LAPACKE_dggev3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggev3_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -31159,6 +32421,7 @@ pub unsafe fn LAPACKE_cggev3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggev3_work(
     matrix_layout: c_int,
     jobvl: c_char,
@@ -31199,6 +32462,7 @@ pub unsafe fn LAPACKE_zggev3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -31263,6 +32527,7 @@ pub unsafe fn LAPACKE_sggevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -31327,6 +32592,7 @@ pub unsafe fn LAPACKE_dggevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -31391,6 +32657,7 @@ pub unsafe fn LAPACKE_cggevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggevx_work(
     matrix_layout: c_int,
     balanc: c_char,
@@ -31455,6 +32722,7 @@ pub unsafe fn LAPACKE_zggevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggglm_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -31487,6 +32755,7 @@ pub unsafe fn LAPACKE_sggglm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggglm_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -31519,6 +32788,7 @@ pub unsafe fn LAPACKE_dggglm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggglm_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -31551,6 +32821,7 @@ pub unsafe fn LAPACKE_cggglm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggglm_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -31583,6 +32854,7 @@ pub unsafe fn LAPACKE_zggglm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgghrd_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31617,6 +32889,7 @@ pub unsafe fn LAPACKE_sgghrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgghrd_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31651,6 +32924,7 @@ pub unsafe fn LAPACKE_dgghrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgghrd_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31685,6 +32959,7 @@ pub unsafe fn LAPACKE_cgghrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgghrd_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31719,6 +32994,7 @@ pub unsafe fn LAPACKE_zgghrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgghd3_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31757,6 +33033,7 @@ pub unsafe fn LAPACKE_sgghd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgghd3_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31795,6 +33072,7 @@ pub unsafe fn LAPACKE_dgghd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgghd3_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31833,6 +33111,7 @@ pub unsafe fn LAPACKE_cgghd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgghd3_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -31871,6 +33150,7 @@ pub unsafe fn LAPACKE_zgghd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgglse_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -31903,6 +33183,7 @@ pub unsafe fn LAPACKE_sgglse_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgglse_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -31935,6 +33216,7 @@ pub unsafe fn LAPACKE_dgglse_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgglse_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -31967,6 +33249,7 @@ pub unsafe fn LAPACKE_cgglse_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgglse_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -31999,6 +33282,7 @@ pub unsafe fn LAPACKE_zgglse_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggqrf_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -32029,6 +33313,7 @@ pub unsafe fn LAPACKE_sggqrf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggqrf_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -32059,6 +33344,7 @@ pub unsafe fn LAPACKE_dggqrf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggqrf_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -32089,6 +33375,7 @@ pub unsafe fn LAPACKE_cggqrf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggqrf_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -32119,6 +33406,7 @@ pub unsafe fn LAPACKE_zggqrf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggrqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -32149,6 +33437,7 @@ pub unsafe fn LAPACKE_sggrqf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggrqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -32179,6 +33468,7 @@ pub unsafe fn LAPACKE_dggrqf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggrqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -32209,6 +33499,7 @@ pub unsafe fn LAPACKE_cggrqf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggrqf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -32239,6 +33530,7 @@ pub unsafe fn LAPACKE_zggrqf_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32291,6 +33583,7 @@ pub unsafe fn LAPACKE_sggsvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32343,6 +33636,7 @@ pub unsafe fn LAPACKE_dggsvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32397,6 +33691,7 @@ pub unsafe fn LAPACKE_cggsvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvd_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32451,6 +33746,7 @@ pub unsafe fn LAPACKE_zggsvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvd3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32505,6 +33801,7 @@ pub unsafe fn LAPACKE_sggsvd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvd3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32559,6 +33856,7 @@ pub unsafe fn LAPACKE_dggsvd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvd3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32615,6 +33913,7 @@ pub unsafe fn LAPACKE_cggsvd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvd3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32671,6 +33970,7 @@ pub unsafe fn LAPACKE_zggsvd3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvp_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32725,6 +34025,7 @@ pub unsafe fn LAPACKE_sggsvp_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvp_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32779,6 +34080,7 @@ pub unsafe fn LAPACKE_dggsvp_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvp_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32835,6 +34137,7 @@ pub unsafe fn LAPACKE_cggsvp_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvp_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32891,6 +34194,7 @@ pub unsafe fn LAPACKE_zggsvp_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sggsvp3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -32947,6 +34251,7 @@ pub unsafe fn LAPACKE_sggsvp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dggsvp3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -33003,6 +34308,7 @@ pub unsafe fn LAPACKE_dggsvp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cggsvp3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -33061,6 +34367,7 @@ pub unsafe fn LAPACKE_cggsvp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zggsvp3_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -33119,6 +34426,7 @@ pub unsafe fn LAPACKE_zggsvp3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtcon_work(
     norm: c_char,
     n: lapack_int,
@@ -33137,6 +34445,7 @@ pub unsafe fn LAPACKE_sgtcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtcon_work(
     norm: c_char,
     n: lapack_int,
@@ -33155,6 +34464,7 @@ pub unsafe fn LAPACKE_dgtcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtcon_work(
     norm: c_char,
     n: lapack_int,
@@ -33170,6 +34480,7 @@ pub unsafe fn LAPACKE_cgtcon_work(
     dyload_lib().LAPACKE_cgtcon_work.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtcon_work(
     norm: c_char,
     n: lapack_int,
@@ -33185,6 +34496,7 @@ pub unsafe fn LAPACKE_zgtcon_work(
     dyload_lib().LAPACKE_zgtcon_work.unwrap()(norm, n, dl, d, du, du2, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33231,6 +34543,7 @@ pub unsafe fn LAPACKE_sgtrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33277,6 +34590,7 @@ pub unsafe fn LAPACKE_dgtrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33323,6 +34637,7 @@ pub unsafe fn LAPACKE_cgtrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtrfs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33369,6 +34684,7 @@ pub unsafe fn LAPACKE_zgtrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -33382,6 +34698,7 @@ pub unsafe fn LAPACKE_sgtsv_work(
     dyload_lib().LAPACKE_sgtsv_work.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -33395,6 +34712,7 @@ pub unsafe fn LAPACKE_dgtsv_work(
     dyload_lib().LAPACKE_dgtsv_work.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -33408,6 +34726,7 @@ pub unsafe fn LAPACKE_cgtsv_work(
     dyload_lib().LAPACKE_cgtsv_work.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -33421,6 +34740,7 @@ pub unsafe fn LAPACKE_zgtsv_work(
     dyload_lib().LAPACKE_zgtsv_work.unwrap()(matrix_layout, n, nrhs, dl, d, du, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgtsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -33471,6 +34791,7 @@ pub unsafe fn LAPACKE_sgtsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgtsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -33521,6 +34842,7 @@ pub unsafe fn LAPACKE_dgtsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgtsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -33571,6 +34893,7 @@ pub unsafe fn LAPACKE_cgtsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgtsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -33621,6 +34944,7 @@ pub unsafe fn LAPACKE_zgtsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgttrf_work(
     n: lapack_int,
     dl: *mut f32,
@@ -33632,6 +34956,7 @@ pub unsafe fn LAPACKE_sgttrf_work(
     dyload_lib().LAPACKE_sgttrf_work.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgttrf_work(
     n: lapack_int,
     dl: *mut f64,
@@ -33643,6 +34968,7 @@ pub unsafe fn LAPACKE_dgttrf_work(
     dyload_lib().LAPACKE_dgttrf_work.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgttrf_work(
     n: lapack_int,
     dl: *mut __BindgenComplex<f32>,
@@ -33654,6 +34980,7 @@ pub unsafe fn LAPACKE_cgttrf_work(
     dyload_lib().LAPACKE_cgttrf_work.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgttrf_work(
     n: lapack_int,
     dl: *mut __BindgenComplex<f64>,
@@ -33665,6 +34992,7 @@ pub unsafe fn LAPACKE_zgttrf_work(
     dyload_lib().LAPACKE_zgttrf_work.unwrap()(n, dl, d, du, du2, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgttrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33693,6 +35021,7 @@ pub unsafe fn LAPACKE_sgttrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgttrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33721,6 +35050,7 @@ pub unsafe fn LAPACKE_dgttrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgttrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33749,6 +35079,7 @@ pub unsafe fn LAPACKE_cgttrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgttrs_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -33777,6 +35108,7 @@ pub unsafe fn LAPACKE_zgttrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -33807,6 +35139,7 @@ pub unsafe fn LAPACKE_chbev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -33837,6 +35170,7 @@ pub unsafe fn LAPACKE_zhbev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -33875,6 +35209,7 @@ pub unsafe fn LAPACKE_chbevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -33913,6 +35248,7 @@ pub unsafe fn LAPACKE_zhbevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -33965,6 +35301,7 @@ pub unsafe fn LAPACKE_chbevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34017,6 +35354,7 @@ pub unsafe fn LAPACKE_zhbevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgst_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -34051,6 +35389,7 @@ pub unsafe fn LAPACKE_chbgst_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgst_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -34085,6 +35424,7 @@ pub unsafe fn LAPACKE_zhbgst_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgv_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34121,6 +35461,7 @@ pub unsafe fn LAPACKE_chbgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgv_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34157,6 +35498,7 @@ pub unsafe fn LAPACKE_zhbgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgvd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34201,6 +35543,7 @@ pub unsafe fn LAPACKE_chbgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgvd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34245,6 +35588,7 @@ pub unsafe fn LAPACKE_zhbgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbgvx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34303,6 +35647,7 @@ pub unsafe fn LAPACKE_chbgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbgvx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34361,6 +35706,7 @@ pub unsafe fn LAPACKE_zhbgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbtrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -34391,6 +35737,7 @@ pub unsafe fn LAPACKE_chbtrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbtrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -34421,6 +35768,7 @@ pub unsafe fn LAPACKE_zhbtrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_checon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -34445,6 +35793,7 @@ pub unsafe fn LAPACKE_checon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhecon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -34469,6 +35818,7 @@ pub unsafe fn LAPACKE_zhecon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -34483,6 +35833,7 @@ pub unsafe fn LAPACKE_cheequb_work(
     dyload_lib().LAPACKE_cheequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -34497,6 +35848,7 @@ pub unsafe fn LAPACKE_zheequb_work(
     dyload_lib().LAPACKE_zheequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34523,6 +35875,7 @@ pub unsafe fn LAPACKE_cheev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34549,6 +35902,7 @@ pub unsafe fn LAPACKE_zheev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34581,6 +35935,7 @@ pub unsafe fn LAPACKE_cheevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34613,6 +35968,7 @@ pub unsafe fn LAPACKE_zheevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34665,6 +36021,7 @@ pub unsafe fn LAPACKE_cheevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34717,6 +36074,7 @@ pub unsafe fn LAPACKE_zheevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34765,6 +36123,7 @@ pub unsafe fn LAPACKE_cheevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -34813,6 +36172,7 @@ pub unsafe fn LAPACKE_zheevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34826,6 +36186,7 @@ pub unsafe fn LAPACKE_chegst_work(
     dyload_lib().LAPACKE_chegst_work.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34839,6 +36200,7 @@ pub unsafe fn LAPACKE_zhegst_work(
     dyload_lib().LAPACKE_zhegst_work.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34871,6 +36233,7 @@ pub unsafe fn LAPACKE_chegv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34903,6 +36266,7 @@ pub unsafe fn LAPACKE_zhegv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34941,6 +36305,7 @@ pub unsafe fn LAPACKE_chegvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -34979,6 +36344,7 @@ pub unsafe fn LAPACKE_zhegvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -35033,6 +36399,7 @@ pub unsafe fn LAPACKE_chegvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -35087,6 +36454,7 @@ pub unsafe fn LAPACKE_zhegvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cherfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35127,6 +36495,7 @@ pub unsafe fn LAPACKE_cherfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zherfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35167,6 +36536,7 @@ pub unsafe fn LAPACKE_zherfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cherfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35221,6 +36591,7 @@ pub unsafe fn LAPACKE_cherfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zherfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35275,6 +36646,7 @@ pub unsafe fn LAPACKE_zherfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35303,6 +36675,7 @@ pub unsafe fn LAPACKE_chesv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35331,6 +36704,7 @@ pub unsafe fn LAPACKE_zhesv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -35377,6 +36751,7 @@ pub unsafe fn LAPACKE_chesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -35423,6 +36798,7 @@ pub unsafe fn LAPACKE_zhesvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -35481,6 +36857,7 @@ pub unsafe fn LAPACKE_chesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -35539,6 +36916,7 @@ pub unsafe fn LAPACKE_zhesvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35565,6 +36943,7 @@ pub unsafe fn LAPACKE_chetrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35591,6 +36970,7 @@ pub unsafe fn LAPACKE_zhetrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35604,6 +36984,7 @@ pub unsafe fn LAPACKE_chetrf_work(
     dyload_lib().LAPACKE_chetrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35617,6 +36998,7 @@ pub unsafe fn LAPACKE_zhetrf_work(
     dyload_lib().LAPACKE_zhetrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35629,6 +37011,7 @@ pub unsafe fn LAPACKE_chetri_work(
     dyload_lib().LAPACKE_chetri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35641,6 +37024,7 @@ pub unsafe fn LAPACKE_zhetri_work(
     dyload_lib().LAPACKE_zhetri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35655,6 +37039,7 @@ pub unsafe fn LAPACKE_chetrs_work(
     dyload_lib().LAPACKE_chetrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35669,6 +37054,7 @@ pub unsafe fn LAPACKE_zhetrs_work(
     dyload_lib().LAPACKE_zhetrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chfrk_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -35697,6 +37083,7 @@ pub unsafe fn LAPACKE_chfrk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhfrk_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -35725,6 +37112,7 @@ pub unsafe fn LAPACKE_zhfrk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shgeqz_work(
     matrix_layout: c_int,
     job: c_char,
@@ -35771,6 +37159,7 @@ pub unsafe fn LAPACKE_shgeqz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhgeqz_work(
     matrix_layout: c_int,
     job: c_char,
@@ -35817,6 +37206,7 @@ pub unsafe fn LAPACKE_dhgeqz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chgeqz_work(
     matrix_layout: c_int,
     job: c_char,
@@ -35863,6 +37253,7 @@ pub unsafe fn LAPACKE_chgeqz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhgeqz_work(
     matrix_layout: c_int,
     job: c_char,
@@ -35909,6 +37300,7 @@ pub unsafe fn LAPACKE_zhgeqz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35922,6 +37314,7 @@ pub unsafe fn LAPACKE_chpcon_work(
     dyload_lib().LAPACKE_chpcon_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -35935,6 +37328,7 @@ pub unsafe fn LAPACKE_zhpcon_work(
     dyload_lib().LAPACKE_zhpcon_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -35961,6 +37355,7 @@ pub unsafe fn LAPACKE_chpev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -35987,6 +37382,7 @@ pub unsafe fn LAPACKE_zhpev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -36021,6 +37417,7 @@ pub unsafe fn LAPACKE_chpevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -36055,6 +37452,7 @@ pub unsafe fn LAPACKE_zhpevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -36099,6 +37497,7 @@ pub unsafe fn LAPACKE_chpevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -36143,6 +37542,7 @@ pub unsafe fn LAPACKE_zhpevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36154,6 +37554,7 @@ pub unsafe fn LAPACKE_chpgst_work(
     dyload_lib().LAPACKE_chpgst_work.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36165,6 +37566,7 @@ pub unsafe fn LAPACKE_zhpgst_work(
     dyload_lib().LAPACKE_zhpgst_work.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36195,6 +37597,7 @@ pub unsafe fn LAPACKE_chpgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36225,6 +37628,7 @@ pub unsafe fn LAPACKE_zhpgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36263,6 +37667,7 @@ pub unsafe fn LAPACKE_chpgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36301,6 +37706,7 @@ pub unsafe fn LAPACKE_zhpgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpgvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36349,6 +37755,7 @@ pub unsafe fn LAPACKE_chpgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpgvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -36397,6 +37804,7 @@ pub unsafe fn LAPACKE_zhpgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36433,6 +37841,7 @@ pub unsafe fn LAPACKE_chprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36469,6 +37878,7 @@ pub unsafe fn LAPACKE_zhprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36482,6 +37892,7 @@ pub unsafe fn LAPACKE_chpsv_work(
     dyload_lib().LAPACKE_chpsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36495,6 +37906,7 @@ pub unsafe fn LAPACKE_zhpsv_work(
     dyload_lib().LAPACKE_zhpsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chpsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -36535,6 +37947,7 @@ pub unsafe fn LAPACKE_chpsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhpsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -36575,6 +37988,7 @@ pub unsafe fn LAPACKE_zhpsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36587,6 +38001,7 @@ pub unsafe fn LAPACKE_chptrd_work(
     dyload_lib().LAPACKE_chptrd_work.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36599,6 +38014,7 @@ pub unsafe fn LAPACKE_zhptrd_work(
     dyload_lib().LAPACKE_zhptrd_work.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36609,6 +38025,7 @@ pub unsafe fn LAPACKE_chptrf_work(
     dyload_lib().LAPACKE_chptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36619,6 +38036,7 @@ pub unsafe fn LAPACKE_zhptrf_work(
     dyload_lib().LAPACKE_zhptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36630,6 +38048,7 @@ pub unsafe fn LAPACKE_chptri_work(
     dyload_lib().LAPACKE_chptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36641,6 +38060,7 @@ pub unsafe fn LAPACKE_zhptri_work(
     dyload_lib().LAPACKE_zhptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36654,6 +38074,7 @@ pub unsafe fn LAPACKE_chptrs_work(
     dyload_lib().LAPACKE_chptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -36667,6 +38088,7 @@ pub unsafe fn LAPACKE_zhptrs_work(
     dyload_lib().LAPACKE_zhptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shsein_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36711,6 +38133,7 @@ pub unsafe fn LAPACKE_shsein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhsein_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36755,6 +38178,7 @@ pub unsafe fn LAPACKE_dhsein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chsein_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36799,6 +38223,7 @@ pub unsafe fn LAPACKE_chsein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhsein_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36843,6 +38268,7 @@ pub unsafe fn LAPACKE_zhsein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_shseqr_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36877,6 +38303,7 @@ pub unsafe fn LAPACKE_shseqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dhseqr_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36911,6 +38338,7 @@ pub unsafe fn LAPACKE_dhseqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chseqr_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36943,6 +38371,7 @@ pub unsafe fn LAPACKE_chseqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhseqr_work(
     matrix_layout: c_int,
     job: c_char,
@@ -36975,6 +38404,7 @@ pub unsafe fn LAPACKE_zhseqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacgv_work(
     n: lapack_int,
     x: *mut __BindgenComplex<f32>,
@@ -36983,6 +38413,7 @@ pub unsafe fn LAPACKE_clacgv_work(
     dyload_lib().LAPACKE_clacgv_work.unwrap()(n, x, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacgv_work(
     n: lapack_int,
     x: *mut __BindgenComplex<f64>,
@@ -36991,6 +38422,7 @@ pub unsafe fn LAPACKE_zlacgv_work(
     dyload_lib().LAPACKE_zlacgv_work.unwrap()(n, x, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slacn2_work(
     n: lapack_int,
     v: *mut f32,
@@ -37003,6 +38435,7 @@ pub unsafe fn LAPACKE_slacn2_work(
     dyload_lib().LAPACKE_slacn2_work.unwrap()(n, v, x, isgn, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlacn2_work(
     n: lapack_int,
     v: *mut f64,
@@ -37015,6 +38448,7 @@ pub unsafe fn LAPACKE_dlacn2_work(
     dyload_lib().LAPACKE_dlacn2_work.unwrap()(n, v, x, isgn, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacn2_work(
     n: lapack_int,
     v: *mut __BindgenComplex<f32>,
@@ -37026,6 +38460,7 @@ pub unsafe fn LAPACKE_clacn2_work(
     dyload_lib().LAPACKE_clacn2_work.unwrap()(n, v, x, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacn2_work(
     n: lapack_int,
     v: *mut __BindgenComplex<f64>,
@@ -37037,6 +38472,7 @@ pub unsafe fn LAPACKE_zlacn2_work(
     dyload_lib().LAPACKE_zlacn2_work.unwrap()(n, v, x, est, kase, isave)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slacpy_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37050,6 +38486,7 @@ pub unsafe fn LAPACKE_slacpy_work(
     dyload_lib().LAPACKE_slacpy_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlacpy_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37063,6 +38500,7 @@ pub unsafe fn LAPACKE_dlacpy_work(
     dyload_lib().LAPACKE_dlacpy_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacpy_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37076,6 +38514,7 @@ pub unsafe fn LAPACKE_clacpy_work(
     dyload_lib().LAPACKE_clacpy_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacpy_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37089,6 +38528,7 @@ pub unsafe fn LAPACKE_zlacpy_work(
     dyload_lib().LAPACKE_zlacpy_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacp2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37102,6 +38542,7 @@ pub unsafe fn LAPACKE_clacp2_work(
     dyload_lib().LAPACKE_clacp2_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacp2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -37115,6 +38556,7 @@ pub unsafe fn LAPACKE_zlacp2_work(
     dyload_lib().LAPACKE_zlacp2_work.unwrap()(matrix_layout, uplo, m, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlag2c_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37127,6 +38569,7 @@ pub unsafe fn LAPACKE_zlag2c_work(
     dyload_lib().LAPACKE_zlag2c_work.unwrap()(matrix_layout, m, n, a, lda, sa, ldsa)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slag2d_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37139,6 +38582,7 @@ pub unsafe fn LAPACKE_slag2d_work(
     dyload_lib().LAPACKE_slag2d_work.unwrap()(matrix_layout, m, n, sa, ldsa, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlag2s_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37151,6 +38595,7 @@ pub unsafe fn LAPACKE_dlag2s_work(
     dyload_lib().LAPACKE_dlag2s_work.unwrap()(matrix_layout, m, n, a, lda, sa, ldsa)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clag2z_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37163,6 +38608,7 @@ pub unsafe fn LAPACKE_clag2z_work(
     dyload_lib().LAPACKE_clag2z_work.unwrap()(matrix_layout, m, n, sa, ldsa, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slagge_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37178,6 +38624,7 @@ pub unsafe fn LAPACKE_slagge_work(
     dyload_lib().LAPACKE_slagge_work.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlagge_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37193,6 +38640,7 @@ pub unsafe fn LAPACKE_dlagge_work(
     dyload_lib().LAPACKE_dlagge_work.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clagge_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37208,6 +38656,7 @@ pub unsafe fn LAPACKE_clagge_work(
     dyload_lib().LAPACKE_clagge_work.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlagge_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37223,6 +38672,7 @@ pub unsafe fn LAPACKE_zlagge_work(
     dyload_lib().LAPACKE_zlagge_work.unwrap()(matrix_layout, m, n, kl, ku, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claghe_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37236,6 +38686,7 @@ pub unsafe fn LAPACKE_claghe_work(
     dyload_lib().LAPACKE_claghe_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaghe_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37249,6 +38700,7 @@ pub unsafe fn LAPACKE_zlaghe_work(
     dyload_lib().LAPACKE_zlaghe_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slagsy_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37262,6 +38714,7 @@ pub unsafe fn LAPACKE_slagsy_work(
     dyload_lib().LAPACKE_slagsy_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlagsy_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37275,6 +38728,7 @@ pub unsafe fn LAPACKE_dlagsy_work(
     dyload_lib().LAPACKE_dlagsy_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clagsy_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37288,6 +38742,7 @@ pub unsafe fn LAPACKE_clagsy_work(
     dyload_lib().LAPACKE_clagsy_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlagsy_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -37301,6 +38756,7 @@ pub unsafe fn LAPACKE_zlagsy_work(
     dyload_lib().LAPACKE_zlagsy_work.unwrap()(matrix_layout, n, k, d, a, lda, iseed, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapmr_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37313,6 +38769,7 @@ pub unsafe fn LAPACKE_slapmr_work(
     dyload_lib().LAPACKE_slapmr_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapmr_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37325,6 +38782,7 @@ pub unsafe fn LAPACKE_dlapmr_work(
     dyload_lib().LAPACKE_dlapmr_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clapmr_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37337,6 +38795,7 @@ pub unsafe fn LAPACKE_clapmr_work(
     dyload_lib().LAPACKE_clapmr_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlapmr_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37349,6 +38808,7 @@ pub unsafe fn LAPACKE_zlapmr_work(
     dyload_lib().LAPACKE_zlapmr_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapmt_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37361,6 +38821,7 @@ pub unsafe fn LAPACKE_slapmt_work(
     dyload_lib().LAPACKE_slapmt_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapmt_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37373,6 +38834,7 @@ pub unsafe fn LAPACKE_dlapmt_work(
     dyload_lib().LAPACKE_dlapmt_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clapmt_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37385,6 +38847,7 @@ pub unsafe fn LAPACKE_clapmt_work(
     dyload_lib().LAPACKE_clapmt_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlapmt_work(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -37397,6 +38860,7 @@ pub unsafe fn LAPACKE_zlapmt_work(
     dyload_lib().LAPACKE_zlapmt_work.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slartgp_work(
     f: f32,
     g: f32,
@@ -37407,6 +38871,7 @@ pub unsafe fn LAPACKE_slartgp_work(
     dyload_lib().LAPACKE_slartgp_work.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlartgp_work(
     f: f64,
     g: f64,
@@ -37417,6 +38882,7 @@ pub unsafe fn LAPACKE_dlartgp_work(
     dyload_lib().LAPACKE_dlartgp_work.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slartgs_work(
     x: f32,
     y: f32,
@@ -37427,6 +38893,7 @@ pub unsafe fn LAPACKE_slartgs_work(
     dyload_lib().LAPACKE_slartgs_work.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlartgs_work(
     x: f64,
     y: f64,
@@ -37437,30 +38904,37 @@ pub unsafe fn LAPACKE_dlartgs_work(
     dyload_lib().LAPACKE_dlartgs_work.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapy2_work(x: f32, y: f32) -> f32 {
     dyload_lib().LAPACKE_slapy2_work.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapy2_work(x: f64, y: f64) -> f64 {
     dyload_lib().LAPACKE_dlapy2_work.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapy3_work(x: f32, y: f32, z: f32) -> f32 {
     dyload_lib().LAPACKE_slapy3_work.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapy3_work(x: f64, y: f64, z: f64) -> f64 {
     dyload_lib().LAPACKE_dlapy3_work.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slamch_work(cmach: c_char) -> f32 {
     dyload_lib().LAPACKE_slamch_work.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlamch_work(cmach: c_char) -> f64 {
     dyload_lib().LAPACKE_dlamch_work.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slangb_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37474,6 +38948,7 @@ pub unsafe fn LAPACKE_slangb_work(
     dyload_lib().LAPACKE_slangb_work.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlangb_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37487,6 +38962,7 @@ pub unsafe fn LAPACKE_dlangb_work(
     dyload_lib().LAPACKE_dlangb_work.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clangb_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37500,6 +38976,7 @@ pub unsafe fn LAPACKE_clangb_work(
     dyload_lib().LAPACKE_clangb_work.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlangb_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37513,6 +38990,7 @@ pub unsafe fn LAPACKE_zlangb_work(
     dyload_lib().LAPACKE_zlangb_work.unwrap()(matrix_layout, norm, n, kl, ku, ab, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slange_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37525,6 +39003,7 @@ pub unsafe fn LAPACKE_slange_work(
     dyload_lib().LAPACKE_slange_work.unwrap()(matrix_layout, norm, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlange_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37537,6 +39016,7 @@ pub unsafe fn LAPACKE_dlange_work(
     dyload_lib().LAPACKE_dlange_work.unwrap()(matrix_layout, norm, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clange_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37549,6 +39029,7 @@ pub unsafe fn LAPACKE_clange_work(
     dyload_lib().LAPACKE_clange_work.unwrap()(matrix_layout, norm, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlange_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37561,6 +39042,7 @@ pub unsafe fn LAPACKE_zlange_work(
     dyload_lib().LAPACKE_zlange_work.unwrap()(matrix_layout, norm, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clanhe_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37573,6 +39055,7 @@ pub unsafe fn LAPACKE_clanhe_work(
     dyload_lib().LAPACKE_clanhe_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlanhe_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37585,6 +39068,7 @@ pub unsafe fn LAPACKE_zlanhe_work(
     dyload_lib().LAPACKE_zlanhe_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clacrm_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37600,6 +39084,7 @@ pub unsafe fn LAPACKE_clacrm_work(
     dyload_lib().LAPACKE_clacrm_work.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlacrm_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37615,6 +39100,7 @@ pub unsafe fn LAPACKE_zlacrm_work(
     dyload_lib().LAPACKE_zlacrm_work.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarcm_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37630,6 +39116,7 @@ pub unsafe fn LAPACKE_clarcm_work(
     dyload_lib().LAPACKE_clarcm_work.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarcm_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -37645,6 +39132,7 @@ pub unsafe fn LAPACKE_zlarcm_work(
     dyload_lib().LAPACKE_zlarcm_work.unwrap()(matrix_layout, m, n, a, lda, b, ldb, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slansy_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37657,6 +39145,7 @@ pub unsafe fn LAPACKE_slansy_work(
     dyload_lib().LAPACKE_slansy_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlansy_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37669,6 +39158,7 @@ pub unsafe fn LAPACKE_dlansy_work(
     dyload_lib().LAPACKE_dlansy_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clansy_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37681,6 +39171,7 @@ pub unsafe fn LAPACKE_clansy_work(
     dyload_lib().LAPACKE_clansy_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlansy_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37693,6 +39184,7 @@ pub unsafe fn LAPACKE_zlansy_work(
     dyload_lib().LAPACKE_zlansy_work.unwrap()(matrix_layout, norm, uplo, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slantr_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37707,6 +39199,7 @@ pub unsafe fn LAPACKE_slantr_work(
     dyload_lib().LAPACKE_slantr_work.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlantr_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37721,6 +39214,7 @@ pub unsafe fn LAPACKE_dlantr_work(
     dyload_lib().LAPACKE_dlantr_work.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clantr_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37735,6 +39229,7 @@ pub unsafe fn LAPACKE_clantr_work(
     dyload_lib().LAPACKE_clantr_work.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlantr_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -37749,6 +39244,7 @@ pub unsafe fn LAPACKE_zlantr_work(
     dyload_lib().LAPACKE_zlantr_work.unwrap()(matrix_layout, norm, uplo, diag, m, n, a, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -37787,6 +39283,7 @@ pub unsafe fn LAPACKE_slarfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -37825,6 +39322,7 @@ pub unsafe fn LAPACKE_dlarfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -37863,6 +39361,7 @@ pub unsafe fn LAPACKE_clarfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -37901,6 +39400,7 @@ pub unsafe fn LAPACKE_zlarfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfg_work(
     n: lapack_int,
     alpha: *mut f32,
@@ -37911,6 +39411,7 @@ pub unsafe fn LAPACKE_slarfg_work(
     dyload_lib().LAPACKE_slarfg_work.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfg_work(
     n: lapack_int,
     alpha: *mut f64,
@@ -37921,6 +39422,7 @@ pub unsafe fn LAPACKE_dlarfg_work(
     dyload_lib().LAPACKE_dlarfg_work.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfg_work(
     n: lapack_int,
     alpha: *mut __BindgenComplex<f32>,
@@ -37931,6 +39433,7 @@ pub unsafe fn LAPACKE_clarfg_work(
     dyload_lib().LAPACKE_clarfg_work.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfg_work(
     n: lapack_int,
     alpha: *mut __BindgenComplex<f64>,
@@ -37941,6 +39444,7 @@ pub unsafe fn LAPACKE_zlarfg_work(
     dyload_lib().LAPACKE_zlarfg_work.unwrap()(n, alpha, x, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarft_work(
     matrix_layout: c_int,
     direct: c_char,
@@ -37967,6 +39471,7 @@ pub unsafe fn LAPACKE_slarft_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarft_work(
     matrix_layout: c_int,
     direct: c_char,
@@ -37993,6 +39498,7 @@ pub unsafe fn LAPACKE_dlarft_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarft_work(
     matrix_layout: c_int,
     direct: c_char,
@@ -38019,6 +39525,7 @@ pub unsafe fn LAPACKE_clarft_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarft_work(
     matrix_layout: c_int,
     direct: c_char,
@@ -38045,6 +39552,7 @@ pub unsafe fn LAPACKE_zlarft_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarfx_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38059,6 +39567,7 @@ pub unsafe fn LAPACKE_slarfx_work(
     dyload_lib().LAPACKE_slarfx_work.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarfx_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38073,6 +39582,7 @@ pub unsafe fn LAPACKE_dlarfx_work(
     dyload_lib().LAPACKE_dlarfx_work.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarfx_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38087,6 +39597,7 @@ pub unsafe fn LAPACKE_clarfx_work(
     dyload_lib().LAPACKE_clarfx_work.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarfx_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38101,6 +39612,7 @@ pub unsafe fn LAPACKE_zlarfx_work(
     dyload_lib().LAPACKE_zlarfx_work.unwrap()(matrix_layout, side, m, n, v, tau, c, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slarnv_work(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -38110,6 +39622,7 @@ pub unsafe fn LAPACKE_slarnv_work(
     dyload_lib().LAPACKE_slarnv_work.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlarnv_work(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -38119,6 +39632,7 @@ pub unsafe fn LAPACKE_dlarnv_work(
     dyload_lib().LAPACKE_dlarnv_work.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clarnv_work(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -38128,6 +39642,7 @@ pub unsafe fn LAPACKE_clarnv_work(
     dyload_lib().LAPACKE_clarnv_work.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlarnv_work(
     idist: lapack_int,
     iseed: *mut lapack_int,
@@ -38137,6 +39652,7 @@ pub unsafe fn LAPACKE_zlarnv_work(
     dyload_lib().LAPACKE_zlarnv_work.unwrap()(idist, iseed, n, x)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slascl_work(
     matrix_layout: c_int,
     type_: c_char,
@@ -38163,6 +39679,7 @@ pub unsafe fn LAPACKE_slascl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlascl_work(
     matrix_layout: c_int,
     type_: c_char,
@@ -38189,6 +39706,7 @@ pub unsafe fn LAPACKE_dlascl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clascl_work(
     matrix_layout: c_int,
     type_: c_char,
@@ -38215,6 +39733,7 @@ pub unsafe fn LAPACKE_clascl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlascl_work(
     matrix_layout: c_int,
     type_: c_char,
@@ -38241,6 +39760,7 @@ pub unsafe fn LAPACKE_zlascl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slaset_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38254,6 +39774,7 @@ pub unsafe fn LAPACKE_slaset_work(
     dyload_lib().LAPACKE_slaset_work.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlaset_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38267,6 +39788,7 @@ pub unsafe fn LAPACKE_dlaset_work(
     dyload_lib().LAPACKE_dlaset_work.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claset_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38280,6 +39802,7 @@ pub unsafe fn LAPACKE_claset_work(
     dyload_lib().LAPACKE_claset_work.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaset_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38293,14 +39816,17 @@ pub unsafe fn LAPACKE_zlaset_work(
     dyload_lib().LAPACKE_zlaset_work.unwrap()(matrix_layout, uplo, m, n, alpha, beta, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slasrt_work(id: c_char, n: lapack_int, d: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_slasrt_work.unwrap()(id, n, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlasrt_work(id: c_char, n: lapack_int, d: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dlasrt_work.unwrap()(id, n, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slassq_work(
     n: lapack_int,
     x: *mut f32,
@@ -38311,6 +39837,7 @@ pub unsafe fn LAPACKE_slassq_work(
     dyload_lib().LAPACKE_slassq_work.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlassq_work(
     n: lapack_int,
     x: *mut f64,
@@ -38321,6 +39848,7 @@ pub unsafe fn LAPACKE_dlassq_work(
     dyload_lib().LAPACKE_dlassq_work.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_classq_work(
     n: lapack_int,
     x: *mut __BindgenComplex<f32>,
@@ -38331,6 +39859,7 @@ pub unsafe fn LAPACKE_classq_work(
     dyload_lib().LAPACKE_classq_work.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlassq_work(
     n: lapack_int,
     x: *mut __BindgenComplex<f64>,
@@ -38341,6 +39870,7 @@ pub unsafe fn LAPACKE_zlassq_work(
     dyload_lib().LAPACKE_zlassq_work.unwrap()(n, x, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slaswp_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38354,6 +39884,7 @@ pub unsafe fn LAPACKE_slaswp_work(
     dyload_lib().LAPACKE_slaswp_work.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlaswp_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38367,6 +39898,7 @@ pub unsafe fn LAPACKE_dlaswp_work(
     dyload_lib().LAPACKE_dlaswp_work.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claswp_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38380,6 +39912,7 @@ pub unsafe fn LAPACKE_claswp_work(
     dyload_lib().LAPACKE_claswp_work.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaswp_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38393,6 +39926,7 @@ pub unsafe fn LAPACKE_zlaswp_work(
     dyload_lib().LAPACKE_zlaswp_work.unwrap()(matrix_layout, n, a, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slatms_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38431,6 +39965,7 @@ pub unsafe fn LAPACKE_slatms_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlatms_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38469,6 +40004,7 @@ pub unsafe fn LAPACKE_dlatms_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clatms_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38507,6 +40043,7 @@ pub unsafe fn LAPACKE_clatms_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlatms_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38545,6 +40082,7 @@ pub unsafe fn LAPACKE_zlatms_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slauum_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38555,6 +40093,7 @@ pub unsafe fn LAPACKE_slauum_work(
     dyload_lib().LAPACKE_slauum_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlauum_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38565,6 +40104,7 @@ pub unsafe fn LAPACKE_dlauum_work(
     dyload_lib().LAPACKE_dlauum_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clauum_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38575,6 +40115,7 @@ pub unsafe fn LAPACKE_clauum_work(
     dyload_lib().LAPACKE_clauum_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlauum_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38585,6 +40126,7 @@ pub unsafe fn LAPACKE_zlauum_work(
     dyload_lib().LAPACKE_zlauum_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sopgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38598,6 +40140,7 @@ pub unsafe fn LAPACKE_sopgtr_work(
     dyload_lib().LAPACKE_sopgtr_work.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dopgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38611,6 +40154,7 @@ pub unsafe fn LAPACKE_dopgtr_work(
     dyload_lib().LAPACKE_dopgtr_work.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sopmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38639,6 +40183,7 @@ pub unsafe fn LAPACKE_sopmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dopmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -38667,6 +40212,7 @@ pub unsafe fn LAPACKE_dopmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -38693,6 +40239,7 @@ pub unsafe fn LAPACKE_sorgbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -38719,6 +40266,7 @@ pub unsafe fn LAPACKE_dorgbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorghr_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38733,6 +40281,7 @@ pub unsafe fn LAPACKE_sorghr_work(
     dyload_lib().LAPACKE_sorghr_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorghr_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -38747,6 +40296,7 @@ pub unsafe fn LAPACKE_dorghr_work(
     dyload_lib().LAPACKE_dorghr_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorglq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38761,6 +40311,7 @@ pub unsafe fn LAPACKE_sorglq_work(
     dyload_lib().LAPACKE_sorglq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorglq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38775,6 +40326,7 @@ pub unsafe fn LAPACKE_dorglq_work(
     dyload_lib().LAPACKE_dorglq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgql_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38789,6 +40341,7 @@ pub unsafe fn LAPACKE_sorgql_work(
     dyload_lib().LAPACKE_sorgql_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgql_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38803,6 +40356,7 @@ pub unsafe fn LAPACKE_dorgql_work(
     dyload_lib().LAPACKE_dorgql_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38817,6 +40371,7 @@ pub unsafe fn LAPACKE_sorgqr_work(
     dyload_lib().LAPACKE_sorgqr_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38831,6 +40386,7 @@ pub unsafe fn LAPACKE_dorgqr_work(
     dyload_lib().LAPACKE_dorgqr_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgrq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38845,6 +40401,7 @@ pub unsafe fn LAPACKE_sorgrq_work(
     dyload_lib().LAPACKE_sorgrq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgrq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38859,6 +40416,7 @@ pub unsafe fn LAPACKE_dorgrq_work(
     dyload_lib().LAPACKE_dorgrq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38872,6 +40430,7 @@ pub unsafe fn LAPACKE_sorgtr_work(
     dyload_lib().LAPACKE_sorgtr_work.unwrap()(matrix_layout, uplo, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -38885,6 +40444,7 @@ pub unsafe fn LAPACKE_dorgtr_work(
     dyload_lib().LAPACKE_dorgtr_work.unwrap()(matrix_layout, uplo, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorgtsqr_row_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38913,6 +40473,7 @@ pub unsafe fn LAPACKE_sorgtsqr_row_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorgtsqr_row_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -38941,6 +40502,7 @@ pub unsafe fn LAPACKE_dorgtsqr_row_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -38975,6 +40537,7 @@ pub unsafe fn LAPACKE_sormbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -39009,6 +40572,7 @@ pub unsafe fn LAPACKE_dormbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormhr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39043,6 +40607,7 @@ pub unsafe fn LAPACKE_sormhr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormhr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39077,6 +40642,7 @@ pub unsafe fn LAPACKE_dormhr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39109,6 +40675,7 @@ pub unsafe fn LAPACKE_sormlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39141,6 +40708,7 @@ pub unsafe fn LAPACKE_dormlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormql_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39173,6 +40741,7 @@ pub unsafe fn LAPACKE_sormql_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormql_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39205,6 +40774,7 @@ pub unsafe fn LAPACKE_dormql_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39237,6 +40807,7 @@ pub unsafe fn LAPACKE_sormqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39269,6 +40840,7 @@ pub unsafe fn LAPACKE_dormqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormrq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39301,6 +40873,7 @@ pub unsafe fn LAPACKE_sormrq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormrq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39333,6 +40906,7 @@ pub unsafe fn LAPACKE_dormrq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormrz_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39367,6 +40941,7 @@ pub unsafe fn LAPACKE_sormrz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormrz_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39401,6 +40976,7 @@ pub unsafe fn LAPACKE_dormrz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sormtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39433,6 +41009,7 @@ pub unsafe fn LAPACKE_sormtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dormtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -39465,6 +41042,7 @@ pub unsafe fn LAPACKE_dormtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39491,6 +41069,7 @@ pub unsafe fn LAPACKE_spbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39517,6 +41096,7 @@ pub unsafe fn LAPACKE_dpbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39543,6 +41123,7 @@ pub unsafe fn LAPACKE_cpbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39569,6 +41150,7 @@ pub unsafe fn LAPACKE_zpbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39583,6 +41165,7 @@ pub unsafe fn LAPACKE_spbequ_work(
     dyload_lib().LAPACKE_spbequ_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39597,6 +41180,7 @@ pub unsafe fn LAPACKE_dpbequ_work(
     dyload_lib().LAPACKE_dpbequ_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39611,6 +41195,7 @@ pub unsafe fn LAPACKE_cpbequ_work(
     dyload_lib().LAPACKE_cpbequ_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39625,6 +41210,7 @@ pub unsafe fn LAPACKE_zpbequ_work(
     dyload_lib().LAPACKE_zpbequ_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39665,6 +41251,7 @@ pub unsafe fn LAPACKE_spbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39705,6 +41292,7 @@ pub unsafe fn LAPACKE_dpbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39745,6 +41333,7 @@ pub unsafe fn LAPACKE_cpbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39785,6 +41374,7 @@ pub unsafe fn LAPACKE_zpbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbstf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39796,6 +41386,7 @@ pub unsafe fn LAPACKE_spbstf_work(
     dyload_lib().LAPACKE_spbstf_work.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbstf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39807,6 +41398,7 @@ pub unsafe fn LAPACKE_dpbstf_work(
     dyload_lib().LAPACKE_dpbstf_work.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbstf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39818,6 +41410,7 @@ pub unsafe fn LAPACKE_cpbstf_work(
     dyload_lib().LAPACKE_cpbstf_work.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbstf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39829,6 +41422,7 @@ pub unsafe fn LAPACKE_zpbstf_work(
     dyload_lib().LAPACKE_zpbstf_work.unwrap()(matrix_layout, uplo, n, kb, bb, ldbb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39843,6 +41437,7 @@ pub unsafe fn LAPACKE_spbsv_work(
     dyload_lib().LAPACKE_spbsv_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39857,6 +41452,7 @@ pub unsafe fn LAPACKE_dpbsv_work(
     dyload_lib().LAPACKE_dpbsv_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39871,6 +41467,7 @@ pub unsafe fn LAPACKE_cpbsv_work(
     dyload_lib().LAPACKE_cpbsv_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -39885,6 +41482,7 @@ pub unsafe fn LAPACKE_zpbsv_work(
     dyload_lib().LAPACKE_zpbsv_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -39933,6 +41531,7 @@ pub unsafe fn LAPACKE_spbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -39981,6 +41580,7 @@ pub unsafe fn LAPACKE_dpbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -40029,6 +41629,7 @@ pub unsafe fn LAPACKE_cpbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -40077,6 +41678,7 @@ pub unsafe fn LAPACKE_zpbsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbtrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40088,6 +41690,7 @@ pub unsafe fn LAPACKE_spbtrf_work(
     dyload_lib().LAPACKE_spbtrf_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbtrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40099,6 +41702,7 @@ pub unsafe fn LAPACKE_dpbtrf_work(
     dyload_lib().LAPACKE_dpbtrf_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbtrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40110,6 +41714,7 @@ pub unsafe fn LAPACKE_cpbtrf_work(
     dyload_lib().LAPACKE_cpbtrf_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbtrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40121,6 +41726,7 @@ pub unsafe fn LAPACKE_zpbtrf_work(
     dyload_lib().LAPACKE_zpbtrf_work.unwrap()(matrix_layout, uplo, n, kd, ab, ldab)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40135,6 +41741,7 @@ pub unsafe fn LAPACKE_spbtrs_work(
     dyload_lib().LAPACKE_spbtrs_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40149,6 +41756,7 @@ pub unsafe fn LAPACKE_dpbtrs_work(
     dyload_lib().LAPACKE_dpbtrs_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40163,6 +41771,7 @@ pub unsafe fn LAPACKE_cpbtrs_work(
     dyload_lib().LAPACKE_cpbtrs_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40177,6 +41786,7 @@ pub unsafe fn LAPACKE_zpbtrs_work(
     dyload_lib().LAPACKE_zpbtrs_work.unwrap()(matrix_layout, uplo, n, kd, nrhs, ab, ldab, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftrf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40187,6 +41797,7 @@ pub unsafe fn LAPACKE_spftrf_work(
     dyload_lib().LAPACKE_spftrf_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftrf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40197,6 +41808,7 @@ pub unsafe fn LAPACKE_dpftrf_work(
     dyload_lib().LAPACKE_dpftrf_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftrf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40207,6 +41819,7 @@ pub unsafe fn LAPACKE_cpftrf_work(
     dyload_lib().LAPACKE_cpftrf_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftrf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40217,6 +41830,7 @@ pub unsafe fn LAPACKE_zpftrf_work(
     dyload_lib().LAPACKE_zpftrf_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40227,6 +41841,7 @@ pub unsafe fn LAPACKE_spftri_work(
     dyload_lib().LAPACKE_spftri_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40237,6 +41852,7 @@ pub unsafe fn LAPACKE_dpftri_work(
     dyload_lib().LAPACKE_dpftri_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40247,6 +41863,7 @@ pub unsafe fn LAPACKE_cpftri_work(
     dyload_lib().LAPACKE_cpftri_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40257,6 +41874,7 @@ pub unsafe fn LAPACKE_zpftri_work(
     dyload_lib().LAPACKE_zpftri_work.unwrap()(matrix_layout, transr, uplo, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spftrs_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40270,6 +41888,7 @@ pub unsafe fn LAPACKE_spftrs_work(
     dyload_lib().LAPACKE_spftrs_work.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpftrs_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40283,6 +41902,7 @@ pub unsafe fn LAPACKE_dpftrs_work(
     dyload_lib().LAPACKE_dpftrs_work.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpftrs_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40296,6 +41916,7 @@ pub unsafe fn LAPACKE_cpftrs_work(
     dyload_lib().LAPACKE_cpftrs_work.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpftrs_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -40309,6 +41930,7 @@ pub unsafe fn LAPACKE_zpftrs_work(
     dyload_lib().LAPACKE_zpftrs_work.unwrap()(matrix_layout, transr, uplo, n, nrhs, a, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spocon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40333,6 +41955,7 @@ pub unsafe fn LAPACKE_spocon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpocon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40357,6 +41980,7 @@ pub unsafe fn LAPACKE_dpocon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpocon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40381,6 +42005,7 @@ pub unsafe fn LAPACKE_cpocon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpocon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40405,6 +42030,7 @@ pub unsafe fn LAPACKE_zpocon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spoequ_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40417,6 +42043,7 @@ pub unsafe fn LAPACKE_spoequ_work(
     dyload_lib().LAPACKE_spoequ_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpoequ_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40429,6 +42056,7 @@ pub unsafe fn LAPACKE_dpoequ_work(
     dyload_lib().LAPACKE_dpoequ_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpoequ_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40441,6 +42069,7 @@ pub unsafe fn LAPACKE_cpoequ_work(
     dyload_lib().LAPACKE_cpoequ_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpoequ_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40453,6 +42082,7 @@ pub unsafe fn LAPACKE_zpoequ_work(
     dyload_lib().LAPACKE_zpoequ_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spoequb_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40465,6 +42095,7 @@ pub unsafe fn LAPACKE_spoequb_work(
     dyload_lib().LAPACKE_spoequb_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpoequb_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40477,6 +42108,7 @@ pub unsafe fn LAPACKE_dpoequb_work(
     dyload_lib().LAPACKE_dpoequb_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpoequb_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40489,6 +42121,7 @@ pub unsafe fn LAPACKE_cpoequb_work(
     dyload_lib().LAPACKE_cpoequb_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpoequb_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -40501,6 +42134,7 @@ pub unsafe fn LAPACKE_zpoequb_work(
     dyload_lib().LAPACKE_zpoequb_work.unwrap()(matrix_layout, n, a, lda, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sporfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40539,6 +42173,7 @@ pub unsafe fn LAPACKE_sporfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dporfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40577,6 +42212,7 @@ pub unsafe fn LAPACKE_dporfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cporfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40615,6 +42251,7 @@ pub unsafe fn LAPACKE_cporfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zporfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40653,6 +42290,7 @@ pub unsafe fn LAPACKE_zporfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sporfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40705,6 +42343,7 @@ pub unsafe fn LAPACKE_sporfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dporfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40757,6 +42396,7 @@ pub unsafe fn LAPACKE_dporfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cporfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40809,6 +42449,7 @@ pub unsafe fn LAPACKE_cporfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zporfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40861,6 +42502,7 @@ pub unsafe fn LAPACKE_zporfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40874,6 +42516,7 @@ pub unsafe fn LAPACKE_sposv_work(
     dyload_lib().LAPACKE_sposv_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40887,6 +42530,7 @@ pub unsafe fn LAPACKE_dposv_work(
     dyload_lib().LAPACKE_dposv_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40900,6 +42544,7 @@ pub unsafe fn LAPACKE_cposv_work(
     dyload_lib().LAPACKE_cposv_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40913,6 +42558,7 @@ pub unsafe fn LAPACKE_zposv_work(
     dyload_lib().LAPACKE_zposv_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40945,6 +42591,7 @@ pub unsafe fn LAPACKE_dsposv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zcposv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -40979,6 +42626,7 @@ pub unsafe fn LAPACKE_zcposv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41025,6 +42673,7 @@ pub unsafe fn LAPACKE_sposvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41071,6 +42720,7 @@ pub unsafe fn LAPACKE_dposvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41117,6 +42767,7 @@ pub unsafe fn LAPACKE_cposvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41163,6 +42814,7 @@ pub unsafe fn LAPACKE_zposvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sposvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41219,6 +42871,7 @@ pub unsafe fn LAPACKE_sposvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dposvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41275,6 +42928,7 @@ pub unsafe fn LAPACKE_dposvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cposvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41331,6 +42985,7 @@ pub unsafe fn LAPACKE_cposvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zposvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41387,6 +43042,7 @@ pub unsafe fn LAPACKE_zposvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrf2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41397,6 +43053,7 @@ pub unsafe fn LAPACKE_spotrf2_work(
     dyload_lib().LAPACKE_spotrf2_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrf2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41407,6 +43064,7 @@ pub unsafe fn LAPACKE_dpotrf2_work(
     dyload_lib().LAPACKE_dpotrf2_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrf2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41417,6 +43075,7 @@ pub unsafe fn LAPACKE_cpotrf2_work(
     dyload_lib().LAPACKE_cpotrf2_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrf2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41427,6 +43086,7 @@ pub unsafe fn LAPACKE_zpotrf2_work(
     dyload_lib().LAPACKE_zpotrf2_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41437,6 +43097,7 @@ pub unsafe fn LAPACKE_spotrf_work(
     dyload_lib().LAPACKE_spotrf_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41447,6 +43108,7 @@ pub unsafe fn LAPACKE_dpotrf_work(
     dyload_lib().LAPACKE_dpotrf_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41457,6 +43119,7 @@ pub unsafe fn LAPACKE_cpotrf_work(
     dyload_lib().LAPACKE_cpotrf_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41467,6 +43130,7 @@ pub unsafe fn LAPACKE_zpotrf_work(
     dyload_lib().LAPACKE_zpotrf_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41477,6 +43141,7 @@ pub unsafe fn LAPACKE_spotri_work(
     dyload_lib().LAPACKE_spotri_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41487,6 +43152,7 @@ pub unsafe fn LAPACKE_dpotri_work(
     dyload_lib().LAPACKE_dpotri_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41497,6 +43163,7 @@ pub unsafe fn LAPACKE_cpotri_work(
     dyload_lib().LAPACKE_cpotri_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41507,6 +43174,7 @@ pub unsafe fn LAPACKE_zpotri_work(
     dyload_lib().LAPACKE_zpotri_work.unwrap()(matrix_layout, uplo, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spotrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41520,6 +43188,7 @@ pub unsafe fn LAPACKE_spotrs_work(
     dyload_lib().LAPACKE_spotrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpotrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41533,6 +43202,7 @@ pub unsafe fn LAPACKE_dpotrs_work(
     dyload_lib().LAPACKE_dpotrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpotrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41546,6 +43216,7 @@ pub unsafe fn LAPACKE_cpotrs_work(
     dyload_lib().LAPACKE_cpotrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpotrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41559,6 +43230,7 @@ pub unsafe fn LAPACKE_zpotrs_work(
     dyload_lib().LAPACKE_zpotrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41572,6 +43244,7 @@ pub unsafe fn LAPACKE_sppcon_work(
     dyload_lib().LAPACKE_sppcon_work.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond, work, iwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41585,6 +43258,7 @@ pub unsafe fn LAPACKE_dppcon_work(
     dyload_lib().LAPACKE_dppcon_work.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond, work, iwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41598,6 +43272,7 @@ pub unsafe fn LAPACKE_cppcon_work(
     dyload_lib().LAPACKE_cppcon_work.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond, work, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41611,6 +43286,7 @@ pub unsafe fn LAPACKE_zppcon_work(
     dyload_lib().LAPACKE_zppcon_work.unwrap()(matrix_layout, uplo, n, ap, anorm, rcond, work, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41623,6 +43299,7 @@ pub unsafe fn LAPACKE_sppequ_work(
     dyload_lib().LAPACKE_sppequ_work.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41635,6 +43312,7 @@ pub unsafe fn LAPACKE_dppequ_work(
     dyload_lib().LAPACKE_dppequ_work.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41647,6 +43325,7 @@ pub unsafe fn LAPACKE_cppequ_work(
     dyload_lib().LAPACKE_cppequ_work.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppequ_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41659,6 +43338,7 @@ pub unsafe fn LAPACKE_zppequ_work(
     dyload_lib().LAPACKE_zppequ_work.unwrap()(matrix_layout, uplo, n, ap, s, scond, amax)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41693,6 +43373,7 @@ pub unsafe fn LAPACKE_spprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41727,6 +43408,7 @@ pub unsafe fn LAPACKE_dpprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41761,6 +43443,7 @@ pub unsafe fn LAPACKE_cpprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41795,6 +43478,7 @@ pub unsafe fn LAPACKE_zpprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41807,6 +43491,7 @@ pub unsafe fn LAPACKE_sppsv_work(
     dyload_lib().LAPACKE_sppsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41819,6 +43504,7 @@ pub unsafe fn LAPACKE_dppsv_work(
     dyload_lib().LAPACKE_dppsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41831,6 +43517,7 @@ pub unsafe fn LAPACKE_cppsv_work(
     dyload_lib().LAPACKE_cppsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -41843,6 +43530,7 @@ pub unsafe fn LAPACKE_zppsv_work(
     dyload_lib().LAPACKE_zppsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sppsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41885,6 +43573,7 @@ pub unsafe fn LAPACKE_sppsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dppsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41927,6 +43616,7 @@ pub unsafe fn LAPACKE_dppsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cppsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -41969,6 +43659,7 @@ pub unsafe fn LAPACKE_cppsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zppsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -42011,6 +43702,7 @@ pub unsafe fn LAPACKE_zppsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42020,6 +43712,7 @@ pub unsafe fn LAPACKE_spptrf_work(
     dyload_lib().LAPACKE_spptrf_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42029,6 +43722,7 @@ pub unsafe fn LAPACKE_dpptrf_work(
     dyload_lib().LAPACKE_dpptrf_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42038,6 +43732,7 @@ pub unsafe fn LAPACKE_cpptrf_work(
     dyload_lib().LAPACKE_cpptrf_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42047,6 +43742,7 @@ pub unsafe fn LAPACKE_zpptrf_work(
     dyload_lib().LAPACKE_zpptrf_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42056,6 +43752,7 @@ pub unsafe fn LAPACKE_spptri_work(
     dyload_lib().LAPACKE_spptri_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42065,6 +43762,7 @@ pub unsafe fn LAPACKE_dpptri_work(
     dyload_lib().LAPACKE_dpptri_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42074,6 +43772,7 @@ pub unsafe fn LAPACKE_cpptri_work(
     dyload_lib().LAPACKE_cpptri_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42083,6 +43782,7 @@ pub unsafe fn LAPACKE_zpptri_work(
     dyload_lib().LAPACKE_zpptri_work.unwrap()(matrix_layout, uplo, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42095,6 +43795,7 @@ pub unsafe fn LAPACKE_spptrs_work(
     dyload_lib().LAPACKE_spptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42107,6 +43808,7 @@ pub unsafe fn LAPACKE_dpptrs_work(
     dyload_lib().LAPACKE_dpptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42119,6 +43821,7 @@ pub unsafe fn LAPACKE_cpptrs_work(
     dyload_lib().LAPACKE_cpptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42131,6 +43834,7 @@ pub unsafe fn LAPACKE_zpptrs_work(
     dyload_lib().LAPACKE_zpptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spstrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42145,6 +43849,7 @@ pub unsafe fn LAPACKE_spstrf_work(
     dyload_lib().LAPACKE_spstrf_work.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpstrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42159,6 +43864,7 @@ pub unsafe fn LAPACKE_dpstrf_work(
     dyload_lib().LAPACKE_dpstrf_work.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpstrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42173,6 +43879,7 @@ pub unsafe fn LAPACKE_cpstrf_work(
     dyload_lib().LAPACKE_cpstrf_work.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpstrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42187,6 +43894,7 @@ pub unsafe fn LAPACKE_zpstrf_work(
     dyload_lib().LAPACKE_zpstrf_work.unwrap()(matrix_layout, uplo, n, a, lda, piv, rank, tol, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptcon_work(
     n: lapack_int,
     d: *const f32,
@@ -42198,6 +43906,7 @@ pub unsafe fn LAPACKE_sptcon_work(
     dyload_lib().LAPACKE_sptcon_work.unwrap()(n, d, e, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptcon_work(
     n: lapack_int,
     d: *const f64,
@@ -42209,6 +43918,7 @@ pub unsafe fn LAPACKE_dptcon_work(
     dyload_lib().LAPACKE_dptcon_work.unwrap()(n, d, e, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptcon_work(
     n: lapack_int,
     d: *const f32,
@@ -42220,6 +43930,7 @@ pub unsafe fn LAPACKE_cptcon_work(
     dyload_lib().LAPACKE_cptcon_work.unwrap()(n, d, e, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptcon_work(
     n: lapack_int,
     d: *const f64,
@@ -42231,6 +43942,7 @@ pub unsafe fn LAPACKE_zptcon_work(
     dyload_lib().LAPACKE_zptcon_work.unwrap()(n, d, e, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -42244,6 +43956,7 @@ pub unsafe fn LAPACKE_spteqr_work(
     dyload_lib().LAPACKE_spteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -42257,6 +43970,7 @@ pub unsafe fn LAPACKE_dpteqr_work(
     dyload_lib().LAPACKE_dpteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -42270,6 +43984,7 @@ pub unsafe fn LAPACKE_cpteqr_work(
     dyload_lib().LAPACKE_cpteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -42283,6 +43998,7 @@ pub unsafe fn LAPACKE_zpteqr_work(
     dyload_lib().LAPACKE_zpteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptrfs_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42317,6 +44033,7 @@ pub unsafe fn LAPACKE_sptrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptrfs_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42351,6 +44068,7 @@ pub unsafe fn LAPACKE_dptrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42389,6 +44107,7 @@ pub unsafe fn LAPACKE_cptrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42427,6 +44146,7 @@ pub unsafe fn LAPACKE_zptrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42439,6 +44159,7 @@ pub unsafe fn LAPACKE_sptsv_work(
     dyload_lib().LAPACKE_sptsv_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42451,6 +44172,7 @@ pub unsafe fn LAPACKE_dptsv_work(
     dyload_lib().LAPACKE_dptsv_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42463,6 +44185,7 @@ pub unsafe fn LAPACKE_cptsv_work(
     dyload_lib().LAPACKE_cptsv_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptsv_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42475,6 +44198,7 @@ pub unsafe fn LAPACKE_zptsv_work(
     dyload_lib().LAPACKE_zptsv_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sptsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -42513,6 +44237,7 @@ pub unsafe fn LAPACKE_sptsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dptsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -42551,6 +44276,7 @@ pub unsafe fn LAPACKE_dptsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cptsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -42591,6 +44317,7 @@ pub unsafe fn LAPACKE_cptsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zptsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -42631,14 +44358,17 @@ pub unsafe fn LAPACKE_zptsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spttrf_work(n: lapack_int, d: *mut f32, e: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_spttrf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpttrf_work(n: lapack_int, d: *mut f64, e: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dpttrf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpttrf_work(
     n: lapack_int,
     d: *mut f32,
@@ -42647,6 +44377,7 @@ pub unsafe fn LAPACKE_cpttrf_work(
     dyload_lib().LAPACKE_cpttrf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpttrf_work(
     n: lapack_int,
     d: *mut f64,
@@ -42655,6 +44386,7 @@ pub unsafe fn LAPACKE_zpttrf_work(
     dyload_lib().LAPACKE_zpttrf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_spttrs_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42667,6 +44399,7 @@ pub unsafe fn LAPACKE_spttrs_work(
     dyload_lib().LAPACKE_spttrs_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dpttrs_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -42679,6 +44412,7 @@ pub unsafe fn LAPACKE_dpttrs_work(
     dyload_lib().LAPACKE_dpttrs_work.unwrap()(matrix_layout, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cpttrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42692,6 +44426,7 @@ pub unsafe fn LAPACKE_cpttrs_work(
     dyload_lib().LAPACKE_cpttrs_work.unwrap()(matrix_layout, uplo, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zpttrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -42705,6 +44440,7 @@ pub unsafe fn LAPACKE_zpttrs_work(
     dyload_lib().LAPACKE_zpttrs_work.unwrap()(matrix_layout, uplo, n, nrhs, d, e, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42733,6 +44469,7 @@ pub unsafe fn LAPACKE_ssbev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42761,6 +44498,7 @@ pub unsafe fn LAPACKE_dsbev_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42795,6 +44533,7 @@ pub unsafe fn LAPACKE_ssbevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42829,6 +44568,7 @@ pub unsafe fn LAPACKE_dsbevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42879,6 +44619,7 @@ pub unsafe fn LAPACKE_ssbevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -42929,6 +44670,7 @@ pub unsafe fn LAPACKE_dsbevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgst_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -42961,6 +44703,7 @@ pub unsafe fn LAPACKE_ssbgst_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgst_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -42993,6 +44736,7 @@ pub unsafe fn LAPACKE_dsbgst_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgv_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43027,6 +44771,7 @@ pub unsafe fn LAPACKE_ssbgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgv_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43061,6 +44806,7 @@ pub unsafe fn LAPACKE_dsbgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgvd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43101,6 +44847,7 @@ pub unsafe fn LAPACKE_ssbgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgvd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43141,6 +44888,7 @@ pub unsafe fn LAPACKE_dsbgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbgvx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43197,6 +44945,7 @@ pub unsafe fn LAPACKE_ssbgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbgvx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43253,6 +45002,7 @@ pub unsafe fn LAPACKE_dsbgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbtrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -43283,6 +45033,7 @@ pub unsafe fn LAPACKE_ssbtrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbtrd_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -43313,6 +45064,7 @@ pub unsafe fn LAPACKE_dsbtrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssfrk_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -43341,6 +45093,7 @@ pub unsafe fn LAPACKE_ssfrk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsfrk_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -43369,6 +45122,7 @@ pub unsafe fn LAPACKE_dsfrk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43393,6 +45147,7 @@ pub unsafe fn LAPACKE_sspcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43417,6 +45172,7 @@ pub unsafe fn LAPACKE_dspcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43430,6 +45186,7 @@ pub unsafe fn LAPACKE_cspcon_work(
     dyload_lib().LAPACKE_cspcon_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspcon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43443,6 +45200,7 @@ pub unsafe fn LAPACKE_zspcon_work(
     dyload_lib().LAPACKE_zspcon_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, anorm, rcond, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43457,6 +45215,7 @@ pub unsafe fn LAPACKE_sspev_work(
     dyload_lib().LAPACKE_sspev_work.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43471,6 +45230,7 @@ pub unsafe fn LAPACKE_dspev_work(
     dyload_lib().LAPACKE_dspev_work.unwrap()(matrix_layout, jobz, uplo, n, ap, w, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43501,6 +45261,7 @@ pub unsafe fn LAPACKE_sspevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43531,6 +45292,7 @@ pub unsafe fn LAPACKE_dspevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43573,6 +45335,7 @@ pub unsafe fn LAPACKE_sspevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -43615,6 +45378,7 @@ pub unsafe fn LAPACKE_dspevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43626,6 +45390,7 @@ pub unsafe fn LAPACKE_sspgst_work(
     dyload_lib().LAPACKE_sspgst_work.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43637,6 +45402,7 @@ pub unsafe fn LAPACKE_dspgst_work(
     dyload_lib().LAPACKE_dspgst_work.unwrap()(matrix_layout, itype, uplo, n, ap, bp)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43665,6 +45431,7 @@ pub unsafe fn LAPACKE_sspgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43693,6 +45460,7 @@ pub unsafe fn LAPACKE_dspgv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43727,6 +45495,7 @@ pub unsafe fn LAPACKE_sspgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43761,6 +45530,7 @@ pub unsafe fn LAPACKE_dspgvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspgvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43807,6 +45577,7 @@ pub unsafe fn LAPACKE_sspgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspgvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -43853,6 +45624,7 @@ pub unsafe fn LAPACKE_dspgvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43889,6 +45661,7 @@ pub unsafe fn LAPACKE_ssprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43925,6 +45698,7 @@ pub unsafe fn LAPACKE_dsprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43961,6 +45735,7 @@ pub unsafe fn LAPACKE_csprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -43997,6 +45772,7 @@ pub unsafe fn LAPACKE_zsprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44010,6 +45786,7 @@ pub unsafe fn LAPACKE_sspsv_work(
     dyload_lib().LAPACKE_sspsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44023,6 +45800,7 @@ pub unsafe fn LAPACKE_dspsv_work(
     dyload_lib().LAPACKE_dspsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44036,6 +45814,7 @@ pub unsafe fn LAPACKE_cspsv_work(
     dyload_lib().LAPACKE_cspsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspsv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44049,6 +45828,7 @@ pub unsafe fn LAPACKE_zspsv_work(
     dyload_lib().LAPACKE_zspsv_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sspsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -44089,6 +45869,7 @@ pub unsafe fn LAPACKE_sspsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dspsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -44129,6 +45910,7 @@ pub unsafe fn LAPACKE_dspsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cspsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -44169,6 +45951,7 @@ pub unsafe fn LAPACKE_cspsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zspsvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -44209,6 +45992,7 @@ pub unsafe fn LAPACKE_zspsvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44221,6 +46005,7 @@ pub unsafe fn LAPACKE_ssptrd_work(
     dyload_lib().LAPACKE_ssptrd_work.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44233,6 +46018,7 @@ pub unsafe fn LAPACKE_dsptrd_work(
     dyload_lib().LAPACKE_dsptrd_work.unwrap()(matrix_layout, uplo, n, ap, d, e, tau)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44243,6 +46029,7 @@ pub unsafe fn LAPACKE_ssptrf_work(
     dyload_lib().LAPACKE_ssptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44253,6 +46040,7 @@ pub unsafe fn LAPACKE_dsptrf_work(
     dyload_lib().LAPACKE_dsptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44263,6 +46051,7 @@ pub unsafe fn LAPACKE_csptrf_work(
     dyload_lib().LAPACKE_csptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44273,6 +46062,7 @@ pub unsafe fn LAPACKE_zsptrf_work(
     dyload_lib().LAPACKE_zsptrf_work.unwrap()(matrix_layout, uplo, n, ap, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44284,6 +46074,7 @@ pub unsafe fn LAPACKE_ssptri_work(
     dyload_lib().LAPACKE_ssptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44295,6 +46086,7 @@ pub unsafe fn LAPACKE_dsptri_work(
     dyload_lib().LAPACKE_dsptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44306,6 +46098,7 @@ pub unsafe fn LAPACKE_csptri_work(
     dyload_lib().LAPACKE_csptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44317,6 +46110,7 @@ pub unsafe fn LAPACKE_zsptri_work(
     dyload_lib().LAPACKE_zsptri_work.unwrap()(matrix_layout, uplo, n, ap, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44330,6 +46124,7 @@ pub unsafe fn LAPACKE_ssptrs_work(
     dyload_lib().LAPACKE_ssptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44343,6 +46138,7 @@ pub unsafe fn LAPACKE_dsptrs_work(
     dyload_lib().LAPACKE_dsptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44356,6 +46152,7 @@ pub unsafe fn LAPACKE_csptrs_work(
     dyload_lib().LAPACKE_csptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -44369,6 +46166,7 @@ pub unsafe fn LAPACKE_zsptrs_work(
     dyload_lib().LAPACKE_zsptrs_work.unwrap()(matrix_layout, uplo, n, nrhs, ap, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstebz_work(
     range: c_char,
     order: c_char,
@@ -44393,6 +46191,7 @@ pub unsafe fn LAPACKE_sstebz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstebz_work(
     range: c_char,
     order: c_char,
@@ -44417,6 +46216,7 @@ pub unsafe fn LAPACKE_dstebz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstedc_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -44445,6 +46245,7 @@ pub unsafe fn LAPACKE_sstedc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstedc_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -44473,6 +46274,7 @@ pub unsafe fn LAPACKE_dstedc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstedc_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -44505,6 +46307,7 @@ pub unsafe fn LAPACKE_cstedc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstedc_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -44537,6 +46340,7 @@ pub unsafe fn LAPACKE_zstedc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstegr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44583,6 +46387,7 @@ pub unsafe fn LAPACKE_sstegr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstegr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44629,6 +46434,7 @@ pub unsafe fn LAPACKE_dstegr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstegr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44675,6 +46481,7 @@ pub unsafe fn LAPACKE_cstegr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstegr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44721,6 +46528,7 @@ pub unsafe fn LAPACKE_zstegr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstein_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -44753,6 +46561,7 @@ pub unsafe fn LAPACKE_sstein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstein_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -44785,6 +46594,7 @@ pub unsafe fn LAPACKE_dstein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstein_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -44817,6 +46627,7 @@ pub unsafe fn LAPACKE_cstein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstein_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -44849,6 +46660,7 @@ pub unsafe fn LAPACKE_zstein_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstemr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44897,6 +46709,7 @@ pub unsafe fn LAPACKE_sstemr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstemr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44945,6 +46758,7 @@ pub unsafe fn LAPACKE_dstemr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cstemr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -44993,6 +46807,7 @@ pub unsafe fn LAPACKE_cstemr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zstemr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45041,6 +46856,7 @@ pub unsafe fn LAPACKE_zstemr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -45054,6 +46870,7 @@ pub unsafe fn LAPACKE_ssteqr_work(
     dyload_lib().LAPACKE_ssteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -45067,6 +46884,7 @@ pub unsafe fn LAPACKE_dsteqr_work(
     dyload_lib().LAPACKE_dsteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -45080,6 +46898,7 @@ pub unsafe fn LAPACKE_csteqr_work(
     dyload_lib().LAPACKE_csteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsteqr_work(
     matrix_layout: c_int,
     compz: c_char,
@@ -45093,14 +46912,17 @@ pub unsafe fn LAPACKE_zsteqr_work(
     dyload_lib().LAPACKE_zsteqr_work.unwrap()(matrix_layout, compz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssterf_work(n: lapack_int, d: *mut f32, e: *mut f32) -> lapack_int {
     dyload_lib().LAPACKE_ssterf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsterf_work(n: lapack_int, d: *mut f64, e: *mut f64) -> lapack_int {
     dyload_lib().LAPACKE_dsterf_work.unwrap()(n, d, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45114,6 +46936,7 @@ pub unsafe fn LAPACKE_sstev_work(
     dyload_lib().LAPACKE_sstev_work.unwrap()(matrix_layout, jobz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45127,6 +46950,7 @@ pub unsafe fn LAPACKE_dstev_work(
     dyload_lib().LAPACKE_dstev_work.unwrap()(matrix_layout, jobz, n, d, e, z, ldz, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45155,6 +46979,7 @@ pub unsafe fn LAPACKE_sstevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45183,6 +47008,7 @@ pub unsafe fn LAPACKE_dstevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45229,6 +47055,7 @@ pub unsafe fn LAPACKE_sstevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45275,6 +47102,7 @@ pub unsafe fn LAPACKE_dstevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sstevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45317,6 +47145,7 @@ pub unsafe fn LAPACKE_sstevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dstevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45359,6 +47188,7 @@ pub unsafe fn LAPACKE_dstevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssycon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45385,6 +47215,7 @@ pub unsafe fn LAPACKE_ssycon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsycon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45411,6 +47242,7 @@ pub unsafe fn LAPACKE_dsycon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csycon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45435,6 +47267,7 @@ pub unsafe fn LAPACKE_csycon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsycon_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45459,6 +47292,7 @@ pub unsafe fn LAPACKE_zsycon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45473,6 +47307,7 @@ pub unsafe fn LAPACKE_ssyequb_work(
     dyload_lib().LAPACKE_ssyequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45487,6 +47322,7 @@ pub unsafe fn LAPACKE_dsyequb_work(
     dyload_lib().LAPACKE_dsyequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45501,6 +47337,7 @@ pub unsafe fn LAPACKE_csyequb_work(
     dyload_lib().LAPACKE_csyequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyequb_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -45515,6 +47352,7 @@ pub unsafe fn LAPACKE_zsyequb_work(
     dyload_lib().LAPACKE_zsyequb_work.unwrap()(matrix_layout, uplo, n, a, lda, s, scond, amax, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45529,6 +47367,7 @@ pub unsafe fn LAPACKE_ssyev_work(
     dyload_lib().LAPACKE_ssyev_work.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyev_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45543,6 +47382,7 @@ pub unsafe fn LAPACKE_dsyev_work(
     dyload_lib().LAPACKE_dsyev_work.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45571,6 +47411,7 @@ pub unsafe fn LAPACKE_ssyevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevd_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45599,6 +47440,7 @@ pub unsafe fn LAPACKE_dsyevd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45647,6 +47489,7 @@ pub unsafe fn LAPACKE_ssyevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevr_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45695,6 +47538,7 @@ pub unsafe fn LAPACKE_dsyevr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45741,6 +47585,7 @@ pub unsafe fn LAPACKE_ssyevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevx_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -45787,6 +47632,7 @@ pub unsafe fn LAPACKE_dsyevx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45800,6 +47646,7 @@ pub unsafe fn LAPACKE_ssygst_work(
     dyload_lib().LAPACKE_ssygst_work.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygst_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45813,6 +47660,7 @@ pub unsafe fn LAPACKE_dsygst_work(
     dyload_lib().LAPACKE_dsygst_work.unwrap()(matrix_layout, itype, uplo, n, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45843,6 +47691,7 @@ pub unsafe fn LAPACKE_ssygv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygv_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45873,6 +47722,7 @@ pub unsafe fn LAPACKE_dsygv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45907,6 +47757,7 @@ pub unsafe fn LAPACKE_ssygvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygvd_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45941,6 +47792,7 @@ pub unsafe fn LAPACKE_dsygvd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -45993,6 +47845,7 @@ pub unsafe fn LAPACKE_ssygvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygvx_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -46045,6 +47898,7 @@ pub unsafe fn LAPACKE_dsygvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46085,6 +47939,7 @@ pub unsafe fn LAPACKE_ssyrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46125,6 +47980,7 @@ pub unsafe fn LAPACKE_dsyrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46165,6 +48021,7 @@ pub unsafe fn LAPACKE_csyrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46205,6 +48062,7 @@ pub unsafe fn LAPACKE_zsyrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyrfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46259,6 +48117,7 @@ pub unsafe fn LAPACKE_ssyrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyrfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46313,6 +48172,7 @@ pub unsafe fn LAPACKE_dsyrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyrfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46367,6 +48227,7 @@ pub unsafe fn LAPACKE_csyrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyrfsx_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46421,6 +48282,7 @@ pub unsafe fn LAPACKE_zsyrfsx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46449,6 +48311,7 @@ pub unsafe fn LAPACKE_ssysv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46477,6 +48340,7 @@ pub unsafe fn LAPACKE_dsysv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46505,6 +48369,7 @@ pub unsafe fn LAPACKE_csysv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46533,6 +48398,7 @@ pub unsafe fn LAPACKE_zsysv_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46579,6 +48445,7 @@ pub unsafe fn LAPACKE_ssysvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46625,6 +48492,7 @@ pub unsafe fn LAPACKE_dsysvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46671,6 +48539,7 @@ pub unsafe fn LAPACKE_csysvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysvx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46717,6 +48586,7 @@ pub unsafe fn LAPACKE_zsysvx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46775,6 +48645,7 @@ pub unsafe fn LAPACKE_ssysvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46833,6 +48704,7 @@ pub unsafe fn LAPACKE_dsysvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46891,6 +48763,7 @@ pub unsafe fn LAPACKE_csysvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysvxx_work(
     matrix_layout: c_int,
     fact: c_char,
@@ -46949,6 +48822,7 @@ pub unsafe fn LAPACKE_zsysvxx_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -46975,6 +48849,7 @@ pub unsafe fn LAPACKE_ssytrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrd_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47001,6 +48876,7 @@ pub unsafe fn LAPACKE_dsytrd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47014,6 +48890,7 @@ pub unsafe fn LAPACKE_ssytrf_work(
     dyload_lib().LAPACKE_ssytrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47027,6 +48904,7 @@ pub unsafe fn LAPACKE_dsytrf_work(
     dyload_lib().LAPACKE_dsytrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47040,6 +48918,7 @@ pub unsafe fn LAPACKE_csytrf_work(
     dyload_lib().LAPACKE_csytrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47053,6 +48932,7 @@ pub unsafe fn LAPACKE_zsytrf_work(
     dyload_lib().LAPACKE_zsytrf_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47065,6 +48945,7 @@ pub unsafe fn LAPACKE_ssytri_work(
     dyload_lib().LAPACKE_ssytri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47077,6 +48958,7 @@ pub unsafe fn LAPACKE_dsytri_work(
     dyload_lib().LAPACKE_dsytri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47089,6 +48971,7 @@ pub unsafe fn LAPACKE_csytri_work(
     dyload_lib().LAPACKE_csytri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47101,6 +48984,7 @@ pub unsafe fn LAPACKE_zsytri_work(
     dyload_lib().LAPACKE_zsytri_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47115,6 +48999,7 @@ pub unsafe fn LAPACKE_ssytrs_work(
     dyload_lib().LAPACKE_ssytrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47129,6 +49014,7 @@ pub unsafe fn LAPACKE_dsytrs_work(
     dyload_lib().LAPACKE_dsytrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47143,6 +49029,7 @@ pub unsafe fn LAPACKE_csytrs_work(
     dyload_lib().LAPACKE_csytrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47157,6 +49044,7 @@ pub unsafe fn LAPACKE_zsytrs_work(
     dyload_lib().LAPACKE_zsytrs_work.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -47185,6 +49073,7 @@ pub unsafe fn LAPACKE_stbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -47213,6 +49102,7 @@ pub unsafe fn LAPACKE_dtbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -47241,6 +49131,7 @@ pub unsafe fn LAPACKE_ctbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -47269,6 +49160,7 @@ pub unsafe fn LAPACKE_ztbcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47309,6 +49201,7 @@ pub unsafe fn LAPACKE_stbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47349,6 +49242,7 @@ pub unsafe fn LAPACKE_dtbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47389,6 +49283,7 @@ pub unsafe fn LAPACKE_ctbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47429,6 +49324,7 @@ pub unsafe fn LAPACKE_ztbrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47457,6 +49353,7 @@ pub unsafe fn LAPACKE_stbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47485,6 +49382,7 @@ pub unsafe fn LAPACKE_dtbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47513,6 +49411,7 @@ pub unsafe fn LAPACKE_ctbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztbtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -47541,6 +49440,7 @@ pub unsafe fn LAPACKE_ztbtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfsm_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47571,6 +49471,7 @@ pub unsafe fn LAPACKE_stfsm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfsm_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47601,6 +49502,7 @@ pub unsafe fn LAPACKE_dtfsm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfsm_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47631,6 +49533,7 @@ pub unsafe fn LAPACKE_ctfsm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfsm_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47661,6 +49564,7 @@ pub unsafe fn LAPACKE_ztfsm_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47672,6 +49576,7 @@ pub unsafe fn LAPACKE_stftri_work(
     dyload_lib().LAPACKE_stftri_work.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47683,6 +49588,7 @@ pub unsafe fn LAPACKE_dtftri_work(
     dyload_lib().LAPACKE_dtftri_work.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47694,6 +49600,7 @@ pub unsafe fn LAPACKE_ctftri_work(
     dyload_lib().LAPACKE_ctftri_work.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztftri_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47705,6 +49612,7 @@ pub unsafe fn LAPACKE_ztftri_work(
     dyload_lib().LAPACKE_ztftri_work.unwrap()(matrix_layout, transr, uplo, diag, n, a)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfttp_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47716,6 +49624,7 @@ pub unsafe fn LAPACKE_stfttp_work(
     dyload_lib().LAPACKE_stfttp_work.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfttp_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47727,6 +49636,7 @@ pub unsafe fn LAPACKE_dtfttp_work(
     dyload_lib().LAPACKE_dtfttp_work.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfttp_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47738,6 +49648,7 @@ pub unsafe fn LAPACKE_ctfttp_work(
     dyload_lib().LAPACKE_ctfttp_work.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfttp_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47749,6 +49660,7 @@ pub unsafe fn LAPACKE_ztfttp_work(
     dyload_lib().LAPACKE_ztfttp_work.unwrap()(matrix_layout, transr, uplo, n, arf, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stfttr_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47761,6 +49673,7 @@ pub unsafe fn LAPACKE_stfttr_work(
     dyload_lib().LAPACKE_stfttr_work.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtfttr_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47773,6 +49686,7 @@ pub unsafe fn LAPACKE_dtfttr_work(
     dyload_lib().LAPACKE_dtfttr_work.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctfttr_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47785,6 +49699,7 @@ pub unsafe fn LAPACKE_ctfttr_work(
     dyload_lib().LAPACKE_ctfttr_work.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztfttr_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -47797,6 +49712,7 @@ pub unsafe fn LAPACKE_ztfttr_work(
     dyload_lib().LAPACKE_ztfttr_work.unwrap()(matrix_layout, transr, uplo, n, arf, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -47835,6 +49751,7 @@ pub unsafe fn LAPACKE_stgevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -47873,6 +49790,7 @@ pub unsafe fn LAPACKE_dtgevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -47913,6 +49831,7 @@ pub unsafe fn LAPACKE_ctgevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -47953,6 +49872,7 @@ pub unsafe fn LAPACKE_ztgevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgexc_work(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -47991,6 +49911,7 @@ pub unsafe fn LAPACKE_stgexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgexc_work(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -48029,6 +49950,7 @@ pub unsafe fn LAPACKE_dtgexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgexc_work(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -48063,6 +49985,7 @@ pub unsafe fn LAPACKE_ctgexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgexc_work(
     matrix_layout: c_int,
     wantq: lapack_int,
@@ -48097,6 +50020,7 @@ pub unsafe fn LAPACKE_ztgexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsen_work(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -48153,6 +50077,7 @@ pub unsafe fn LAPACKE_stgsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsen_work(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -48209,6 +50134,7 @@ pub unsafe fn LAPACKE_dtgsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsen_work(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -48263,6 +50189,7 @@ pub unsafe fn LAPACKE_ctgsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsen_work(
     matrix_layout: c_int,
     ijob: lapack_int,
@@ -48317,6 +50244,7 @@ pub unsafe fn LAPACKE_ztgsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsja_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -48373,6 +50301,7 @@ pub unsafe fn LAPACKE_stgsja_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsja_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -48429,6 +50358,7 @@ pub unsafe fn LAPACKE_dtgsja_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsja_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -48485,6 +50415,7 @@ pub unsafe fn LAPACKE_ctgsja_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsja_work(
     matrix_layout: c_int,
     jobu: c_char,
@@ -48541,6 +50472,7 @@ pub unsafe fn LAPACKE_ztgsja_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -48587,6 +50519,7 @@ pub unsafe fn LAPACKE_stgsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -48633,6 +50566,7 @@ pub unsafe fn LAPACKE_dtgsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -48679,6 +50613,7 @@ pub unsafe fn LAPACKE_ctgsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -48725,6 +50660,7 @@ pub unsafe fn LAPACKE_ztgsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stgsyl_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -48775,6 +50711,7 @@ pub unsafe fn LAPACKE_stgsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtgsyl_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -48825,6 +50762,7 @@ pub unsafe fn LAPACKE_dtgsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctgsyl_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -48875,6 +50813,7 @@ pub unsafe fn LAPACKE_ctgsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztgsyl_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -48925,6 +50864,7 @@ pub unsafe fn LAPACKE_ztgsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -48949,6 +50889,7 @@ pub unsafe fn LAPACKE_stpcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -48973,6 +50914,7 @@ pub unsafe fn LAPACKE_dtpcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -48997,6 +50939,7 @@ pub unsafe fn LAPACKE_ctpcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -49021,6 +50964,7 @@ pub unsafe fn LAPACKE_ztpcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49057,6 +51001,7 @@ pub unsafe fn LAPACKE_stprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49093,6 +51038,7 @@ pub unsafe fn LAPACKE_dtprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49129,6 +51075,7 @@ pub unsafe fn LAPACKE_ctprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztprfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49165,6 +51112,7 @@ pub unsafe fn LAPACKE_ztprfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49175,6 +51123,7 @@ pub unsafe fn LAPACKE_stptri_work(
     dyload_lib().LAPACKE_stptri_work.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49185,6 +51134,7 @@ pub unsafe fn LAPACKE_dtptri_work(
     dyload_lib().LAPACKE_dtptri_work.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49195,6 +51145,7 @@ pub unsafe fn LAPACKE_ctptri_work(
     dyload_lib().LAPACKE_ctptri_work.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztptri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49205,6 +51156,7 @@ pub unsafe fn LAPACKE_ztptri_work(
     dyload_lib().LAPACKE_ztptri_work.unwrap()(matrix_layout, uplo, diag, n, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49219,6 +51171,7 @@ pub unsafe fn LAPACKE_stptrs_work(
     dyload_lib().LAPACKE_stptrs_work.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49233,6 +51186,7 @@ pub unsafe fn LAPACKE_dtptrs_work(
     dyload_lib().LAPACKE_dtptrs_work.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49247,6 +51201,7 @@ pub unsafe fn LAPACKE_ctptrs_work(
     dyload_lib().LAPACKE_ctptrs_work.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztptrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49261,6 +51216,7 @@ pub unsafe fn LAPACKE_ztptrs_work(
     dyload_lib().LAPACKE_ztptrs_work.unwrap()(matrix_layout, uplo, trans, diag, n, nrhs, ap, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -49272,6 +51228,7 @@ pub unsafe fn LAPACKE_stpttf_work(
     dyload_lib().LAPACKE_stpttf_work.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -49283,6 +51240,7 @@ pub unsafe fn LAPACKE_dtpttf_work(
     dyload_lib().LAPACKE_dtpttf_work.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -49294,6 +51252,7 @@ pub unsafe fn LAPACKE_ctpttf_work(
     dyload_lib().LAPACKE_ctpttf_work.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -49305,6 +51264,7 @@ pub unsafe fn LAPACKE_ztpttf_work(
     dyload_lib().LAPACKE_ztpttf_work.unwrap()(matrix_layout, transr, uplo, n, ap, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpttr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49316,6 +51276,7 @@ pub unsafe fn LAPACKE_stpttr_work(
     dyload_lib().LAPACKE_stpttr_work.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpttr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49327,6 +51288,7 @@ pub unsafe fn LAPACKE_dtpttr_work(
     dyload_lib().LAPACKE_dtpttr_work.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpttr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49338,6 +51300,7 @@ pub unsafe fn LAPACKE_ctpttr_work(
     dyload_lib().LAPACKE_ctpttr_work.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpttr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49349,6 +51312,7 @@ pub unsafe fn LAPACKE_ztpttr_work(
     dyload_lib().LAPACKE_ztpttr_work.unwrap()(matrix_layout, uplo, n, ap, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -49375,6 +51339,7 @@ pub unsafe fn LAPACKE_strcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -49401,6 +51366,7 @@ pub unsafe fn LAPACKE_dtrcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -49427,6 +51393,7 @@ pub unsafe fn LAPACKE_ctrcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrcon_work(
     matrix_layout: c_int,
     norm: c_char,
@@ -49453,6 +51420,7 @@ pub unsafe fn LAPACKE_ztrcon_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -49487,6 +51455,7 @@ pub unsafe fn LAPACKE_strevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -49521,6 +51490,7 @@ pub unsafe fn LAPACKE_dtrevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -49557,6 +51527,7 @@ pub unsafe fn LAPACKE_ctrevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrevc_work(
     matrix_layout: c_int,
     side: c_char,
@@ -49593,6 +51564,7 @@ pub unsafe fn LAPACKE_ztrevc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strexc_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -49619,6 +51591,7 @@ pub unsafe fn LAPACKE_strexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrexc_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -49645,6 +51618,7 @@ pub unsafe fn LAPACKE_dtrexc_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrexc_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -49659,6 +51633,7 @@ pub unsafe fn LAPACKE_ctrexc_work(
     dyload_lib().LAPACKE_ctrexc_work.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrexc_work(
     matrix_layout: c_int,
     compq: c_char,
@@ -49673,6 +51648,7 @@ pub unsafe fn LAPACKE_ztrexc_work(
     dyload_lib().LAPACKE_ztrexc_work.unwrap()(matrix_layout, compq, n, t, ldt, q, ldq, ifst, ilst)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49711,6 +51687,7 @@ pub unsafe fn LAPACKE_strrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49749,6 +51726,7 @@ pub unsafe fn LAPACKE_dtrrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49787,6 +51765,7 @@ pub unsafe fn LAPACKE_ctrrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrrfs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -49825,6 +51804,7 @@ pub unsafe fn LAPACKE_ztrrfs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsen_work(
     matrix_layout: c_int,
     job: c_char,
@@ -49867,6 +51847,7 @@ pub unsafe fn LAPACKE_strsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsen_work(
     matrix_layout: c_int,
     job: c_char,
@@ -49909,6 +51890,7 @@ pub unsafe fn LAPACKE_dtrsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsen_work(
     matrix_layout: c_int,
     job: c_char,
@@ -49945,6 +51927,7 @@ pub unsafe fn LAPACKE_ctrsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsen_work(
     matrix_layout: c_int,
     job: c_char,
@@ -49981,6 +51964,7 @@ pub unsafe fn LAPACKE_ztrsen_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -50023,6 +52007,7 @@ pub unsafe fn LAPACKE_strsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -50065,6 +52050,7 @@ pub unsafe fn LAPACKE_dtrsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -50107,6 +52093,7 @@ pub unsafe fn LAPACKE_ctrsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsna_work(
     matrix_layout: c_int,
     job: c_char,
@@ -50149,6 +52136,7 @@ pub unsafe fn LAPACKE_ztrsna_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsyl_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50181,6 +52169,7 @@ pub unsafe fn LAPACKE_strsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsyl_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50213,6 +52202,7 @@ pub unsafe fn LAPACKE_dtrsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsyl_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50245,6 +52235,7 @@ pub unsafe fn LAPACKE_ctrsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsyl_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50277,6 +52268,7 @@ pub unsafe fn LAPACKE_ztrsyl_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strsyl3_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50317,6 +52309,7 @@ pub unsafe fn LAPACKE_strsyl3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrsyl3_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50357,6 +52350,7 @@ pub unsafe fn LAPACKE_dtrsyl3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrsyl3_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50393,6 +52387,7 @@ pub unsafe fn LAPACKE_ctrsyl3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrsyl3_work(
     matrix_layout: c_int,
     trana: c_char,
@@ -50429,6 +52424,7 @@ pub unsafe fn LAPACKE_ztrsyl3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strtri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50440,6 +52436,7 @@ pub unsafe fn LAPACKE_strtri_work(
     dyload_lib().LAPACKE_strtri_work.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrtri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50451,6 +52448,7 @@ pub unsafe fn LAPACKE_dtrtri_work(
     dyload_lib().LAPACKE_dtrtri_work.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrtri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50462,6 +52460,7 @@ pub unsafe fn LAPACKE_ctrtri_work(
     dyload_lib().LAPACKE_ctrtri_work.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrtri_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50473,6 +52472,7 @@ pub unsafe fn LAPACKE_ztrtri_work(
     dyload_lib().LAPACKE_ztrtri_work.unwrap()(matrix_layout, uplo, diag, n, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50499,6 +52499,7 @@ pub unsafe fn LAPACKE_strtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50525,6 +52526,7 @@ pub unsafe fn LAPACKE_dtrtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50551,6 +52553,7 @@ pub unsafe fn LAPACKE_ctrtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrtrs_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50577,6 +52580,7 @@ pub unsafe fn LAPACKE_ztrtrs_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -50589,6 +52593,7 @@ pub unsafe fn LAPACKE_strttf_work(
     dyload_lib().LAPACKE_strttf_work.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -50601,6 +52606,7 @@ pub unsafe fn LAPACKE_dtrttf_work(
     dyload_lib().LAPACKE_dtrttf_work.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -50613,6 +52619,7 @@ pub unsafe fn LAPACKE_ctrttf_work(
     dyload_lib().LAPACKE_ctrttf_work.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrttf_work(
     matrix_layout: c_int,
     transr: c_char,
@@ -50625,6 +52632,7 @@ pub unsafe fn LAPACKE_ztrttf_work(
     dyload_lib().LAPACKE_ztrttf_work.unwrap()(matrix_layout, transr, uplo, n, a, lda, arf)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_strttp_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50636,6 +52644,7 @@ pub unsafe fn LAPACKE_strttp_work(
     dyload_lib().LAPACKE_strttp_work.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtrttp_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50647,6 +52656,7 @@ pub unsafe fn LAPACKE_dtrttp_work(
     dyload_lib().LAPACKE_dtrttp_work.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctrttp_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50658,6 +52668,7 @@ pub unsafe fn LAPACKE_ctrttp_work(
     dyload_lib().LAPACKE_ctrttp_work.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztrttp_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50669,6 +52680,7 @@ pub unsafe fn LAPACKE_ztrttp_work(
     dyload_lib().LAPACKE_ztrttp_work.unwrap()(matrix_layout, uplo, n, a, lda, ap)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stzrzf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50682,6 +52694,7 @@ pub unsafe fn LAPACKE_stzrzf_work(
     dyload_lib().LAPACKE_stzrzf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtzrzf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50695,6 +52708,7 @@ pub unsafe fn LAPACKE_dtzrzf_work(
     dyload_lib().LAPACKE_dtzrzf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctzrzf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50708,6 +52722,7 @@ pub unsafe fn LAPACKE_ctzrzf_work(
     dyload_lib().LAPACKE_ctzrzf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztzrzf_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50721,6 +52736,7 @@ pub unsafe fn LAPACKE_ztzrzf_work(
     dyload_lib().LAPACKE_ztzrzf_work.unwrap()(matrix_layout, m, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -50747,6 +52763,7 @@ pub unsafe fn LAPACKE_cungbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -50773,6 +52790,7 @@ pub unsafe fn LAPACKE_zungbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunghr_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -50787,6 +52805,7 @@ pub unsafe fn LAPACKE_cunghr_work(
     dyload_lib().LAPACKE_cunghr_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunghr_work(
     matrix_layout: c_int,
     n: lapack_int,
@@ -50801,6 +52820,7 @@ pub unsafe fn LAPACKE_zunghr_work(
     dyload_lib().LAPACKE_zunghr_work.unwrap()(matrix_layout, n, ilo, ihi, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunglq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50815,6 +52835,7 @@ pub unsafe fn LAPACKE_cunglq_work(
     dyload_lib().LAPACKE_cunglq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunglq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50829,6 +52850,7 @@ pub unsafe fn LAPACKE_zunglq_work(
     dyload_lib().LAPACKE_zunglq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungql_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50843,6 +52865,7 @@ pub unsafe fn LAPACKE_cungql_work(
     dyload_lib().LAPACKE_cungql_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungql_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50857,6 +52880,7 @@ pub unsafe fn LAPACKE_zungql_work(
     dyload_lib().LAPACKE_zungql_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50871,6 +52895,7 @@ pub unsafe fn LAPACKE_cungqr_work(
     dyload_lib().LAPACKE_cungqr_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50885,6 +52910,7 @@ pub unsafe fn LAPACKE_zungqr_work(
     dyload_lib().LAPACKE_zungqr_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungrq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50899,6 +52925,7 @@ pub unsafe fn LAPACKE_cungrq_work(
     dyload_lib().LAPACKE_cungrq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungrq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50913,6 +52940,7 @@ pub unsafe fn LAPACKE_zungrq_work(
     dyload_lib().LAPACKE_zungrq_work.unwrap()(matrix_layout, m, n, k, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50926,6 +52954,7 @@ pub unsafe fn LAPACKE_cungtr_work(
     dyload_lib().LAPACKE_cungtr_work.unwrap()(matrix_layout, uplo, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -50939,6 +52968,7 @@ pub unsafe fn LAPACKE_zungtr_work(
     dyload_lib().LAPACKE_zungtr_work.unwrap()(matrix_layout, uplo, n, a, lda, tau, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cungtsqr_row_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50967,6 +52997,7 @@ pub unsafe fn LAPACKE_cungtsqr_row_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zungtsqr_row_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -50995,6 +53026,7 @@ pub unsafe fn LAPACKE_zungtsqr_row_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -51029,6 +53061,7 @@ pub unsafe fn LAPACKE_cunmbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmbr_work(
     matrix_layout: c_int,
     vect: c_char,
@@ -51063,6 +53096,7 @@ pub unsafe fn LAPACKE_zunmbr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmhr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51097,6 +53131,7 @@ pub unsafe fn LAPACKE_cunmhr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmhr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51131,6 +53166,7 @@ pub unsafe fn LAPACKE_zunmhr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51163,6 +53199,7 @@ pub unsafe fn LAPACKE_cunmlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51195,6 +53232,7 @@ pub unsafe fn LAPACKE_zunmlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmql_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51227,6 +53265,7 @@ pub unsafe fn LAPACKE_cunmql_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmql_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51259,6 +53298,7 @@ pub unsafe fn LAPACKE_zunmql_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51291,6 +53331,7 @@ pub unsafe fn LAPACKE_cunmqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51323,6 +53364,7 @@ pub unsafe fn LAPACKE_zunmqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmrq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51355,6 +53397,7 @@ pub unsafe fn LAPACKE_cunmrq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmrq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51387,6 +53430,7 @@ pub unsafe fn LAPACKE_zunmrq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmrz_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51421,6 +53465,7 @@ pub unsafe fn LAPACKE_cunmrz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmrz_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51455,6 +53500,7 @@ pub unsafe fn LAPACKE_zunmrz_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51487,6 +53533,7 @@ pub unsafe fn LAPACKE_cunmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51519,6 +53566,7 @@ pub unsafe fn LAPACKE_zunmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cupgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51532,6 +53580,7 @@ pub unsafe fn LAPACKE_cupgtr_work(
     dyload_lib().LAPACKE_cupgtr_work.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zupgtr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51545,6 +53594,7 @@ pub unsafe fn LAPACKE_zupgtr_work(
     dyload_lib().LAPACKE_zupgtr_work.unwrap()(matrix_layout, uplo, n, ap, tau, q, ldq, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cupmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51573,6 +53623,7 @@ pub unsafe fn LAPACKE_cupmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zupmtr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -51601,6 +53652,7 @@ pub unsafe fn LAPACKE_zupmtr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_claghe(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51613,6 +53665,7 @@ pub unsafe fn LAPACKE_claghe(
     dyload_lib().LAPACKE_claghe.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlaghe(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51625,6 +53678,7 @@ pub unsafe fn LAPACKE_zlaghe(
     dyload_lib().LAPACKE_zlaghe.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slagsy(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51637,6 +53691,7 @@ pub unsafe fn LAPACKE_slagsy(
     dyload_lib().LAPACKE_slagsy.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlagsy(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51649,6 +53704,7 @@ pub unsafe fn LAPACKE_dlagsy(
     dyload_lib().LAPACKE_dlagsy.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clagsy(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51661,6 +53717,7 @@ pub unsafe fn LAPACKE_clagsy(
     dyload_lib().LAPACKE_clagsy.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlagsy(
     matrix_layout: c_int,
     n: lapack_int,
@@ -51673,6 +53730,7 @@ pub unsafe fn LAPACKE_zlagsy(
     dyload_lib().LAPACKE_zlagsy.unwrap()(matrix_layout, n, k, d, a, lda, iseed)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapmr(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51685,6 +53743,7 @@ pub unsafe fn LAPACKE_slapmr(
     dyload_lib().LAPACKE_slapmr.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapmr(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51697,6 +53756,7 @@ pub unsafe fn LAPACKE_dlapmr(
     dyload_lib().LAPACKE_dlapmr.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clapmr(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51709,6 +53769,7 @@ pub unsafe fn LAPACKE_clapmr(
     dyload_lib().LAPACKE_clapmr.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlapmr(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51721,6 +53782,7 @@ pub unsafe fn LAPACKE_zlapmr(
     dyload_lib().LAPACKE_zlapmr.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapmt(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51733,6 +53795,7 @@ pub unsafe fn LAPACKE_slapmt(
     dyload_lib().LAPACKE_slapmt.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapmt(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51745,6 +53808,7 @@ pub unsafe fn LAPACKE_dlapmt(
     dyload_lib().LAPACKE_dlapmt.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_clapmt(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51757,6 +53821,7 @@ pub unsafe fn LAPACKE_clapmt(
     dyload_lib().LAPACKE_clapmt.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zlapmt(
     matrix_layout: c_int,
     forwrd: lapack_int,
@@ -51769,22 +53834,27 @@ pub unsafe fn LAPACKE_zlapmt(
     dyload_lib().LAPACKE_zlapmt.unwrap()(matrix_layout, forwrd, m, n, x, ldx, k)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapy2(x: f32, y: f32) -> f32 {
     dyload_lib().LAPACKE_slapy2.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapy2(x: f64, y: f64) -> f64 {
     dyload_lib().LAPACKE_dlapy2.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slapy3(x: f32, y: f32, z: f32) -> f32 {
     dyload_lib().LAPACKE_slapy3.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlapy3(x: f64, y: f64, z: f64) -> f64 {
     dyload_lib().LAPACKE_dlapy3.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slartgp(
     f: f32,
     g: f32,
@@ -51795,6 +53865,7 @@ pub unsafe fn LAPACKE_slartgp(
     dyload_lib().LAPACKE_slartgp.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlartgp(
     f: f64,
     g: f64,
@@ -51805,6 +53876,7 @@ pub unsafe fn LAPACKE_dlartgp(
     dyload_lib().LAPACKE_dlartgp.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_slartgs(
     x: f32,
     y: f32,
@@ -51815,6 +53887,7 @@ pub unsafe fn LAPACKE_slartgs(
     dyload_lib().LAPACKE_slartgs.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dlartgs(
     x: f64,
     y: f64,
@@ -51825,6 +53898,7 @@ pub unsafe fn LAPACKE_dlartgs(
     dyload_lib().LAPACKE_dlartgs.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cbbcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -51885,6 +53959,7 @@ pub unsafe fn LAPACKE_cbbcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cbbcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -51949,6 +54024,7 @@ pub unsafe fn LAPACKE_cbbcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51961,6 +54037,7 @@ pub unsafe fn LAPACKE_cheswapr(
     dyload_lib().LAPACKE_cheswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51973,6 +54050,7 @@ pub unsafe fn LAPACKE_cheswapr_work(
     dyload_lib().LAPACKE_cheswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51984,6 +54062,7 @@ pub unsafe fn LAPACKE_chetri2(
     dyload_lib().LAPACKE_chetri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -51997,6 +54076,7 @@ pub unsafe fn LAPACKE_chetri2_work(
     dyload_lib().LAPACKE_chetri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52009,6 +54089,7 @@ pub unsafe fn LAPACKE_chetri2x(
     dyload_lib().LAPACKE_chetri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52022,6 +54103,7 @@ pub unsafe fn LAPACKE_chetri2x_work(
     dyload_lib().LAPACKE_chetri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52036,6 +54118,7 @@ pub unsafe fn LAPACKE_chetrs2(
     dyload_lib().LAPACKE_chetrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52062,6 +54145,7 @@ pub unsafe fn LAPACKE_chetrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyconv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52075,6 +54159,7 @@ pub unsafe fn LAPACKE_csyconv(
     dyload_lib().LAPACKE_csyconv.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyconv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52088,6 +54173,7 @@ pub unsafe fn LAPACKE_csyconv_work(
     dyload_lib().LAPACKE_csyconv_work.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52100,6 +54186,7 @@ pub unsafe fn LAPACKE_csyswapr(
     dyload_lib().LAPACKE_csyswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52112,6 +54199,7 @@ pub unsafe fn LAPACKE_csyswapr_work(
     dyload_lib().LAPACKE_csyswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52123,6 +54211,7 @@ pub unsafe fn LAPACKE_csytri2(
     dyload_lib().LAPACKE_csytri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52136,6 +54225,7 @@ pub unsafe fn LAPACKE_csytri2_work(
     dyload_lib().LAPACKE_csytri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52148,6 +54238,7 @@ pub unsafe fn LAPACKE_csytri2x(
     dyload_lib().LAPACKE_csytri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52161,6 +54252,7 @@ pub unsafe fn LAPACKE_csytri2x_work(
     dyload_lib().LAPACKE_csytri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52175,6 +54267,7 @@ pub unsafe fn LAPACKE_csytrs2(
     dyload_lib().LAPACKE_csytrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52201,6 +54294,7 @@ pub unsafe fn LAPACKE_csytrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunbdb(
     matrix_layout: c_int,
     trans: c_char,
@@ -52247,6 +54341,7 @@ pub unsafe fn LAPACKE_cunbdb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunbdb_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -52297,6 +54392,7 @@ pub unsafe fn LAPACKE_cunbdb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cuncsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52357,6 +54453,7 @@ pub unsafe fn LAPACKE_cuncsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cuncsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52427,6 +54524,7 @@ pub unsafe fn LAPACKE_cuncsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cuncsd2by1(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52469,6 +54567,7 @@ pub unsafe fn LAPACKE_cuncsd2by1(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cuncsd2by1_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52521,6 +54620,7 @@ pub unsafe fn LAPACKE_cuncsd2by1_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbbcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52581,6 +54681,7 @@ pub unsafe fn LAPACKE_dbbcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dbbcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52645,6 +54746,7 @@ pub unsafe fn LAPACKE_dbbcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorbdb(
     matrix_layout: c_int,
     trans: c_char,
@@ -52691,6 +54793,7 @@ pub unsafe fn LAPACKE_dorbdb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorbdb_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -52741,6 +54844,7 @@ pub unsafe fn LAPACKE_dorbdb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52801,6 +54905,7 @@ pub unsafe fn LAPACKE_dorcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52867,6 +54972,7 @@ pub unsafe fn LAPACKE_dorcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorcsd2by1(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52909,6 +55015,7 @@ pub unsafe fn LAPACKE_dorcsd2by1(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorcsd2by1_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -52957,6 +55064,7 @@ pub unsafe fn LAPACKE_dorcsd2by1_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyconv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52970,6 +55078,7 @@ pub unsafe fn LAPACKE_dsyconv(
     dyload_lib().LAPACKE_dsyconv.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyconv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52983,6 +55092,7 @@ pub unsafe fn LAPACKE_dsyconv_work(
     dyload_lib().LAPACKE_dsyconv_work.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -52995,6 +55105,7 @@ pub unsafe fn LAPACKE_dsyswapr(
     dyload_lib().LAPACKE_dsyswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53007,6 +55118,7 @@ pub unsafe fn LAPACKE_dsyswapr_work(
     dyload_lib().LAPACKE_dsyswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53018,6 +55130,7 @@ pub unsafe fn LAPACKE_dsytri2(
     dyload_lib().LAPACKE_dsytri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53031,6 +55144,7 @@ pub unsafe fn LAPACKE_dsytri2_work(
     dyload_lib().LAPACKE_dsytri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53043,6 +55157,7 @@ pub unsafe fn LAPACKE_dsytri2x(
     dyload_lib().LAPACKE_dsytri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53056,6 +55171,7 @@ pub unsafe fn LAPACKE_dsytri2x_work(
     dyload_lib().LAPACKE_dsytri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53070,6 +55186,7 @@ pub unsafe fn LAPACKE_dsytrs2(
     dyload_lib().LAPACKE_dsytrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53096,6 +55213,7 @@ pub unsafe fn LAPACKE_dsytrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbbcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53156,6 +55274,7 @@ pub unsafe fn LAPACKE_sbbcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sbbcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53220,6 +55339,7 @@ pub unsafe fn LAPACKE_sbbcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorbdb(
     matrix_layout: c_int,
     trans: c_char,
@@ -53266,6 +55386,7 @@ pub unsafe fn LAPACKE_sorbdb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorbdb_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -53316,6 +55437,7 @@ pub unsafe fn LAPACKE_sorbdb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53376,6 +55498,7 @@ pub unsafe fn LAPACKE_sorcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53442,6 +55565,7 @@ pub unsafe fn LAPACKE_sorcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorcsd2by1(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53484,6 +55608,7 @@ pub unsafe fn LAPACKE_sorcsd2by1(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorcsd2by1_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53532,6 +55657,7 @@ pub unsafe fn LAPACKE_sorcsd2by1_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyconv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53545,6 +55671,7 @@ pub unsafe fn LAPACKE_ssyconv(
     dyload_lib().LAPACKE_ssyconv.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyconv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53558,6 +55685,7 @@ pub unsafe fn LAPACKE_ssyconv_work(
     dyload_lib().LAPACKE_ssyconv_work.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53570,6 +55698,7 @@ pub unsafe fn LAPACKE_ssyswapr(
     dyload_lib().LAPACKE_ssyswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53582,6 +55711,7 @@ pub unsafe fn LAPACKE_ssyswapr_work(
     dyload_lib().LAPACKE_ssyswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53593,6 +55723,7 @@ pub unsafe fn LAPACKE_ssytri2(
     dyload_lib().LAPACKE_ssytri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53606,6 +55737,7 @@ pub unsafe fn LAPACKE_ssytri2_work(
     dyload_lib().LAPACKE_ssytri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53618,6 +55750,7 @@ pub unsafe fn LAPACKE_ssytri2x(
     dyload_lib().LAPACKE_ssytri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53631,6 +55764,7 @@ pub unsafe fn LAPACKE_ssytri2x_work(
     dyload_lib().LAPACKE_ssytri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53645,6 +55779,7 @@ pub unsafe fn LAPACKE_ssytrs2(
     dyload_lib().LAPACKE_ssytrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53671,6 +55806,7 @@ pub unsafe fn LAPACKE_ssytrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zbbcsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53731,6 +55867,7 @@ pub unsafe fn LAPACKE_zbbcsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zbbcsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -53795,6 +55932,7 @@ pub unsafe fn LAPACKE_zbbcsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53807,6 +55945,7 @@ pub unsafe fn LAPACKE_zheswapr(
     dyload_lib().LAPACKE_zheswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53819,6 +55958,7 @@ pub unsafe fn LAPACKE_zheswapr_work(
     dyload_lib().LAPACKE_zheswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53830,6 +55970,7 @@ pub unsafe fn LAPACKE_zhetri2(
     dyload_lib().LAPACKE_zhetri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53843,6 +55984,7 @@ pub unsafe fn LAPACKE_zhetri2_work(
     dyload_lib().LAPACKE_zhetri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53855,6 +55997,7 @@ pub unsafe fn LAPACKE_zhetri2x(
     dyload_lib().LAPACKE_zhetri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53868,6 +56011,7 @@ pub unsafe fn LAPACKE_zhetri2x_work(
     dyload_lib().LAPACKE_zhetri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53882,6 +56026,7 @@ pub unsafe fn LAPACKE_zhetrs2(
     dyload_lib().LAPACKE_zhetrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53908,6 +56053,7 @@ pub unsafe fn LAPACKE_zhetrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyconv(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53921,6 +56067,7 @@ pub unsafe fn LAPACKE_zsyconv(
     dyload_lib().LAPACKE_zsyconv.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyconv_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53934,6 +56081,7 @@ pub unsafe fn LAPACKE_zsyconv_work(
     dyload_lib().LAPACKE_zsyconv_work.unwrap()(matrix_layout, uplo, way, n, a, lda, ipiv, e)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyswapr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53946,6 +56094,7 @@ pub unsafe fn LAPACKE_zsyswapr(
     dyload_lib().LAPACKE_zsyswapr.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyswapr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53958,6 +56107,7 @@ pub unsafe fn LAPACKE_zsyswapr_work(
     dyload_lib().LAPACKE_zsyswapr_work.unwrap()(matrix_layout, uplo, n, a, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53969,6 +56119,7 @@ pub unsafe fn LAPACKE_zsytri2(
     dyload_lib().LAPACKE_zsytri2.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53982,6 +56133,7 @@ pub unsafe fn LAPACKE_zsytri2_work(
     dyload_lib().LAPACKE_zsytri2_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri2x(
     matrix_layout: c_int,
     uplo: c_char,
@@ -53994,6 +56146,7 @@ pub unsafe fn LAPACKE_zsytri2x(
     dyload_lib().LAPACKE_zsytri2x.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri2x_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -54007,6 +56160,7 @@ pub unsafe fn LAPACKE_zsytri2x_work(
     dyload_lib().LAPACKE_zsytri2x_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, nb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs2(
     matrix_layout: c_int,
     uplo: c_char,
@@ -54021,6 +56175,7 @@ pub unsafe fn LAPACKE_zsytrs2(
     dyload_lib().LAPACKE_zsytrs2.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs2_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -54047,6 +56202,7 @@ pub unsafe fn LAPACKE_zsytrs2_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunbdb(
     matrix_layout: c_int,
     trans: c_char,
@@ -54093,6 +56249,7 @@ pub unsafe fn LAPACKE_zunbdb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunbdb_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -54143,6 +56300,7 @@ pub unsafe fn LAPACKE_zunbdb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zuncsd(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -54203,6 +56361,7 @@ pub unsafe fn LAPACKE_zuncsd(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zuncsd_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -54273,6 +56432,7 @@ pub unsafe fn LAPACKE_zuncsd_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zuncsd2by1(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -54315,6 +56475,7 @@ pub unsafe fn LAPACKE_zuncsd2by1(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zuncsd2by1_work(
     matrix_layout: c_int,
     jobu1: c_char,
@@ -54367,6 +56528,7 @@ pub unsafe fn LAPACKE_zuncsd2by1_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54399,6 +56561,7 @@ pub unsafe fn LAPACKE_sgemqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54431,6 +56594,7 @@ pub unsafe fn LAPACKE_dgemqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54463,6 +56627,7 @@ pub unsafe fn LAPACKE_cgemqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54495,6 +56660,7 @@ pub unsafe fn LAPACKE_zgemqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54508,6 +56674,7 @@ pub unsafe fn LAPACKE_sgeqrt(
     dyload_lib().LAPACKE_sgeqrt.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54521,6 +56688,7 @@ pub unsafe fn LAPACKE_dgeqrt(
     dyload_lib().LAPACKE_dgeqrt.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54534,6 +56702,7 @@ pub unsafe fn LAPACKE_cgeqrt(
     dyload_lib().LAPACKE_cgeqrt.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54547,6 +56716,7 @@ pub unsafe fn LAPACKE_zgeqrt(
     dyload_lib().LAPACKE_zgeqrt.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54559,6 +56729,7 @@ pub unsafe fn LAPACKE_sgeqrt2(
     dyload_lib().LAPACKE_sgeqrt2.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54571,6 +56742,7 @@ pub unsafe fn LAPACKE_dgeqrt2(
     dyload_lib().LAPACKE_dgeqrt2.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54583,6 +56755,7 @@ pub unsafe fn LAPACKE_cgeqrt2(
     dyload_lib().LAPACKE_cgeqrt2.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54595,6 +56768,7 @@ pub unsafe fn LAPACKE_zgeqrt2(
     dyload_lib().LAPACKE_zgeqrt2.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54607,6 +56781,7 @@ pub unsafe fn LAPACKE_sgeqrt3(
     dyload_lib().LAPACKE_sgeqrt3.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54619,6 +56794,7 @@ pub unsafe fn LAPACKE_dgeqrt3(
     dyload_lib().LAPACKE_dgeqrt3.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54631,6 +56807,7 @@ pub unsafe fn LAPACKE_cgeqrt3(
     dyload_lib().LAPACKE_cgeqrt3.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt3(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54643,6 +56820,7 @@ pub unsafe fn LAPACKE_zgeqrt3(
     dyload_lib().LAPACKE_zgeqrt3.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpmqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54681,6 +56859,7 @@ pub unsafe fn LAPACKE_stpmqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpmqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54719,6 +56898,7 @@ pub unsafe fn LAPACKE_dtpmqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpmqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54757,6 +56937,7 @@ pub unsafe fn LAPACKE_ctpmqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpmqrt(
     matrix_layout: c_int,
     side: c_char,
@@ -54795,6 +56976,7 @@ pub unsafe fn LAPACKE_ztpmqrt(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54811,6 +56993,7 @@ pub unsafe fn LAPACKE_stpqrt(
     dyload_lib().LAPACKE_stpqrt.unwrap()(matrix_layout, m, n, l, nb, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54827,6 +57010,7 @@ pub unsafe fn LAPACKE_dtpqrt(
     dyload_lib().LAPACKE_dtpqrt.unwrap()(matrix_layout, m, n, l, nb, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54843,6 +57027,7 @@ pub unsafe fn LAPACKE_ctpqrt(
     dyload_lib().LAPACKE_ctpqrt.unwrap()(matrix_layout, m, n, l, nb, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpqrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54859,6 +57044,7 @@ pub unsafe fn LAPACKE_ztpqrt(
     dyload_lib().LAPACKE_ztpqrt.unwrap()(matrix_layout, m, n, l, nb, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54874,6 +57060,7 @@ pub unsafe fn LAPACKE_stpqrt2(
     dyload_lib().LAPACKE_stpqrt2.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54889,6 +57076,7 @@ pub unsafe fn LAPACKE_dtpqrt2(
     dyload_lib().LAPACKE_dtpqrt2.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54904,6 +57092,7 @@ pub unsafe fn LAPACKE_ctpqrt2(
     dyload_lib().LAPACKE_ctpqrt2.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpqrt2(
     matrix_layout: c_int,
     m: lapack_int,
@@ -54919,6 +57108,7 @@ pub unsafe fn LAPACKE_ztpqrt2(
     dyload_lib().LAPACKE_ztpqrt2.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stprfb(
     matrix_layout: c_int,
     side: c_char,
@@ -54959,6 +57149,7 @@ pub unsafe fn LAPACKE_stprfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtprfb(
     matrix_layout: c_int,
     side: c_char,
@@ -54999,6 +57190,7 @@ pub unsafe fn LAPACKE_dtprfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctprfb(
     matrix_layout: c_int,
     side: c_char,
@@ -55039,6 +57231,7 @@ pub unsafe fn LAPACKE_ctprfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztprfb(
     matrix_layout: c_int,
     side: c_char,
@@ -55079,6 +57272,7 @@ pub unsafe fn LAPACKE_ztprfb(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55113,6 +57307,7 @@ pub unsafe fn LAPACKE_sgemqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55147,6 +57342,7 @@ pub unsafe fn LAPACKE_dgemqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55181,6 +57377,7 @@ pub unsafe fn LAPACKE_cgemqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55215,6 +57412,7 @@ pub unsafe fn LAPACKE_zgemqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55229,6 +57427,7 @@ pub unsafe fn LAPACKE_sgeqrt_work(
     dyload_lib().LAPACKE_sgeqrt_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55243,6 +57442,7 @@ pub unsafe fn LAPACKE_dgeqrt_work(
     dyload_lib().LAPACKE_dgeqrt_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55257,6 +57457,7 @@ pub unsafe fn LAPACKE_cgeqrt_work(
     dyload_lib().LAPACKE_cgeqrt_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55271,6 +57472,7 @@ pub unsafe fn LAPACKE_zgeqrt_work(
     dyload_lib().LAPACKE_zgeqrt_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, work)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55283,6 +57485,7 @@ pub unsafe fn LAPACKE_sgeqrt2_work(
     dyload_lib().LAPACKE_sgeqrt2_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55295,6 +57498,7 @@ pub unsafe fn LAPACKE_dgeqrt2_work(
     dyload_lib().LAPACKE_dgeqrt2_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55307,6 +57511,7 @@ pub unsafe fn LAPACKE_cgeqrt2_work(
     dyload_lib().LAPACKE_cgeqrt2_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55319,6 +57524,7 @@ pub unsafe fn LAPACKE_zgeqrt2_work(
     dyload_lib().LAPACKE_zgeqrt2_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqrt3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55331,6 +57537,7 @@ pub unsafe fn LAPACKE_sgeqrt3_work(
     dyload_lib().LAPACKE_sgeqrt3_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqrt3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55343,6 +57550,7 @@ pub unsafe fn LAPACKE_dgeqrt3_work(
     dyload_lib().LAPACKE_dgeqrt3_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqrt3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55355,6 +57563,7 @@ pub unsafe fn LAPACKE_cgeqrt3_work(
     dyload_lib().LAPACKE_cgeqrt3_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqrt3_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55367,6 +57576,7 @@ pub unsafe fn LAPACKE_zgeqrt3_work(
     dyload_lib().LAPACKE_zgeqrt3_work.unwrap()(matrix_layout, m, n, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpmqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55407,6 +57617,7 @@ pub unsafe fn LAPACKE_stpmqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpmqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55447,6 +57658,7 @@ pub unsafe fn LAPACKE_dtpmqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpmqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55487,6 +57699,7 @@ pub unsafe fn LAPACKE_ctpmqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpmqrt_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55527,6 +57740,7 @@ pub unsafe fn LAPACKE_ztpmqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55557,6 +57771,7 @@ pub unsafe fn LAPACKE_stpqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55587,6 +57802,7 @@ pub unsafe fn LAPACKE_dtpqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55617,6 +57833,7 @@ pub unsafe fn LAPACKE_ctpqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpqrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55647,6 +57864,7 @@ pub unsafe fn LAPACKE_ztpqrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stpqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55662,6 +57880,7 @@ pub unsafe fn LAPACKE_stpqrt2_work(
     dyload_lib().LAPACKE_stpqrt2_work.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtpqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55677,6 +57896,7 @@ pub unsafe fn LAPACKE_dtpqrt2_work(
     dyload_lib().LAPACKE_dtpqrt2_work.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctpqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55692,6 +57912,7 @@ pub unsafe fn LAPACKE_ctpqrt2_work(
     dyload_lib().LAPACKE_ctpqrt2_work.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztpqrt2_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -55707,6 +57928,7 @@ pub unsafe fn LAPACKE_ztpqrt2_work(
     dyload_lib().LAPACKE_ztpqrt2_work.unwrap()(matrix_layout, m, n, l, a, lda, b, ldb, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_stprfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55751,6 +57973,7 @@ pub unsafe fn LAPACKE_stprfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dtprfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55795,6 +58018,7 @@ pub unsafe fn LAPACKE_dtprfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ctprfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55839,6 +58063,7 @@ pub unsafe fn LAPACKE_ctprfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ztprfb_work(
     matrix_layout: c_int,
     side: c_char,
@@ -55883,6 +58108,7 @@ pub unsafe fn LAPACKE_ztprfb_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55897,6 +58123,7 @@ pub unsafe fn LAPACKE_ssysv_rook(
     dyload_lib().LAPACKE_ssysv_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55911,6 +58138,7 @@ pub unsafe fn LAPACKE_dsysv_rook(
     dyload_lib().LAPACKE_dsysv_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55925,6 +58153,7 @@ pub unsafe fn LAPACKE_csysv_rook(
     dyload_lib().LAPACKE_csysv_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55939,6 +58168,7 @@ pub unsafe fn LAPACKE_zsysv_rook(
     dyload_lib().LAPACKE_zsysv_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55950,6 +58180,7 @@ pub unsafe fn LAPACKE_ssytrf_rook(
     dyload_lib().LAPACKE_ssytrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55961,6 +58192,7 @@ pub unsafe fn LAPACKE_dsytrf_rook(
     dyload_lib().LAPACKE_dsytrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55972,6 +58204,7 @@ pub unsafe fn LAPACKE_csytrf_rook(
     dyload_lib().LAPACKE_csytrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55983,6 +58216,7 @@ pub unsafe fn LAPACKE_zsytrf_rook(
     dyload_lib().LAPACKE_zsytrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -55997,6 +58231,7 @@ pub unsafe fn LAPACKE_ssytrs_rook(
     dyload_lib().LAPACKE_ssytrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56011,6 +58246,7 @@ pub unsafe fn LAPACKE_dsytrs_rook(
     dyload_lib().LAPACKE_dsytrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56025,6 +58261,7 @@ pub unsafe fn LAPACKE_csytrs_rook(
     dyload_lib().LAPACKE_csytrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56039,6 +58276,7 @@ pub unsafe fn LAPACKE_zsytrs_rook(
     dyload_lib().LAPACKE_zsytrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56050,6 +58288,7 @@ pub unsafe fn LAPACKE_chetrf_rook(
     dyload_lib().LAPACKE_chetrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56061,6 +58300,7 @@ pub unsafe fn LAPACKE_zhetrf_rook(
     dyload_lib().LAPACKE_zhetrf_rook.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56075,6 +58315,7 @@ pub unsafe fn LAPACKE_chetrs_rook(
     dyload_lib().LAPACKE_chetrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_rook(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56089,6 +58330,7 @@ pub unsafe fn LAPACKE_zhetrs_rook(
     dyload_lib().LAPACKE_zhetrs_rook.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56102,6 +58344,7 @@ pub unsafe fn LAPACKE_csyr(
     dyload_lib().LAPACKE_csyr.unwrap()(matrix_layout, uplo, n, alpha, x, incx, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyr(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56115,6 +58358,7 @@ pub unsafe fn LAPACKE_zsyr(
     dyload_lib().LAPACKE_zsyr.unwrap()(matrix_layout, uplo, n, alpha, x, incx, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56143,6 +58387,7 @@ pub unsafe fn LAPACKE_ssysv_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56171,6 +58416,7 @@ pub unsafe fn LAPACKE_dsysv_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56199,6 +58445,7 @@ pub unsafe fn LAPACKE_csysv_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56227,6 +58474,7 @@ pub unsafe fn LAPACKE_zsysv_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56249,6 +58497,7 @@ pub unsafe fn LAPACKE_ssytrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56271,6 +58520,7 @@ pub unsafe fn LAPACKE_dsytrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56293,6 +58543,7 @@ pub unsafe fn LAPACKE_csytrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56315,6 +58566,7 @@ pub unsafe fn LAPACKE_zsytrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56339,6 +58591,7 @@ pub unsafe fn LAPACKE_ssytrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56363,6 +58616,7 @@ pub unsafe fn LAPACKE_dsytrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56387,6 +58641,7 @@ pub unsafe fn LAPACKE_csytrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56411,6 +58666,7 @@ pub unsafe fn LAPACKE_zsytrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56433,6 +58689,7 @@ pub unsafe fn LAPACKE_chetrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56455,6 +58712,7 @@ pub unsafe fn LAPACKE_zhetrf_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56479,6 +58737,7 @@ pub unsafe fn LAPACKE_chetrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_rook_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56503,6 +58762,7 @@ pub unsafe fn LAPACKE_zhetrs_rook_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csyr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56516,6 +58776,7 @@ pub unsafe fn LAPACKE_csyr_work(
     dyload_lib().LAPACKE_csyr_work.unwrap()(matrix_layout, uplo, n, alpha, x, incx, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsyr_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56529,6 +58790,7 @@ pub unsafe fn LAPACKE_zsyr_work(
     dyload_lib().LAPACKE_zsyr_work.unwrap()(matrix_layout, uplo, n, alpha, x, incx, a, lda)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ilaver(
     vers_major: *mut lapack_int,
     vers_minor: *mut lapack_int,
@@ -56537,6 +58799,7 @@ pub unsafe fn LAPACKE_ilaver(
     dyload_lib().LAPACKE_ilaver.unwrap()(vers_major, vers_minor, vers_patch)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56551,6 +58814,7 @@ pub unsafe fn LAPACKE_ssysv_aa(
     dyload_lib().LAPACKE_ssysv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56579,6 +58843,7 @@ pub unsafe fn LAPACKE_ssysv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56593,6 +58858,7 @@ pub unsafe fn LAPACKE_dsysv_aa(
     dyload_lib().LAPACKE_dsysv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56621,6 +58887,7 @@ pub unsafe fn LAPACKE_dsysv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56635,6 +58902,7 @@ pub unsafe fn LAPACKE_csysv_aa(
     dyload_lib().LAPACKE_csysv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56663,6 +58931,7 @@ pub unsafe fn LAPACKE_csysv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56677,6 +58946,7 @@ pub unsafe fn LAPACKE_zsysv_aa(
     dyload_lib().LAPACKE_zsysv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56705,6 +58975,7 @@ pub unsafe fn LAPACKE_zsysv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56719,6 +58990,7 @@ pub unsafe fn LAPACKE_chesv_aa(
     dyload_lib().LAPACKE_chesv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56747,6 +59019,7 @@ pub unsafe fn LAPACKE_chesv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56761,6 +59034,7 @@ pub unsafe fn LAPACKE_zhesv_aa(
     dyload_lib().LAPACKE_zhesv_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56789,6 +59063,7 @@ pub unsafe fn LAPACKE_zhesv_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56800,6 +59075,7 @@ pub unsafe fn LAPACKE_ssytrf_aa(
     dyload_lib().LAPACKE_ssytrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56811,6 +59087,7 @@ pub unsafe fn LAPACKE_dsytrf_aa(
     dyload_lib().LAPACKE_dsytrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56822,6 +59099,7 @@ pub unsafe fn LAPACKE_csytrf_aa(
     dyload_lib().LAPACKE_csytrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56833,6 +59111,7 @@ pub unsafe fn LAPACKE_zsytrf_aa(
     dyload_lib().LAPACKE_zsytrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56844,6 +59123,7 @@ pub unsafe fn LAPACKE_chetrf_aa(
     dyload_lib().LAPACKE_chetrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56855,6 +59135,7 @@ pub unsafe fn LAPACKE_zhetrf_aa(
     dyload_lib().LAPACKE_zhetrf_aa.unwrap()(matrix_layout, uplo, n, a, lda, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56868,6 +59149,7 @@ pub unsafe fn LAPACKE_ssytrf_aa_work(
     dyload_lib().LAPACKE_ssytrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56881,6 +59163,7 @@ pub unsafe fn LAPACKE_dsytrf_aa_work(
     dyload_lib().LAPACKE_dsytrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56894,6 +59177,7 @@ pub unsafe fn LAPACKE_csytrf_aa_work(
     dyload_lib().LAPACKE_csytrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56907,6 +59191,7 @@ pub unsafe fn LAPACKE_zsytrf_aa_work(
     dyload_lib().LAPACKE_zsytrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56920,6 +59205,7 @@ pub unsafe fn LAPACKE_chetrf_aa_work(
     dyload_lib().LAPACKE_chetrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56933,6 +59219,7 @@ pub unsafe fn LAPACKE_zhetrf_aa_work(
     dyload_lib().LAPACKE_zhetrf_aa_work.unwrap()(matrix_layout, uplo, n, a, lda, ipiv, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56947,6 +59234,7 @@ pub unsafe fn LAPACKE_csytrs_aa(
     dyload_lib().LAPACKE_csytrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56975,6 +59263,7 @@ pub unsafe fn LAPACKE_csytrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -56989,6 +59278,7 @@ pub unsafe fn LAPACKE_chetrs_aa(
     dyload_lib().LAPACKE_chetrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57017,6 +59307,7 @@ pub unsafe fn LAPACKE_chetrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57031,6 +59322,7 @@ pub unsafe fn LAPACKE_dsytrs_aa(
     dyload_lib().LAPACKE_dsytrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57059,6 +59351,7 @@ pub unsafe fn LAPACKE_dsytrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57073,6 +59366,7 @@ pub unsafe fn LAPACKE_ssytrs_aa(
     dyload_lib().LAPACKE_ssytrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57101,6 +59395,7 @@ pub unsafe fn LAPACKE_ssytrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57115,6 +59410,7 @@ pub unsafe fn LAPACKE_zsytrs_aa(
     dyload_lib().LAPACKE_zsytrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57143,6 +59439,7 @@ pub unsafe fn LAPACKE_zsytrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_aa(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57157,6 +59454,7 @@ pub unsafe fn LAPACKE_zhetrs_aa(
     dyload_lib().LAPACKE_zhetrs_aa.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_aa_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57185,6 +59483,7 @@ pub unsafe fn LAPACKE_zhetrs_aa_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57200,6 +59499,7 @@ pub unsafe fn LAPACKE_ssysv_rk(
     dyload_lib().LAPACKE_ssysv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57230,6 +59530,7 @@ pub unsafe fn LAPACKE_ssysv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57245,6 +59546,7 @@ pub unsafe fn LAPACKE_dsysv_rk(
     dyload_lib().LAPACKE_dsysv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57275,6 +59577,7 @@ pub unsafe fn LAPACKE_dsysv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57290,6 +59593,7 @@ pub unsafe fn LAPACKE_csysv_rk(
     dyload_lib().LAPACKE_csysv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57320,6 +59624,7 @@ pub unsafe fn LAPACKE_csysv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57335,6 +59640,7 @@ pub unsafe fn LAPACKE_zsysv_rk(
     dyload_lib().LAPACKE_zsysv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57365,6 +59671,7 @@ pub unsafe fn LAPACKE_zsysv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57380,6 +59687,7 @@ pub unsafe fn LAPACKE_chesv_rk(
     dyload_lib().LAPACKE_chesv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57410,6 +59718,7 @@ pub unsafe fn LAPACKE_chesv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57425,6 +59734,7 @@ pub unsafe fn LAPACKE_zhesv_rk(
     dyload_lib().LAPACKE_zhesv_rk.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57455,6 +59765,7 @@ pub unsafe fn LAPACKE_zhesv_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57467,6 +59778,7 @@ pub unsafe fn LAPACKE_ssytrf_rk(
     dyload_lib().LAPACKE_ssytrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57479,6 +59791,7 @@ pub unsafe fn LAPACKE_dsytrf_rk(
     dyload_lib().LAPACKE_dsytrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57491,6 +59804,7 @@ pub unsafe fn LAPACKE_csytrf_rk(
     dyload_lib().LAPACKE_csytrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57503,6 +59817,7 @@ pub unsafe fn LAPACKE_zsytrf_rk(
     dyload_lib().LAPACKE_zsytrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57515,6 +59830,7 @@ pub unsafe fn LAPACKE_chetrf_rk(
     dyload_lib().LAPACKE_chetrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_rk(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57527,6 +59843,7 @@ pub unsafe fn LAPACKE_zhetrf_rk(
     dyload_lib().LAPACKE_zhetrf_rk.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57551,6 +59868,7 @@ pub unsafe fn LAPACKE_ssytrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57575,6 +59893,7 @@ pub unsafe fn LAPACKE_dsytrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57599,6 +59918,7 @@ pub unsafe fn LAPACKE_csytrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57623,6 +59943,7 @@ pub unsafe fn LAPACKE_zsytrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57647,6 +59968,7 @@ pub unsafe fn LAPACKE_chetrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_rk_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57671,6 +59993,7 @@ pub unsafe fn LAPACKE_zhetrf_rk_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57686,6 +60009,7 @@ pub unsafe fn LAPACKE_csytrs_3(
     dyload_lib().LAPACKE_csytrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57712,6 +60036,7 @@ pub unsafe fn LAPACKE_csytrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57727,6 +60052,7 @@ pub unsafe fn LAPACKE_chetrs_3(
     dyload_lib().LAPACKE_chetrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57753,6 +60079,7 @@ pub unsafe fn LAPACKE_chetrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57768,6 +60095,7 @@ pub unsafe fn LAPACKE_dsytrs_3(
     dyload_lib().LAPACKE_dsytrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57794,6 +60122,7 @@ pub unsafe fn LAPACKE_dsytrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57809,6 +60138,7 @@ pub unsafe fn LAPACKE_ssytrs_3(
     dyload_lib().LAPACKE_ssytrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57835,6 +60165,7 @@ pub unsafe fn LAPACKE_ssytrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57850,6 +60181,7 @@ pub unsafe fn LAPACKE_zsytrs_3(
     dyload_lib().LAPACKE_zsytrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57876,6 +60208,7 @@ pub unsafe fn LAPACKE_zsytrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57891,6 +60224,7 @@ pub unsafe fn LAPACKE_zhetrs_3(
     dyload_lib().LAPACKE_zhetrs_3.unwrap()(matrix_layout, uplo, n, nrhs, a, lda, e, ipiv, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57917,6 +60251,7 @@ pub unsafe fn LAPACKE_zhetrs_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57929,6 +60264,7 @@ pub unsafe fn LAPACKE_ssytri_3(
     dyload_lib().LAPACKE_ssytri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57941,6 +60277,7 @@ pub unsafe fn LAPACKE_dsytri_3(
     dyload_lib().LAPACKE_dsytri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57953,6 +60290,7 @@ pub unsafe fn LAPACKE_csytri_3(
     dyload_lib().LAPACKE_csytri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57965,6 +60303,7 @@ pub unsafe fn LAPACKE_zsytri_3(
     dyload_lib().LAPACKE_zsytri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57977,6 +60316,7 @@ pub unsafe fn LAPACKE_chetri_3(
     dyload_lib().LAPACKE_chetri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -57989,6 +60329,7 @@ pub unsafe fn LAPACKE_zhetri_3(
     dyload_lib().LAPACKE_zhetri_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58013,6 +60354,7 @@ pub unsafe fn LAPACKE_ssytri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58037,6 +60379,7 @@ pub unsafe fn LAPACKE_dsytri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58061,6 +60404,7 @@ pub unsafe fn LAPACKE_csytri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58085,6 +60429,7 @@ pub unsafe fn LAPACKE_zsytri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58109,6 +60454,7 @@ pub unsafe fn LAPACKE_chetri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetri_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58133,6 +60479,7 @@ pub unsafe fn LAPACKE_zhetri_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssycon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58147,6 +60494,7 @@ pub unsafe fn LAPACKE_ssycon_3(
     dyload_lib().LAPACKE_ssycon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsycon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58161,6 +60509,7 @@ pub unsafe fn LAPACKE_dsycon_3(
     dyload_lib().LAPACKE_dsycon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csycon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58175,6 +60524,7 @@ pub unsafe fn LAPACKE_csycon_3(
     dyload_lib().LAPACKE_csycon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsycon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58189,6 +60539,7 @@ pub unsafe fn LAPACKE_zsycon_3(
     dyload_lib().LAPACKE_zsycon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_checon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58203,6 +60554,7 @@ pub unsafe fn LAPACKE_checon_3(
     dyload_lib().LAPACKE_checon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhecon_3(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58217,6 +60569,7 @@ pub unsafe fn LAPACKE_zhecon_3(
     dyload_lib().LAPACKE_zhecon_3.unwrap()(matrix_layout, uplo, n, a, lda, e, ipiv, anorm, rcond)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssycon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58245,6 +60598,7 @@ pub unsafe fn LAPACKE_ssycon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsycon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58273,6 +60627,7 @@ pub unsafe fn LAPACKE_dsycon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csycon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58299,6 +60654,7 @@ pub unsafe fn LAPACKE_csycon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsycon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58325,6 +60681,7 @@ pub unsafe fn LAPACKE_zsycon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_checon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58351,6 +60708,7 @@ pub unsafe fn LAPACKE_checon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhecon_3_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -58377,6 +60735,7 @@ pub unsafe fn LAPACKE_zhecon_3_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58389,6 +60748,7 @@ pub unsafe fn LAPACKE_sgelq(
     dyload_lib().LAPACKE_sgelq.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58401,6 +60761,7 @@ pub unsafe fn LAPACKE_dgelq(
     dyload_lib().LAPACKE_dgelq.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58413,6 +60774,7 @@ pub unsafe fn LAPACKE_cgelq(
     dyload_lib().LAPACKE_cgelq.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelq(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58425,6 +60787,7 @@ pub unsafe fn LAPACKE_zgelq(
     dyload_lib().LAPACKE_zgelq.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgelq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58439,6 +60802,7 @@ pub unsafe fn LAPACKE_sgelq_work(
     dyload_lib().LAPACKE_sgelq_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgelq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58453,6 +60817,7 @@ pub unsafe fn LAPACKE_dgelq_work(
     dyload_lib().LAPACKE_dgelq_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgelq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58467,6 +60832,7 @@ pub unsafe fn LAPACKE_cgelq_work(
     dyload_lib().LAPACKE_cgelq_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgelq_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58481,6 +60847,7 @@ pub unsafe fn LAPACKE_zgelq_work(
     dyload_lib().LAPACKE_zgelq_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemlq(
     matrix_layout: c_int,
     side: c_char,
@@ -58511,6 +60878,7 @@ pub unsafe fn LAPACKE_sgemlq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemlq(
     matrix_layout: c_int,
     side: c_char,
@@ -58541,6 +60909,7 @@ pub unsafe fn LAPACKE_dgemlq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemlq(
     matrix_layout: c_int,
     side: c_char,
@@ -58571,6 +60940,7 @@ pub unsafe fn LAPACKE_cgemlq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemlq(
     matrix_layout: c_int,
     side: c_char,
@@ -58601,6 +60971,7 @@ pub unsafe fn LAPACKE_zgemlq(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -58635,6 +61006,7 @@ pub unsafe fn LAPACKE_sgemlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -58669,6 +61041,7 @@ pub unsafe fn LAPACKE_dgemlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -58703,6 +61076,7 @@ pub unsafe fn LAPACKE_cgemlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemlq_work(
     matrix_layout: c_int,
     side: c_char,
@@ -58737,6 +61111,7 @@ pub unsafe fn LAPACKE_zgemlq_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58749,6 +61124,7 @@ pub unsafe fn LAPACKE_sgeqr(
     dyload_lib().LAPACKE_sgeqr.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58761,6 +61137,7 @@ pub unsafe fn LAPACKE_dgeqr(
     dyload_lib().LAPACKE_dgeqr.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58773,6 +61150,7 @@ pub unsafe fn LAPACKE_cgeqr(
     dyload_lib().LAPACKE_cgeqr.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqr(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58785,6 +61163,7 @@ pub unsafe fn LAPACKE_zgeqr(
     dyload_lib().LAPACKE_zgeqr.unwrap()(matrix_layout, m, n, a, lda, t, tsize)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgeqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58799,6 +61178,7 @@ pub unsafe fn LAPACKE_sgeqr_work(
     dyload_lib().LAPACKE_sgeqr_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgeqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58813,6 +61193,7 @@ pub unsafe fn LAPACKE_dgeqr_work(
     dyload_lib().LAPACKE_dgeqr_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgeqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58827,6 +61208,7 @@ pub unsafe fn LAPACKE_cgeqr_work(
     dyload_lib().LAPACKE_cgeqr_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgeqr_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -58841,6 +61223,7 @@ pub unsafe fn LAPACKE_zgeqr_work(
     dyload_lib().LAPACKE_zgeqr_work.unwrap()(matrix_layout, m, n, a, lda, t, tsize, work, lwork)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemqr(
     matrix_layout: c_int,
     side: c_char,
@@ -58871,6 +61254,7 @@ pub unsafe fn LAPACKE_sgemqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemqr(
     matrix_layout: c_int,
     side: c_char,
@@ -58901,6 +61285,7 @@ pub unsafe fn LAPACKE_dgemqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemqr(
     matrix_layout: c_int,
     side: c_char,
@@ -58931,6 +61316,7 @@ pub unsafe fn LAPACKE_cgemqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemqr(
     matrix_layout: c_int,
     side: c_char,
@@ -58961,6 +61347,7 @@ pub unsafe fn LAPACKE_zgemqr(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgemqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -58995,6 +61382,7 @@ pub unsafe fn LAPACKE_sgemqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgemqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -59029,6 +61417,7 @@ pub unsafe fn LAPACKE_dgemqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgemqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -59063,6 +61452,7 @@ pub unsafe fn LAPACKE_cgemqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgemqr_work(
     matrix_layout: c_int,
     side: c_char,
@@ -59097,6 +61487,7 @@ pub unsafe fn LAPACKE_zgemqr_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetsls(
     matrix_layout: c_int,
     trans: c_char,
@@ -59111,6 +61502,7 @@ pub unsafe fn LAPACKE_sgetsls(
     dyload_lib().LAPACKE_sgetsls.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetsls(
     matrix_layout: c_int,
     trans: c_char,
@@ -59125,6 +61517,7 @@ pub unsafe fn LAPACKE_dgetsls(
     dyload_lib().LAPACKE_dgetsls.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetsls(
     matrix_layout: c_int,
     trans: c_char,
@@ -59139,6 +61532,7 @@ pub unsafe fn LAPACKE_cgetsls(
     dyload_lib().LAPACKE_cgetsls.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetsls(
     matrix_layout: c_int,
     trans: c_char,
@@ -59153,6 +61547,7 @@ pub unsafe fn LAPACKE_zgetsls(
     dyload_lib().LAPACKE_zgetsls.unwrap()(matrix_layout, trans, m, n, nrhs, a, lda, b, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetsls_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -59181,6 +61576,7 @@ pub unsafe fn LAPACKE_sgetsls_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetsls_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -59209,6 +61605,7 @@ pub unsafe fn LAPACKE_dgetsls_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetsls_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -59237,6 +61634,7 @@ pub unsafe fn LAPACKE_cgetsls_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetsls_work(
     matrix_layout: c_int,
     trans: c_char,
@@ -59265,6 +61663,7 @@ pub unsafe fn LAPACKE_zgetsls_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetsqrhrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59280,6 +61679,7 @@ pub unsafe fn LAPACKE_sgetsqrhrt(
     dyload_lib().LAPACKE_sgetsqrhrt.unwrap()(matrix_layout, m, n, mb1, nb1, nb2, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetsqrhrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59295,6 +61695,7 @@ pub unsafe fn LAPACKE_dgetsqrhrt(
     dyload_lib().LAPACKE_dgetsqrhrt.unwrap()(matrix_layout, m, n, mb1, nb1, nb2, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetsqrhrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59310,6 +61711,7 @@ pub unsafe fn LAPACKE_cgetsqrhrt(
     dyload_lib().LAPACKE_cgetsqrhrt.unwrap()(matrix_layout, m, n, mb1, nb1, nb2, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetsqrhrt(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59325,6 +61727,7 @@ pub unsafe fn LAPACKE_zgetsqrhrt(
     dyload_lib().LAPACKE_zgetsqrhrt.unwrap()(matrix_layout, m, n, mb1, nb1, nb2, a, lda, t, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sgetsqrhrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59355,6 +61758,7 @@ pub unsafe fn LAPACKE_sgetsqrhrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dgetsqrhrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59385,6 +61789,7 @@ pub unsafe fn LAPACKE_dgetsqrhrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cgetsqrhrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59415,6 +61820,7 @@ pub unsafe fn LAPACKE_cgetsqrhrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zgetsqrhrt_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -59445,6 +61851,7 @@ pub unsafe fn LAPACKE_zgetsqrhrt_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59457,6 +61864,7 @@ pub unsafe fn LAPACKE_ssyev_2stage(
     dyload_lib().LAPACKE_ssyev_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59469,6 +61877,7 @@ pub unsafe fn LAPACKE_dsyev_2stage(
     dyload_lib().LAPACKE_dsyev_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59481,6 +61890,7 @@ pub unsafe fn LAPACKE_ssyevd_2stage(
     dyload_lib().LAPACKE_ssyevd_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59493,6 +61903,7 @@ pub unsafe fn LAPACKE_dsyevd_2stage(
     dyload_lib().LAPACKE_dsyevd_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevr_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59533,6 +61944,7 @@ pub unsafe fn LAPACKE_ssyevr_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevr_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59573,6 +61985,7 @@ pub unsafe fn LAPACKE_dsyevr_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59613,6 +62026,7 @@ pub unsafe fn LAPACKE_ssyevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59653,6 +62067,7 @@ pub unsafe fn LAPACKE_dsyevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59677,6 +62092,7 @@ pub unsafe fn LAPACKE_ssyev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59701,6 +62117,7 @@ pub unsafe fn LAPACKE_dsyev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59729,6 +62146,7 @@ pub unsafe fn LAPACKE_ssyevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59757,6 +62175,7 @@ pub unsafe fn LAPACKE_dsyevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevr_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59805,6 +62224,7 @@ pub unsafe fn LAPACKE_ssyevr_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevr_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59853,6 +62273,7 @@ pub unsafe fn LAPACKE_dsyevr_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssyevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59899,6 +62320,7 @@ pub unsafe fn LAPACKE_ssyevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsyevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59945,6 +62367,7 @@ pub unsafe fn LAPACKE_dsyevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59957,6 +62380,7 @@ pub unsafe fn LAPACKE_cheev_2stage(
     dyload_lib().LAPACKE_cheev_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59969,6 +62393,7 @@ pub unsafe fn LAPACKE_zheev_2stage(
     dyload_lib().LAPACKE_zheev_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59981,6 +62406,7 @@ pub unsafe fn LAPACKE_cheevd_2stage(
     dyload_lib().LAPACKE_cheevd_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -59993,6 +62419,7 @@ pub unsafe fn LAPACKE_zheevd_2stage(
     dyload_lib().LAPACKE_zheevd_2stage.unwrap()(matrix_layout, jobz, uplo, n, a, lda, w)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevr_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60033,6 +62460,7 @@ pub unsafe fn LAPACKE_cheevr_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevr_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60073,6 +62501,7 @@ pub unsafe fn LAPACKE_zheevr_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60113,6 +62542,7 @@ pub unsafe fn LAPACKE_cheevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60153,6 +62583,7 @@ pub unsafe fn LAPACKE_zheevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60179,6 +62610,7 @@ pub unsafe fn LAPACKE_cheev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60205,6 +62637,7 @@ pub unsafe fn LAPACKE_zheev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60237,6 +62670,7 @@ pub unsafe fn LAPACKE_cheevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60269,6 +62703,7 @@ pub unsafe fn LAPACKE_zheevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevr_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60321,6 +62756,7 @@ pub unsafe fn LAPACKE_cheevr_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevr_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60373,6 +62809,7 @@ pub unsafe fn LAPACKE_zheevr_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cheevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60421,6 +62858,7 @@ pub unsafe fn LAPACKE_cheevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zheevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60469,6 +62907,7 @@ pub unsafe fn LAPACKE_zheevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60495,6 +62934,7 @@ pub unsafe fn LAPACKE_ssbev_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60521,6 +62961,7 @@ pub unsafe fn LAPACKE_dsbev_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60547,6 +62988,7 @@ pub unsafe fn LAPACKE_ssbevd_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60573,6 +63015,7 @@ pub unsafe fn LAPACKE_dsbevd_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60619,6 +63062,7 @@ pub unsafe fn LAPACKE_ssbevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60665,6 +63109,7 @@ pub unsafe fn LAPACKE_dsbevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60695,6 +63140,7 @@ pub unsafe fn LAPACKE_ssbev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60725,6 +63171,7 @@ pub unsafe fn LAPACKE_dsbev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60759,6 +63206,7 @@ pub unsafe fn LAPACKE_ssbevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60793,6 +63241,7 @@ pub unsafe fn LAPACKE_dsbevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssbevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60845,6 +63294,7 @@ pub unsafe fn LAPACKE_ssbevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsbevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60897,6 +63347,7 @@ pub unsafe fn LAPACKE_dsbevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60923,6 +63374,7 @@ pub unsafe fn LAPACKE_chbev_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbev_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60949,6 +63401,7 @@ pub unsafe fn LAPACKE_zhbev_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -60975,6 +63428,7 @@ pub unsafe fn LAPACKE_chbevd_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevd_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61001,6 +63455,7 @@ pub unsafe fn LAPACKE_zhbevd_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61047,6 +63502,7 @@ pub unsafe fn LAPACKE_chbevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevx_2stage(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61093,6 +63549,7 @@ pub unsafe fn LAPACKE_zhbevx_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61125,6 +63582,7 @@ pub unsafe fn LAPACKE_chbev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbev_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61157,6 +63615,7 @@ pub unsafe fn LAPACKE_zhbev_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61195,6 +63654,7 @@ pub unsafe fn LAPACKE_chbevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevd_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61233,6 +63693,7 @@ pub unsafe fn LAPACKE_zhbevd_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chbevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61287,6 +63748,7 @@ pub unsafe fn LAPACKE_chbevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhbevx_2stage_work(
     matrix_layout: c_int,
     jobz: c_char,
@@ -61341,6 +63803,7 @@ pub unsafe fn LAPACKE_zhbevx_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygv_2stage(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61367,6 +63830,7 @@ pub unsafe fn LAPACKE_ssygv_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygv_2stage(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61393,6 +63857,7 @@ pub unsafe fn LAPACKE_dsygv_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssygv_2stage_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61423,6 +63888,7 @@ pub unsafe fn LAPACKE_ssygv_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsygv_2stage_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61453,6 +63919,7 @@ pub unsafe fn LAPACKE_dsygv_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegv_2stage(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61479,6 +63946,7 @@ pub unsafe fn LAPACKE_chegv_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegv_2stage(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61505,6 +63973,7 @@ pub unsafe fn LAPACKE_zhegv_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chegv_2stage_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61537,6 +64006,7 @@ pub unsafe fn LAPACKE_chegv_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhegv_2stage_work(
     matrix_layout: c_int,
     itype: lapack_int,
@@ -61569,6 +64039,7 @@ pub unsafe fn LAPACKE_zhegv_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61599,6 +64070,7 @@ pub unsafe fn LAPACKE_ssysv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssysv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61633,6 +64105,7 @@ pub unsafe fn LAPACKE_ssysv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61663,6 +64136,7 @@ pub unsafe fn LAPACKE_dsysv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsysv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61697,6 +64171,7 @@ pub unsafe fn LAPACKE_dsysv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61727,6 +64202,7 @@ pub unsafe fn LAPACKE_csysv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csysv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61761,6 +64237,7 @@ pub unsafe fn LAPACKE_csysv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61791,6 +64268,7 @@ pub unsafe fn LAPACKE_zsysv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsysv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61825,6 +64303,7 @@ pub unsafe fn LAPACKE_zsysv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61855,6 +64334,7 @@ pub unsafe fn LAPACKE_chesv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chesv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61889,6 +64369,7 @@ pub unsafe fn LAPACKE_chesv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61919,6 +64400,7 @@ pub unsafe fn LAPACKE_zhesv_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhesv_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61953,6 +64435,7 @@ pub unsafe fn LAPACKE_zhesv_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -61977,6 +64460,7 @@ pub unsafe fn LAPACKE_ssytrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62005,6 +64489,7 @@ pub unsafe fn LAPACKE_ssytrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62029,6 +64514,7 @@ pub unsafe fn LAPACKE_dsytrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62057,6 +64543,7 @@ pub unsafe fn LAPACKE_dsytrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62081,6 +64568,7 @@ pub unsafe fn LAPACKE_csytrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62109,6 +64597,7 @@ pub unsafe fn LAPACKE_csytrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62133,6 +64622,7 @@ pub unsafe fn LAPACKE_zsytrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62161,6 +64651,7 @@ pub unsafe fn LAPACKE_zsytrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62185,6 +64676,7 @@ pub unsafe fn LAPACKE_chetrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62213,6 +64705,7 @@ pub unsafe fn LAPACKE_chetrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62237,6 +64730,7 @@ pub unsafe fn LAPACKE_zhetrf_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrf_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62265,6 +64759,7 @@ pub unsafe fn LAPACKE_zhetrf_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62295,6 +64790,7 @@ pub unsafe fn LAPACKE_ssytrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_ssytrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62325,6 +64821,7 @@ pub unsafe fn LAPACKE_ssytrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62355,6 +64852,7 @@ pub unsafe fn LAPACKE_dsytrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dsytrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62385,6 +64883,7 @@ pub unsafe fn LAPACKE_dsytrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62415,6 +64914,7 @@ pub unsafe fn LAPACKE_csytrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_csytrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62445,6 +64945,7 @@ pub unsafe fn LAPACKE_csytrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62475,6 +64976,7 @@ pub unsafe fn LAPACKE_zsytrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zsytrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62505,6 +65007,7 @@ pub unsafe fn LAPACKE_zsytrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62535,6 +65038,7 @@ pub unsafe fn LAPACKE_chetrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_chetrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62565,6 +65069,7 @@ pub unsafe fn LAPACKE_chetrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_aa_2stage(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62595,6 +65100,7 @@ pub unsafe fn LAPACKE_zhetrs_aa_2stage(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zhetrs_aa_2stage_work(
     matrix_layout: c_int,
     uplo: c_char,
@@ -62625,6 +65131,7 @@ pub unsafe fn LAPACKE_zhetrs_aa_2stage_work(
     )
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorhr_col(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62639,6 +65146,7 @@ pub unsafe fn LAPACKE_sorhr_col(
     dyload_lib().LAPACKE_sorhr_col.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_sorhr_col_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62653,6 +65161,7 @@ pub unsafe fn LAPACKE_sorhr_col_work(
     dyload_lib().LAPACKE_sorhr_col_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorhr_col(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62667,6 +65176,7 @@ pub unsafe fn LAPACKE_dorhr_col(
     dyload_lib().LAPACKE_dorhr_col.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_dorhr_col_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62681,6 +65191,7 @@ pub unsafe fn LAPACKE_dorhr_col_work(
     dyload_lib().LAPACKE_dorhr_col_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunhr_col(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62695,6 +65206,7 @@ pub unsafe fn LAPACKE_cunhr_col(
     dyload_lib().LAPACKE_cunhr_col.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_cunhr_col_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62709,6 +65221,7 @@ pub unsafe fn LAPACKE_cunhr_col_work(
     dyload_lib().LAPACKE_cunhr_col_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunhr_col(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62723,6 +65236,7 @@ pub unsafe fn LAPACKE_zunhr_col(
     dyload_lib().LAPACKE_zunhr_col.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_zunhr_col_work(
     matrix_layout: c_int,
     m: lapack_int,
@@ -62737,10 +65251,12 @@ pub unsafe fn LAPACKE_zunhr_col_work(
     dyload_lib().LAPACKE_zunhr_col_work.unwrap()(matrix_layout, m, n, nb, a, lda, t, ldt, d)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_set_nancheck(flag: c_int) {
     dyload_lib().LAPACKE_set_nancheck.unwrap()(flag)
 }
 
+#[inline(never)]
 pub unsafe fn LAPACKE_get_nancheck() -> c_int {
     dyload_lib().LAPACKE_get_nancheck.unwrap()()
 }

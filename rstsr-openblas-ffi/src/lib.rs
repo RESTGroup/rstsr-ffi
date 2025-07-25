@@ -1,3 +1,5 @@
+#![allow(clashing_extern_declarations)]
+
 #[cfg(feature = "blas")]
 pub mod blas;
 #[cfg(feature = "cblas")]
@@ -7,10 +9,10 @@ pub mod lapack;
 #[cfg(feature = "lapacke")]
 pub mod lapacke;
 
-pub(crate) const MOD_NAME: &str = module_path!();
-pub(crate) const LIB_NAME: &str = "OPENBLAS"; // for code, e.g. "MKL"
-pub(crate) const LIB_NAME_SHOW: &str = "OpenBLAS"; // for display, e.g. "oneMKL"
-pub(crate) const LIB_NAME_LINK: &str = "openblas"; // for linking, e.g. "mkl_rt"
+pub const MOD_NAME: &str = module_path!();
+pub const LIB_NAME: &str = "OPENBLAS"; // for code, e.g. "MKL"
+pub const LIB_NAME_SHOW: &str = "OpenBLAS"; // for display, e.g. "oneMKL"
+pub const LIB_NAME_LINK: &str = "openblas"; // for linking, e.g. "mkl_rt"
 
 #[cfg(all(not(clippy), feature = "quad_precision", feature = "ex_precision"))]
 compile_error!("Cannot enable both quad and extended precision features at the same time.");

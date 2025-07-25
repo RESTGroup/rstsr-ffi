@@ -197,10 +197,10 @@ DYLOAD_MOD_TEMPLATE = """/* Tips for developers:
 #![allow(clippy::type_complexity)]
 #![allow(clippy::too_many_arguments)]
 
-const MOD_NAME: &str = module_path!();
-const LIB_NAME: &str = SUBSTITUTION; // for code, e.g. "MKL"
-const LIB_NAME_SHOW: &str = SUBSTITUTION; // for display, e.g. "oneMKL"
-const LIB_NAME_LINK: &str = SUBSTITUTION; // for linking, e.g. "mkl_rt"
+pub const MOD_NAME: &str = module_path!();
+pub const LIB_NAME: &str = SUBSTITUTION; // for code, e.g. "MKL"
+pub const LIB_NAME_SHOW: &str = SUBSTITUTION; // for display, e.g. "oneMKL"
+pub const LIB_NAME_LINK: &str = SUBSTITUTION; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]
 mod dynamic_loading_specific {
