@@ -1,5 +1,11 @@
+#[cfg(feature = "blas")]
 pub mod blas;
+#[cfg(feature = "cblas")]
 pub mod cblas;
+#[cfg(feature = "lapack")]
+pub mod lapack;
+#[cfg(feature = "lapacke")]
+pub mod lapacke;
 
 pub(crate) const MOD_NAME: &str = module_path!();
 pub(crate) const LIB_NAME: &str = "OPENBLAS"; // for code, e.g. "MKL"

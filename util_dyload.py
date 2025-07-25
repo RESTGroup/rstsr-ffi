@@ -65,7 +65,7 @@ def dyload_main(token, token_extra=None):
         parser = Parser(Language(tree_sitter_rust.language()))
         parsed_extra = parser.parse(bytes(token_extra, "utf8"))
         nodes_fn_extra = dyload_get_ffi_fn(parsed_extra.root_node.children[0])
-        nodes_fn = nodes_fn + nodes_fn + nodes_fn_extra
+        nodes_fn = nodes_fn + nodes_fn_extra
     identifiers_fn = []
 
     # 3. iterate by functions
@@ -122,6 +122,8 @@ use super::*;
 
 unsafe {node_extern.text.decode("utf8")}
     """
+    if token_extra is not None:
+        output_ffi_extern += f"unsafe {token_extra.strip()}"
 
     output_dyload_struct = f"""
 //! Library struct definition for dynamic-loading.
