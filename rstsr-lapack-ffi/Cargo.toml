@@ -1,9 +1,9 @@
 [package]
 name = "rstsr-lapack-ffi"
-version = "0.3.0"
 description = "Netlib LAPACK FFI bindings"
 readme = "readme.md"
 
+version.workspace = true
 edition.workspace = true
 repository.workspace = true
 keywords.workspace = true

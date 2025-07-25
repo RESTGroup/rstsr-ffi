@@ -7,10 +7,12 @@
 
 use super::*;
 
+#[inline(never)]
 pub unsafe fn lsame_(ca: *const c_char, cb: *const c_char) -> lapack_int {
     dyload_lib().lsame_.unwrap()(ca, cb)
 }
 
+#[inline(never)]
 pub unsafe fn cbbcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -48,6 +50,7 @@ pub unsafe fn cbbcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dbbcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -85,6 +88,7 @@ pub unsafe fn dbbcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sbbcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -122,6 +126,7 @@ pub unsafe fn sbbcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zbbcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -159,6 +164,7 @@ pub unsafe fn zbbcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dbdsdc_(
     uplo: *const c_char,
     compq: *const c_char,
@@ -178,6 +184,7 @@ pub unsafe fn dbdsdc_(
     dyload_lib().dbdsdc_.unwrap()(uplo, compq, n, D, E, U, ldu, VT, ldvt, Q, IQ, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sbdsdc_(
     uplo: *const c_char,
     compq: *const c_char,
@@ -197,6 +204,7 @@ pub unsafe fn sbdsdc_(
     dyload_lib().sbdsdc_.unwrap()(uplo, compq, n, D, E, U, ldu, VT, ldvt, Q, IQ, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cbdsqr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -219,6 +227,7 @@ pub unsafe fn cbdsqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dbdsqr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -241,6 +250,7 @@ pub unsafe fn dbdsqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sbdsqr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -263,6 +273,7 @@ pub unsafe fn sbdsqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zbdsqr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -285,6 +296,7 @@ pub unsafe fn zbdsqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dbdsvdx_(
     uplo: *const c_char,
     jobz: *const c_char,
@@ -309,6 +321,7 @@ pub unsafe fn dbdsvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sbdsvdx_(
     uplo: *const c_char,
     jobz: *const c_char,
@@ -333,6 +346,7 @@ pub unsafe fn sbdsvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ddisna_(
     job: *const c_char,
     m: *const lapack_int,
@@ -344,6 +358,7 @@ pub unsafe fn ddisna_(
     dyload_lib().ddisna_.unwrap()(job, m, n, D, SEP, info)
 }
 
+#[inline(never)]
 pub unsafe fn sdisna_(
     job: *const c_char,
     m: *const lapack_int,
@@ -355,6 +370,7 @@ pub unsafe fn sdisna_(
     dyload_lib().sdisna_.unwrap()(job, m, n, D, SEP, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbbrd_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -381,6 +397,7 @@ pub unsafe fn cgbbrd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgbbrd_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -406,6 +423,7 @@ pub unsafe fn dgbbrd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgbbrd_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -431,6 +449,7 @@ pub unsafe fn sgbbrd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgbbrd_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -457,6 +476,7 @@ pub unsafe fn zgbbrd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgbcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -474,6 +494,7 @@ pub unsafe fn cgbcon_(
     dyload_lib().cgbcon_.unwrap()(norm, n, kl, ku, AB, ldab, ipiv, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -491,6 +512,7 @@ pub unsafe fn dgbcon_(
     dyload_lib().dgbcon_.unwrap()(norm, n, kl, ku, AB, ldab, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -508,6 +530,7 @@ pub unsafe fn sgbcon_(
     dyload_lib().sgbcon_.unwrap()(norm, n, kl, ku, AB, ldab, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -525,6 +548,7 @@ pub unsafe fn zgbcon_(
     dyload_lib().zgbcon_.unwrap()(norm, n, kl, ku, AB, ldab, ipiv, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -542,6 +566,7 @@ pub unsafe fn cgbequ_(
     dyload_lib().cgbequ_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -559,6 +584,7 @@ pub unsafe fn dgbequ_(
     dyload_lib().dgbequ_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -576,6 +602,7 @@ pub unsafe fn sgbequ_(
     dyload_lib().sgbequ_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -593,6 +620,7 @@ pub unsafe fn zgbequ_(
     dyload_lib().zgbequ_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -610,6 +638,7 @@ pub unsafe fn cgbequb_(
     dyload_lib().cgbequb_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -627,6 +656,7 @@ pub unsafe fn dgbequb_(
     dyload_lib().dgbequb_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -644,6 +674,7 @@ pub unsafe fn sgbequb_(
     dyload_lib().sgbequb_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -661,6 +692,7 @@ pub unsafe fn zgbequb_(
     dyload_lib().zgbequb_.unwrap()(m, n, kl, ku, AB, ldab, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -688,6 +720,7 @@ pub unsafe fn cgbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgbrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -715,6 +748,7 @@ pub unsafe fn dgbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgbrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -742,6 +776,7 @@ pub unsafe fn sgbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgbrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -769,6 +804,7 @@ pub unsafe fn zgbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgbrfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -829,6 +865,7 @@ pub unsafe fn cgbrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgbrfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -889,6 +926,7 @@ pub unsafe fn dgbrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgbrfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -949,6 +987,7 @@ pub unsafe fn sgbrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgbrfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -1009,6 +1048,7 @@ pub unsafe fn zgbrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgbsv_(
     n: *const lapack_int,
     kl: *const lapack_int,
@@ -1024,6 +1064,7 @@ pub unsafe fn cgbsv_(
     dyload_lib().cgbsv_.unwrap()(n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbsv_(
     n: *const lapack_int,
     kl: *const lapack_int,
@@ -1039,6 +1080,7 @@ pub unsafe fn dgbsv_(
     dyload_lib().dgbsv_.unwrap()(n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbsv_(
     n: *const lapack_int,
     kl: *const lapack_int,
@@ -1054,6 +1096,7 @@ pub unsafe fn sgbsv_(
     dyload_lib().sgbsv_.unwrap()(n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbsv_(
     n: *const lapack_int,
     kl: *const lapack_int,
@@ -1069,6 +1112,7 @@ pub unsafe fn zgbsv_(
     dyload_lib().zgbsv_.unwrap()(n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1101,6 +1145,7 @@ pub unsafe fn cgbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgbsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1133,6 +1178,7 @@ pub unsafe fn dgbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgbsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1165,6 +1211,7 @@ pub unsafe fn sgbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgbsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1197,6 +1244,7 @@ pub unsafe fn zgbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgbsvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1261,6 +1309,7 @@ pub unsafe fn cgbsvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgbsvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1325,6 +1374,7 @@ pub unsafe fn dgbsvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgbsvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1389,6 +1439,7 @@ pub unsafe fn sgbsvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgbsvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -1453,6 +1504,7 @@ pub unsafe fn zgbsvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgbtrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1466,6 +1518,7 @@ pub unsafe fn cgbtrf_(
     dyload_lib().cgbtrf_.unwrap()(m, n, kl, ku, AB, ldab, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbtrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1479,6 +1532,7 @@ pub unsafe fn dgbtrf_(
     dyload_lib().dgbtrf_.unwrap()(m, n, kl, ku, AB, ldab, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbtrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1492,6 +1546,7 @@ pub unsafe fn sgbtrf_(
     dyload_lib().sgbtrf_.unwrap()(m, n, kl, ku, AB, ldab, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbtrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1505,6 +1560,7 @@ pub unsafe fn zgbtrf_(
     dyload_lib().zgbtrf_.unwrap()(m, n, kl, ku, AB, ldab, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgbtrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -1521,6 +1577,7 @@ pub unsafe fn cgbtrs_(
     dyload_lib().cgbtrs_.unwrap()(trans, n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgbtrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -1537,6 +1594,7 @@ pub unsafe fn dgbtrs_(
     dyload_lib().dgbtrs_.unwrap()(trans, n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgbtrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -1553,6 +1611,7 @@ pub unsafe fn sgbtrs_(
     dyload_lib().sgbtrs_.unwrap()(trans, n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgbtrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -1569,6 +1628,7 @@ pub unsafe fn zgbtrs_(
     dyload_lib().zgbtrs_.unwrap()(trans, n, kl, ku, nrhs, AB, ldab, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgebak_(
     job: *const c_char,
     side: *const c_char,
@@ -1584,6 +1644,7 @@ pub unsafe fn cgebak_(
     dyload_lib().cgebak_.unwrap()(job, side, n, ilo, ihi, scale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgebak_(
     job: *const c_char,
     side: *const c_char,
@@ -1599,6 +1660,7 @@ pub unsafe fn dgebak_(
     dyload_lib().dgebak_.unwrap()(job, side, n, ilo, ihi, scale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgebak_(
     job: *const c_char,
     side: *const c_char,
@@ -1614,6 +1676,7 @@ pub unsafe fn sgebak_(
     dyload_lib().sgebak_.unwrap()(job, side, n, ilo, ihi, scale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgebak_(
     job: *const c_char,
     side: *const c_char,
@@ -1629,6 +1692,7 @@ pub unsafe fn zgebak_(
     dyload_lib().zgebak_.unwrap()(job, side, n, ilo, ihi, scale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgebal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -1642,6 +1706,7 @@ pub unsafe fn cgebal_(
     dyload_lib().cgebal_.unwrap()(job, n, A, lda, ilo, ihi, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgebal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -1655,6 +1720,7 @@ pub unsafe fn dgebal_(
     dyload_lib().dgebal_.unwrap()(job, n, A, lda, ilo, ihi, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgebal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -1668,6 +1734,7 @@ pub unsafe fn sgebal_(
     dyload_lib().sgebal_.unwrap()(job, n, A, lda, ilo, ihi, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgebal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -1681,6 +1748,7 @@ pub unsafe fn zgebal_(
     dyload_lib().zgebal_.unwrap()(job, n, A, lda, ilo, ihi, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgebrd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1697,6 +1765,7 @@ pub unsafe fn cgebrd_(
     dyload_lib().cgebrd_.unwrap()(m, n, A, lda, D, E, tauq, taup, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgebrd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1713,6 +1782,7 @@ pub unsafe fn dgebrd_(
     dyload_lib().dgebrd_.unwrap()(m, n, A, lda, D, E, tauq, taup, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgebrd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1729,6 +1799,7 @@ pub unsafe fn sgebrd_(
     dyload_lib().sgebrd_.unwrap()(m, n, A, lda, D, E, tauq, taup, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgebrd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1745,6 +1816,7 @@ pub unsafe fn zgebrd_(
     dyload_lib().zgebrd_.unwrap()(m, n, A, lda, D, E, tauq, taup, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgecon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -1759,6 +1831,7 @@ pub unsafe fn cgecon_(
     dyload_lib().cgecon_.unwrap()(norm, n, A, lda, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgecon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -1773,6 +1846,7 @@ pub unsafe fn dgecon_(
     dyload_lib().dgecon_.unwrap()(norm, n, A, lda, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgecon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -1787,6 +1861,7 @@ pub unsafe fn sgecon_(
     dyload_lib().sgecon_.unwrap()(norm, n, A, lda, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgecon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -1801,6 +1876,7 @@ pub unsafe fn zgecon_(
     dyload_lib().zgecon_.unwrap()(norm, n, A, lda, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1816,6 +1892,7 @@ pub unsafe fn cgeequ_(
     dyload_lib().cgeequ_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1831,6 +1908,7 @@ pub unsafe fn dgeequ_(
     dyload_lib().dgeequ_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1846,6 +1924,7 @@ pub unsafe fn sgeequ_(
     dyload_lib().sgeequ_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeequ_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1861,6 +1940,7 @@ pub unsafe fn zgeequ_(
     dyload_lib().zgeequ_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1876,6 +1956,7 @@ pub unsafe fn cgeequb_(
     dyload_lib().cgeequb_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1891,6 +1972,7 @@ pub unsafe fn dgeequb_(
     dyload_lib().dgeequb_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1906,6 +1988,7 @@ pub unsafe fn sgeequb_(
     dyload_lib().sgeequb_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeequb_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -1921,6 +2004,7 @@ pub unsafe fn zgeequb_(
     dyload_lib().zgeequb_.unwrap()(m, n, A, lda, R, C, rowcnd, colcnd, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgees_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -1943,6 +2027,7 @@ pub unsafe fn cgees_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgees_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -1965,6 +2050,7 @@ pub unsafe fn dgees_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgees_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -1987,6 +2073,7 @@ pub unsafe fn sgees_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgees_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -2009,6 +2096,7 @@ pub unsafe fn zgees_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgeesx_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -2035,6 +2123,7 @@ pub unsafe fn cgeesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgeesx_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -2063,6 +2152,7 @@ pub unsafe fn dgeesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgeesx_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -2091,6 +2181,7 @@ pub unsafe fn sgeesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgeesx_(
     jobvs: *const c_char,
     sort: *const c_char,
@@ -2117,6 +2208,7 @@ pub unsafe fn zgeesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgeev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -2138,6 +2230,7 @@ pub unsafe fn cgeev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgeev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -2159,6 +2252,7 @@ pub unsafe fn dgeev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgeev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -2180,6 +2274,7 @@ pub unsafe fn sgeev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgeev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -2201,6 +2296,7 @@ pub unsafe fn zgeev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgeevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -2231,6 +2327,7 @@ pub unsafe fn cgeevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgeevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -2262,6 +2359,7 @@ pub unsafe fn dgeevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgeevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -2293,6 +2391,7 @@ pub unsafe fn sgeevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgeevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -2323,6 +2422,7 @@ pub unsafe fn zgeevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgehrd_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -2337,6 +2437,7 @@ pub unsafe fn cgehrd_(
     dyload_lib().cgehrd_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgehrd_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -2351,6 +2452,7 @@ pub unsafe fn dgehrd_(
     dyload_lib().dgehrd_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgehrd_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -2365,6 +2467,7 @@ pub unsafe fn sgehrd_(
     dyload_lib().sgehrd_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgehrd_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -2379,6 +2482,7 @@ pub unsafe fn zgehrd_(
     dyload_lib().zgehrd_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgejsv_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -2408,6 +2512,7 @@ pub unsafe fn cgejsv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgejsv_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -2435,6 +2540,7 @@ pub unsafe fn dgejsv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgejsv_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -2462,6 +2568,7 @@ pub unsafe fn sgejsv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgejsv_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -2491,6 +2598,7 @@ pub unsafe fn zgejsv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgelq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2505,6 +2613,7 @@ pub unsafe fn cgelq_(
     dyload_lib().cgelq_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgelq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2519,6 +2628,7 @@ pub unsafe fn dgelq_(
     dyload_lib().dgelq_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgelq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2533,6 +2643,7 @@ pub unsafe fn sgelq_(
     dyload_lib().sgelq_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgelq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2547,6 +2658,7 @@ pub unsafe fn zgelq_(
     dyload_lib().zgelq_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgelq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2559,6 +2671,7 @@ pub unsafe fn cgelq2_(
     dyload_lib().cgelq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgelq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2571,6 +2684,7 @@ pub unsafe fn dgelq2_(
     dyload_lib().dgelq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgelq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2583,6 +2697,7 @@ pub unsafe fn sgelq2_(
     dyload_lib().sgelq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgelq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2595,6 +2710,7 @@ pub unsafe fn zgelq2_(
     dyload_lib().zgelq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgelqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2608,6 +2724,7 @@ pub unsafe fn cgelqf_(
     dyload_lib().cgelqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgelqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2621,6 +2738,7 @@ pub unsafe fn dgelqf_(
     dyload_lib().dgelqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgelqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2634,6 +2752,7 @@ pub unsafe fn sgelqf_(
     dyload_lib().sgelqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgelqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2647,6 +2766,7 @@ pub unsafe fn zgelqf_(
     dyload_lib().zgelqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgels_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -2663,6 +2783,7 @@ pub unsafe fn cgels_(
     dyload_lib().cgels_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgels_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -2679,6 +2800,7 @@ pub unsafe fn dgels_(
     dyload_lib().dgels_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgels_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -2695,6 +2817,7 @@ pub unsafe fn sgels_(
     dyload_lib().sgels_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgels_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -2711,6 +2834,7 @@ pub unsafe fn zgels_(
     dyload_lib().zgels_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgelsd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2733,6 +2857,7 @@ pub unsafe fn cgelsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgelsd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2754,6 +2879,7 @@ pub unsafe fn dgelsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgelsd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2775,6 +2901,7 @@ pub unsafe fn sgelsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgelsd_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2797,6 +2924,7 @@ pub unsafe fn zgelsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgelss_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2818,6 +2946,7 @@ pub unsafe fn cgelss_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgelss_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2836,6 +2965,7 @@ pub unsafe fn dgelss_(
     dyload_lib().dgelss_.unwrap()(m, n, nrhs, A, lda, B, ldb, S, rcond, rank, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgelss_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2854,6 +2984,7 @@ pub unsafe fn sgelss_(
     dyload_lib().sgelss_.unwrap()(m, n, nrhs, A, lda, B, ldb, S, rcond, rank, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgelss_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2875,6 +3006,7 @@ pub unsafe fn zgelss_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgelsy_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2896,6 +3028,7 @@ pub unsafe fn cgelsy_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgelsy_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2914,6 +3047,7 @@ pub unsafe fn dgelsy_(
     dyload_lib().dgelsy_.unwrap()(m, n, nrhs, A, lda, B, ldb, JPVT, rcond, rank, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgelsy_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2932,6 +3066,7 @@ pub unsafe fn sgelsy_(
     dyload_lib().sgelsy_.unwrap()(m, n, nrhs, A, lda, B, ldb, JPVT, rcond, rank, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgelsy_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -2953,6 +3088,7 @@ pub unsafe fn zgelsy_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgemlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -2972,6 +3108,7 @@ pub unsafe fn cgemlq_(
     dyload_lib().cgemlq_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgemlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -2991,6 +3128,7 @@ pub unsafe fn dgemlq_(
     dyload_lib().dgemlq_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgemlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -3010,6 +3148,7 @@ pub unsafe fn sgemlq_(
     dyload_lib().sgemlq_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgemlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -3029,6 +3168,7 @@ pub unsafe fn zgemlq_(
     dyload_lib().zgemlq_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgemqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -3048,6 +3188,7 @@ pub unsafe fn cgemqr_(
     dyload_lib().cgemqr_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgemqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -3067,6 +3208,7 @@ pub unsafe fn dgemqr_(
     dyload_lib().dgemqr_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgemqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -3086,6 +3228,7 @@ pub unsafe fn sgemqr_(
     dyload_lib().sgemqr_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgemqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -3105,6 +3248,7 @@ pub unsafe fn zgemqr_(
     dyload_lib().zgemqr_.unwrap()(side, trans, m, n, k, A, lda, T, tsize, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgemqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -3124,6 +3268,7 @@ pub unsafe fn cgemqrt_(
     dyload_lib().cgemqrt_.unwrap()(side, trans, m, n, k, nb, V, ldv, T, ldt, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgemqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -3143,6 +3288,7 @@ pub unsafe fn dgemqrt_(
     dyload_lib().dgemqrt_.unwrap()(side, trans, m, n, k, nb, V, ldv, T, ldt, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgemqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -3162,6 +3308,7 @@ pub unsafe fn sgemqrt_(
     dyload_lib().sgemqrt_.unwrap()(side, trans, m, n, k, nb, V, ldv, T, ldt, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgemqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -3181,6 +3328,7 @@ pub unsafe fn zgemqrt_(
     dyload_lib().zgemqrt_.unwrap()(side, trans, m, n, k, nb, V, ldv, T, ldt, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeql2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3193,6 +3341,7 @@ pub unsafe fn cgeql2_(
     dyload_lib().cgeql2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeql2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3205,6 +3354,7 @@ pub unsafe fn dgeql2_(
     dyload_lib().dgeql2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeql2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3217,6 +3367,7 @@ pub unsafe fn sgeql2_(
     dyload_lib().sgeql2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeql2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3229,6 +3380,7 @@ pub unsafe fn zgeql2_(
     dyload_lib().zgeql2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqlf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3242,6 +3394,7 @@ pub unsafe fn cgeqlf_(
     dyload_lib().cgeqlf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqlf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3255,6 +3408,7 @@ pub unsafe fn dgeqlf_(
     dyload_lib().dgeqlf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqlf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3268,6 +3422,7 @@ pub unsafe fn sgeqlf_(
     dyload_lib().sgeqlf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqlf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3281,6 +3436,7 @@ pub unsafe fn zgeqlf_(
     dyload_lib().zgeqlf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqpf_(
     m: *mut lapack_int,
     n: *mut lapack_int,
@@ -3294,6 +3450,7 @@ pub unsafe fn sgeqpf_(
     dyload_lib().sgeqpf_.unwrap()(m, n, a, lda, jpvt, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqpf_(
     m: *mut lapack_int,
     n: *mut lapack_int,
@@ -3307,6 +3464,7 @@ pub unsafe fn dgeqpf_(
     dyload_lib().dgeqpf_.unwrap()(m, n, a, lda, jpvt, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqpf_(
     m: *mut lapack_int,
     n: *mut lapack_int,
@@ -3321,6 +3479,7 @@ pub unsafe fn cgeqpf_(
     dyload_lib().cgeqpf_.unwrap()(m, n, a, lda, jpvt, tau, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqpf_(
     m: *mut lapack_int,
     n: *mut lapack_int,
@@ -3335,6 +3494,7 @@ pub unsafe fn zgeqpf_(
     dyload_lib().zgeqpf_.unwrap()(m, n, a, lda, jpvt, tau, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqp3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3350,6 +3510,7 @@ pub unsafe fn cgeqp3_(
     dyload_lib().cgeqp3_.unwrap()(m, n, A, lda, JPVT, tau, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqp3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3364,6 +3525,7 @@ pub unsafe fn dgeqp3_(
     dyload_lib().dgeqp3_.unwrap()(m, n, A, lda, JPVT, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqp3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3378,6 +3540,7 @@ pub unsafe fn sgeqp3_(
     dyload_lib().sgeqp3_.unwrap()(m, n, A, lda, JPVT, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqp3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3393,6 +3556,7 @@ pub unsafe fn zgeqp3_(
     dyload_lib().zgeqp3_.unwrap()(m, n, A, lda, JPVT, tau, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3407,6 +3571,7 @@ pub unsafe fn cgeqr_(
     dyload_lib().cgeqr_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3421,6 +3586,7 @@ pub unsafe fn dgeqr_(
     dyload_lib().dgeqr_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3435,6 +3601,7 @@ pub unsafe fn sgeqr_(
     dyload_lib().sgeqr_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3449,6 +3616,7 @@ pub unsafe fn zgeqr_(
     dyload_lib().zgeqr_.unwrap()(m, n, A, lda, T, tsize, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqr2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3461,6 +3629,7 @@ pub unsafe fn cgeqr2_(
     dyload_lib().cgeqr2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqr2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3473,6 +3642,7 @@ pub unsafe fn dgeqr2_(
     dyload_lib().dgeqr2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqr2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3485,6 +3655,7 @@ pub unsafe fn sgeqr2_(
     dyload_lib().sgeqr2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqr2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3497,6 +3668,7 @@ pub unsafe fn zgeqr2_(
     dyload_lib().zgeqr2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3510,6 +3682,7 @@ pub unsafe fn cgeqrf_(
     dyload_lib().cgeqrf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3523,6 +3696,7 @@ pub unsafe fn dgeqrf_(
     dyload_lib().dgeqrf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3536,6 +3710,7 @@ pub unsafe fn sgeqrf_(
     dyload_lib().sgeqrf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3549,6 +3724,7 @@ pub unsafe fn zgeqrf_(
     dyload_lib().zgeqrf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqrfp_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3562,6 +3738,7 @@ pub unsafe fn cgeqrfp_(
     dyload_lib().cgeqrfp_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqrfp_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3575,6 +3752,7 @@ pub unsafe fn dgeqrfp_(
     dyload_lib().dgeqrfp_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqrfp_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3588,6 +3766,7 @@ pub unsafe fn sgeqrfp_(
     dyload_lib().sgeqrfp_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqrfp_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3601,6 +3780,7 @@ pub unsafe fn zgeqrfp_(
     dyload_lib().zgeqrfp_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3615,6 +3795,7 @@ pub unsafe fn cgeqrt_(
     dyload_lib().cgeqrt_.unwrap()(m, n, nb, A, lda, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3629,6 +3810,7 @@ pub unsafe fn dgeqrt_(
     dyload_lib().dgeqrt_.unwrap()(m, n, nb, A, lda, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3643,6 +3825,7 @@ pub unsafe fn sgeqrt_(
     dyload_lib().sgeqrt_.unwrap()(m, n, nb, A, lda, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3657,6 +3840,7 @@ pub unsafe fn zgeqrt_(
     dyload_lib().zgeqrt_.unwrap()(m, n, nb, A, lda, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3669,6 +3853,7 @@ pub unsafe fn cgeqrt2_(
     dyload_lib().cgeqrt2_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3681,6 +3866,7 @@ pub unsafe fn dgeqrt2_(
     dyload_lib().dgeqrt2_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3693,6 +3879,7 @@ pub unsafe fn sgeqrt2_(
     dyload_lib().sgeqrt2_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3705,6 +3892,7 @@ pub unsafe fn zgeqrt2_(
     dyload_lib().zgeqrt2_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgeqrt3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3717,6 +3905,7 @@ pub unsafe fn cgeqrt3_(
     dyload_lib().cgeqrt3_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgeqrt3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3729,6 +3918,7 @@ pub unsafe fn dgeqrt3_(
     dyload_lib().dgeqrt3_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgeqrt3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3741,6 +3931,7 @@ pub unsafe fn sgeqrt3_(
     dyload_lib().sgeqrt3_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgeqrt3_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -3753,6 +3944,7 @@ pub unsafe fn zgeqrt3_(
     dyload_lib().zgeqrt3_.unwrap()(m, n, A, lda, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgerfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -3777,6 +3969,7 @@ pub unsafe fn cgerfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgerfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -3801,6 +3994,7 @@ pub unsafe fn dgerfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgerfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -3825,6 +4019,7 @@ pub unsafe fn sgerfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgerfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -3849,6 +4044,7 @@ pub unsafe fn zgerfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgerfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -3905,6 +4101,7 @@ pub unsafe fn cgerfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgerfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -3961,6 +4158,7 @@ pub unsafe fn dgerfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgerfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -4017,6 +4215,7 @@ pub unsafe fn sgerfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgerfsx_(
     trans: *const c_char,
     equed: *const c_char,
@@ -4073,6 +4272,7 @@ pub unsafe fn zgerfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgerq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4085,6 +4285,7 @@ pub unsafe fn cgerq2_(
     dyload_lib().cgerq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgerq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4097,6 +4298,7 @@ pub unsafe fn dgerq2_(
     dyload_lib().dgerq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgerq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4109,6 +4311,7 @@ pub unsafe fn sgerq2_(
     dyload_lib().sgerq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgerq2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4121,6 +4324,7 @@ pub unsafe fn zgerq2_(
     dyload_lib().zgerq2_.unwrap()(m, n, A, lda, tau, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgerqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4134,6 +4338,7 @@ pub unsafe fn cgerqf_(
     dyload_lib().cgerqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgerqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4147,6 +4352,7 @@ pub unsafe fn dgerqf_(
     dyload_lib().dgerqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgerqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4160,6 +4366,7 @@ pub unsafe fn sgerqf_(
     dyload_lib().sgerqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgerqf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -4173,6 +4380,7 @@ pub unsafe fn zgerqf_(
     dyload_lib().zgerqf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgesdd_(
     jobz: *const c_char,
     m: *const lapack_int,
@@ -4195,6 +4403,7 @@ pub unsafe fn cgesdd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesdd_(
     jobz: *const c_char,
     m: *const lapack_int,
@@ -4214,6 +4423,7 @@ pub unsafe fn dgesdd_(
     dyload_lib().dgesdd_.unwrap()(jobz, m, n, A, lda, S, U, ldu, VT, ldvt, work, lwork, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgesdd_(
     jobz: *const c_char,
     m: *const lapack_int,
@@ -4233,6 +4443,7 @@ pub unsafe fn sgesdd_(
     dyload_lib().sgesdd_.unwrap()(jobz, m, n, A, lda, S, U, ldu, VT, ldvt, work, lwork, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgesdd_(
     jobz: *const c_char,
     m: *const lapack_int,
@@ -4255,6 +4466,7 @@ pub unsafe fn zgesdd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgedmd_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4294,6 +4506,7 @@ pub unsafe fn cgedmd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgedmd_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4332,6 +4545,7 @@ pub unsafe fn dgedmd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgedmd_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4370,6 +4584,7 @@ pub unsafe fn sgedmd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgedmd_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4409,6 +4624,7 @@ pub unsafe fn zgedmd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgedmdq_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4452,6 +4668,7 @@ pub unsafe fn cgedmdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgedmdq_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4494,6 +4711,7 @@ pub unsafe fn dgedmdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgedmdq_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4536,6 +4754,7 @@ pub unsafe fn sgedmdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgedmdq_(
     jobs: *const c_char,
     jobz: *const c_char,
@@ -4579,6 +4798,7 @@ pub unsafe fn zgedmdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4592,6 +4812,7 @@ pub unsafe fn cgesv_(
     dyload_lib().cgesv_.unwrap()(n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4605,6 +4826,7 @@ pub unsafe fn dgesv_(
     dyload_lib().dgesv_.unwrap()(n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4618,6 +4840,7 @@ pub unsafe fn sgesv_(
     dyload_lib().sgesv_.unwrap()(n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4631,6 +4854,7 @@ pub unsafe fn zgesv_(
     dyload_lib().zgesv_.unwrap()(n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4649,6 +4873,7 @@ pub unsafe fn dsgesv_(
     dyload_lib().dsgesv_.unwrap()(n, nrhs, A, lda, ipiv, B, ldb, X, ldx, work, swork, iter, info)
 }
 
+#[inline(never)]
 pub unsafe fn zcgesv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -4670,6 +4895,7 @@ pub unsafe fn zcgesv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvd_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4692,6 +4918,7 @@ pub unsafe fn cgesvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvd_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4711,6 +4938,7 @@ pub unsafe fn dgesvd_(
     dyload_lib().dgesvd_.unwrap()(jobu, jobvt, m, n, A, lda, S, U, ldu, VT, ldvt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgesvd_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4730,6 +4958,7 @@ pub unsafe fn sgesvd_(
     dyload_lib().sgesvd_.unwrap()(jobu, jobvt, m, n, A, lda, S, U, ldu, VT, ldvt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgesvd_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4752,6 +4981,7 @@ pub unsafe fn zgesvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvdq_(
     joba: *const c_char,
     jobp: *const c_char,
@@ -4782,6 +5012,7 @@ pub unsafe fn cgesvdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvdq_(
     joba: *const c_char,
     jobp: *const c_char,
@@ -4812,6 +5043,7 @@ pub unsafe fn dgesvdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgesvdq_(
     joba: *const c_char,
     jobp: *const c_char,
@@ -4842,6 +5074,7 @@ pub unsafe fn sgesvdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgesvdq_(
     joba: *const c_char,
     jobp: *const c_char,
@@ -4872,6 +5105,7 @@ pub unsafe fn zgesvdq_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvdx_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4902,6 +5136,7 @@ pub unsafe fn cgesvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvdx_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4931,6 +5166,7 @@ pub unsafe fn dgesvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgesvdx_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4960,6 +5196,7 @@ pub unsafe fn sgesvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgesvdx_(
     jobu: *const c_char,
     jobvt: *const c_char,
@@ -4990,6 +5227,7 @@ pub unsafe fn zgesvdx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvj_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -5013,6 +5251,7 @@ pub unsafe fn cgesvj_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvj_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -5034,6 +5273,7 @@ pub unsafe fn dgesvj_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgesvj_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -5055,6 +5295,7 @@ pub unsafe fn sgesvj_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgesvj_(
     joba: *const c_char,
     jobu: *const c_char,
@@ -5078,6 +5319,7 @@ pub unsafe fn zgesvj_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5108,6 +5350,7 @@ pub unsafe fn cgesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5138,6 +5381,7 @@ pub unsafe fn dgesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgesvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5168,6 +5412,7 @@ pub unsafe fn sgesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgesvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5198,6 +5443,7 @@ pub unsafe fn zgesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgesvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5258,6 +5504,7 @@ pub unsafe fn cgesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgesvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5318,6 +5565,7 @@ pub unsafe fn dgesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgesvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5378,6 +5626,7 @@ pub unsafe fn sgesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgesvxx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -5438,6 +5687,7 @@ pub unsafe fn zgesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgetf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5449,6 +5699,7 @@ pub unsafe fn cgetf2_(
     dyload_lib().cgetf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5460,6 +5711,7 @@ pub unsafe fn dgetf2_(
     dyload_lib().dgetf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5471,6 +5723,7 @@ pub unsafe fn sgetf2_(
     dyload_lib().sgetf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5482,6 +5735,7 @@ pub unsafe fn zgetf2_(
     dyload_lib().zgetf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5493,6 +5747,7 @@ pub unsafe fn cgetrf_(
     dyload_lib().cgetrf_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5504,6 +5759,7 @@ pub unsafe fn dgetrf_(
     dyload_lib().dgetrf_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5515,6 +5771,7 @@ pub unsafe fn sgetrf_(
     dyload_lib().sgetrf_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetrf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5526,6 +5783,7 @@ pub unsafe fn zgetrf_(
     dyload_lib().zgetrf_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetrf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5537,6 +5795,7 @@ pub unsafe fn cgetrf2_(
     dyload_lib().cgetrf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetrf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5548,6 +5807,7 @@ pub unsafe fn dgetrf2_(
     dyload_lib().dgetrf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetrf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5559,6 +5819,7 @@ pub unsafe fn sgetrf2_(
     dyload_lib().sgetrf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetrf2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5570,6 +5831,7 @@ pub unsafe fn zgetrf2_(
     dyload_lib().zgetrf2_.unwrap()(m, n, A, lda, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetri_(
     n: *const lapack_int,
     A: *mut __BindgenComplex<f32>,
@@ -5582,6 +5844,7 @@ pub unsafe fn cgetri_(
     dyload_lib().cgetri_.unwrap()(n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetri_(
     n: *const lapack_int,
     A: *mut f64,
@@ -5594,6 +5857,7 @@ pub unsafe fn dgetri_(
     dyload_lib().dgetri_.unwrap()(n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetri_(
     n: *const lapack_int,
     A: *mut f32,
@@ -5606,6 +5870,7 @@ pub unsafe fn sgetri_(
     dyload_lib().sgetri_.unwrap()(n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetri_(
     n: *const lapack_int,
     A: *mut __BindgenComplex<f64>,
@@ -5618,6 +5883,7 @@ pub unsafe fn zgetri_(
     dyload_lib().zgetri_.unwrap()(n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -5632,6 +5898,7 @@ pub unsafe fn cgetrs_(
     dyload_lib().cgetrs_.unwrap()(trans, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -5646,6 +5913,7 @@ pub unsafe fn dgetrs_(
     dyload_lib().dgetrs_.unwrap()(trans, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -5660,6 +5928,7 @@ pub unsafe fn sgetrs_(
     dyload_lib().sgetrs_.unwrap()(trans, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -5674,6 +5943,7 @@ pub unsafe fn zgetrs_(
     dyload_lib().zgetrs_.unwrap()(trans, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetsls_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -5690,6 +5960,7 @@ pub unsafe fn cgetsls_(
     dyload_lib().cgetsls_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetsls_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -5706,6 +5977,7 @@ pub unsafe fn dgetsls_(
     dyload_lib().dgetsls_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetsls_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -5722,6 +5994,7 @@ pub unsafe fn sgetsls_(
     dyload_lib().sgetsls_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetsls_(
     trans: *const c_char,
     m: *const lapack_int,
@@ -5738,6 +6011,7 @@ pub unsafe fn zgetsls_(
     dyload_lib().zgetsls_.unwrap()(trans, m, n, nrhs, A, lda, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgetsqrhrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5755,6 +6029,7 @@ pub unsafe fn cgetsqrhrt_(
     dyload_lib().cgetsqrhrt_.unwrap()(m, n, mb1, nb1, nb2, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgetsqrhrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5772,6 +6047,7 @@ pub unsafe fn dgetsqrhrt_(
     dyload_lib().dgetsqrhrt_.unwrap()(m, n, mb1, nb1, nb2, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgetsqrhrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5789,6 +6065,7 @@ pub unsafe fn sgetsqrhrt_(
     dyload_lib().sgetsqrhrt_.unwrap()(m, n, mb1, nb1, nb2, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgetsqrhrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -5806,6 +6083,7 @@ pub unsafe fn zgetsqrhrt_(
     dyload_lib().zgetsqrhrt_.unwrap()(m, n, mb1, nb1, nb2, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cggbak_(
     job: *const c_char,
     side: *const c_char,
@@ -5822,6 +6100,7 @@ pub unsafe fn cggbak_(
     dyload_lib().cggbak_.unwrap()(job, side, n, ilo, ihi, lscale, rscale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dggbak_(
     job: *const c_char,
     side: *const c_char,
@@ -5838,6 +6117,7 @@ pub unsafe fn dggbak_(
     dyload_lib().dggbak_.unwrap()(job, side, n, ilo, ihi, lscale, rscale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sggbak_(
     job: *const c_char,
     side: *const c_char,
@@ -5854,6 +6134,7 @@ pub unsafe fn sggbak_(
     dyload_lib().sggbak_.unwrap()(job, side, n, ilo, ihi, lscale, rscale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zggbak_(
     job: *const c_char,
     side: *const c_char,
@@ -5870,6 +6151,7 @@ pub unsafe fn zggbak_(
     dyload_lib().zggbak_.unwrap()(job, side, n, ilo, ihi, lscale, rscale, m, V, ldv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cggbal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -5887,6 +6169,7 @@ pub unsafe fn cggbal_(
     dyload_lib().cggbal_.unwrap()(job, n, A, lda, B, ldb, ilo, ihi, lscale, rscale, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dggbal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -5904,6 +6187,7 @@ pub unsafe fn dggbal_(
     dyload_lib().dggbal_.unwrap()(job, n, A, lda, B, ldb, ilo, ihi, lscale, rscale, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sggbal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -5921,6 +6205,7 @@ pub unsafe fn sggbal_(
     dyload_lib().sggbal_.unwrap()(job, n, A, lda, B, ldb, ilo, ihi, lscale, rscale, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zggbal_(
     job: *const c_char,
     n: *const lapack_int,
@@ -5938,6 +6223,7 @@ pub unsafe fn zggbal_(
     dyload_lib().zggbal_.unwrap()(job, n, A, lda, B, ldb, ilo, ihi, lscale, rscale, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgges_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -5967,6 +6253,7 @@ pub unsafe fn cgges_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgges_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -5996,6 +6283,7 @@ pub unsafe fn dgges_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgges_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6025,6 +6313,7 @@ pub unsafe fn sgges_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgges_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6054,6 +6343,7 @@ pub unsafe fn zgges_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgges3_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6083,6 +6373,7 @@ pub unsafe fn cgges3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgges3_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6112,6 +6403,7 @@ pub unsafe fn dgges3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgges3_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6141,6 +6433,7 @@ pub unsafe fn sgges3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgges3_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6170,6 +6463,7 @@ pub unsafe fn zgges3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggesx_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6204,6 +6498,7 @@ pub unsafe fn cggesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggesx_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6238,6 +6533,7 @@ pub unsafe fn dggesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggesx_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6272,6 +6568,7 @@ pub unsafe fn sggesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggesx_(
     jobvsl: *const c_char,
     jobvsr: *const c_char,
@@ -6306,6 +6603,7 @@ pub unsafe fn zggesx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6330,6 +6628,7 @@ pub unsafe fn cggev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6355,6 +6654,7 @@ pub unsafe fn dggev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6380,6 +6680,7 @@ pub unsafe fn sggev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggev_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6404,6 +6705,7 @@ pub unsafe fn zggev_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggev3_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6428,6 +6730,7 @@ pub unsafe fn cggev3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggev3_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6453,6 +6756,7 @@ pub unsafe fn dggev3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggev3_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6478,6 +6782,7 @@ pub unsafe fn sggev3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggev3_(
     jobvl: *const c_char,
     jobvr: *const c_char,
@@ -6502,6 +6807,7 @@ pub unsafe fn zggev3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -6539,6 +6845,7 @@ pub unsafe fn cggevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -6576,6 +6883,7 @@ pub unsafe fn dggevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -6613,6 +6921,7 @@ pub unsafe fn sggevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggevx_(
     balanc: *const c_char,
     jobvl: *const c_char,
@@ -6650,6 +6959,7 @@ pub unsafe fn zggevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggglm_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6668,6 +6978,7 @@ pub unsafe fn cggglm_(
     dyload_lib().cggglm_.unwrap()(n, m, p, A, lda, B, ldb, D, X, Y, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dggglm_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6686,6 +6997,7 @@ pub unsafe fn dggglm_(
     dyload_lib().dggglm_.unwrap()(n, m, p, A, lda, B, ldb, D, X, Y, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sggglm_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6704,6 +7016,7 @@ pub unsafe fn sggglm_(
     dyload_lib().sggglm_.unwrap()(n, m, p, A, lda, B, ldb, D, X, Y, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zggglm_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6722,6 +7035,7 @@ pub unsafe fn zggglm_(
     dyload_lib().zggglm_.unwrap()(n, m, p, A, lda, B, ldb, D, X, Y, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgghd3_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6745,6 +7059,7 @@ pub unsafe fn cgghd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgghd3_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6768,6 +7083,7 @@ pub unsafe fn dgghd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgghd3_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6791,6 +7107,7 @@ pub unsafe fn sgghd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgghd3_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6814,6 +7131,7 @@ pub unsafe fn zgghd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgghrd_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6833,6 +7151,7 @@ pub unsafe fn cgghrd_(
     dyload_lib().cgghrd_.unwrap()(compq, compz, n, ilo, ihi, A, lda, B, ldb, Q, ldq, Z, ldz, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgghrd_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6852,6 +7171,7 @@ pub unsafe fn dgghrd_(
     dyload_lib().dgghrd_.unwrap()(compq, compz, n, ilo, ihi, A, lda, B, ldb, Q, ldq, Z, ldz, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgghrd_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6871,6 +7191,7 @@ pub unsafe fn sgghrd_(
     dyload_lib().sgghrd_.unwrap()(compq, compz, n, ilo, ihi, A, lda, B, ldb, Q, ldq, Z, ldz, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgghrd_(
     compq: *const c_char,
     compz: *const c_char,
@@ -6890,6 +7211,7 @@ pub unsafe fn zgghrd_(
     dyload_lib().zgghrd_.unwrap()(compq, compz, n, ilo, ihi, A, lda, B, ldb, Q, ldq, Z, ldz, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgglse_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -6908,6 +7230,7 @@ pub unsafe fn cgglse_(
     dyload_lib().cgglse_.unwrap()(m, n, p, A, lda, B, ldb, C, D, X, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgglse_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -6926,6 +7249,7 @@ pub unsafe fn dgglse_(
     dyload_lib().dgglse_.unwrap()(m, n, p, A, lda, B, ldb, C, D, X, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgglse_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -6944,6 +7268,7 @@ pub unsafe fn sgglse_(
     dyload_lib().sgglse_.unwrap()(m, n, p, A, lda, B, ldb, C, D, X, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgglse_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -6962,6 +7287,7 @@ pub unsafe fn zgglse_(
     dyload_lib().zgglse_.unwrap()(m, n, p, A, lda, B, ldb, C, D, X, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cggqrf_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6979,6 +7305,7 @@ pub unsafe fn cggqrf_(
     dyload_lib().cggqrf_.unwrap()(n, m, p, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dggqrf_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -6996,6 +7323,7 @@ pub unsafe fn dggqrf_(
     dyload_lib().dggqrf_.unwrap()(n, m, p, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sggqrf_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -7013,6 +7341,7 @@ pub unsafe fn sggqrf_(
     dyload_lib().sggqrf_.unwrap()(n, m, p, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zggqrf_(
     n: *const lapack_int,
     m: *const lapack_int,
@@ -7030,6 +7359,7 @@ pub unsafe fn zggqrf_(
     dyload_lib().zggqrf_.unwrap()(n, m, p, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cggrqf_(
     m: *const lapack_int,
     p: *const lapack_int,
@@ -7047,6 +7377,7 @@ pub unsafe fn cggrqf_(
     dyload_lib().cggrqf_.unwrap()(m, p, n, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dggrqf_(
     m: *const lapack_int,
     p: *const lapack_int,
@@ -7064,6 +7395,7 @@ pub unsafe fn dggrqf_(
     dyload_lib().dggrqf_.unwrap()(m, p, n, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sggrqf_(
     m: *const lapack_int,
     p: *const lapack_int,
@@ -7081,6 +7413,7 @@ pub unsafe fn sggrqf_(
     dyload_lib().sggrqf_.unwrap()(m, p, n, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zggrqf_(
     m: *const lapack_int,
     p: *const lapack_int,
@@ -7098,6 +7431,7 @@ pub unsafe fn zggrqf_(
     dyload_lib().zggrqf_.unwrap()(m, p, n, A, lda, taua, B, ldb, taub, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cggsvd_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7130,6 +7464,7 @@ pub unsafe fn cggsvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggsvd_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7161,6 +7496,7 @@ pub unsafe fn sggsvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggsvd_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7192,6 +7528,7 @@ pub unsafe fn dggsvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggsvd_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7224,6 +7561,7 @@ pub unsafe fn zggsvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggsvd3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7257,6 +7595,7 @@ pub unsafe fn cggsvd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggsvd3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7289,6 +7628,7 @@ pub unsafe fn dggsvd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggsvd3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7321,6 +7661,7 @@ pub unsafe fn sggsvd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggsvd3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7354,6 +7695,7 @@ pub unsafe fn zggsvd3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggsvp_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7386,6 +7728,7 @@ pub unsafe fn sggsvp_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggsvp_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7418,6 +7761,7 @@ pub unsafe fn dggsvp_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggsvp_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7451,6 +7795,7 @@ pub unsafe fn cggsvp_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggsvp_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7484,6 +7829,7 @@ pub unsafe fn zggsvp_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cggsvp3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7518,6 +7864,7 @@ pub unsafe fn cggsvp3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dggsvp3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7551,6 +7898,7 @@ pub unsafe fn dggsvp3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sggsvp3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7584,6 +7932,7 @@ pub unsafe fn sggsvp3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zggsvp3_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -7618,6 +7967,7 @@ pub unsafe fn zggsvp3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgtcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -7634,6 +7984,7 @@ pub unsafe fn cgtcon_(
     dyload_lib().cgtcon_.unwrap()(norm, n, DL, D, DU, DU2, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgtcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -7651,6 +8002,7 @@ pub unsafe fn dgtcon_(
     dyload_lib().dgtcon_.unwrap()(norm, n, DL, D, DU, DU2, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgtcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -7668,6 +8020,7 @@ pub unsafe fn sgtcon_(
     dyload_lib().sgtcon_.unwrap()(norm, n, DL, D, DU, DU2, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgtcon_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -7684,6 +8037,7 @@ pub unsafe fn zgtcon_(
     dyload_lib().zgtcon_.unwrap()(norm, n, DL, D, DU, DU2, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgtrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -7712,6 +8066,7 @@ pub unsafe fn cgtrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgtrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -7740,6 +8095,7 @@ pub unsafe fn dgtrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgtrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -7768,6 +8124,7 @@ pub unsafe fn sgtrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgtrfs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -7796,6 +8153,7 @@ pub unsafe fn zgtrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgtsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -7809,6 +8167,7 @@ pub unsafe fn cgtsv_(
     dyload_lib().cgtsv_.unwrap()(n, nrhs, DL, D, DU, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgtsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -7822,6 +8181,7 @@ pub unsafe fn dgtsv_(
     dyload_lib().dgtsv_.unwrap()(n, nrhs, DL, D, DU, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgtsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -7835,6 +8195,7 @@ pub unsafe fn sgtsv_(
     dyload_lib().sgtsv_.unwrap()(n, nrhs, DL, D, DU, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgtsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -7848,6 +8209,7 @@ pub unsafe fn zgtsv_(
     dyload_lib().zgtsv_.unwrap()(n, nrhs, DL, D, DU, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgtsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -7878,6 +8240,7 @@ pub unsafe fn cgtsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dgtsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -7908,6 +8271,7 @@ pub unsafe fn dgtsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sgtsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -7938,6 +8302,7 @@ pub unsafe fn sgtsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zgtsvx_(
     fact: *const c_char,
     trans: *const c_char,
@@ -7968,6 +8333,7 @@ pub unsafe fn zgtsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cgttrf_(
     n: *const lapack_int,
     DL: *mut __BindgenComplex<f32>,
@@ -7980,6 +8346,7 @@ pub unsafe fn cgttrf_(
     dyload_lib().cgttrf_.unwrap()(n, DL, D, DU, DU2, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgttrf_(
     n: *const lapack_int,
     DL: *mut f64,
@@ -7992,6 +8359,7 @@ pub unsafe fn dgttrf_(
     dyload_lib().dgttrf_.unwrap()(n, DL, D, DU, DU2, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgttrf_(
     n: *const lapack_int,
     DL: *mut f32,
@@ -8004,6 +8372,7 @@ pub unsafe fn sgttrf_(
     dyload_lib().sgttrf_.unwrap()(n, DL, D, DU, DU2, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgttrf_(
     n: *const lapack_int,
     DL: *mut __BindgenComplex<f64>,
@@ -8016,6 +8385,7 @@ pub unsafe fn zgttrf_(
     dyload_lib().zgttrf_.unwrap()(n, DL, D, DU, DU2, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn cgttrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -8032,6 +8402,7 @@ pub unsafe fn cgttrs_(
     dyload_lib().cgttrs_.unwrap()(trans, n, nrhs, DL, D, DU, DU2, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dgttrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -8048,6 +8419,7 @@ pub unsafe fn dgttrs_(
     dyload_lib().dgttrs_.unwrap()(trans, n, nrhs, DL, D, DU, DU2, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sgttrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -8064,6 +8436,7 @@ pub unsafe fn sgttrs_(
     dyload_lib().sgttrs_.unwrap()(trans, n, nrhs, DL, D, DU, DU2, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zgttrs_(
     trans: *const c_char,
     n: *const lapack_int,
@@ -8080,6 +8453,7 @@ pub unsafe fn zgttrs_(
     dyload_lib().zgttrs_.unwrap()(trans, n, nrhs, DL, D, DU, DU2, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chbev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8097,6 +8471,7 @@ pub unsafe fn chbev_(
     dyload_lib().chbev_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhbev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8114,6 +8489,7 @@ pub unsafe fn zhbev_(
     dyload_lib().zhbev_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chbev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8134,6 +8510,7 @@ pub unsafe fn chbev_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8154,6 +8531,7 @@ pub unsafe fn zhbev_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8177,6 +8555,7 @@ pub unsafe fn chbevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8200,6 +8579,7 @@ pub unsafe fn zhbevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8223,6 +8603,7 @@ pub unsafe fn chbevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8246,6 +8627,7 @@ pub unsafe fn zhbevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8277,6 +8659,7 @@ pub unsafe fn chbevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8308,6 +8691,7 @@ pub unsafe fn zhbevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8340,6 +8724,7 @@ pub unsafe fn chbevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8372,6 +8757,7 @@ pub unsafe fn zhbevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbgst_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -8393,6 +8779,7 @@ pub unsafe fn chbgst_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbgst_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -8414,6 +8801,7 @@ pub unsafe fn zhbgst_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbgv_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8436,6 +8824,7 @@ pub unsafe fn chbgv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbgv_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8458,6 +8847,7 @@ pub unsafe fn zhbgv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbgvd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8485,6 +8875,7 @@ pub unsafe fn chbgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbgvd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8512,6 +8903,7 @@ pub unsafe fn zhbgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbgvx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8546,6 +8938,7 @@ pub unsafe fn chbgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhbgvx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8580,6 +8973,7 @@ pub unsafe fn zhbgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chbtrd_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -8597,6 +8991,7 @@ pub unsafe fn chbtrd_(
     dyload_lib().chbtrd_.unwrap()(vect, uplo, n, kd, AB, ldab, D, E, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhbtrd_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -8614,6 +9009,7 @@ pub unsafe fn zhbtrd_(
     dyload_lib().zhbtrd_.unwrap()(vect, uplo, n, kd, AB, ldab, D, E, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn checon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8628,6 +9024,7 @@ pub unsafe fn checon_(
     dyload_lib().checon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhecon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8642,6 +9039,7 @@ pub unsafe fn zhecon_(
     dyload_lib().zhecon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn checon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8657,6 +9055,7 @@ pub unsafe fn checon_3_(
     dyload_lib().checon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhecon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8672,6 +9071,7 @@ pub unsafe fn zhecon_3_(
     dyload_lib().zhecon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cheequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8686,6 +9086,7 @@ pub unsafe fn cheequb_(
     dyload_lib().cheequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zheequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -8700,6 +9101,7 @@ pub unsafe fn zheequb_(
     dyload_lib().zheequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cheev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8715,6 +9117,7 @@ pub unsafe fn cheev_(
     dyload_lib().cheev_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zheev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8730,6 +9133,7 @@ pub unsafe fn zheev_(
     dyload_lib().zheev_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cheev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8745,6 +9149,7 @@ pub unsafe fn cheev_2stage_(
     dyload_lib().cheev_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zheev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8760,6 +9165,7 @@ pub unsafe fn zheev_2stage_(
     dyload_lib().zheev_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cheevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8780,6 +9186,7 @@ pub unsafe fn cheevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8800,6 +9207,7 @@ pub unsafe fn zheevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8820,6 +9228,7 @@ pub unsafe fn cheevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -8840,6 +9249,7 @@ pub unsafe fn zheevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8871,6 +9281,7 @@ pub unsafe fn cheevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8902,6 +9313,7 @@ pub unsafe fn zheevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheevr_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8933,6 +9345,7 @@ pub unsafe fn cheevr_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevr_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8964,6 +9377,7 @@ pub unsafe fn zheevr_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -8993,6 +9407,7 @@ pub unsafe fn cheevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -9022,6 +9437,7 @@ pub unsafe fn zheevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -9051,6 +9467,7 @@ pub unsafe fn cheevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zheevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -9080,6 +9497,7 @@ pub unsafe fn zheevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chegst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -9093,6 +9511,7 @@ pub unsafe fn chegst_(
     dyload_lib().chegst_.unwrap()(itype, uplo, n, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhegst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -9106,6 +9525,7 @@ pub unsafe fn zhegst_(
     dyload_lib().zhegst_.unwrap()(itype, uplo, n, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chegv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9124,6 +9544,7 @@ pub unsafe fn chegv_(
     dyload_lib().chegv_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhegv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9142,6 +9563,7 @@ pub unsafe fn zhegv_(
     dyload_lib().zhegv_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chegv_2stage_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9162,6 +9584,7 @@ pub unsafe fn chegv_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhegv_2stage_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9182,6 +9605,7 @@ pub unsafe fn zhegv_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chegvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9205,6 +9629,7 @@ pub unsafe fn chegvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhegvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9228,6 +9653,7 @@ pub unsafe fn zhegvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chegvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9260,6 +9686,7 @@ pub unsafe fn chegvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhegvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -9292,6 +9719,7 @@ pub unsafe fn zhegvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cherfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9316,6 +9744,7 @@ pub unsafe fn cherfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zherfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9340,6 +9769,7 @@ pub unsafe fn zherfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cherfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -9394,6 +9824,7 @@ pub unsafe fn cherfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zherfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -9448,6 +9879,7 @@ pub unsafe fn zherfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chesv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9464,6 +9896,7 @@ pub unsafe fn chesv_(
     dyload_lib().chesv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhesv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9480,6 +9913,7 @@ pub unsafe fn zhesv_(
     dyload_lib().zhesv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chesv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9496,6 +9930,7 @@ pub unsafe fn chesv_aa_(
     dyload_lib().chesv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhesv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9512,6 +9947,7 @@ pub unsafe fn zhesv_aa_(
     dyload_lib().zhesv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chesv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9533,6 +9969,7 @@ pub unsafe fn chesv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhesv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9554,6 +9991,7 @@ pub unsafe fn zhesv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chesv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9571,6 +10009,7 @@ pub unsafe fn chesv_rk_(
     dyload_lib().chesv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhesv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9588,6 +10027,7 @@ pub unsafe fn zhesv_rk_(
     dyload_lib().zhesv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chesv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9604,6 +10044,7 @@ pub unsafe fn chesv_rook_(
     dyload_lib().chesv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhesv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9620,6 +10061,7 @@ pub unsafe fn zhesv_rook_(
     dyload_lib().zhesv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chesvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -9648,6 +10090,7 @@ pub unsafe fn chesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhesvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -9676,6 +10119,7 @@ pub unsafe fn zhesvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chesvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -9734,6 +10178,7 @@ pub unsafe fn chesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhesvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -9792,6 +10237,7 @@ pub unsafe fn zhesvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cheswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9803,6 +10249,7 @@ pub unsafe fn cheswapr_(
     dyload_lib().cheswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn zheswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9814,6 +10261,7 @@ pub unsafe fn zheswapr_(
     dyload_lib().zheswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn chetrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9829,6 +10277,7 @@ pub unsafe fn chetrd_(
     dyload_lib().chetrd_.unwrap()(uplo, n, A, lda, D, E, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9844,6 +10293,7 @@ pub unsafe fn zhetrd_(
     dyload_lib().zhetrd_.unwrap()(uplo, n, A, lda, D, E, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrd_2stage_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -9864,6 +10314,7 @@ pub unsafe fn chetrd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhetrd_2stage_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -9884,6 +10335,7 @@ pub unsafe fn zhetrd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chetrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9897,6 +10349,7 @@ pub unsafe fn chetrf_(
     dyload_lib().chetrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9910,6 +10363,7 @@ pub unsafe fn zhetrf_(
     dyload_lib().zhetrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9923,6 +10377,7 @@ pub unsafe fn chetrf_aa_(
     dyload_lib().chetrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9936,6 +10391,7 @@ pub unsafe fn zhetrf_aa_(
     dyload_lib().zhetrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9954,6 +10410,7 @@ pub unsafe fn chetrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhetrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9972,6 +10429,7 @@ pub unsafe fn zhetrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chetrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -9986,6 +10444,7 @@ pub unsafe fn chetrf_rk_(
     dyload_lib().chetrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10000,6 +10459,7 @@ pub unsafe fn zhetrf_rk_(
     dyload_lib().zhetrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10013,6 +10473,7 @@ pub unsafe fn chetrf_rook_(
     dyload_lib().chetrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10026,6 +10487,7 @@ pub unsafe fn zhetrf_rook_(
     dyload_lib().zhetrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10038,6 +10500,7 @@ pub unsafe fn chetri_(
     dyload_lib().chetri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10050,6 +10513,7 @@ pub unsafe fn zhetri_(
     dyload_lib().zhetri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10063,6 +10527,7 @@ pub unsafe fn chetri2_(
     dyload_lib().chetri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10076,6 +10541,7 @@ pub unsafe fn zhetri2_(
     dyload_lib().zhetri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10089,6 +10555,7 @@ pub unsafe fn chetri2x_(
     dyload_lib().chetri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10102,6 +10569,7 @@ pub unsafe fn zhetri2x_(
     dyload_lib().zhetri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10116,6 +10584,7 @@ pub unsafe fn chetri_3_(
     dyload_lib().chetri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10130,6 +10599,7 @@ pub unsafe fn zhetri_3_(
     dyload_lib().zhetri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10144,6 +10614,7 @@ pub unsafe fn chetrs_(
     dyload_lib().chetrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10158,6 +10629,7 @@ pub unsafe fn zhetrs_(
     dyload_lib().zhetrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10173,6 +10645,7 @@ pub unsafe fn chetrs2_(
     dyload_lib().chetrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10188,6 +10661,7 @@ pub unsafe fn zhetrs2_(
     dyload_lib().zhetrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10203,6 +10677,7 @@ pub unsafe fn chetrs_3_(
     dyload_lib().chetrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10218,6 +10693,7 @@ pub unsafe fn zhetrs_3_(
     dyload_lib().zhetrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10234,6 +10710,7 @@ pub unsafe fn chetrs_aa_(
     dyload_lib().chetrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10250,6 +10727,7 @@ pub unsafe fn zhetrs_aa_(
     dyload_lib().zhetrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chetrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10269,6 +10747,7 @@ pub unsafe fn chetrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10288,6 +10767,7 @@ pub unsafe fn zhetrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chetrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10302,6 +10782,7 @@ pub unsafe fn chetrs_rook_(
     dyload_lib().chetrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhetrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10316,6 +10797,7 @@ pub unsafe fn zhetrs_rook_(
     dyload_lib().zhetrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chfrk_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -10331,6 +10813,7 @@ pub unsafe fn chfrk_(
     dyload_lib().chfrk_.unwrap()(transr, uplo, trans, n, k, alpha, A, lda, beta, C)
 }
 
+#[inline(never)]
 pub unsafe fn zhfrk_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -10346,6 +10829,7 @@ pub unsafe fn zhfrk_(
     dyload_lib().zhfrk_.unwrap()(transr, uplo, trans, n, k, alpha, A, lda, beta, C)
 }
 
+#[inline(never)]
 pub unsafe fn chgeqz_(
     job: *const c_char,
     compq: *const c_char,
@@ -10374,6 +10858,7 @@ pub unsafe fn chgeqz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dhgeqz_(
     job: *const c_char,
     compq: *const c_char,
@@ -10402,6 +10887,7 @@ pub unsafe fn dhgeqz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn shgeqz_(
     job: *const c_char,
     compq: *const c_char,
@@ -10430,6 +10916,7 @@ pub unsafe fn shgeqz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhgeqz_(
     job: *const c_char,
     compq: *const c_char,
@@ -10458,6 +10945,7 @@ pub unsafe fn zhgeqz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chpcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10471,6 +10959,7 @@ pub unsafe fn chpcon_(
     dyload_lib().chpcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhpcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10484,6 +10973,7 @@ pub unsafe fn zhpcon_(
     dyload_lib().zhpcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn chpev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -10499,6 +10989,7 @@ pub unsafe fn chpev_(
     dyload_lib().chpev_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhpev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -10514,6 +11005,7 @@ pub unsafe fn zhpev_(
     dyload_lib().zhpev_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chpevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -10535,6 +11027,7 @@ pub unsafe fn chpevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhpevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -10556,6 +11049,7 @@ pub unsafe fn zhpevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chpevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -10583,6 +11077,7 @@ pub unsafe fn chpevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhpevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -10610,6 +11105,7 @@ pub unsafe fn zhpevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chpgst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -10621,6 +11117,7 @@ pub unsafe fn chpgst_(
     dyload_lib().chpgst_.unwrap()(itype, uplo, n, AP, BP, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhpgst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -10632,6 +11129,7 @@ pub unsafe fn zhpgst_(
     dyload_lib().zhpgst_.unwrap()(itype, uplo, n, AP, BP, info)
 }
 
+#[inline(never)]
 pub unsafe fn chpgv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10649,6 +11147,7 @@ pub unsafe fn chpgv_(
     dyload_lib().chpgv_.unwrap()(itype, jobz, uplo, n, AP, BP, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhpgv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10666,6 +11165,7 @@ pub unsafe fn zhpgv_(
     dyload_lib().zhpgv_.unwrap()(itype, jobz, uplo, n, AP, BP, W, Z, ldz, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn chpgvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10689,6 +11189,7 @@ pub unsafe fn chpgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhpgvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10712,6 +11213,7 @@ pub unsafe fn zhpgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chpgvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10741,6 +11243,7 @@ pub unsafe fn chpgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhpgvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -10770,6 +11273,7 @@ pub unsafe fn zhpgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10792,6 +11296,7 @@ pub unsafe fn chprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10814,6 +11319,7 @@ pub unsafe fn zhprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chpsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10827,6 +11333,7 @@ pub unsafe fn chpsv_(
     dyload_lib().chpsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhpsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10840,6 +11347,7 @@ pub unsafe fn zhpsv_(
     dyload_lib().zhpsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chpsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -10864,6 +11372,7 @@ pub unsafe fn chpsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhpsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -10888,6 +11397,7 @@ pub unsafe fn zhpsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chptrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10900,6 +11410,7 @@ pub unsafe fn chptrd_(
     dyload_lib().chptrd_.unwrap()(uplo, n, AP, D, E, tau, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhptrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10912,6 +11423,7 @@ pub unsafe fn zhptrd_(
     dyload_lib().zhptrd_.unwrap()(uplo, n, AP, D, E, tau, info)
 }
 
+#[inline(never)]
 pub unsafe fn chptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10922,6 +11434,7 @@ pub unsafe fn chptrf_(
     dyload_lib().chptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10932,6 +11445,7 @@ pub unsafe fn zhptrf_(
     dyload_lib().zhptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn chptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10943,6 +11457,7 @@ pub unsafe fn chptri_(
     dyload_lib().chptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10954,6 +11469,7 @@ pub unsafe fn zhptri_(
     dyload_lib().zhptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn chptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10967,6 +11483,7 @@ pub unsafe fn chptrs_(
     dyload_lib().chptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zhptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -10980,6 +11497,7 @@ pub unsafe fn zhptrs_(
     dyload_lib().zhptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn chsein_(
     side: *const c_char,
     eigsrc: *const c_char,
@@ -11007,6 +11525,7 @@ pub unsafe fn chsein_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dhsein_(
     side: *const c_char,
     eigsrc: *const c_char,
@@ -11034,6 +11553,7 @@ pub unsafe fn dhsein_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn shsein_(
     side: *const c_char,
     eigsrc: *const c_char,
@@ -11061,6 +11581,7 @@ pub unsafe fn shsein_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhsein_(
     side: *const c_char,
     eigsrc: *const c_char,
@@ -11088,6 +11609,7 @@ pub unsafe fn zhsein_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn chseqr_(
     job: *const c_char,
     compz: *const c_char,
@@ -11106,6 +11628,7 @@ pub unsafe fn chseqr_(
     dyload_lib().chseqr_.unwrap()(job, compz, n, ilo, ihi, H, ldh, W, Z, ldz, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dhseqr_(
     job: *const c_char,
     compz: *const c_char,
@@ -11127,6 +11650,7 @@ pub unsafe fn dhseqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn shseqr_(
     job: *const c_char,
     compz: *const c_char,
@@ -11148,6 +11672,7 @@ pub unsafe fn shseqr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zhseqr_(
     job: *const c_char,
     compz: *const c_char,
@@ -11166,6 +11691,7 @@ pub unsafe fn zhseqr_(
     dyload_lib().zhseqr_.unwrap()(job, compz, n, ilo, ihi, H, ldh, W, Z, ldz, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn clacgv_(
     n: *const lapack_int,
     X: *mut __BindgenComplex<f32>,
@@ -11174,6 +11700,7 @@ pub unsafe fn clacgv_(
     dyload_lib().clacgv_.unwrap()(n, X, incx)
 }
 
+#[inline(never)]
 pub unsafe fn zlacgv_(
     n: *const lapack_int,
     X: *mut __BindgenComplex<f64>,
@@ -11182,6 +11709,7 @@ pub unsafe fn zlacgv_(
     dyload_lib().zlacgv_.unwrap()(n, X, incx)
 }
 
+#[inline(never)]
 pub unsafe fn clacn2_(
     n: *const lapack_int,
     V: *mut __BindgenComplex<f32>,
@@ -11193,6 +11721,7 @@ pub unsafe fn clacn2_(
     dyload_lib().clacn2_.unwrap()(n, V, X, est, kase, ISAVE)
 }
 
+#[inline(never)]
 pub unsafe fn dlacn2_(
     n: *const lapack_int,
     V: *mut f64,
@@ -11205,6 +11734,7 @@ pub unsafe fn dlacn2_(
     dyload_lib().dlacn2_.unwrap()(n, V, X, ISGN, est, kase, ISAVE)
 }
 
+#[inline(never)]
 pub unsafe fn slacn2_(
     n: *const lapack_int,
     V: *mut f32,
@@ -11217,6 +11747,7 @@ pub unsafe fn slacn2_(
     dyload_lib().slacn2_.unwrap()(n, V, X, ISGN, est, kase, ISAVE)
 }
 
+#[inline(never)]
 pub unsafe fn zlacn2_(
     n: *const lapack_int,
     V: *mut __BindgenComplex<f64>,
@@ -11228,6 +11759,7 @@ pub unsafe fn zlacn2_(
     dyload_lib().zlacn2_.unwrap()(n, V, X, est, kase, ISAVE)
 }
 
+#[inline(never)]
 pub unsafe fn clacp2_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11240,6 +11772,7 @@ pub unsafe fn clacp2_(
     dyload_lib().clacp2_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn zlacp2_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11252,6 +11785,7 @@ pub unsafe fn zlacp2_(
     dyload_lib().zlacp2_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn clacpy_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11264,6 +11798,7 @@ pub unsafe fn clacpy_(
     dyload_lib().clacpy_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn dlacpy_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11276,6 +11811,7 @@ pub unsafe fn dlacpy_(
     dyload_lib().dlacpy_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn slacpy_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11288,6 +11824,7 @@ pub unsafe fn slacpy_(
     dyload_lib().slacpy_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn zlacpy_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -11300,6 +11837,7 @@ pub unsafe fn zlacpy_(
     dyload_lib().zlacpy_.unwrap()(uplo, m, n, A, lda, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn clacrm_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11314,6 +11852,7 @@ pub unsafe fn clacrm_(
     dyload_lib().clacrm_.unwrap()(m, n, A, lda, B, ldb, C, ldc, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn zlacrm_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11328,6 +11867,7 @@ pub unsafe fn zlacrm_(
     dyload_lib().zlacrm_.unwrap()(m, n, A, lda, B, ldb, C, ldc, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn zlag2c_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11340,6 +11880,7 @@ pub unsafe fn zlag2c_(
     dyload_lib().zlag2c_.unwrap()(m, n, A, lda, SA, ldsa, info)
 }
 
+#[inline(never)]
 pub unsafe fn slag2d_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11352,6 +11893,7 @@ pub unsafe fn slag2d_(
     dyload_lib().slag2d_.unwrap()(m, n, SA, ldsa, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlag2s_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11364,6 +11906,7 @@ pub unsafe fn dlag2s_(
     dyload_lib().dlag2s_.unwrap()(m, n, A, lda, SA, ldsa, info)
 }
 
+#[inline(never)]
 pub unsafe fn clag2z_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11376,6 +11919,7 @@ pub unsafe fn clag2z_(
     dyload_lib().clag2z_.unwrap()(m, n, SA, ldsa, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn clagge_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11391,6 +11935,7 @@ pub unsafe fn clagge_(
     dyload_lib().clagge_.unwrap()(m, n, kl, ku, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlagge_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11406,6 +11951,7 @@ pub unsafe fn dlagge_(
     dyload_lib().dlagge_.unwrap()(m, n, kl, ku, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn slagge_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11421,6 +11967,7 @@ pub unsafe fn slagge_(
     dyload_lib().slagge_.unwrap()(m, n, kl, ku, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zlagge_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -11436,6 +11983,7 @@ pub unsafe fn zlagge_(
     dyload_lib().zlagge_.unwrap()(m, n, kl, ku, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn claghe_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11449,6 +11997,7 @@ pub unsafe fn claghe_(
     dyload_lib().claghe_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zlaghe_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11462,6 +12011,7 @@ pub unsafe fn zlaghe_(
     dyload_lib().zlaghe_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn clagsy_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11475,6 +12025,7 @@ pub unsafe fn clagsy_(
     dyload_lib().clagsy_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlagsy_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11488,6 +12039,7 @@ pub unsafe fn dlagsy_(
     dyload_lib().dlagsy_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn slagsy_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11501,6 +12053,7 @@ pub unsafe fn slagsy_(
     dyload_lib().slagsy_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zlagsy_(
     n: *const lapack_int,
     k: *const lapack_int,
@@ -11514,14 +12067,17 @@ pub unsafe fn zlagsy_(
     dyload_lib().zlagsy_.unwrap()(n, k, D, A, lda, iseed, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlamch_(cmach: *const c_char) -> f64 {
     dyload_lib().dlamch_.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn slamch_(cmach: *const c_char) -> lapack_float_return {
     dyload_lib().slamch_.unwrap()(cmach)
 }
 
+#[inline(never)]
 pub unsafe fn clangb_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11534,6 +12090,7 @@ pub unsafe fn clangb_(
     dyload_lib().clangb_.unwrap()(norm, n, kl, ku, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlangb_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11546,6 +12103,7 @@ pub unsafe fn dlangb_(
     dyload_lib().dlangb_.unwrap()(norm, n, kl, ku, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn slangb_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11558,6 +12116,7 @@ pub unsafe fn slangb_(
     dyload_lib().slangb_.unwrap()(norm, n, kl, ku, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlangb_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11570,6 +12129,7 @@ pub unsafe fn zlangb_(
     dyload_lib().zlangb_.unwrap()(norm, n, kl, ku, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn clange_(
     norm: *const c_char,
     m: *const lapack_int,
@@ -11581,6 +12141,7 @@ pub unsafe fn clange_(
     dyload_lib().clange_.unwrap()(norm, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlange_(
     norm: *const c_char,
     m: *const lapack_int,
@@ -11592,6 +12153,7 @@ pub unsafe fn dlange_(
     dyload_lib().dlange_.unwrap()(norm, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn slange_(
     norm: *const c_char,
     m: *const lapack_int,
@@ -11603,6 +12165,7 @@ pub unsafe fn slange_(
     dyload_lib().slange_.unwrap()(norm, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlange_(
     norm: *const c_char,
     m: *const lapack_int,
@@ -11614,6 +12177,7 @@ pub unsafe fn zlange_(
     dyload_lib().zlange_.unwrap()(norm, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn clangt_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11624,6 +12188,7 @@ pub unsafe fn clangt_(
     dyload_lib().clangt_.unwrap()(norm, n, DL, D, DU)
 }
 
+#[inline(never)]
 pub unsafe fn dlangt_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11634,6 +12199,7 @@ pub unsafe fn dlangt_(
     dyload_lib().dlangt_.unwrap()(norm, n, DL, D, DU)
 }
 
+#[inline(never)]
 pub unsafe fn slangt_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11644,6 +12210,7 @@ pub unsafe fn slangt_(
     dyload_lib().slangt_.unwrap()(norm, n, DL, D, DU)
 }
 
+#[inline(never)]
 pub unsafe fn zlangt_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11654,6 +12221,7 @@ pub unsafe fn zlangt_(
     dyload_lib().zlangt_.unwrap()(norm, n, DL, D, DU)
 }
 
+#[inline(never)]
 pub unsafe fn clanhb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11666,6 +12234,7 @@ pub unsafe fn clanhb_(
     dyload_lib().clanhb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlanhb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11678,6 +12247,7 @@ pub unsafe fn zlanhb_(
     dyload_lib().zlanhb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn clanhe_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11689,6 +12259,7 @@ pub unsafe fn clanhe_(
     dyload_lib().clanhe_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlanhe_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11700,6 +12271,7 @@ pub unsafe fn zlanhe_(
     dyload_lib().zlanhe_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn clanhp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11710,6 +12282,7 @@ pub unsafe fn clanhp_(
     dyload_lib().clanhp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlanhp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11720,6 +12293,7 @@ pub unsafe fn zlanhp_(
     dyload_lib().zlanhp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn clanhs_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11730,6 +12304,7 @@ pub unsafe fn clanhs_(
     dyload_lib().clanhs_.unwrap()(norm, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlanhs_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11740,6 +12315,7 @@ pub unsafe fn dlanhs_(
     dyload_lib().dlanhs_.unwrap()(norm, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn slanhs_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11750,6 +12326,7 @@ pub unsafe fn slanhs_(
     dyload_lib().slanhs_.unwrap()(norm, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlanhs_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11760,6 +12337,7 @@ pub unsafe fn zlanhs_(
     dyload_lib().zlanhs_.unwrap()(norm, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn clanht_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11769,6 +12347,7 @@ pub unsafe fn clanht_(
     dyload_lib().clanht_.unwrap()(norm, n, D, E)
 }
 
+#[inline(never)]
 pub unsafe fn zlanht_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11778,6 +12357,7 @@ pub unsafe fn zlanht_(
     dyload_lib().zlanht_.unwrap()(norm, n, D, E)
 }
 
+#[inline(never)]
 pub unsafe fn clansb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11790,6 +12370,7 @@ pub unsafe fn clansb_(
     dyload_lib().clansb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlansb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11802,6 +12383,7 @@ pub unsafe fn dlansb_(
     dyload_lib().dlansb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn slansb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11814,6 +12396,7 @@ pub unsafe fn slansb_(
     dyload_lib().slansb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlansb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11826,6 +12409,7 @@ pub unsafe fn zlansb_(
     dyload_lib().zlansb_.unwrap()(norm, uplo, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn clansp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11836,6 +12420,7 @@ pub unsafe fn clansp_(
     dyload_lib().clansp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlansp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11846,6 +12431,7 @@ pub unsafe fn dlansp_(
     dyload_lib().dlansp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn slansp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11856,6 +12442,7 @@ pub unsafe fn slansp_(
     dyload_lib().slansp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlansp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11866,6 +12453,7 @@ pub unsafe fn zlansp_(
     dyload_lib().zlansp_.unwrap()(norm, uplo, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlanst_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11875,6 +12463,7 @@ pub unsafe fn dlanst_(
     dyload_lib().dlanst_.unwrap()(norm, n, D, E)
 }
 
+#[inline(never)]
 pub unsafe fn slanst_(
     norm: *const c_char,
     n: *const lapack_int,
@@ -11884,6 +12473,7 @@ pub unsafe fn slanst_(
     dyload_lib().slanst_.unwrap()(norm, n, D, E)
 }
 
+#[inline(never)]
 pub unsafe fn clansy_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11895,6 +12485,7 @@ pub unsafe fn clansy_(
     dyload_lib().clansy_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlansy_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11906,6 +12497,7 @@ pub unsafe fn dlansy_(
     dyload_lib().dlansy_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn slansy_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11917,6 +12509,7 @@ pub unsafe fn slansy_(
     dyload_lib().slansy_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlansy_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11928,6 +12521,7 @@ pub unsafe fn zlansy_(
     dyload_lib().zlansy_.unwrap()(norm, uplo, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn clantb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11941,6 +12535,7 @@ pub unsafe fn clantb_(
     dyload_lib().clantb_.unwrap()(norm, uplo, diag, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlantb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11954,6 +12549,7 @@ pub unsafe fn dlantb_(
     dyload_lib().dlantb_.unwrap()(norm, uplo, diag, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn slantb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11967,6 +12563,7 @@ pub unsafe fn slantb_(
     dyload_lib().slantb_.unwrap()(norm, uplo, diag, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlantb_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11980,6 +12577,7 @@ pub unsafe fn zlantb_(
     dyload_lib().zlantb_.unwrap()(norm, uplo, diag, n, k, AB, ldab, work)
 }
 
+#[inline(never)]
 pub unsafe fn clantp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -11991,6 +12589,7 @@ pub unsafe fn clantp_(
     dyload_lib().clantp_.unwrap()(norm, uplo, diag, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlantp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12002,6 +12601,7 @@ pub unsafe fn dlantp_(
     dyload_lib().dlantp_.unwrap()(norm, uplo, diag, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn slantp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12013,6 +12613,7 @@ pub unsafe fn slantp_(
     dyload_lib().slantp_.unwrap()(norm, uplo, diag, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlantp_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12024,6 +12625,7 @@ pub unsafe fn zlantp_(
     dyload_lib().zlantp_.unwrap()(norm, uplo, diag, n, AP, work)
 }
 
+#[inline(never)]
 pub unsafe fn clantr_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12037,6 +12639,7 @@ pub unsafe fn clantr_(
     dyload_lib().clantr_.unwrap()(norm, uplo, diag, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlantr_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12050,6 +12653,7 @@ pub unsafe fn dlantr_(
     dyload_lib().dlantr_.unwrap()(norm, uplo, diag, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn slantr_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12063,6 +12667,7 @@ pub unsafe fn slantr_(
     dyload_lib().slantr_.unwrap()(norm, uplo, diag, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlantr_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -12076,6 +12681,7 @@ pub unsafe fn zlantr_(
     dyload_lib().zlantr_.unwrap()(norm, uplo, diag, m, n, A, lda, work)
 }
 
+#[inline(never)]
 pub unsafe fn clapmr_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12087,6 +12693,7 @@ pub unsafe fn clapmr_(
     dyload_lib().clapmr_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn dlapmr_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12098,6 +12705,7 @@ pub unsafe fn dlapmr_(
     dyload_lib().dlapmr_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn slapmr_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12109,6 +12717,7 @@ pub unsafe fn slapmr_(
     dyload_lib().slapmr_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn zlapmr_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12120,6 +12729,7 @@ pub unsafe fn zlapmr_(
     dyload_lib().zlapmr_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn clapmt_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12131,6 +12741,7 @@ pub unsafe fn clapmt_(
     dyload_lib().clapmt_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn dlapmt_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12142,6 +12753,7 @@ pub unsafe fn dlapmt_(
     dyload_lib().dlapmt_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn slapmt_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12153,6 +12765,7 @@ pub unsafe fn slapmt_(
     dyload_lib().slapmt_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn zlapmt_(
     forwrd: *const lapack_int,
     m: *const lapack_int,
@@ -12164,22 +12777,27 @@ pub unsafe fn zlapmt_(
     dyload_lib().zlapmt_.unwrap()(forwrd, m, n, X, ldx, K)
 }
 
+#[inline(never)]
 pub unsafe fn dlapy2_(x: *const f64, y: *const f64) -> f64 {
     dyload_lib().dlapy2_.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn slapy2_(x: *const f32, y: *const f32) -> lapack_float_return {
     dyload_lib().slapy2_.unwrap()(x, y)
 }
 
+#[inline(never)]
 pub unsafe fn dlapy3_(x: *const f64, y: *const f64, z: *const f64) -> f64 {
     dyload_lib().dlapy3_.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn slapy3_(x: *const f32, y: *const f32, z: *const f32) -> lapack_float_return {
     dyload_lib().slapy3_.unwrap()(x, y, z)
 }
 
+#[inline(never)]
 pub unsafe fn clarcm_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12194,6 +12812,7 @@ pub unsafe fn clarcm_(
     dyload_lib().clarcm_.unwrap()(m, n, A, lda, B, ldb, C, ldc, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn zlarcm_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12208,6 +12827,7 @@ pub unsafe fn zlarcm_(
     dyload_lib().zlarcm_.unwrap()(m, n, A, lda, B, ldb, C, ldc, rwork)
 }
 
+#[inline(never)]
 pub unsafe fn clarf_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12222,6 +12842,7 @@ pub unsafe fn clarf_(
     dyload_lib().clarf_.unwrap()(side, m, n, V, incv, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlarf_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12236,6 +12857,7 @@ pub unsafe fn dlarf_(
     dyload_lib().dlarf_.unwrap()(side, m, n, V, incv, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn slarf_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12250,6 +12872,7 @@ pub unsafe fn slarf_(
     dyload_lib().slarf_.unwrap()(side, m, n, V, incv, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlarf_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12264,6 +12887,7 @@ pub unsafe fn zlarf_(
     dyload_lib().zlarf_.unwrap()(side, m, n, V, incv, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn clarfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -12286,6 +12910,7 @@ pub unsafe fn clarfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dlarfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -12308,6 +12933,7 @@ pub unsafe fn dlarfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn slarfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -12330,6 +12956,7 @@ pub unsafe fn slarfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zlarfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -12352,6 +12979,7 @@ pub unsafe fn zlarfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn clarfg_(
     n: *const lapack_int,
     alpha: *mut __BindgenComplex<f32>,
@@ -12362,6 +12990,7 @@ pub unsafe fn clarfg_(
     dyload_lib().clarfg_.unwrap()(n, alpha, X, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn dlarfg_(
     n: *const lapack_int,
     alpha: *mut f64,
@@ -12372,6 +13001,7 @@ pub unsafe fn dlarfg_(
     dyload_lib().dlarfg_.unwrap()(n, alpha, X, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn slarfg_(
     n: *const lapack_int,
     alpha: *mut f32,
@@ -12382,6 +13012,7 @@ pub unsafe fn slarfg_(
     dyload_lib().slarfg_.unwrap()(n, alpha, X, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn zlarfg_(
     n: *const lapack_int,
     alpha: *mut __BindgenComplex<f64>,
@@ -12392,6 +13023,7 @@ pub unsafe fn zlarfg_(
     dyload_lib().zlarfg_.unwrap()(n, alpha, X, incx, tau)
 }
 
+#[inline(never)]
 pub unsafe fn clarft_(
     direct: *const c_char,
     storev: *const c_char,
@@ -12406,6 +13038,7 @@ pub unsafe fn clarft_(
     dyload_lib().clarft_.unwrap()(direct, storev, n, k, V, ldv, tau, T, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn dlarft_(
     direct: *const c_char,
     storev: *const c_char,
@@ -12420,6 +13053,7 @@ pub unsafe fn dlarft_(
     dyload_lib().dlarft_.unwrap()(direct, storev, n, k, V, ldv, tau, T, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn slarft_(
     direct: *const c_char,
     storev: *const c_char,
@@ -12434,6 +13068,7 @@ pub unsafe fn slarft_(
     dyload_lib().slarft_.unwrap()(direct, storev, n, k, V, ldv, tau, T, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn zlarft_(
     direct: *const c_char,
     storev: *const c_char,
@@ -12448,6 +13083,7 @@ pub unsafe fn zlarft_(
     dyload_lib().zlarft_.unwrap()(direct, storev, n, k, V, ldv, tau, T, ldt)
 }
 
+#[inline(never)]
 pub unsafe fn clarfx_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12461,6 +13097,7 @@ pub unsafe fn clarfx_(
     dyload_lib().clarfx_.unwrap()(side, m, n, V, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn dlarfx_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12474,6 +13111,7 @@ pub unsafe fn dlarfx_(
     dyload_lib().dlarfx_.unwrap()(side, m, n, V, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn slarfx_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12487,6 +13125,7 @@ pub unsafe fn slarfx_(
     dyload_lib().slarfx_.unwrap()(side, m, n, V, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn zlarfx_(
     side: *const c_char,
     m: *const lapack_int,
@@ -12500,6 +13139,7 @@ pub unsafe fn zlarfx_(
     dyload_lib().zlarfx_.unwrap()(side, m, n, V, tau, C, ldc, work)
 }
 
+#[inline(never)]
 pub unsafe fn clarnv_(
     idist: *const lapack_int,
     iseed: *mut lapack_int,
@@ -12509,6 +13149,7 @@ pub unsafe fn clarnv_(
     dyload_lib().clarnv_.unwrap()(idist, iseed, n, X)
 }
 
+#[inline(never)]
 pub unsafe fn dlarnv_(
     idist: *const lapack_int,
     iseed: *mut lapack_int,
@@ -12518,6 +13159,7 @@ pub unsafe fn dlarnv_(
     dyload_lib().dlarnv_.unwrap()(idist, iseed, n, X)
 }
 
+#[inline(never)]
 pub unsafe fn slarnv_(
     idist: *const lapack_int,
     iseed: *mut lapack_int,
@@ -12527,6 +13169,7 @@ pub unsafe fn slarnv_(
     dyload_lib().slarnv_.unwrap()(idist, iseed, n, X)
 }
 
+#[inline(never)]
 pub unsafe fn zlarnv_(
     idist: *const lapack_int,
     iseed: *mut lapack_int,
@@ -12536,14 +13179,17 @@ pub unsafe fn zlarnv_(
     dyload_lib().zlarnv_.unwrap()(idist, iseed, n, X)
 }
 
+#[inline(never)]
 pub unsafe fn dlartgp_(f: *const f64, g: *const f64, cs: *mut f64, sn: *mut f64, r: *mut f64) {
     dyload_lib().dlartgp_.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn slartgp_(f: *const f32, g: *const f32, cs: *mut f32, sn: *mut f32, r: *mut f32) {
     dyload_lib().slartgp_.unwrap()(f, g, cs, sn, r)
 }
 
+#[inline(never)]
 pub unsafe fn dlartgs_(
     x: *const f64,
     y: *const f64,
@@ -12554,6 +13200,7 @@ pub unsafe fn dlartgs_(
     dyload_lib().dlartgs_.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn slartgs_(
     x: *const f32,
     y: *const f32,
@@ -12564,6 +13211,7 @@ pub unsafe fn slartgs_(
     dyload_lib().slartgs_.unwrap()(x, y, sigma, cs, sn)
 }
 
+#[inline(never)]
 pub unsafe fn clascl_(
     type_: *const c_char,
     kl: *const lapack_int,
@@ -12579,6 +13227,7 @@ pub unsafe fn clascl_(
     dyload_lib().clascl_.unwrap()(type_, kl, ku, cfrom, cto, m, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlascl_(
     type_: *const c_char,
     kl: *const lapack_int,
@@ -12594,6 +13243,7 @@ pub unsafe fn dlascl_(
     dyload_lib().dlascl_.unwrap()(type_, kl, ku, cfrom, cto, m, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn slascl_(
     type_: *const c_char,
     kl: *const lapack_int,
@@ -12609,6 +13259,7 @@ pub unsafe fn slascl_(
     dyload_lib().slascl_.unwrap()(type_, kl, ku, cfrom, cto, m, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zlascl_(
     type_: *const c_char,
     kl: *const lapack_int,
@@ -12624,6 +13275,7 @@ pub unsafe fn zlascl_(
     dyload_lib().zlascl_.unwrap()(type_, kl, ku, cfrom, cto, m, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn claset_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -12636,6 +13288,7 @@ pub unsafe fn claset_(
     dyload_lib().claset_.unwrap()(uplo, m, n, alpha, beta, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn dlaset_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -12648,6 +13301,7 @@ pub unsafe fn dlaset_(
     dyload_lib().dlaset_.unwrap()(uplo, m, n, alpha, beta, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn slaset_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -12660,6 +13314,7 @@ pub unsafe fn slaset_(
     dyload_lib().slaset_.unwrap()(uplo, m, n, alpha, beta, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn zlaset_(
     uplo: *const c_char,
     m: *const lapack_int,
@@ -12672,14 +13327,17 @@ pub unsafe fn zlaset_(
     dyload_lib().zlaset_.unwrap()(uplo, m, n, alpha, beta, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn dlasrt_(id: *const c_char, n: *const lapack_int, D: *mut f64, info: *mut lapack_int) {
     dyload_lib().dlasrt_.unwrap()(id, n, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn slasrt_(id: *const c_char, n: *const lapack_int, D: *mut f32, info: *mut lapack_int) {
     dyload_lib().slasrt_.unwrap()(id, n, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn classq_(
     n: *const lapack_int,
     X: *const __BindgenComplex<f32>,
@@ -12690,6 +13348,7 @@ pub unsafe fn classq_(
     dyload_lib().classq_.unwrap()(n, X, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn dlassq_(
     n: *const lapack_int,
     X: *const f64,
@@ -12700,6 +13359,7 @@ pub unsafe fn dlassq_(
     dyload_lib().dlassq_.unwrap()(n, X, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn slassq_(
     n: *const lapack_int,
     X: *const f32,
@@ -12710,6 +13370,7 @@ pub unsafe fn slassq_(
     dyload_lib().slassq_.unwrap()(n, X, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn zlassq_(
     n: *const lapack_int,
     X: *const __BindgenComplex<f64>,
@@ -12720,6 +13381,7 @@ pub unsafe fn zlassq_(
     dyload_lib().zlassq_.unwrap()(n, X, incx, scale, sumsq)
 }
 
+#[inline(never)]
 pub unsafe fn claswp_(
     n: *const lapack_int,
     A: *mut __BindgenComplex<f32>,
@@ -12732,6 +13394,7 @@ pub unsafe fn claswp_(
     dyload_lib().claswp_.unwrap()(n, A, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn dlaswp_(
     n: *const lapack_int,
     A: *mut f64,
@@ -12744,6 +13407,7 @@ pub unsafe fn dlaswp_(
     dyload_lib().dlaswp_.unwrap()(n, A, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn slaswp_(
     n: *const lapack_int,
     A: *mut f32,
@@ -12756,6 +13420,7 @@ pub unsafe fn slaswp_(
     dyload_lib().slaswp_.unwrap()(n, A, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn zlaswp_(
     n: *const lapack_int,
     A: *mut __BindgenComplex<f64>,
@@ -12768,6 +13433,7 @@ pub unsafe fn zlaswp_(
     dyload_lib().zlaswp_.unwrap()(n, A, lda, k1, k2, ipiv, incx)
 }
 
+#[inline(never)]
 pub unsafe fn clatms_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12791,6 +13457,7 @@ pub unsafe fn clatms_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dlatms_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12814,6 +13481,7 @@ pub unsafe fn dlatms_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn slatms_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12837,6 +13505,7 @@ pub unsafe fn slatms_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zlatms_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -12860,6 +13529,7 @@ pub unsafe fn zlatms_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn clauum_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12870,6 +13540,7 @@ pub unsafe fn clauum_(
     dyload_lib().clauum_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dlauum_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12880,6 +13551,7 @@ pub unsafe fn dlauum_(
     dyload_lib().dlauum_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn slauum_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12890,6 +13562,7 @@ pub unsafe fn slauum_(
     dyload_lib().slauum_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zlauum_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12900,6 +13573,7 @@ pub unsafe fn zlauum_(
     dyload_lib().zlauum_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ilaver_(
     vers_major: *mut lapack_int,
     vers_minor: *mut lapack_int,
@@ -12908,6 +13582,7 @@ pub unsafe fn ilaver_(
     dyload_lib().ilaver_.unwrap()(vers_major, vers_minor, vers_patch)
 }
 
+#[inline(never)]
 pub unsafe fn dopgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12921,6 +13596,7 @@ pub unsafe fn dopgtr_(
     dyload_lib().dopgtr_.unwrap()(uplo, n, AP, tau, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sopgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -12934,6 +13610,7 @@ pub unsafe fn sopgtr_(
     dyload_lib().sopgtr_.unwrap()(uplo, n, AP, tau, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dopmtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -12950,6 +13627,7 @@ pub unsafe fn dopmtr_(
     dyload_lib().dopmtr_.unwrap()(side, uplo, trans, m, n, AP, tau, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sopmtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -12966,6 +13644,7 @@ pub unsafe fn sopmtr_(
     dyload_lib().sopmtr_.unwrap()(side, uplo, trans, m, n, AP, tau, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorbdb_(
     trans: *const c_char,
     signs: *const c_char,
@@ -12996,6 +13675,7 @@ pub unsafe fn dorbdb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sorbdb_(
     trans: *const c_char,
     signs: *const c_char,
@@ -13026,6 +13706,7 @@ pub unsafe fn sorbdb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dorcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -13064,6 +13745,7 @@ pub unsafe fn dorcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sorcsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -13102,6 +13784,7 @@ pub unsafe fn sorcsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dorcsd2by1_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -13131,6 +13814,7 @@ pub unsafe fn dorcsd2by1_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sorcsd2by1_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -13160,6 +13844,7 @@ pub unsafe fn sorcsd2by1_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dorgbr_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -13175,6 +13860,7 @@ pub unsafe fn dorgbr_(
     dyload_lib().dorgbr_.unwrap()(vect, m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgbr_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -13190,6 +13876,7 @@ pub unsafe fn sorgbr_(
     dyload_lib().sorgbr_.unwrap()(vect, m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorghr_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -13204,6 +13891,7 @@ pub unsafe fn dorghr_(
     dyload_lib().dorghr_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorghr_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -13218,6 +13906,7 @@ pub unsafe fn sorghr_(
     dyload_lib().sorghr_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorglq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13232,6 +13921,7 @@ pub unsafe fn dorglq_(
     dyload_lib().dorglq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorglq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13246,6 +13936,7 @@ pub unsafe fn sorglq_(
     dyload_lib().sorglq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorgql_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13260,6 +13951,7 @@ pub unsafe fn dorgql_(
     dyload_lib().dorgql_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgql_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13274,6 +13966,7 @@ pub unsafe fn sorgql_(
     dyload_lib().sorgql_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorgqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13288,6 +13981,7 @@ pub unsafe fn dorgqr_(
     dyload_lib().dorgqr_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13302,6 +13996,7 @@ pub unsafe fn sorgqr_(
     dyload_lib().sorgqr_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorgrq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13316,6 +14011,7 @@ pub unsafe fn dorgrq_(
     dyload_lib().dorgrq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgrq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13330,6 +14026,7 @@ pub unsafe fn sorgrq_(
     dyload_lib().sorgrq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13343,6 +14040,7 @@ pub unsafe fn dorgtr_(
     dyload_lib().dorgtr_.unwrap()(uplo, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13356,6 +14054,7 @@ pub unsafe fn sorgtr_(
     dyload_lib().sorgtr_.unwrap()(uplo, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorgtsqr_row_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13372,6 +14071,7 @@ pub unsafe fn dorgtsqr_row_(
     dyload_lib().dorgtsqr_row_.unwrap()(m, n, mb, nb, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorgtsqr_row_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13388,6 +14088,7 @@ pub unsafe fn sorgtsqr_row_(
     dyload_lib().sorgtsqr_row_.unwrap()(m, n, mb, nb, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dorhr_col_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13402,6 +14103,7 @@ pub unsafe fn dorhr_col_(
     dyload_lib().dorhr_col_.unwrap()(m, n, nb, A, lda, T, ldt, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn sorhr_col_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -13416,6 +14118,7 @@ pub unsafe fn sorhr_col_(
     dyload_lib().sorhr_col_.unwrap()(m, n, nb, A, lda, T, ldt, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormbr_(
     vect: *const c_char,
     side: *const c_char,
@@ -13437,6 +14140,7 @@ pub unsafe fn dormbr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sormbr_(
     vect: *const c_char,
     side: *const c_char,
@@ -13458,6 +14162,7 @@ pub unsafe fn sormbr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dormhr_(
     side: *const c_char,
     trans: *const c_char,
@@ -13479,6 +14184,7 @@ pub unsafe fn dormhr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sormhr_(
     side: *const c_char,
     trans: *const c_char,
@@ -13500,6 +14206,7 @@ pub unsafe fn sormhr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dormlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -13518,6 +14225,7 @@ pub unsafe fn dormlq_(
     dyload_lib().dormlq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -13536,6 +14244,7 @@ pub unsafe fn sormlq_(
     dyload_lib().sormlq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormql_(
     side: *const c_char,
     trans: *const c_char,
@@ -13554,6 +14263,7 @@ pub unsafe fn dormql_(
     dyload_lib().dormql_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormql_(
     side: *const c_char,
     trans: *const c_char,
@@ -13572,6 +14282,7 @@ pub unsafe fn sormql_(
     dyload_lib().sormql_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -13590,6 +14301,7 @@ pub unsafe fn dormqr_(
     dyload_lib().dormqr_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -13608,6 +14320,7 @@ pub unsafe fn sormqr_(
     dyload_lib().sormqr_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormrq_(
     side: *const c_char,
     trans: *const c_char,
@@ -13626,6 +14339,7 @@ pub unsafe fn dormrq_(
     dyload_lib().dormrq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormrq_(
     side: *const c_char,
     trans: *const c_char,
@@ -13644,6 +14358,7 @@ pub unsafe fn sormrq_(
     dyload_lib().sormrq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormrz_(
     side: *const c_char,
     trans: *const c_char,
@@ -13663,6 +14378,7 @@ pub unsafe fn dormrz_(
     dyload_lib().dormrz_.unwrap()(side, trans, m, n, k, l, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormrz_(
     side: *const c_char,
     trans: *const c_char,
@@ -13682,6 +14398,7 @@ pub unsafe fn sormrz_(
     dyload_lib().sormrz_.unwrap()(side, trans, m, n, k, l, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dormtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -13700,6 +14417,7 @@ pub unsafe fn dormtr_(
     dyload_lib().dormtr_.unwrap()(side, uplo, trans, m, n, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sormtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -13718,6 +14436,7 @@ pub unsafe fn sormtr_(
     dyload_lib().sormtr_.unwrap()(side, uplo, trans, m, n, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13733,6 +14452,7 @@ pub unsafe fn cpbcon_(
     dyload_lib().cpbcon_.unwrap()(uplo, n, kd, AB, ldab, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13748,6 +14468,7 @@ pub unsafe fn dpbcon_(
     dyload_lib().dpbcon_.unwrap()(uplo, n, kd, AB, ldab, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13763,6 +14484,7 @@ pub unsafe fn spbcon_(
     dyload_lib().spbcon_.unwrap()(uplo, n, kd, AB, ldab, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13778,6 +14500,7 @@ pub unsafe fn zpbcon_(
     dyload_lib().zpbcon_.unwrap()(uplo, n, kd, AB, ldab, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13792,6 +14515,7 @@ pub unsafe fn cpbequ_(
     dyload_lib().cpbequ_.unwrap()(uplo, n, kd, AB, ldab, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13806,6 +14530,7 @@ pub unsafe fn dpbequ_(
     dyload_lib().dpbequ_.unwrap()(uplo, n, kd, AB, ldab, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13820,6 +14545,7 @@ pub unsafe fn spbequ_(
     dyload_lib().spbequ_.unwrap()(uplo, n, kd, AB, ldab, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13834,6 +14560,7 @@ pub unsafe fn zpbequ_(
     dyload_lib().zpbequ_.unwrap()(uplo, n, kd, AB, ldab, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13858,6 +14585,7 @@ pub unsafe fn cpbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dpbrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13882,6 +14610,7 @@ pub unsafe fn dpbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn spbrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13906,6 +14635,7 @@ pub unsafe fn spbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zpbrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13930,6 +14660,7 @@ pub unsafe fn zpbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cpbstf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13941,6 +14672,7 @@ pub unsafe fn cpbstf_(
     dyload_lib().cpbstf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbstf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13952,6 +14684,7 @@ pub unsafe fn dpbstf_(
     dyload_lib().dpbstf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbstf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13963,6 +14696,7 @@ pub unsafe fn spbstf_(
     dyload_lib().spbstf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbstf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13974,6 +14708,7 @@ pub unsafe fn zpbstf_(
     dyload_lib().zpbstf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -13988,6 +14723,7 @@ pub unsafe fn cpbsv_(
     dyload_lib().cpbsv_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14002,6 +14738,7 @@ pub unsafe fn dpbsv_(
     dyload_lib().dpbsv_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14016,6 +14753,7 @@ pub unsafe fn spbsv_(
     dyload_lib().spbsv_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14030,6 +14768,7 @@ pub unsafe fn zpbsv_(
     dyload_lib().zpbsv_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14059,6 +14798,7 @@ pub unsafe fn cpbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dpbsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14088,6 +14828,7 @@ pub unsafe fn dpbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn spbsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14117,6 +14858,7 @@ pub unsafe fn spbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zpbsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14146,6 +14888,7 @@ pub unsafe fn zpbsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cpbtrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14157,6 +14900,7 @@ pub unsafe fn cpbtrf_(
     dyload_lib().cpbtrf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbtrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14168,6 +14912,7 @@ pub unsafe fn dpbtrf_(
     dyload_lib().dpbtrf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbtrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14179,6 +14924,7 @@ pub unsafe fn spbtrf_(
     dyload_lib().spbtrf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbtrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14190,6 +14936,7 @@ pub unsafe fn zpbtrf_(
     dyload_lib().zpbtrf_.unwrap()(uplo, n, kd, AB, ldab, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpbtrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14204,6 +14951,7 @@ pub unsafe fn cpbtrs_(
     dyload_lib().cpbtrs_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpbtrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14218,6 +14966,7 @@ pub unsafe fn dpbtrs_(
     dyload_lib().dpbtrs_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spbtrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14232,6 +14981,7 @@ pub unsafe fn spbtrs_(
     dyload_lib().spbtrs_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpbtrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14246,6 +14996,7 @@ pub unsafe fn zpbtrs_(
     dyload_lib().zpbtrs_.unwrap()(uplo, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpftrf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14256,6 +15007,7 @@ pub unsafe fn cpftrf_(
     dyload_lib().cpftrf_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpftrf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14266,6 +15018,7 @@ pub unsafe fn dpftrf_(
     dyload_lib().dpftrf_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn spftrf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14276,6 +15029,7 @@ pub unsafe fn spftrf_(
     dyload_lib().spftrf_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpftrf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14286,6 +15040,7 @@ pub unsafe fn zpftrf_(
     dyload_lib().zpftrf_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14296,6 +15051,7 @@ pub unsafe fn cpftri_(
     dyload_lib().cpftri_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14306,6 +15062,7 @@ pub unsafe fn dpftri_(
     dyload_lib().dpftri_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn spftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14316,6 +15073,7 @@ pub unsafe fn spftri_(
     dyload_lib().spftri_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14326,6 +15084,7 @@ pub unsafe fn zpftri_(
     dyload_lib().zpftri_.unwrap()(transr, uplo, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpftrs_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14339,6 +15098,7 @@ pub unsafe fn cpftrs_(
     dyload_lib().cpftrs_.unwrap()(transr, uplo, n, nrhs, A, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpftrs_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14352,6 +15112,7 @@ pub unsafe fn dpftrs_(
     dyload_lib().dpftrs_.unwrap()(transr, uplo, n, nrhs, A, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spftrs_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14365,6 +15126,7 @@ pub unsafe fn spftrs_(
     dyload_lib().spftrs_.unwrap()(transr, uplo, n, nrhs, A, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpftrs_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -14378,6 +15140,7 @@ pub unsafe fn zpftrs_(
     dyload_lib().zpftrs_.unwrap()(transr, uplo, n, nrhs, A, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpocon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14392,6 +15155,7 @@ pub unsafe fn cpocon_(
     dyload_lib().cpocon_.unwrap()(uplo, n, A, lda, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpocon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14406,6 +15170,7 @@ pub unsafe fn dpocon_(
     dyload_lib().dpocon_.unwrap()(uplo, n, A, lda, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn spocon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14420,6 +15185,7 @@ pub unsafe fn spocon_(
     dyload_lib().spocon_.unwrap()(uplo, n, A, lda, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpocon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14434,6 +15200,7 @@ pub unsafe fn zpocon_(
     dyload_lib().zpocon_.unwrap()(uplo, n, A, lda, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpoequ_(
     n: *const lapack_int,
     A: *const __BindgenComplex<f32>,
@@ -14446,6 +15213,7 @@ pub unsafe fn cpoequ_(
     dyload_lib().cpoequ_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpoequ_(
     n: *const lapack_int,
     A: *const f64,
@@ -14458,6 +15226,7 @@ pub unsafe fn dpoequ_(
     dyload_lib().dpoequ_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn spoequ_(
     n: *const lapack_int,
     A: *const f32,
@@ -14470,6 +15239,7 @@ pub unsafe fn spoequ_(
     dyload_lib().spoequ_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpoequ_(
     n: *const lapack_int,
     A: *const __BindgenComplex<f64>,
@@ -14482,6 +15252,7 @@ pub unsafe fn zpoequ_(
     dyload_lib().zpoequ_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpoequb_(
     n: *const lapack_int,
     A: *const __BindgenComplex<f32>,
@@ -14494,6 +15265,7 @@ pub unsafe fn cpoequb_(
     dyload_lib().cpoequb_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpoequb_(
     n: *const lapack_int,
     A: *const f64,
@@ -14506,6 +15278,7 @@ pub unsafe fn dpoequb_(
     dyload_lib().dpoequb_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn spoequb_(
     n: *const lapack_int,
     A: *const f32,
@@ -14518,6 +15291,7 @@ pub unsafe fn spoequb_(
     dyload_lib().spoequb_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpoequb_(
     n: *const lapack_int,
     A: *const __BindgenComplex<f64>,
@@ -14530,6 +15304,7 @@ pub unsafe fn zpoequb_(
     dyload_lib().zpoequb_.unwrap()(n, A, lda, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cporfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14553,6 +15328,7 @@ pub unsafe fn cporfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dporfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14576,6 +15352,7 @@ pub unsafe fn dporfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sporfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14599,6 +15376,7 @@ pub unsafe fn sporfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zporfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14622,6 +15400,7 @@ pub unsafe fn zporfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cporfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -14674,6 +15453,7 @@ pub unsafe fn cporfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dporfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -14726,6 +15506,7 @@ pub unsafe fn dporfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sporfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -14778,6 +15559,7 @@ pub unsafe fn sporfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zporfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -14830,6 +15612,7 @@ pub unsafe fn zporfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14843,6 +15626,7 @@ pub unsafe fn cposv_(
     dyload_lib().cposv_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14856,6 +15640,7 @@ pub unsafe fn dposv_(
     dyload_lib().dposv_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14869,6 +15654,7 @@ pub unsafe fn sposv_(
     dyload_lib().sposv_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14882,6 +15668,7 @@ pub unsafe fn zposv_(
     dyload_lib().zposv_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14900,6 +15687,7 @@ pub unsafe fn dsposv_(
     dyload_lib().dsposv_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, X, ldx, work, swork, iter, info)
 }
 
+#[inline(never)]
 pub unsafe fn zcposv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -14921,6 +15709,7 @@ pub unsafe fn zcposv_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cposvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14949,6 +15738,7 @@ pub unsafe fn cposvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dposvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -14977,6 +15767,7 @@ pub unsafe fn dposvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sposvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15005,6 +15796,7 @@ pub unsafe fn sposvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zposvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15033,6 +15825,7 @@ pub unsafe fn zposvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cposvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15089,6 +15882,7 @@ pub unsafe fn cposvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dposvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15145,6 +15939,7 @@ pub unsafe fn dposvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sposvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15201,6 +15996,7 @@ pub unsafe fn sposvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zposvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15257,6 +16053,7 @@ pub unsafe fn zposvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cpotf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15267,6 +16064,7 @@ pub unsafe fn cpotf2_(
     dyload_lib().cpotf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpotf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15277,6 +16075,7 @@ pub unsafe fn dpotf2_(
     dyload_lib().dpotf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn spotf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15287,6 +16086,7 @@ pub unsafe fn spotf2_(
     dyload_lib().spotf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpotf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15297,6 +16097,7 @@ pub unsafe fn zpotf2_(
     dyload_lib().zpotf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpotrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15307,6 +16108,7 @@ pub unsafe fn cpotrf_(
     dyload_lib().cpotrf_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpotrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15317,6 +16119,7 @@ pub unsafe fn dpotrf_(
     dyload_lib().dpotrf_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn spotrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15327,6 +16130,7 @@ pub unsafe fn spotrf_(
     dyload_lib().spotrf_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpotrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15337,6 +16141,7 @@ pub unsafe fn zpotrf_(
     dyload_lib().zpotrf_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpotrf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15347,6 +16152,7 @@ pub unsafe fn cpotrf2_(
     dyload_lib().cpotrf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpotrf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15357,6 +16163,7 @@ pub unsafe fn dpotrf2_(
     dyload_lib().dpotrf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn spotrf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15367,6 +16174,7 @@ pub unsafe fn spotrf2_(
     dyload_lib().spotrf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpotrf2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15377,6 +16185,7 @@ pub unsafe fn zpotrf2_(
     dyload_lib().zpotrf2_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpotri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15387,6 +16196,7 @@ pub unsafe fn cpotri_(
     dyload_lib().cpotri_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpotri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15397,6 +16207,7 @@ pub unsafe fn dpotri_(
     dyload_lib().dpotri_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn spotri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15407,6 +16218,7 @@ pub unsafe fn spotri_(
     dyload_lib().spotri_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpotri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15417,6 +16229,7 @@ pub unsafe fn zpotri_(
     dyload_lib().zpotri_.unwrap()(uplo, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpotrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15430,6 +16243,7 @@ pub unsafe fn cpotrs_(
     dyload_lib().cpotrs_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpotrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15443,6 +16257,7 @@ pub unsafe fn dpotrs_(
     dyload_lib().dpotrs_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spotrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15456,6 +16271,7 @@ pub unsafe fn spotrs_(
     dyload_lib().spotrs_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpotrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15469,6 +16285,7 @@ pub unsafe fn zpotrs_(
     dyload_lib().zpotrs_.unwrap()(uplo, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cppcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15482,6 +16299,7 @@ pub unsafe fn cppcon_(
     dyload_lib().cppcon_.unwrap()(uplo, n, AP, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dppcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15495,6 +16313,7 @@ pub unsafe fn dppcon_(
     dyload_lib().dppcon_.unwrap()(uplo, n, AP, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sppcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15508,6 +16327,7 @@ pub unsafe fn sppcon_(
     dyload_lib().sppcon_.unwrap()(uplo, n, AP, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zppcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15521,6 +16341,7 @@ pub unsafe fn zppcon_(
     dyload_lib().zppcon_.unwrap()(uplo, n, AP, anorm, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cppequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15533,6 +16354,7 @@ pub unsafe fn cppequ_(
     dyload_lib().cppequ_.unwrap()(uplo, n, AP, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn dppequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15545,6 +16367,7 @@ pub unsafe fn dppequ_(
     dyload_lib().dppequ_.unwrap()(uplo, n, AP, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn sppequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15557,6 +16380,7 @@ pub unsafe fn sppequ_(
     dyload_lib().sppequ_.unwrap()(uplo, n, AP, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn zppequ_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15569,6 +16393,7 @@ pub unsafe fn zppequ_(
     dyload_lib().zppequ_.unwrap()(uplo, n, AP, S, scond, amax, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15590,6 +16415,7 @@ pub unsafe fn cpprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dpprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15611,6 +16437,7 @@ pub unsafe fn dpprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn spprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15632,6 +16459,7 @@ pub unsafe fn spprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zpprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15653,6 +16481,7 @@ pub unsafe fn zpprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cppsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15665,6 +16494,7 @@ pub unsafe fn cppsv_(
     dyload_lib().cppsv_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dppsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15677,6 +16507,7 @@ pub unsafe fn dppsv_(
     dyload_lib().dppsv_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sppsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15689,6 +16520,7 @@ pub unsafe fn sppsv_(
     dyload_lib().sppsv_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zppsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15701,6 +16533,7 @@ pub unsafe fn zppsv_(
     dyload_lib().zppsv_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cppsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15727,6 +16560,7 @@ pub unsafe fn cppsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dppsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15753,6 +16587,7 @@ pub unsafe fn dppsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sppsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15779,6 +16614,7 @@ pub unsafe fn sppsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zppsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -15805,6 +16641,7 @@ pub unsafe fn zppsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cpptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15814,6 +16651,7 @@ pub unsafe fn cpptrf_(
     dyload_lib().cpptrf_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15823,6 +16661,7 @@ pub unsafe fn dpptrf_(
     dyload_lib().dpptrf_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn spptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15832,6 +16671,7 @@ pub unsafe fn spptrf_(
     dyload_lib().spptrf_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15841,6 +16681,7 @@ pub unsafe fn zpptrf_(
     dyload_lib().zpptrf_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15850,6 +16691,7 @@ pub unsafe fn cpptri_(
     dyload_lib().cpptri_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15859,6 +16701,7 @@ pub unsafe fn dpptri_(
     dyload_lib().dpptri_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn spptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15868,6 +16711,7 @@ pub unsafe fn spptri_(
     dyload_lib().spptri_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15877,6 +16721,7 @@ pub unsafe fn zpptri_(
     dyload_lib().zpptri_.unwrap()(uplo, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15889,6 +16734,7 @@ pub unsafe fn cpptrs_(
     dyload_lib().cpptrs_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15901,6 +16747,7 @@ pub unsafe fn dpptrs_(
     dyload_lib().dpptrs_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15913,6 +16760,7 @@ pub unsafe fn spptrs_(
     dyload_lib().spptrs_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15925,6 +16773,7 @@ pub unsafe fn zpptrs_(
     dyload_lib().zpptrs_.unwrap()(uplo, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpstrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15939,6 +16788,7 @@ pub unsafe fn cpstrf_(
     dyload_lib().cpstrf_.unwrap()(uplo, n, A, lda, piv, rank, tol, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpstrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15953,6 +16803,7 @@ pub unsafe fn dpstrf_(
     dyload_lib().dpstrf_.unwrap()(uplo, n, A, lda, piv, rank, tol, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn spstrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15967,6 +16818,7 @@ pub unsafe fn spstrf_(
     dyload_lib().spstrf_.unwrap()(uplo, n, A, lda, piv, rank, tol, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpstrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -15981,6 +16833,7 @@ pub unsafe fn zpstrf_(
     dyload_lib().zpstrf_.unwrap()(uplo, n, A, lda, piv, rank, tol, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cptcon_(
     n: *const lapack_int,
     D: *const f32,
@@ -15993,6 +16846,7 @@ pub unsafe fn cptcon_(
     dyload_lib().cptcon_.unwrap()(n, D, E, anorm, rcond, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dptcon_(
     n: *const lapack_int,
     D: *const f64,
@@ -16005,6 +16859,7 @@ pub unsafe fn dptcon_(
     dyload_lib().dptcon_.unwrap()(n, D, E, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sptcon_(
     n: *const lapack_int,
     D: *const f32,
@@ -16017,6 +16872,7 @@ pub unsafe fn sptcon_(
     dyload_lib().sptcon_.unwrap()(n, D, E, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zptcon_(
     n: *const lapack_int,
     D: *const f64,
@@ -16029,6 +16885,7 @@ pub unsafe fn zptcon_(
     dyload_lib().zptcon_.unwrap()(n, D, E, anorm, rcond, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -16042,6 +16899,7 @@ pub unsafe fn cpteqr_(
     dyload_lib().cpteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -16055,6 +16913,7 @@ pub unsafe fn dpteqr_(
     dyload_lib().dpteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn spteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -16068,6 +16927,7 @@ pub unsafe fn spteqr_(
     dyload_lib().spteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -16081,6 +16941,7 @@ pub unsafe fn zpteqr_(
     dyload_lib().zpteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cptrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16104,6 +16965,7 @@ pub unsafe fn cptrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dptrfs_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16123,6 +16985,7 @@ pub unsafe fn dptrfs_(
     dyload_lib().dptrfs_.unwrap()(n, nrhs, D, E, DF, EF, B, ldb, X, ldx, ferr, berr, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sptrfs_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16142,6 +17005,7 @@ pub unsafe fn sptrfs_(
     dyload_lib().sptrfs_.unwrap()(n, nrhs, D, E, DF, EF, B, ldb, X, ldx, ferr, berr, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zptrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16165,6 +17029,7 @@ pub unsafe fn zptrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cptsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16177,6 +17042,7 @@ pub unsafe fn cptsv_(
     dyload_lib().cptsv_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dptsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16189,6 +17055,7 @@ pub unsafe fn dptsv_(
     dyload_lib().dptsv_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sptsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16201,6 +17068,7 @@ pub unsafe fn sptsv_(
     dyload_lib().sptsv_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zptsv_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16213,6 +17081,7 @@ pub unsafe fn zptsv_(
     dyload_lib().zptsv_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cptsvx_(
     fact: *const c_char,
     n: *const lapack_int,
@@ -16237,6 +17106,7 @@ pub unsafe fn cptsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dptsvx_(
     fact: *const c_char,
     n: *const lapack_int,
@@ -16260,6 +17130,7 @@ pub unsafe fn dptsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sptsvx_(
     fact: *const c_char,
     n: *const lapack_int,
@@ -16283,6 +17154,7 @@ pub unsafe fn sptsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zptsvx_(
     fact: *const c_char,
     n: *const lapack_int,
@@ -16307,6 +17179,7 @@ pub unsafe fn zptsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cpttrf_(
     n: *const lapack_int,
     D: *mut f32,
@@ -16316,14 +17189,17 @@ pub unsafe fn cpttrf_(
     dyload_lib().cpttrf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpttrf_(n: *const lapack_int, D: *mut f64, E: *mut f64, info: *mut lapack_int) {
     dyload_lib().dpttrf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn spttrf_(n: *const lapack_int, D: *mut f32, E: *mut f32, info: *mut lapack_int) {
     dyload_lib().spttrf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpttrf_(
     n: *const lapack_int,
     D: *mut f64,
@@ -16333,6 +17209,7 @@ pub unsafe fn zpttrf_(
     dyload_lib().zpttrf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn cpttrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16346,6 +17223,7 @@ pub unsafe fn cpttrs_(
     dyload_lib().cpttrs_.unwrap()(uplo, n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dpttrs_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16358,6 +17236,7 @@ pub unsafe fn dpttrs_(
     dyload_lib().dpttrs_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn spttrs_(
     n: *const lapack_int,
     nrhs: *const lapack_int,
@@ -16370,6 +17249,7 @@ pub unsafe fn spttrs_(
     dyload_lib().spttrs_.unwrap()(n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zpttrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16383,6 +17263,7 @@ pub unsafe fn zpttrs_(
     dyload_lib().zpttrs_.unwrap()(uplo, n, nrhs, D, E, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsbev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16399,6 +17280,7 @@ pub unsafe fn dsbev_(
     dyload_lib().dsbev_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssbev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16415,6 +17297,7 @@ pub unsafe fn ssbev_(
     dyload_lib().ssbev_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsbev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16432,6 +17315,7 @@ pub unsafe fn dsbev_2stage_(
     dyload_lib().dsbev_2stage_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssbev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16449,6 +17333,7 @@ pub unsafe fn ssbev_2stage_(
     dyload_lib().ssbev_2stage_.unwrap()(jobz, uplo, n, kd, AB, ldab, W, Z, ldz, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsbevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16470,6 +17355,7 @@ pub unsafe fn dsbevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16491,6 +17377,7 @@ pub unsafe fn ssbevd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16512,6 +17399,7 @@ pub unsafe fn dsbevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16533,6 +17421,7 @@ pub unsafe fn ssbevd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16563,6 +17452,7 @@ pub unsafe fn dsbevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16593,6 +17483,7 @@ pub unsafe fn ssbevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16624,6 +17515,7 @@ pub unsafe fn dsbevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16655,6 +17547,7 @@ pub unsafe fn ssbevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbgst_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -16673,6 +17566,7 @@ pub unsafe fn dsbgst_(
     dyload_lib().dsbgst_.unwrap()(vect, uplo, n, ka, kb, AB, ldab, BB, ldbb, X, ldx, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssbgst_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -16691,6 +17585,7 @@ pub unsafe fn ssbgst_(
     dyload_lib().ssbgst_.unwrap()(vect, uplo, n, ka, kb, AB, ldab, BB, ldbb, X, ldx, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsbgv_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16710,6 +17605,7 @@ pub unsafe fn dsbgv_(
     dyload_lib().dsbgv_.unwrap()(jobz, uplo, n, ka, kb, AB, ldab, BB, ldbb, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssbgv_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16729,6 +17625,7 @@ pub unsafe fn ssbgv_(
     dyload_lib().ssbgv_.unwrap()(jobz, uplo, n, ka, kb, AB, ldab, BB, ldbb, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsbgvd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16753,6 +17650,7 @@ pub unsafe fn dsbgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbgvd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16777,6 +17675,7 @@ pub unsafe fn ssbgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbgvx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16810,6 +17709,7 @@ pub unsafe fn dsbgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssbgvx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -16843,6 +17743,7 @@ pub unsafe fn ssbgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsbtrd_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -16860,6 +17761,7 @@ pub unsafe fn dsbtrd_(
     dyload_lib().dsbtrd_.unwrap()(vect, uplo, n, kd, AB, ldab, D, E, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssbtrd_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -16877,6 +17779,7 @@ pub unsafe fn ssbtrd_(
     dyload_lib().ssbtrd_.unwrap()(vect, uplo, n, kd, AB, ldab, D, E, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsfrk_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -16892,6 +17795,7 @@ pub unsafe fn dsfrk_(
     dyload_lib().dsfrk_.unwrap()(transr, uplo, trans, n, k, alpha, A, lda, beta, C)
 }
 
+#[inline(never)]
 pub unsafe fn ssfrk_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -16907,6 +17811,7 @@ pub unsafe fn ssfrk_(
     dyload_lib().ssfrk_.unwrap()(transr, uplo, trans, n, k, alpha, A, lda, beta, C)
 }
 
+#[inline(never)]
 pub unsafe fn cspcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16920,6 +17825,7 @@ pub unsafe fn cspcon_(
     dyload_lib().cspcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16934,6 +17840,7 @@ pub unsafe fn dspcon_(
     dyload_lib().dspcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16948,6 +17855,7 @@ pub unsafe fn sspcon_(
     dyload_lib().sspcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zspcon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -16961,6 +17869,7 @@ pub unsafe fn zspcon_(
     dyload_lib().zspcon_.unwrap()(uplo, n, AP, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16975,6 +17884,7 @@ pub unsafe fn dspev_(
     dyload_lib().dspev_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -16989,6 +17899,7 @@ pub unsafe fn sspev_(
     dyload_lib().sspev_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -17006,6 +17917,7 @@ pub unsafe fn dspevd_(
     dyload_lib().dspevd_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -17023,6 +17935,7 @@ pub unsafe fn sspevd_(
     dyload_lib().sspevd_.unwrap()(jobz, uplo, n, AP, W, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17048,6 +17961,7 @@ pub unsafe fn dspevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sspevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17073,6 +17987,7 @@ pub unsafe fn sspevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dspgst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -17084,6 +17999,7 @@ pub unsafe fn dspgst_(
     dyload_lib().dspgst_.unwrap()(itype, uplo, n, AP, BP, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspgst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -17095,6 +18011,7 @@ pub unsafe fn sspgst_(
     dyload_lib().sspgst_.unwrap()(itype, uplo, n, AP, BP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspgv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17111,6 +18028,7 @@ pub unsafe fn dspgv_(
     dyload_lib().dspgv_.unwrap()(itype, jobz, uplo, n, AP, BP, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspgv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17127,6 +18045,7 @@ pub unsafe fn sspgv_(
     dyload_lib().sspgv_.unwrap()(itype, jobz, uplo, n, AP, BP, W, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspgvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17148,6 +18067,7 @@ pub unsafe fn dspgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sspgvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17169,6 +18089,7 @@ pub unsafe fn sspgvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dspgvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17197,6 +18118,7 @@ pub unsafe fn dspgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sspgvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -17225,6 +18147,7 @@ pub unsafe fn sspgvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17247,6 +18170,7 @@ pub unsafe fn csprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17269,6 +18193,7 @@ pub unsafe fn dsprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17291,6 +18216,7 @@ pub unsafe fn ssprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsprfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17313,6 +18239,7 @@ pub unsafe fn zsprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cspsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17326,6 +18253,7 @@ pub unsafe fn cspsv_(
     dyload_lib().cspsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dspsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17339,6 +18267,7 @@ pub unsafe fn dspsv_(
     dyload_lib().dspsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn sspsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17352,6 +18281,7 @@ pub unsafe fn sspsv_(
     dyload_lib().sspsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zspsv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17365,6 +18295,7 @@ pub unsafe fn zspsv_(
     dyload_lib().zspsv_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn cspsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -17389,6 +18320,7 @@ pub unsafe fn cspsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dspsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -17413,6 +18345,7 @@ pub unsafe fn dspsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sspsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -17437,6 +18370,7 @@ pub unsafe fn sspsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zspsvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -17461,6 +18395,7 @@ pub unsafe fn zspsvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsptrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17473,6 +18408,7 @@ pub unsafe fn dsptrd_(
     dyload_lib().dsptrd_.unwrap()(uplo, n, AP, D, E, tau, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssptrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17485,6 +18421,7 @@ pub unsafe fn ssptrd_(
     dyload_lib().ssptrd_.unwrap()(uplo, n, AP, D, E, tau, info)
 }
 
+#[inline(never)]
 pub unsafe fn csptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17495,6 +18432,7 @@ pub unsafe fn csptrf_(
     dyload_lib().csptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17505,6 +18443,7 @@ pub unsafe fn dsptrf_(
     dyload_lib().dsptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17515,6 +18454,7 @@ pub unsafe fn ssptrf_(
     dyload_lib().ssptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsptrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17525,6 +18465,7 @@ pub unsafe fn zsptrf_(
     dyload_lib().zsptrf_.unwrap()(uplo, n, AP, ipiv, info)
 }
 
+#[inline(never)]
 pub unsafe fn csptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17536,6 +18477,7 @@ pub unsafe fn csptri_(
     dyload_lib().csptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17547,6 +18489,7 @@ pub unsafe fn dsptri_(
     dyload_lib().dsptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17558,6 +18501,7 @@ pub unsafe fn ssptri_(
     dyload_lib().ssptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsptri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17569,6 +18513,7 @@ pub unsafe fn zsptri_(
     dyload_lib().zsptri_.unwrap()(uplo, n, AP, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn csptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17582,6 +18527,7 @@ pub unsafe fn csptrs_(
     dyload_lib().csptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17595,6 +18541,7 @@ pub unsafe fn dsptrs_(
     dyload_lib().dsptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17608,6 +18555,7 @@ pub unsafe fn ssptrs_(
     dyload_lib().ssptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsptrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -17621,6 +18569,7 @@ pub unsafe fn zsptrs_(
     dyload_lib().zsptrs_.unwrap()(uplo, n, nrhs, AP, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dstebz_(
     range: *const c_char,
     order: *const c_char,
@@ -17647,6 +18596,7 @@ pub unsafe fn dstebz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sstebz_(
     range: *const c_char,
     order: *const c_char,
@@ -17673,6 +18623,7 @@ pub unsafe fn sstebz_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cstedc_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -17693,6 +18644,7 @@ pub unsafe fn cstedc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dstedc_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -17709,6 +18661,7 @@ pub unsafe fn dstedc_(
     dyload_lib().dstedc_.unwrap()(compz, n, D, E, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sstedc_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -17725,6 +18678,7 @@ pub unsafe fn sstedc_(
     dyload_lib().sstedc_.unwrap()(compz, n, D, E, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zstedc_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -17745,6 +18699,7 @@ pub unsafe fn zstedc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cstegr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17773,6 +18728,7 @@ pub unsafe fn cstegr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dstegr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17801,6 +18757,7 @@ pub unsafe fn dstegr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sstegr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17829,6 +18786,7 @@ pub unsafe fn sstegr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zstegr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17857,6 +18815,7 @@ pub unsafe fn zstegr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cstein_(
     n: *const lapack_int,
     D: *const f32,
@@ -17875,6 +18834,7 @@ pub unsafe fn cstein_(
     dyload_lib().cstein_.unwrap()(n, D, E, m, W, IBLOCK, ISPLIT, Z, ldz, work, iwork, IFAIL, info)
 }
 
+#[inline(never)]
 pub unsafe fn dstein_(
     n: *const lapack_int,
     D: *const f64,
@@ -17893,6 +18853,7 @@ pub unsafe fn dstein_(
     dyload_lib().dstein_.unwrap()(n, D, E, m, W, IBLOCK, ISPLIT, Z, ldz, work, iwork, IFAIL, info)
 }
 
+#[inline(never)]
 pub unsafe fn sstein_(
     n: *const lapack_int,
     D: *const f32,
@@ -17911,6 +18872,7 @@ pub unsafe fn sstein_(
     dyload_lib().sstein_.unwrap()(n, D, E, m, W, IBLOCK, ISPLIT, Z, ldz, work, iwork, IFAIL, info)
 }
 
+#[inline(never)]
 pub unsafe fn zstein_(
     n: *const lapack_int,
     D: *const f64,
@@ -17929,6 +18891,7 @@ pub unsafe fn zstein_(
     dyload_lib().zstein_.unwrap()(n, D, E, m, W, IBLOCK, ISPLIT, Z, ldz, work, iwork, IFAIL, info)
 }
 
+#[inline(never)]
 pub unsafe fn cstemr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17958,6 +18921,7 @@ pub unsafe fn cstemr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dstemr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -17987,6 +18951,7 @@ pub unsafe fn dstemr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sstemr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18016,6 +18981,7 @@ pub unsafe fn sstemr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zstemr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18045,6 +19011,7 @@ pub unsafe fn zstemr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -18058,6 +19025,7 @@ pub unsafe fn csteqr_(
     dyload_lib().csteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -18071,6 +19039,7 @@ pub unsafe fn dsteqr_(
     dyload_lib().dsteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -18084,6 +19053,7 @@ pub unsafe fn ssteqr_(
     dyload_lib().ssteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsteqr_(
     compz: *const c_char,
     n: *const lapack_int,
@@ -18097,14 +19067,17 @@ pub unsafe fn zsteqr_(
     dyload_lib().zsteqr_.unwrap()(compz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsterf_(n: *const lapack_int, D: *mut f64, E: *mut f64, info: *mut lapack_int) {
     dyload_lib().dsterf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssterf_(n: *const lapack_int, D: *mut f32, E: *mut f32, info: *mut lapack_int) {
     dyload_lib().ssterf_.unwrap()(n, D, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn dstev_(
     jobz: *const c_char,
     n: *const lapack_int,
@@ -18118,6 +19091,7 @@ pub unsafe fn dstev_(
     dyload_lib().dstev_.unwrap()(jobz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn sstev_(
     jobz: *const c_char,
     n: *const lapack_int,
@@ -18131,6 +19105,7 @@ pub unsafe fn sstev_(
     dyload_lib().sstev_.unwrap()(jobz, n, D, E, Z, ldz, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dstevd_(
     jobz: *const c_char,
     n: *const lapack_int,
@@ -18147,6 +19122,7 @@ pub unsafe fn dstevd_(
     dyload_lib().dstevd_.unwrap()(jobz, n, D, E, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn sstevd_(
     jobz: *const c_char,
     n: *const lapack_int,
@@ -18163,6 +19139,7 @@ pub unsafe fn sstevd_(
     dyload_lib().sstevd_.unwrap()(jobz, n, D, E, Z, ldz, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dstevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18191,6 +19168,7 @@ pub unsafe fn dstevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sstevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18219,6 +19197,7 @@ pub unsafe fn sstevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dstevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18244,6 +19223,7 @@ pub unsafe fn dstevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn sstevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18269,6 +19249,7 @@ pub unsafe fn sstevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csycon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18283,6 +19264,7 @@ pub unsafe fn csycon_(
     dyload_lib().csycon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsycon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18298,6 +19280,7 @@ pub unsafe fn dsycon_(
     dyload_lib().dsycon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssycon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18313,6 +19296,7 @@ pub unsafe fn ssycon_(
     dyload_lib().ssycon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsycon_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18327,6 +19311,7 @@ pub unsafe fn zsycon_(
     dyload_lib().zsycon_.unwrap()(uplo, n, A, lda, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn csycon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18342,6 +19327,7 @@ pub unsafe fn csycon_3_(
     dyload_lib().csycon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsycon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18358,6 +19344,7 @@ pub unsafe fn dsycon_3_(
     dyload_lib().dsycon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssycon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18374,6 +19361,7 @@ pub unsafe fn ssycon_3_(
     dyload_lib().ssycon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsycon_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18389,6 +19377,7 @@ pub unsafe fn zsycon_3_(
     dyload_lib().zsycon_3_.unwrap()(uplo, n, A, lda, E, ipiv, anorm, rcond, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn csyconv_(
     uplo: *const c_char,
     way: *const c_char,
@@ -18402,6 +19391,7 @@ pub unsafe fn csyconv_(
     dyload_lib().csyconv_.unwrap()(uplo, way, n, A, lda, ipiv, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyconv_(
     uplo: *const c_char,
     way: *const c_char,
@@ -18415,6 +19405,7 @@ pub unsafe fn dsyconv_(
     dyload_lib().dsyconv_.unwrap()(uplo, way, n, A, lda, ipiv, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyconv_(
     uplo: *const c_char,
     way: *const c_char,
@@ -18428,6 +19419,7 @@ pub unsafe fn ssyconv_(
     dyload_lib().ssyconv_.unwrap()(uplo, way, n, A, lda, ipiv, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsyconv_(
     uplo: *const c_char,
     way: *const c_char,
@@ -18441,6 +19433,7 @@ pub unsafe fn zsyconv_(
     dyload_lib().zsyconv_.unwrap()(uplo, way, n, A, lda, ipiv, E, info)
 }
 
+#[inline(never)]
 pub unsafe fn csyequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18455,6 +19448,7 @@ pub unsafe fn csyequb_(
     dyload_lib().csyequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18469,6 +19463,7 @@ pub unsafe fn dsyequb_(
     dyload_lib().dsyequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18483,6 +19478,7 @@ pub unsafe fn ssyequb_(
     dyload_lib().ssyequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsyequb_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -18497,6 +19493,7 @@ pub unsafe fn zsyequb_(
     dyload_lib().zsyequb_.unwrap()(uplo, n, A, lda, S, scond, amax, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18511,6 +19508,7 @@ pub unsafe fn dsyev_(
     dyload_lib().dsyev_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyev_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18525,6 +19523,7 @@ pub unsafe fn ssyev_(
     dyload_lib().ssyev_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18539,6 +19538,7 @@ pub unsafe fn dsyev_2stage_(
     dyload_lib().dsyev_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyev_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18553,6 +19553,7 @@ pub unsafe fn ssyev_2stage_(
     dyload_lib().ssyev_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18569,6 +19570,7 @@ pub unsafe fn dsyevd_(
     dyload_lib().dsyevd_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyevd_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18585,6 +19587,7 @@ pub unsafe fn ssyevd_(
     dyload_lib().ssyevd_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18601,6 +19604,7 @@ pub unsafe fn dsyevd_2stage_(
     dyload_lib().dsyevd_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssyevd_2stage_(
     jobz: *const c_char,
     uplo: *const c_char,
@@ -18617,6 +19621,7 @@ pub unsafe fn ssyevd_2stage_(
     dyload_lib().ssyevd_2stage_.unwrap()(jobz, uplo, n, A, lda, W, work, lwork, iwork, liwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsyevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18646,6 +19651,7 @@ pub unsafe fn dsyevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyevr_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18675,6 +19681,7 @@ pub unsafe fn ssyevr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsyevr_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18704,6 +19711,7 @@ pub unsafe fn dsyevr_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyevr_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18733,6 +19741,7 @@ pub unsafe fn ssyevr_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsyevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18761,6 +19770,7 @@ pub unsafe fn dsyevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyevx_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18789,6 +19799,7 @@ pub unsafe fn ssyevx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsyevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18817,6 +19828,7 @@ pub unsafe fn dsyevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyevx_2stage_(
     jobz: *const c_char,
     range: *const c_char,
@@ -18845,6 +19857,7 @@ pub unsafe fn ssyevx_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsygst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -18858,6 +19871,7 @@ pub unsafe fn dsygst_(
     dyload_lib().dsygst_.unwrap()(itype, uplo, n, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssygst_(
     itype: *const lapack_int,
     uplo: *const c_char,
@@ -18871,6 +19885,7 @@ pub unsafe fn ssygst_(
     dyload_lib().ssygst_.unwrap()(itype, uplo, n, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsygv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18888,6 +19903,7 @@ pub unsafe fn dsygv_(
     dyload_lib().dsygv_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssygv_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18905,6 +19921,7 @@ pub unsafe fn ssygv_(
     dyload_lib().ssygv_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsygv_2stage_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18922,6 +19939,7 @@ pub unsafe fn dsygv_2stage_(
     dyload_lib().dsygv_2stage_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssygv_2stage_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18939,6 +19957,7 @@ pub unsafe fn ssygv_2stage_(
     dyload_lib().ssygv_2stage_.unwrap()(itype, jobz, uplo, n, A, lda, B, ldb, W, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsygvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18960,6 +19979,7 @@ pub unsafe fn dsygvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssygvd_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -18981,6 +20001,7 @@ pub unsafe fn ssygvd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsygvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -19012,6 +20033,7 @@ pub unsafe fn dsygvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssygvx_(
     itype: *const lapack_int,
     jobz: *const c_char,
@@ -19043,6 +20065,7 @@ pub unsafe fn ssygvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csyr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19055,6 +20078,7 @@ pub unsafe fn csyr_(
     dyload_lib().csyr_.unwrap()(uplo, n, alpha, X, incx, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn zsyr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19067,6 +20091,7 @@ pub unsafe fn zsyr_(
     dyload_lib().zsyr_.unwrap()(uplo, n, alpha, X, incx, A, lda)
 }
 
+#[inline(never)]
 pub unsafe fn csyrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19091,6 +20116,7 @@ pub unsafe fn csyrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsyrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19115,6 +20141,7 @@ pub unsafe fn dsyrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19139,6 +20166,7 @@ pub unsafe fn ssyrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsyrfs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19163,6 +20191,7 @@ pub unsafe fn zsyrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csyrfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -19217,6 +20246,7 @@ pub unsafe fn csyrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsyrfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -19271,6 +20301,7 @@ pub unsafe fn dsyrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssyrfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -19325,6 +20356,7 @@ pub unsafe fn ssyrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsyrfsx_(
     uplo: *const c_char,
     equed: *const c_char,
@@ -19379,6 +20411,7 @@ pub unsafe fn zsyrfsx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csysv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19395,6 +20428,7 @@ pub unsafe fn csysv_(
     dyload_lib().csysv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsysv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19411,6 +20445,7 @@ pub unsafe fn dsysv_(
     dyload_lib().dsysv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssysv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19427,6 +20462,7 @@ pub unsafe fn ssysv_(
     dyload_lib().ssysv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsysv_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19443,6 +20479,7 @@ pub unsafe fn zsysv_(
     dyload_lib().zsysv_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csysv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19459,6 +20496,7 @@ pub unsafe fn csysv_aa_(
     dyload_lib().csysv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsysv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19475,6 +20513,7 @@ pub unsafe fn dsysv_aa_(
     dyload_lib().dsysv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssysv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19491,6 +20530,7 @@ pub unsafe fn ssysv_aa_(
     dyload_lib().ssysv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsysv_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19507,6 +20547,7 @@ pub unsafe fn zsysv_aa_(
     dyload_lib().zsysv_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csysv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19528,6 +20569,7 @@ pub unsafe fn csysv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsysv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19549,6 +20591,7 @@ pub unsafe fn dsysv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssysv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19570,6 +20613,7 @@ pub unsafe fn ssysv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsysv_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19591,6 +20635,7 @@ pub unsafe fn zsysv_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csysv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19608,6 +20653,7 @@ pub unsafe fn csysv_rk_(
     dyload_lib().csysv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsysv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19625,6 +20671,7 @@ pub unsafe fn dsysv_rk_(
     dyload_lib().dsysv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssysv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19642,6 +20689,7 @@ pub unsafe fn ssysv_rk_(
     dyload_lib().ssysv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsysv_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19659,6 +20707,7 @@ pub unsafe fn zsysv_rk_(
     dyload_lib().zsysv_rk_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csysv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19675,6 +20724,7 @@ pub unsafe fn csysv_rook_(
     dyload_lib().csysv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsysv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19691,6 +20741,7 @@ pub unsafe fn dsysv_rook_(
     dyload_lib().dsysv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssysv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19707,6 +20758,7 @@ pub unsafe fn ssysv_rook_(
     dyload_lib().ssysv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsysv_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -19723,6 +20775,7 @@ pub unsafe fn zsysv_rook_(
     dyload_lib().zsysv_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csysvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19751,6 +20804,7 @@ pub unsafe fn csysvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsysvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19779,6 +20833,7 @@ pub unsafe fn dsysvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssysvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19807,6 +20862,7 @@ pub unsafe fn ssysvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsysvx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19835,6 +20891,7 @@ pub unsafe fn zsysvx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csysvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19893,6 +20950,7 @@ pub unsafe fn csysvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsysvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -19951,6 +21009,7 @@ pub unsafe fn dsysvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssysvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -20009,6 +21068,7 @@ pub unsafe fn ssysvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsysvxx_(
     fact: *const c_char,
     uplo: *const c_char,
@@ -20067,6 +21127,7 @@ pub unsafe fn zsysvxx_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csyswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20078,6 +21139,7 @@ pub unsafe fn csyswapr_(
     dyload_lib().csyswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn dsyswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20089,6 +21151,7 @@ pub unsafe fn dsyswapr_(
     dyload_lib().dsyswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn ssyswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20100,6 +21163,7 @@ pub unsafe fn ssyswapr_(
     dyload_lib().ssyswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn zsyswapr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20111,6 +21175,7 @@ pub unsafe fn zsyswapr_(
     dyload_lib().zsyswapr_.unwrap()(uplo, n, A, lda, i1, i2)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20126,6 +21191,7 @@ pub unsafe fn dsytrd_(
     dyload_lib().dsytrd_.unwrap()(uplo, n, A, lda, D, E, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrd_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20141,6 +21207,7 @@ pub unsafe fn ssytrd_(
     dyload_lib().ssytrd_.unwrap()(uplo, n, A, lda, D, E, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrd_2stage_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -20161,6 +21228,7 @@ pub unsafe fn dsytrd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssytrd_2stage_(
     vect: *const c_char,
     uplo: *const c_char,
@@ -20181,6 +21249,7 @@ pub unsafe fn ssytrd_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csytrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20194,6 +21263,7 @@ pub unsafe fn csytrf_(
     dyload_lib().csytrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20207,6 +21277,7 @@ pub unsafe fn dsytrf_(
     dyload_lib().dsytrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20220,6 +21291,7 @@ pub unsafe fn ssytrf_(
     dyload_lib().ssytrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrf_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20233,6 +21305,7 @@ pub unsafe fn zsytrf_(
     dyload_lib().zsytrf_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20246,6 +21319,7 @@ pub unsafe fn csytrf_aa_(
     dyload_lib().csytrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20259,6 +21333,7 @@ pub unsafe fn dsytrf_aa_(
     dyload_lib().dsytrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20272,6 +21347,7 @@ pub unsafe fn ssytrf_aa_(
     dyload_lib().ssytrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrf_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20285,6 +21361,7 @@ pub unsafe fn zsytrf_aa_(
     dyload_lib().zsytrf_aa_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20303,6 +21380,7 @@ pub unsafe fn csytrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsytrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20321,6 +21399,7 @@ pub unsafe fn dsytrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssytrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20339,6 +21418,7 @@ pub unsafe fn ssytrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsytrf_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20357,6 +21437,7 @@ pub unsafe fn zsytrf_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csytrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20371,6 +21452,7 @@ pub unsafe fn csytrf_rk_(
     dyload_lib().csytrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20385,6 +21467,7 @@ pub unsafe fn dsytrf_rk_(
     dyload_lib().dsytrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20399,6 +21482,7 @@ pub unsafe fn ssytrf_rk_(
     dyload_lib().ssytrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrf_rk_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20413,6 +21497,7 @@ pub unsafe fn zsytrf_rk_(
     dyload_lib().zsytrf_rk_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20426,6 +21511,7 @@ pub unsafe fn csytrf_rook_(
     dyload_lib().csytrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20439,6 +21525,7 @@ pub unsafe fn dsytrf_rook_(
     dyload_lib().dsytrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20452,6 +21539,7 @@ pub unsafe fn ssytrf_rook_(
     dyload_lib().ssytrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrf_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20465,6 +21553,7 @@ pub unsafe fn zsytrf_rook_(
     dyload_lib().zsytrf_rook_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20477,6 +21566,7 @@ pub unsafe fn csytri_(
     dyload_lib().csytri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20489,6 +21579,7 @@ pub unsafe fn dsytri_(
     dyload_lib().dsytri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20501,6 +21592,7 @@ pub unsafe fn ssytri_(
     dyload_lib().ssytri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytri_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20513,6 +21605,7 @@ pub unsafe fn zsytri_(
     dyload_lib().zsytri_.unwrap()(uplo, n, A, lda, ipiv, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20526,6 +21619,7 @@ pub unsafe fn csytri2_(
     dyload_lib().csytri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20539,6 +21633,7 @@ pub unsafe fn dsytri2_(
     dyload_lib().dsytri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20552,6 +21647,7 @@ pub unsafe fn ssytri2_(
     dyload_lib().ssytri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytri2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20565,6 +21661,7 @@ pub unsafe fn zsytri2_(
     dyload_lib().zsytri2_.unwrap()(uplo, n, A, lda, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20578,6 +21675,7 @@ pub unsafe fn csytri2x_(
     dyload_lib().csytri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20591,6 +21689,7 @@ pub unsafe fn dsytri2x_(
     dyload_lib().dsytri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20604,6 +21703,7 @@ pub unsafe fn ssytri2x_(
     dyload_lib().ssytri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytri2x_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20617,6 +21717,7 @@ pub unsafe fn zsytri2x_(
     dyload_lib().zsytri2x_.unwrap()(uplo, n, A, lda, ipiv, work, nb, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20631,6 +21732,7 @@ pub unsafe fn csytri_3_(
     dyload_lib().csytri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20645,6 +21747,7 @@ pub unsafe fn dsytri_3_(
     dyload_lib().dsytri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20659,6 +21762,7 @@ pub unsafe fn ssytri_3_(
     dyload_lib().ssytri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytri_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20673,6 +21777,7 @@ pub unsafe fn zsytri_3_(
     dyload_lib().zsytri_3_.unwrap()(uplo, n, A, lda, E, ipiv, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20687,6 +21792,7 @@ pub unsafe fn csytrs_(
     dyload_lib().csytrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20701,6 +21807,7 @@ pub unsafe fn dsytrs_(
     dyload_lib().dsytrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20715,6 +21822,7 @@ pub unsafe fn ssytrs_(
     dyload_lib().ssytrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20729,6 +21837,7 @@ pub unsafe fn zsytrs_(
     dyload_lib().zsytrs_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20744,6 +21853,7 @@ pub unsafe fn csytrs2_(
     dyload_lib().csytrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20759,6 +21869,7 @@ pub unsafe fn dsytrs2_(
     dyload_lib().dsytrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20774,6 +21885,7 @@ pub unsafe fn ssytrs2_(
     dyload_lib().ssytrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs2_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20789,6 +21901,7 @@ pub unsafe fn zsytrs2_(
     dyload_lib().zsytrs2_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20804,6 +21917,7 @@ pub unsafe fn csytrs_3_(
     dyload_lib().csytrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20819,6 +21933,7 @@ pub unsafe fn dsytrs_3_(
     dyload_lib().dsytrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20834,6 +21949,7 @@ pub unsafe fn ssytrs_3_(
     dyload_lib().ssytrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs_3_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20849,6 +21965,7 @@ pub unsafe fn zsytrs_3_(
     dyload_lib().zsytrs_3_.unwrap()(uplo, n, nrhs, A, lda, E, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20865,6 +21982,7 @@ pub unsafe fn csytrs_aa_(
     dyload_lib().csytrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20881,6 +21999,7 @@ pub unsafe fn dsytrs_aa_(
     dyload_lib().dsytrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20897,6 +22016,7 @@ pub unsafe fn ssytrs_aa_(
     dyload_lib().ssytrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs_aa_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20913,6 +22033,7 @@ pub unsafe fn zsytrs_aa_(
     dyload_lib().zsytrs_aa_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn csytrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20932,6 +22053,7 @@ pub unsafe fn csytrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20951,6 +22073,7 @@ pub unsafe fn dsytrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20970,6 +22093,7 @@ pub unsafe fn ssytrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs_aa_2stage_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -20989,6 +22113,7 @@ pub unsafe fn zsytrs_aa_2stage_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn csytrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -21003,6 +22128,7 @@ pub unsafe fn csytrs_rook_(
     dyload_lib().csytrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dsytrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -21017,6 +22143,7 @@ pub unsafe fn dsytrs_rook_(
     dyload_lib().dsytrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ssytrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -21031,6 +22158,7 @@ pub unsafe fn ssytrs_rook_(
     dyload_lib().ssytrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn zsytrs_rook_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -21045,6 +22173,7 @@ pub unsafe fn zsytrs_rook_(
     dyload_lib().zsytrs_rook_.unwrap()(uplo, n, nrhs, A, lda, ipiv, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctbcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -21061,6 +22190,7 @@ pub unsafe fn ctbcon_(
     dyload_lib().ctbcon_.unwrap()(norm, uplo, diag, n, kd, AB, ldab, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtbcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -21077,6 +22207,7 @@ pub unsafe fn dtbcon_(
     dyload_lib().dtbcon_.unwrap()(norm, uplo, diag, n, kd, AB, ldab, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn stbcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -21093,6 +22224,7 @@ pub unsafe fn stbcon_(
     dyload_lib().stbcon_.unwrap()(norm, uplo, diag, n, kd, AB, ldab, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztbcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -21109,6 +22241,7 @@ pub unsafe fn ztbcon_(
     dyload_lib().ztbcon_.unwrap()(norm, uplo, diag, n, kd, AB, ldab, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctbrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21133,6 +22266,7 @@ pub unsafe fn ctbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtbrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21157,6 +22291,7 @@ pub unsafe fn dtbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stbrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21181,6 +22316,7 @@ pub unsafe fn stbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztbrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21205,6 +22341,7 @@ pub unsafe fn ztbrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctbtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21221,6 +22358,7 @@ pub unsafe fn ctbtrs_(
     dyload_lib().ctbtrs_.unwrap()(uplo, trans, diag, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtbtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21237,6 +22375,7 @@ pub unsafe fn dtbtrs_(
     dyload_lib().dtbtrs_.unwrap()(uplo, trans, diag, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn stbtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21253,6 +22392,7 @@ pub unsafe fn stbtrs_(
     dyload_lib().stbtrs_.unwrap()(uplo, trans, diag, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztbtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -21269,6 +22409,7 @@ pub unsafe fn ztbtrs_(
     dyload_lib().ztbtrs_.unwrap()(uplo, trans, diag, n, kd, nrhs, AB, ldab, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctfsm_(
     transr: *const c_char,
     side: *const c_char,
@@ -21285,6 +22426,7 @@ pub unsafe fn ctfsm_(
     dyload_lib().ctfsm_.unwrap()(transr, side, uplo, trans, diag, m, n, alpha, A, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn dtfsm_(
     transr: *const c_char,
     side: *const c_char,
@@ -21301,6 +22443,7 @@ pub unsafe fn dtfsm_(
     dyload_lib().dtfsm_.unwrap()(transr, side, uplo, trans, diag, m, n, alpha, A, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn stfsm_(
     transr: *const c_char,
     side: *const c_char,
@@ -21317,6 +22460,7 @@ pub unsafe fn stfsm_(
     dyload_lib().stfsm_.unwrap()(transr, side, uplo, trans, diag, m, n, alpha, A, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn ztfsm_(
     transr: *const c_char,
     side: *const c_char,
@@ -21333,6 +22477,7 @@ pub unsafe fn ztfsm_(
     dyload_lib().ztfsm_.unwrap()(transr, side, uplo, trans, diag, m, n, alpha, A, B, ldb)
 }
 
+#[inline(never)]
 pub unsafe fn ctftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21344,6 +22489,7 @@ pub unsafe fn ctftri_(
     dyload_lib().ctftri_.unwrap()(transr, uplo, diag, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21355,6 +22501,7 @@ pub unsafe fn dtftri_(
     dyload_lib().dtftri_.unwrap()(transr, uplo, diag, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn stftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21366,6 +22513,7 @@ pub unsafe fn stftri_(
     dyload_lib().stftri_.unwrap()(transr, uplo, diag, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztftri_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21377,6 +22525,7 @@ pub unsafe fn ztftri_(
     dyload_lib().ztftri_.unwrap()(transr, uplo, diag, n, A, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctfttp_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21388,6 +22537,7 @@ pub unsafe fn ctfttp_(
     dyload_lib().ctfttp_.unwrap()(transr, uplo, n, ARF, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtfttp_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21399,6 +22549,7 @@ pub unsafe fn dtfttp_(
     dyload_lib().dtfttp_.unwrap()(transr, uplo, n, ARF, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn stfttp_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21410,6 +22561,7 @@ pub unsafe fn stfttp_(
     dyload_lib().stfttp_.unwrap()(transr, uplo, n, ARF, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztfttp_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21421,6 +22573,7 @@ pub unsafe fn ztfttp_(
     dyload_lib().ztfttp_.unwrap()(transr, uplo, n, ARF, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctfttr_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21433,6 +22586,7 @@ pub unsafe fn ctfttr_(
     dyload_lib().ctfttr_.unwrap()(transr, uplo, n, ARF, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtfttr_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21445,6 +22599,7 @@ pub unsafe fn dtfttr_(
     dyload_lib().dtfttr_.unwrap()(transr, uplo, n, ARF, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn stfttr_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21457,6 +22612,7 @@ pub unsafe fn stfttr_(
     dyload_lib().stfttr_.unwrap()(transr, uplo, n, ARF, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztfttr_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -21469,6 +22625,7 @@ pub unsafe fn ztfttr_(
     dyload_lib().ztfttr_.unwrap()(transr, uplo, n, ARF, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctgevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -21493,6 +22650,7 @@ pub unsafe fn ctgevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtgevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -21516,6 +22674,7 @@ pub unsafe fn dtgevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -21539,6 +22698,7 @@ pub unsafe fn stgevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -21563,6 +22723,7 @@ pub unsafe fn ztgevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctgexc_(
     wantq: *const lapack_int,
     wantz: *const lapack_int,
@@ -21582,6 +22743,7 @@ pub unsafe fn ctgexc_(
     dyload_lib().ctgexc_.unwrap()(wantq, wantz, n, A, lda, B, ldb, Q, ldq, Z, ldz, ifst, ilst, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtgexc_(
     wantq: *const lapack_int,
     wantz: *const lapack_int,
@@ -21605,6 +22767,7 @@ pub unsafe fn dtgexc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgexc_(
     wantq: *const lapack_int,
     wantz: *const lapack_int,
@@ -21628,6 +22791,7 @@ pub unsafe fn stgexc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgexc_(
     wantq: *const lapack_int,
     wantz: *const lapack_int,
@@ -21647,6 +22811,7 @@ pub unsafe fn ztgexc_(
     dyload_lib().ztgexc_.unwrap()(wantq, wantz, n, A, lda, B, ldb, Q, ldq, Z, ldz, ifst, ilst, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctgsen_(
     ijob: *const lapack_int,
     wantq: *const lapack_int,
@@ -21679,6 +22844,7 @@ pub unsafe fn ctgsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtgsen_(
     ijob: *const lapack_int,
     wantq: *const lapack_int,
@@ -21712,6 +22878,7 @@ pub unsafe fn dtgsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgsen_(
     ijob: *const lapack_int,
     wantq: *const lapack_int,
@@ -21745,6 +22912,7 @@ pub unsafe fn stgsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgsen_(
     ijob: *const lapack_int,
     wantq: *const lapack_int,
@@ -21777,6 +22945,7 @@ pub unsafe fn ztgsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctgsja_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -21810,6 +22979,7 @@ pub unsafe fn ctgsja_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtgsja_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -21843,6 +23013,7 @@ pub unsafe fn dtgsja_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgsja_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -21876,6 +23047,7 @@ pub unsafe fn stgsja_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgsja_(
     jobu: *const c_char,
     jobv: *const c_char,
@@ -21909,6 +23081,7 @@ pub unsafe fn ztgsja_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctgsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -21937,6 +23110,7 @@ pub unsafe fn ctgsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtgsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -21965,6 +23139,7 @@ pub unsafe fn dtgsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -21993,6 +23168,7 @@ pub unsafe fn stgsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -22021,6 +23197,7 @@ pub unsafe fn ztgsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctgsyl_(
     trans: *const c_char,
     ijob: *const lapack_int,
@@ -22051,6 +23228,7 @@ pub unsafe fn ctgsyl_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtgsyl_(
     trans: *const c_char,
     ijob: *const lapack_int,
@@ -22081,6 +23259,7 @@ pub unsafe fn dtgsyl_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stgsyl_(
     trans: *const c_char,
     ijob: *const lapack_int,
@@ -22111,6 +23290,7 @@ pub unsafe fn stgsyl_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztgsyl_(
     trans: *const c_char,
     ijob: *const lapack_int,
@@ -22141,6 +23321,7 @@ pub unsafe fn ztgsyl_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctpcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -22155,6 +23336,7 @@ pub unsafe fn ctpcon_(
     dyload_lib().ctpcon_.unwrap()(norm, uplo, diag, n, AP, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtpcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -22169,6 +23351,7 @@ pub unsafe fn dtpcon_(
     dyload_lib().dtpcon_.unwrap()(norm, uplo, diag, n, AP, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn stpcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -22183,6 +23366,7 @@ pub unsafe fn stpcon_(
     dyload_lib().stpcon_.unwrap()(norm, uplo, diag, n, AP, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztpcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -22197,6 +23381,7 @@ pub unsafe fn ztpcon_(
     dyload_lib().ztpcon_.unwrap()(norm, uplo, diag, n, AP, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctplqt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22214,6 +23399,7 @@ pub unsafe fn ctplqt_(
     dyload_lib().ctplqt_.unwrap()(m, n, l, mb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtplqt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22231,6 +23417,7 @@ pub unsafe fn dtplqt_(
     dyload_lib().dtplqt_.unwrap()(m, n, l, mb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn stplqt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22248,6 +23435,7 @@ pub unsafe fn stplqt_(
     dyload_lib().stplqt_.unwrap()(m, n, l, mb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztplqt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22265,6 +23453,7 @@ pub unsafe fn ztplqt_(
     dyload_lib().ztplqt_.unwrap()(m, n, l, mb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctplqt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22280,6 +23469,7 @@ pub unsafe fn ctplqt2_(
     dyload_lib().ctplqt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtplqt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22295,6 +23485,7 @@ pub unsafe fn dtplqt2_(
     dyload_lib().dtplqt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn stplqt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22310,6 +23501,7 @@ pub unsafe fn stplqt2_(
     dyload_lib().stplqt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztplqt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22325,6 +23517,7 @@ pub unsafe fn ztplqt2_(
     dyload_lib().ztplqt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctpmlqt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22349,6 +23542,7 @@ pub unsafe fn ctpmlqt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtpmlqt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22373,6 +23567,7 @@ pub unsafe fn dtpmlqt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stpmlqt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22397,6 +23592,7 @@ pub unsafe fn stpmlqt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztpmlqt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22421,6 +23617,7 @@ pub unsafe fn ztpmlqt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctpmqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22445,6 +23642,7 @@ pub unsafe fn ctpmqrt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtpmqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22469,6 +23667,7 @@ pub unsafe fn dtpmqrt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stpmqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22493,6 +23692,7 @@ pub unsafe fn stpmqrt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztpmqrt_(
     side: *const c_char,
     trans: *const c_char,
@@ -22517,6 +23717,7 @@ pub unsafe fn ztpmqrt_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctpqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22534,6 +23735,7 @@ pub unsafe fn ctpqrt_(
     dyload_lib().ctpqrt_.unwrap()(m, n, l, nb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtpqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22551,6 +23753,7 @@ pub unsafe fn dtpqrt_(
     dyload_lib().dtpqrt_.unwrap()(m, n, l, nb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn stpqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22568,6 +23771,7 @@ pub unsafe fn stpqrt_(
     dyload_lib().stpqrt_.unwrap()(m, n, l, nb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztpqrt_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22585,6 +23789,7 @@ pub unsafe fn ztpqrt_(
     dyload_lib().ztpqrt_.unwrap()(m, n, l, nb, A, lda, B, ldb, T, ldt, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctpqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22600,6 +23805,7 @@ pub unsafe fn ctpqrt2_(
     dyload_lib().ctpqrt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtpqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22615,6 +23821,7 @@ pub unsafe fn dtpqrt2_(
     dyload_lib().dtpqrt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn stpqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22630,6 +23837,7 @@ pub unsafe fn stpqrt2_(
     dyload_lib().stpqrt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztpqrt2_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -22645,6 +23853,7 @@ pub unsafe fn ztpqrt2_(
     dyload_lib().ztpqrt2_.unwrap()(m, n, l, A, lda, B, ldb, T, ldt, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctprfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -22670,6 +23879,7 @@ pub unsafe fn ctprfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtprfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -22695,6 +23905,7 @@ pub unsafe fn dtprfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stprfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -22720,6 +23931,7 @@ pub unsafe fn stprfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztprfb_(
     side: *const c_char,
     trans: *const c_char,
@@ -22745,6 +23957,7 @@ pub unsafe fn ztprfb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctprfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22767,6 +23980,7 @@ pub unsafe fn ctprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtprfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22789,6 +24003,7 @@ pub unsafe fn dtprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn stprfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22811,6 +24026,7 @@ pub unsafe fn stprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztprfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22833,6 +24049,7 @@ pub unsafe fn ztprfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctptri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -22843,6 +24060,7 @@ pub unsafe fn ctptri_(
     dyload_lib().ctptri_.unwrap()(uplo, diag, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtptri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -22853,6 +24071,7 @@ pub unsafe fn dtptri_(
     dyload_lib().dtptri_.unwrap()(uplo, diag, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn stptri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -22863,6 +24082,7 @@ pub unsafe fn stptri_(
     dyload_lib().stptri_.unwrap()(uplo, diag, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztptri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -22873,6 +24093,7 @@ pub unsafe fn ztptri_(
     dyload_lib().ztptri_.unwrap()(uplo, diag, n, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctptrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22887,6 +24108,7 @@ pub unsafe fn ctptrs_(
     dyload_lib().ctptrs_.unwrap()(uplo, trans, diag, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtptrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22901,6 +24123,7 @@ pub unsafe fn dtptrs_(
     dyload_lib().dtptrs_.unwrap()(uplo, trans, diag, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn stptrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22915,6 +24138,7 @@ pub unsafe fn stptrs_(
     dyload_lib().stptrs_.unwrap()(uplo, trans, diag, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztptrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -22929,6 +24153,7 @@ pub unsafe fn ztptrs_(
     dyload_lib().ztptrs_.unwrap()(uplo, trans, diag, n, nrhs, AP, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctpttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -22940,6 +24165,7 @@ pub unsafe fn ctpttf_(
     dyload_lib().ctpttf_.unwrap()(transr, uplo, n, AP, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtpttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -22951,6 +24177,7 @@ pub unsafe fn dtpttf_(
     dyload_lib().dtpttf_.unwrap()(transr, uplo, n, AP, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn stpttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -22962,6 +24189,7 @@ pub unsafe fn stpttf_(
     dyload_lib().stpttf_.unwrap()(transr, uplo, n, AP, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztpttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -22973,6 +24201,7 @@ pub unsafe fn ztpttf_(
     dyload_lib().ztpttf_.unwrap()(transr, uplo, n, AP, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctpttr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -22984,6 +24213,7 @@ pub unsafe fn ctpttr_(
     dyload_lib().ctpttr_.unwrap()(uplo, n, AP, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtpttr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -22995,6 +24225,7 @@ pub unsafe fn dtpttr_(
     dyload_lib().dtpttr_.unwrap()(uplo, n, AP, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn stpttr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23006,6 +24237,7 @@ pub unsafe fn stpttr_(
     dyload_lib().stpttr_.unwrap()(uplo, n, AP, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztpttr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23017,6 +24249,7 @@ pub unsafe fn ztpttr_(
     dyload_lib().ztpttr_.unwrap()(uplo, n, AP, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -23032,6 +24265,7 @@ pub unsafe fn ctrcon_(
     dyload_lib().ctrcon_.unwrap()(norm, uplo, diag, n, A, lda, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -23047,6 +24281,7 @@ pub unsafe fn dtrcon_(
     dyload_lib().dtrcon_.unwrap()(norm, uplo, diag, n, A, lda, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn strcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -23062,6 +24297,7 @@ pub unsafe fn strcon_(
     dyload_lib().strcon_.unwrap()(norm, uplo, diag, n, A, lda, rcond, work, iwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrcon_(
     norm: *const c_char,
     uplo: *const c_char,
@@ -23077,6 +24313,7 @@ pub unsafe fn ztrcon_(
     dyload_lib().ztrcon_.unwrap()(norm, uplo, diag, n, A, lda, rcond, work, rwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23099,6 +24336,7 @@ pub unsafe fn ctrevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23120,6 +24358,7 @@ pub unsafe fn dtrevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23141,6 +24380,7 @@ pub unsafe fn strevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrevc_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23163,6 +24403,7 @@ pub unsafe fn ztrevc_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrevc3_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23188,6 +24429,7 @@ pub unsafe fn ctrevc3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrevc3_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23210,6 +24452,7 @@ pub unsafe fn dtrevc3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strevc3_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23232,6 +24475,7 @@ pub unsafe fn strevc3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrevc3_(
     side: *const c_char,
     howmny: *const c_char,
@@ -23257,6 +24501,7 @@ pub unsafe fn ztrevc3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrexc_(
     compq: *const c_char,
     n: *const lapack_int,
@@ -23271,6 +24516,7 @@ pub unsafe fn ctrexc_(
     dyload_lib().ctrexc_.unwrap()(compq, n, T, ldt, Q, ldq, ifst, ilst, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrexc_(
     compq: *const c_char,
     n: *const lapack_int,
@@ -23286,6 +24532,7 @@ pub unsafe fn dtrexc_(
     dyload_lib().dtrexc_.unwrap()(compq, n, T, ldt, Q, ldq, ifst, ilst, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn strexc_(
     compq: *const c_char,
     n: *const lapack_int,
@@ -23301,6 +24548,7 @@ pub unsafe fn strexc_(
     dyload_lib().strexc_.unwrap()(compq, n, T, ldt, Q, ldq, ifst, ilst, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrexc_(
     compq: *const c_char,
     n: *const lapack_int,
@@ -23315,6 +24563,7 @@ pub unsafe fn ztrexc_(
     dyload_lib().ztrexc_.unwrap()(compq, n, T, ldt, Q, ldq, ifst, ilst, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23338,6 +24587,7 @@ pub unsafe fn ctrrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23361,6 +24611,7 @@ pub unsafe fn dtrrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23384,6 +24635,7 @@ pub unsafe fn strrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrrfs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23407,6 +24659,7 @@ pub unsafe fn ztrrfs_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrsen_(
     job: *const c_char,
     compq: *const c_char,
@@ -23429,6 +24682,7 @@ pub unsafe fn ctrsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrsen_(
     job: *const c_char,
     compq: *const c_char,
@@ -23454,6 +24708,7 @@ pub unsafe fn dtrsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strsen_(
     job: *const c_char,
     compq: *const c_char,
@@ -23479,6 +24734,7 @@ pub unsafe fn strsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrsen_(
     job: *const c_char,
     compq: *const c_char,
@@ -23501,6 +24757,7 @@ pub unsafe fn ztrsen_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -23527,6 +24784,7 @@ pub unsafe fn ctrsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -23553,6 +24811,7 @@ pub unsafe fn dtrsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -23579,6 +24838,7 @@ pub unsafe fn strsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrsna_(
     job: *const c_char,
     howmny: *const c_char,
@@ -23605,6 +24865,7 @@ pub unsafe fn ztrsna_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrsyl_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23623,6 +24884,7 @@ pub unsafe fn ctrsyl_(
     dyload_lib().ctrsyl_.unwrap()(trana, tranb, isgn, m, n, A, lda, B, ldb, C, ldc, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrsyl_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23641,6 +24903,7 @@ pub unsafe fn dtrsyl_(
     dyload_lib().dtrsyl_.unwrap()(trana, tranb, isgn, m, n, A, lda, B, ldb, C, ldc, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn strsyl_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23659,6 +24922,7 @@ pub unsafe fn strsyl_(
     dyload_lib().strsyl_.unwrap()(trana, tranb, isgn, m, n, A, lda, B, ldb, C, ldc, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrsyl_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23677,6 +24941,7 @@ pub unsafe fn ztrsyl_(
     dyload_lib().ztrsyl_.unwrap()(trana, tranb, isgn, m, n, A, lda, B, ldb, C, ldc, scale, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrsyl3_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23699,6 +24964,7 @@ pub unsafe fn ctrsyl3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn dtrsyl3_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23724,6 +24990,7 @@ pub unsafe fn dtrsyl3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn strsyl3_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23749,6 +25016,7 @@ pub unsafe fn strsyl3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ztrsyl3_(
     trana: *const c_char,
     tranb: *const c_char,
@@ -23771,6 +25039,7 @@ pub unsafe fn ztrsyl3_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn ctrtri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -23782,6 +25051,7 @@ pub unsafe fn ctrtri_(
     dyload_lib().ctrtri_.unwrap()(uplo, diag, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrtri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -23793,6 +25063,7 @@ pub unsafe fn dtrtri_(
     dyload_lib().dtrtri_.unwrap()(uplo, diag, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn strtri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -23804,6 +25075,7 @@ pub unsafe fn strtri_(
     dyload_lib().strtri_.unwrap()(uplo, diag, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrtri_(
     uplo: *const c_char,
     diag: *const c_char,
@@ -23815,6 +25087,7 @@ pub unsafe fn ztrtri_(
     dyload_lib().ztrtri_.unwrap()(uplo, diag, n, A, lda, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23830,6 +25103,7 @@ pub unsafe fn ctrtrs_(
     dyload_lib().ctrtrs_.unwrap()(uplo, trans, diag, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23845,6 +25119,7 @@ pub unsafe fn dtrtrs_(
     dyload_lib().dtrtrs_.unwrap()(uplo, trans, diag, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn strtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23860,6 +25135,7 @@ pub unsafe fn strtrs_(
     dyload_lib().strtrs_.unwrap()(uplo, trans, diag, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrtrs_(
     uplo: *const c_char,
     trans: *const c_char,
@@ -23875,6 +25151,7 @@ pub unsafe fn ztrtrs_(
     dyload_lib().ztrtrs_.unwrap()(uplo, trans, diag, n, nrhs, A, lda, B, ldb, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -23887,6 +25164,7 @@ pub unsafe fn ctrttf_(
     dyload_lib().ctrttf_.unwrap()(transr, uplo, n, A, lda, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -23899,6 +25177,7 @@ pub unsafe fn dtrttf_(
     dyload_lib().dtrttf_.unwrap()(transr, uplo, n, A, lda, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn strttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -23911,6 +25190,7 @@ pub unsafe fn strttf_(
     dyload_lib().strttf_.unwrap()(transr, uplo, n, A, lda, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrttf_(
     transr: *const c_char,
     uplo: *const c_char,
@@ -23923,6 +25203,7 @@ pub unsafe fn ztrttf_(
     dyload_lib().ztrttf_.unwrap()(transr, uplo, n, A, lda, ARF, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctrttp_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23934,6 +25215,7 @@ pub unsafe fn ctrttp_(
     dyload_lib().ctrttp_.unwrap()(uplo, n, A, lda, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtrttp_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23945,6 +25227,7 @@ pub unsafe fn dtrttp_(
     dyload_lib().dtrttp_.unwrap()(uplo, n, A, lda, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn strttp_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23956,6 +25239,7 @@ pub unsafe fn strttp_(
     dyload_lib().strttp_.unwrap()(uplo, n, A, lda, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztrttp_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -23967,6 +25251,7 @@ pub unsafe fn ztrttp_(
     dyload_lib().ztrttp_.unwrap()(uplo, n, A, lda, AP, info)
 }
 
+#[inline(never)]
 pub unsafe fn ctzrzf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -23980,6 +25265,7 @@ pub unsafe fn ctzrzf_(
     dyload_lib().ctzrzf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn dtzrzf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -23993,6 +25279,7 @@ pub unsafe fn dtzrzf_(
     dyload_lib().dtzrzf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn stzrzf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24006,6 +25293,7 @@ pub unsafe fn stzrzf_(
     dyload_lib().stzrzf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn ztzrzf_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24019,6 +25307,7 @@ pub unsafe fn ztzrzf_(
     dyload_lib().ztzrzf_.unwrap()(m, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunbdb_(
     trans: *const c_char,
     signs: *const c_char,
@@ -24049,6 +25338,7 @@ pub unsafe fn cunbdb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zunbdb_(
     trans: *const c_char,
     signs: *const c_char,
@@ -24079,6 +25369,7 @@ pub unsafe fn zunbdb_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cuncsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -24120,6 +25411,7 @@ pub unsafe fn cuncsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zuncsd_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -24161,6 +25453,7 @@ pub unsafe fn zuncsd_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cuncsd2by1_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -24192,6 +25485,7 @@ pub unsafe fn cuncsd2by1_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zuncsd2by1_(
     jobu1: *const c_char,
     jobu2: *const c_char,
@@ -24223,6 +25517,7 @@ pub unsafe fn zuncsd2by1_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cungbr_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -24238,6 +25533,7 @@ pub unsafe fn cungbr_(
     dyload_lib().cungbr_.unwrap()(vect, m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungbr_(
     vect: *const c_char,
     m: *const lapack_int,
@@ -24253,6 +25549,7 @@ pub unsafe fn zungbr_(
     dyload_lib().zungbr_.unwrap()(vect, m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunghr_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -24267,6 +25564,7 @@ pub unsafe fn cunghr_(
     dyload_lib().cunghr_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunghr_(
     n: *const lapack_int,
     ilo: *const lapack_int,
@@ -24281,6 +25579,7 @@ pub unsafe fn zunghr_(
     dyload_lib().zunghr_.unwrap()(n, ilo, ihi, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunglq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24295,6 +25594,7 @@ pub unsafe fn cunglq_(
     dyload_lib().cunglq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunglq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24309,6 +25609,7 @@ pub unsafe fn zunglq_(
     dyload_lib().zunglq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cungql_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24323,6 +25624,7 @@ pub unsafe fn cungql_(
     dyload_lib().cungql_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungql_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24337,6 +25639,7 @@ pub unsafe fn zungql_(
     dyload_lib().zungql_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cungqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24351,6 +25654,7 @@ pub unsafe fn cungqr_(
     dyload_lib().cungqr_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungqr_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24365,6 +25669,7 @@ pub unsafe fn zungqr_(
     dyload_lib().zungqr_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cungrq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24379,6 +25684,7 @@ pub unsafe fn cungrq_(
     dyload_lib().cungrq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungrq_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24393,6 +25699,7 @@ pub unsafe fn zungrq_(
     dyload_lib().zungrq_.unwrap()(m, n, k, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cungtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -24406,6 +25713,7 @@ pub unsafe fn cungtr_(
     dyload_lib().cungtr_.unwrap()(uplo, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -24419,6 +25727,7 @@ pub unsafe fn zungtr_(
     dyload_lib().zungtr_.unwrap()(uplo, n, A, lda, tau, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cungtsqr_row_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24435,6 +25744,7 @@ pub unsafe fn cungtsqr_row_(
     dyload_lib().cungtsqr_row_.unwrap()(m, n, mb, nb, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zungtsqr_row_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24451,6 +25761,7 @@ pub unsafe fn zungtsqr_row_(
     dyload_lib().zungtsqr_row_.unwrap()(m, n, mb, nb, A, lda, T, ldt, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunhr_col_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24465,6 +25776,7 @@ pub unsafe fn cunhr_col_(
     dyload_lib().cunhr_col_.unwrap()(m, n, nb, A, lda, T, ldt, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunhr_col_(
     m: *const lapack_int,
     n: *const lapack_int,
@@ -24479,6 +25791,7 @@ pub unsafe fn zunhr_col_(
     dyload_lib().zunhr_col_.unwrap()(m, n, nb, A, lda, T, ldt, D, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmbr_(
     vect: *const c_char,
     side: *const c_char,
@@ -24500,6 +25813,7 @@ pub unsafe fn cunmbr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zunmbr_(
     vect: *const c_char,
     side: *const c_char,
@@ -24521,6 +25835,7 @@ pub unsafe fn zunmbr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cunmhr_(
     side: *const c_char,
     trans: *const c_char,
@@ -24542,6 +25857,7 @@ pub unsafe fn cunmhr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn zunmhr_(
     side: *const c_char,
     trans: *const c_char,
@@ -24563,6 +25879,7 @@ pub unsafe fn zunmhr_(
     )
 }
 
+#[inline(never)]
 pub unsafe fn cunmlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -24581,6 +25898,7 @@ pub unsafe fn cunmlq_(
     dyload_lib().cunmlq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmlq_(
     side: *const c_char,
     trans: *const c_char,
@@ -24599,6 +25917,7 @@ pub unsafe fn zunmlq_(
     dyload_lib().zunmlq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmql_(
     side: *const c_char,
     trans: *const c_char,
@@ -24617,6 +25936,7 @@ pub unsafe fn cunmql_(
     dyload_lib().cunmql_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmql_(
     side: *const c_char,
     trans: *const c_char,
@@ -24635,6 +25955,7 @@ pub unsafe fn zunmql_(
     dyload_lib().zunmql_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -24653,6 +25974,7 @@ pub unsafe fn cunmqr_(
     dyload_lib().cunmqr_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmqr_(
     side: *const c_char,
     trans: *const c_char,
@@ -24671,6 +25993,7 @@ pub unsafe fn zunmqr_(
     dyload_lib().zunmqr_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmrq_(
     side: *const c_char,
     trans: *const c_char,
@@ -24689,6 +26012,7 @@ pub unsafe fn cunmrq_(
     dyload_lib().cunmrq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmrq_(
     side: *const c_char,
     trans: *const c_char,
@@ -24707,6 +26031,7 @@ pub unsafe fn zunmrq_(
     dyload_lib().zunmrq_.unwrap()(side, trans, m, n, k, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmrz_(
     side: *const c_char,
     trans: *const c_char,
@@ -24726,6 +26051,7 @@ pub unsafe fn cunmrz_(
     dyload_lib().cunmrz_.unwrap()(side, trans, m, n, k, l, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmrz_(
     side: *const c_char,
     trans: *const c_char,
@@ -24745,6 +26071,7 @@ pub unsafe fn zunmrz_(
     dyload_lib().zunmrz_.unwrap()(side, trans, m, n, k, l, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cunmtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -24763,6 +26090,7 @@ pub unsafe fn cunmtr_(
     dyload_lib().cunmtr_.unwrap()(side, uplo, trans, m, n, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn zunmtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -24781,6 +26109,7 @@ pub unsafe fn zunmtr_(
     dyload_lib().zunmtr_.unwrap()(side, uplo, trans, m, n, A, lda, tau, C, ldc, work, lwork, info)
 }
 
+#[inline(never)]
 pub unsafe fn cupgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -24794,6 +26123,7 @@ pub unsafe fn cupgtr_(
     dyload_lib().cupgtr_.unwrap()(uplo, n, AP, tau, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zupgtr_(
     uplo: *const c_char,
     n: *const lapack_int,
@@ -24807,6 +26137,7 @@ pub unsafe fn zupgtr_(
     dyload_lib().zupgtr_.unwrap()(uplo, n, AP, tau, Q, ldq, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn cupmtr_(
     side: *const c_char,
     uplo: *const c_char,
@@ -24823,6 +26154,7 @@ pub unsafe fn cupmtr_(
     dyload_lib().cupmtr_.unwrap()(side, uplo, trans, m, n, AP, tau, C, ldc, work, info)
 }
 
+#[inline(never)]
 pub unsafe fn zupmtr_(
     side: *const c_char,
     uplo: *const c_char,

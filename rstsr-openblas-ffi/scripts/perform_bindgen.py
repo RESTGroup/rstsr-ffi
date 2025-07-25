@@ -241,6 +241,9 @@ dir_relative = "cblas"
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, item in util_dyload.dyload_main(token, token_extra).items():
+    # ffi_base should be handled manually, so copy to ffi_base_template.rs
+    if key == "ffi_base":
+        key = "ffi_base_template"
     with open(f"{dir_relative}/{key}.rs", "w") as f:
         f.write(item)
 # -
