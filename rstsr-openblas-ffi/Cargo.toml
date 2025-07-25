@@ -14,10 +14,15 @@ license.workspace = true
 libloading = { workspace = true }
 
 [features]
-default = []
+default = ["blas", "cblas", "lapack", "dynamic_loading"]
 
 ilp64 = []
 dynamic_loading = []
+
+blas = []
+cblas = []
+lapack = []
+lapacke = []
 
 quad_precision = []
 ex_precision = []

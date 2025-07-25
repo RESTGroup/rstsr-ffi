@@ -148,6 +148,9 @@ pub struct xdouble {
     pub _phantom: (),
 }
 """ + "\n\n" + token
+# -
+
+# ### Dynamic-loading
 
 # +
 dir_relative = "blas"
@@ -158,12 +161,6 @@ for key, item in util_dyload.dyload_main(token).items():
     with open(f"{dir_relative}/{key}.rs", "w") as f:
         f.write(item)
 # -
-for name in ["blas"]:
-    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
-
-
-
-
 # ## CBLAS handling
 
 # ### Pre-processing
@@ -217,9 +214,7 @@ token = token.replace("::core::option::Option", "Option")
 # add headers
 
 token = """
-#![allow(non_camel_case_types)]
-
-use core::ffi::{c_char, c_void, c_int};
+pub(crate) use core::ffi::{c_char, c_void, c_int};
 
 #[cfg(not(feature = "ilp64"))]
 pub type blas_int = i32;
@@ -228,13 +223,32 @@ pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
-with open("cblas.rs", "w") as f:
-    f.write(token)
+# ### Dynamic-loading
+
+# +
+# openmp threading control
+
+token_extra = """
+extern "C" {
+    pub fn omp_set_num_threads(arg1: c_int);
+    pub fn omp_get_max_threads() -> c_int;
+}
+"""
+
+# +
+dir_relative = "cblas"
+
+shutil.rmtree(dir_relative, ignore_errors=True)
+os.makedirs(dir_relative)
+for key, item in util_dyload.dyload_main(token, token_extra).items():
+    with open(f"{dir_relative}/{key}.rs", "w") as f:
+        f.write(item)
+# -
 
 # ## Move FFI binding files to output
 
-for name in ["f77blas.rs", "cblas.rs"]:
-    shutil.copy(f"{path_temp}/{name}", f"{path_out}/src/{name}")
+for name in ["blas", "cblas"]:
+    shutil.copytree(f"{path_temp}/{name}", f"{path_out}/src/{name}", dirs_exist_ok=True)
 
 # ## Cargo fmt
 
