@@ -3,6 +3,9 @@
 
 pub mod mkl_types;
 
+#[cfg(feature = "blas")]
+pub mod blas;
+
 pub const MOD_NAME: &str = module_path!();
 pub const LIB_NAME: &str = "MKL"; // for code, e.g. "MKL"
 pub const LIB_NAME_SHOW: &str = "oneAPI MKL"; // for display, e.g. "oneMKL"
