@@ -3,6 +3,7 @@ resolver = "2"
 members = [
     "rstsr-lapack-ffi",
     "rstsr-openblas-ffi",
+    "rstsr-mkl-ffi",
 ]
 
 [workspace.package]
