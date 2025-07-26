@@ -1,0 +1,28 @@
+[package]
+name = "rstsr-mkl-ffi"
+version = "0.1.0"
+description = "Intel oneAPI MKL FFI bindings"
+readme = "readme.md"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+
+[dependencies]
+libloading = { workspace = true }
+half = { workspace = true }
+num = { workspace = true }
+
+[features]
+default = ["blas", "cblas", "lapack", "dynamic_loading"]
+
+ilp64 = []
+dynamic_loading = []
+
+blas = []
+cblas = []
+lapack = []
+lapacke = []
+
