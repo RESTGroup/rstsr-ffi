@@ -9,6 +9,8 @@ pub mod blas;
 pub mod cblas;
 #[cfg(feature = "lapack")]
 pub mod lapack;
+#[cfg(feature = "lapacke")]
+pub mod lapacke;
 
 pub const CRATE_NAME: &str = "rstsr-mkl-ffi";
 pub const LIB_NAME: &str = "MKL"; // for code, e.g. "MKL"
