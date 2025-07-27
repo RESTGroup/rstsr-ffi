@@ -86,3 +86,26 @@ pub use dyload_compatible::*;
 pub use dyload_struct::*;
 
 /* #endregion */
+
+#[test]
+fn playground() {
+    // test libraries loaded
+    let time = std::time::Instant::now();
+    let l = unsafe { dyload_lib() };
+    println!("Time taken to load LAPACK library: {:?}", time.elapsed());
+    println!("Loaded LAPACK library: {:?}", l.__libraries);
+    println!("Loaded LAPACK library: {:?}", l.dsyevd_);
+    unsafe { std::env::set_var("MKL_VERBOSE", "1") };
+
+    // test if the library is loaded correctly
+    let mut a: Vec<f64> = vec![2.0, 1.0, 3.0, 4.0];
+    let uplo = 'L';
+    let n = 2;
+    let lda = 2;
+    let mut info = 0;
+    unsafe {
+        dpotrf_(&uplo as *const _ as *const _, &n, a.as_mut_ptr(), &lda, &mut info);
+    }
+    println!("{a:?}");
+    assert_eq!(info, 0);
+}
