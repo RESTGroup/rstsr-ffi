@@ -4,7 +4,10 @@ This crate contains Intel oneAPI MKL (Math Kernel Library) FFI bindings.
 
 Current FFI version is oneAPI MKL 2025.2 [(link to download page)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html). If you are using an older version of oneAPI MKL, this crate should still work if you do not explicitly call the function that only occurs in higher version of oneAPI MKL.
 
-> **Feature Not Complete**: oneAPI MKL is a large collection of math functions. This crate currently only have blas and lapack bindgens.
+> **Feature Not Complete**: oneAPI MKL is a large collection of math functions. This crate currently only have following bindgens:
+> - service (`mkl_service.h`)
+> - blas, cblas
+> - lapack, lapacke
 >
 > We surely want to perform more bindgens (such as paradiso, trans, poisson, fft, dft, etc.) in future; but these are not of priority for project REST and RSTSR. If you wish to put these bindgens in this crate, currently you can file an issue, and we will quickly realize the bindgen of other features in oneAPI MKL.
 
