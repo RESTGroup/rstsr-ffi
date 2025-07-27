@@ -12,7 +12,7 @@
 #     name: python3
 # ---
 
-# # Bindgen of MKL (mkl_types.h)
+# # Bindgen of MKL (mkl_blas.h)
 
 import subprocess
 import os
@@ -93,12 +93,20 @@ nodes_fn = [
     n for n in node_extern.children[1].children
     if (n.type == "function_signature_item" and not n.children[2].text.isupper())]
 
+# +
+token = """extern "C" {\n"""
+for node_fn in nodes_fn:
+    identifier = node_fn.children[2].text.decode()
+    token += n.text.decode().replace(identifier, identifier + "_")
+    toke
+    
 token = f"""
 extern "C" {{
 {"\n".join([n.text.decode() for n in nodes_fn])}
 }}
 """
 token = token.replace("::core::ffi::", "")
+# -
 
 token_alias = "\n"
 token_alias += "/* #region upper case alias */"

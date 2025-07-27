@@ -16,7 +16,7 @@ mod dynamic_loading_specific {
     use std::sync::OnceLock;
 
     fn check_lib_loaded(lib: &DyLoadLib) -> bool {
-        lib.dgemm.is_some()
+        lib.dgemm_.is_some()
     }
 
     fn panic_condition_not_met<S: Debug>(candidates: &[S]) -> ! {
