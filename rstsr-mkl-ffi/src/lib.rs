@@ -5,8 +5,10 @@ pub mod mkl_types;
 
 #[cfg(feature = "blas")]
 pub mod blas;
+#[cfg(feature = "cblas")]
+pub mod cblas;
 
-pub const MOD_NAME: &str = module_path!();
+pub const CRATE_NAME: &str = "rstsr-mkl-ffi";
 pub const LIB_NAME: &str = "MKL"; // for code, e.g. "MKL"
 pub const LIB_NAME_SHOW: &str = "oneAPI MKL"; // for display, e.g. "oneMKL"
 pub const LIB_NAME_LINK: &str = "mkl_rt"; // for linking, e.g. "mkl_rt"
@@ -70,7 +72,7 @@ pub(crate) mod get_lib_candidates {
     pub(crate) fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
         panic!(
             r#"
-This happens in module `{MOD_NAME}`.
+This happens in crate `{CRATE_NAME}`.
 Unable to dynamically load the {LIB_NAME_SHOW} (`{LIB_NAME_LINK}`) shared library.
 Candidates: {candidates:#?}
 

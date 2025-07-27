@@ -11,7 +11,7 @@ categories.workspace = true
 license.workspace = true
 
 [dependencies]
-rstsr-lapack-ffi = { workspace = true, features = ["cblas"] }
+rstsr-lapack-ffi = { workspace = true, optional = true }
 libloading = { workspace = true }
 
 [features]
@@ -21,7 +21,7 @@ ilp64 = []
 dynamic_loading = []
 
 blas = []
-cblas = []
+cblas = ["dep:rstsr-lapack-ffi", "rstsr-lapack-ffi/cblas"]
 lapack = []
 lapacke = []
 
