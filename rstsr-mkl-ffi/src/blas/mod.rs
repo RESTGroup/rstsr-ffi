@@ -86,3 +86,22 @@ pub use dyload_compatible::*;
 pub use dyload_struct::*;
 
 /* #endregion */
+
+#[test]
+fn playground() {
+    // test libraries loaded
+    let time = std::time::Instant::now();
+    let l = unsafe { dyload_lib() };
+    println!("Time taken to load BLAS library: {:?}", time.elapsed());
+    println!("Loaded BLAS library: {:?}", l.__libraries);
+    println!("Loaded BLAS library: {:?}", l.dgemm_);
+    unsafe { std::env::set_var("MKL_VERBOSE", "1") };
+
+    // test if the library is loaded correctly
+    let a: Vec<f64> = vec![1.0, 2.0, 3.0, 4.0];
+    let b: Vec<f64> = vec![5.0, 6.0, 7.0, 8.0];
+    let n = 4;
+    let incx = 1;
+    let c = unsafe { ddot_(&n, a.as_ptr(), &incx, b.as_ptr(), &incx) };
+    assert_eq!(c, 70.0);
+}
