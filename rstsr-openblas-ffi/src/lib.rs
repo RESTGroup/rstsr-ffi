@@ -9,7 +9,7 @@ pub mod lapack;
 #[cfg(feature = "lapacke")]
 pub mod lapacke;
 
-pub const MOD_NAME: &str = module_path!();
+pub const CRATE_NAME: &str = "rstsr-openblas-ffi";
 pub const LIB_NAME: &str = "OPENBLAS"; // for code, e.g. "MKL"
 pub const LIB_NAME_SHOW: &str = "OpenBLAS"; // for display, e.g. "oneMKL"
 pub const LIB_NAME_LINK: &str = "openblas"; // for linking, e.g. "mkl_rt"
@@ -51,7 +51,7 @@ pub(crate) mod get_lib_candidates {
     pub(crate) fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
         panic!(
             r#"
-This happens in module `{MOD_NAME}`.
+This happens in crate `{CRATE_NAME}`.
 Unable to dynamically load the {LIB_NAME_SHOW} (`{LIB_NAME_LINK}`) shared library.
 Candidates: {candidates:#?}
 
