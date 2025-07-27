@@ -28,6 +28,14 @@ The dynamic loading will try to find proper library when your program initialize
 
 **NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_mkl_ffi::blas`, `rstsr_mkl_ffi::cblas` and `rstsr_mkl_ffi::lapack`. Sticking to using `rstsr_mkl_ffi` will make sure you are calling BLAS and LAPACK functions from oneAPI MKL, instead of other BLAS vendors.
 
+If you encountered large compile time or disk consumption, you may consider add these lines in your Cargo.toml:
+
+```toml
+[profile.dev.package.rstsr-mkl-ffi]
+opt-level = 0
+debug = false
+```
+
 ## Cargo features
 
 Default features:

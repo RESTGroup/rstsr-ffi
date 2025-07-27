@@ -23,6 +23,14 @@ The dynamic loading will try to find proper library when your program initialize
 - `RSTSR_DYLOAD_LAPACK` for `rstsr_lapack_ffi::lapack`;
 - `RSTSR_DYLOAD_LAPACKE` for `rstsr_lapack_ffi::lapacke` and `rstsr_lapack_ffi::lapacke_utils`.
 
+If you encountered large compile time or disk consumption, you may consider add these lines in your Cargo.toml:
+
+```toml
+[profile.dev.package.rstsr-lapack-ffi]
+opt-level = 0
+debug = false
+```
+
 ## Cargo features
 
 Default features:

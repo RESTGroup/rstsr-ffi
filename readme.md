@@ -29,6 +29,15 @@ Babel tower is awesome for sure, however, when it is not built, we'd better stil
 
 - This project just perform FFI bindings. No safe wrappers (especially for any computationally intensive working functions). Possibly minimal utility wrappers (such as results) in future, but that will not be promised.
 - We will probably only implement the latest version. Since it is FFI, non-existed function will not cause compile error if not linked; so whenever there is no API breaking changes, latest version should always fulfill demands of FFI callers. It is clearly better that FFI are also versioned along with FFI, so if you encountered problems or inconvenience related to library version, please raise issue for that.
+- If you encountered large compile time or disk consumption, you may consider add these lines in your Cargo.toml (for example of MKL bindgens):
+
+    ```toml
+    # this is only for MKL bindgens
+    # for other bindgen crates or compile targets, the configuration is similar
+    [profile.dev.package.rstsr-mkl-ffi]
+    opt-level = 0
+    debug = false
+    ```
 
 ## License
 
