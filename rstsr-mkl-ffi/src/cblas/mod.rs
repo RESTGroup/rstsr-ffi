@@ -16,7 +16,7 @@ mod dynamic_loading_specific {
     use std::sync::OnceLock;
 
     fn check_lib_loaded(lib: &DyLoadLib) -> bool {
-        lib.dgemm.is_some()
+        lib.cblas_dgemm.is_some()
     }
 
     fn panic_condition_not_met<S: Debug>(candidates: &[S]) -> ! {
@@ -24,7 +24,7 @@ mod dynamic_loading_specific {
             r#"
 This happens in module `{MOD_NAME}`.
 Unable to dynamically load the {LIB_NAME_SHOW} (`{LIB_NAME_LINK}`) shared library, due to condition unfulfilled.
-Condition: `dgemm_` not found.
+Condition: `cblas_dgemm` not found.
 Found libraries: {candidates:#?}
 
 Please check
