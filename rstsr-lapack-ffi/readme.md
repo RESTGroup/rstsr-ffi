@@ -58,7 +58,7 @@ Optional features:
 
 ## Changelog
 
-- v0.4
+- v0.4.0
 
     - **API breaking change**: Supports and defaults to dynamic loading.
 
