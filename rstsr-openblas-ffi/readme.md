@@ -54,7 +54,11 @@ Optional features:
 
 ## Changelog
 
-- v0.4
+- v0.4.1
+
+    - **Minor fix**: fixed error printing of module information.
+
+- v0.4.0
 
     - **API breaking change**: Supports and defaults to dynamic loading.
     - Added `omp_set_num_threads` and `omp_get_max_threads` for convenience.

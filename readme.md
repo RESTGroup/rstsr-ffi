@@ -9,7 +9,8 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 | crate | crate version | FFI library | FFI version |
 |--|--|--|--|
 | rstsr-lapack-ffi | v0.4.0 | Reference LAPACK | v3.12.1 |
-| rstsr-openblas-ffi | v0.4.0 | OpenBLAS | v0.3.30 |
+| rstsr-openblas-ffi | v0.4.1 | OpenBLAS | v0.3.30 |
+| rstsr-mkl-ffi | v0.1.0 | Intel oneAPI MKL | 2025.2 |
 
 ## Motivation
 
