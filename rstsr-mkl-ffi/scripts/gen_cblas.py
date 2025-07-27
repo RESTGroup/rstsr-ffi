@@ -1,4 +1,4 @@
-# # Bindgen of MKL (mkl_types.h)
+# # Bindgen of MKL (mkl_cblas.h)
 
 import subprocess
 import os

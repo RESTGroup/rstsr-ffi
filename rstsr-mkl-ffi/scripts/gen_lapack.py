@@ -12,7 +12,7 @@
 #     name: python3
 # ---
 
-# # Bindgen of MKL (mkl_blas.h)
+# # Bindgen of MKL (mkl_lapack.h)
 
 import subprocess
 import os
@@ -53,20 +53,20 @@ os.chdir(path_temp)
 
 # ## Pre-Processing
 
-with open("mkl_blas.h", "r") as f:
+with open("mkl_lapack.h", "r") as f:
     token = f.read()
 
 token = token.replace("mkl_types.h", "mkl_types_rstsr.h")
 
-with open("mkl_blas_rstsr.h", "w") as f:
+with open("mkl_lapack_rstsr.h", "w") as f:
     f.write(token)
 
 # ## Bindgen
 
 subprocess.run([
     "bindgen",
-    "mkl_blas_rstsr.h", "-o", "mkl_blas.rs",
-    "--allowlist-file", "mkl_blas_rstsr.h",
+    "mkl_lapack_rstsr.h", "-o", "mkl_lapack.rs",
+    "--allowlist-file", "mkl_lapack_rstsr.h",
     "--default-enum-style", "rust",
     "--no-layout-tests",
     "--use-core",
@@ -75,12 +75,13 @@ subprocess.run([
 
 # ## Post-Process
 
-# For MKL BLAS,
+# For MKL LAPACK,
 #
-# - remove all type definitions, and use that of `crate::mkl_types`;
-# - exclude all upper-case functions, and add fn alias;
+# - remove most type definitions, and use that of `crate::mkl_types`;
+# - use types that with `SELECT_FUNCTION`;
+# - exclude and add fn alias;
 
-with open("mkl_blas.rs", "r") as f:
+with open("mkl_lapack.rs", "r") as f:
     token = f.read()
 
 parser = Parser(Language(tree_sitter_rust.language()))
@@ -88,34 +89,59 @@ tree = parser.parse(bytes(token.replace("unsafe extern", "extern"), "utf8"))
 node_extern = tree.root_node.children[-1]
 assert(node_extern.type == "foreign_mod_item")
 
-# exclude upper-case functions
-nodes_fn = [
-    n for n in node_extern.children[1].children
-    if (n.type == "function_signature_item" and not n.children[2].text.isupper())]
+# include only lower-case and underscore suffix functions
+nodes_fn = [n for n in node_extern.children[1].children if n.type == "function_signature_item"]
+identifiers = [n.children[2].text.decode() for n in nodes_fn]
+identifiers_set = set()
+for ident in identifiers:
+    ident_trans = ident.lower().replace("_64", "")
+    if ident_trans.endswith("_"):
+        ident_trans = ident_trans[:-1]
+    identifiers_set.add(ident_trans)
 
-token = """extern "C" {\n"""
+# +
+with open("symbol_table.txt", "r") as f:
+    symbol_table = {l.split()[2] for l in f.readlines() if len(l.split()) >= 3}
+
+assert(len({ident.upper() for ident in identifiers_set} - set(symbol_table)) == 0)
+assert(len({ident + "_" for ident in identifiers_set} - set(symbol_table)) == 0)
+# -
+
+token = """extern "C" {"""
+identifiers_added = set()
 for node_fn in nodes_fn:
-    identifier = node_fn.children[2].text.decode()
-    token += node_fn.text.decode().replace(identifier, identifier + "_")
+    ident = node_fn.children[2].text.decode()
+    ident_trans = ident.lower().replace("_64", "")
+    if ident_trans.endswith("_"):
+        ident_trans = ident_trans[:-1]
+    if ident_trans in identifiers_added: continue
+    identifiers_added.add(ident_trans)
+    token += node_fn.text.decode().replace(ident, ident_trans + "_")
 token += "}"
-token = token.replace("::core::ffi::", "")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token_alias = "\n"
 token_alias += "/* #region upper case alias */"
 token_alias += "\n\n"
-for node_fn in nodes_fn:
-    identifier = node_fn.children[2].text.decode()
-    token_alias += f"pub use {identifier}_ as {identifier.upper()};\n"
+for ident in identifiers_set:
+    token_alias += f"pub use {ident}_ as {ident.upper()};\n"
 token_alias += "\n\n"
 token_alias += "/* #endregion */"
 token_alias += "\n\n"
 token_alias += "/* #region lower case with underscore alias */"
 token_alias += "\n\n"
-for node_fn in nodes_fn:
-    identifier = node_fn.children[2].text.decode()
-    token_alias += f"pub use {identifier}_ as {identifier};\n"
+for ident in identifiers_set:
+    token_alias += f"pub use {ident}_ as {ident};\n"
 token_alias += "\n\n"
 token_alias += "/* #endregion */"
+
+# The following code handles type definition
+
+nodes_type_select = [
+    n for n in tree.root_node.children
+    if (n.type == "type_item" and "SELECT" in n.children[2].text.decode())]
+
+# Handles split
 
 # +
 files_split = util_dyload.dyload_main(token)
@@ -123,6 +149,10 @@ files_split = util_dyload.dyload_main(token)
 ffi_base = files_split["ffi_base"]
 ffi_base += "\n\n"
 ffi_base += "pub use crate::mkl_types::*;";
+ffi_base += "\n\n"
+for node_type_select in nodes_type_select:
+    ffi_base += node_type_select.text.decode() + "\n"
+ffi_base = ffi_base.replace("::core::ffi::", "").replace("::core::option::", "")
 
 ffi_extern = files_split["ffi_extern"]
 ffi_extern += token_alias
@@ -131,7 +161,7 @@ dyload_compatible = files_split["dyload_compatible"]
 dyload_compatible += token_alias
 
 # +
-dir_relative = "blas"
+dir_relative = "lapack"
 
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)

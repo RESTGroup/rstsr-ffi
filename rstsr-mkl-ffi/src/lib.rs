@@ -7,6 +7,8 @@ pub mod mkl_types;
 pub mod blas;
 #[cfg(feature = "cblas")]
 pub mod cblas;
+#[cfg(feature = "lapack")]
+pub mod lapack;
 
 pub const CRATE_NAME: &str = "rstsr-mkl-ffi";
 pub const LIB_NAME: &str = "MKL"; // for code, e.g. "MKL"
