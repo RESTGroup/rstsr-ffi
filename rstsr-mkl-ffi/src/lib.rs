@@ -2,6 +2,7 @@
 #![allow(non_snake_case)]
 
 pub mod mkl_types;
+pub mod service;
 
 #[cfg(feature = "blas")]
 pub mod blas;
