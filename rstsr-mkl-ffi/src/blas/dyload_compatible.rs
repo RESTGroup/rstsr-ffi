@@ -7,23 +7,23 @@
 
 use super::*;
 
-pub unsafe fn xerbla(srname: *const c_char, info: *const c_int, lsrname: c_int) {
-    dyload_lib().xerbla.unwrap()(srname, info, lsrname)
+pub unsafe fn xerbla_(srname: *const c_char, info: *const c_int, lsrname: c_int) {
+    dyload_lib().xerbla_.unwrap()(srname, info, lsrname)
 }
 
-pub unsafe fn lsame(ca: *const c_char, cb: *const c_char, lca: MKL_INT, lcb: MKL_INT) -> c_int {
-    dyload_lib().lsame.unwrap()(ca, cb, lca, lcb)
+pub unsafe fn lsame_(ca: *const c_char, cb: *const c_char, lca: MKL_INT, lcb: MKL_INT) -> c_int {
+    dyload_lib().lsame_.unwrap()(ca, cb, lca, lcb)
 }
 
-pub unsafe fn scabs1(c: *const MKL_Complex8) -> f32 {
-    dyload_lib().scabs1.unwrap()(c)
+pub unsafe fn scabs1_(c: *const MKL_Complex8) -> f32 {
+    dyload_lib().scabs1_.unwrap()(c)
 }
 
-pub unsafe fn sasum(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32 {
-    dyload_lib().sasum.unwrap()(n, x, incx)
+pub unsafe fn sasum_(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32 {
+    dyload_lib().sasum_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn saxpy(
+pub unsafe fn saxpy_(
     n: *const MKL_INT,
     alpha: *const f32,
     x: *const f32,
@@ -31,10 +31,10 @@ pub unsafe fn saxpy(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().saxpy.unwrap()(n, alpha, x, incx, y, incy)
+    dyload_lib().saxpy_.unwrap()(n, alpha, x, incx, y, incy)
 }
 
-pub unsafe fn saxpby(
+pub unsafe fn saxpby_(
     n: *const MKL_INT,
     alpha: *const f32,
     x: *const f32,
@@ -43,52 +43,57 @@ pub unsafe fn saxpby(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().saxpby.unwrap()(n, alpha, x, incx, beta, y, incy)
+    dyload_lib().saxpby_.unwrap()(n, alpha, x, incx, beta, y, incy)
 }
 
-pub unsafe fn saxpyi(
+pub unsafe fn saxpyi_(
     nz: *const MKL_INT,
     a: *const f32,
     x: *const f32,
     indx: *const MKL_INT,
     y: *mut f32,
 ) {
-    dyload_lib().saxpyi.unwrap()(nz, a, x, indx, y)
+    dyload_lib().saxpyi_.unwrap()(nz, a, x, indx, y)
 }
 
-pub unsafe fn scasum(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> f32 {
-    dyload_lib().scasum.unwrap()(n, x, incx)
+pub unsafe fn scasum_(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> f32 {
+    dyload_lib().scasum_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn scnrm2(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> f32 {
-    dyload_lib().scnrm2.unwrap()(n, x, incx)
+pub unsafe fn scnrm2_(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> f32 {
+    dyload_lib().scnrm2_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn scopy(
+pub unsafe fn scopy_(
     n: *const MKL_INT,
     x: *const f32,
     incx: *const MKL_INT,
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().scopy.unwrap()(n, x, incx, y, incy)
+    dyload_lib().scopy_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn sdot(
+pub unsafe fn sdot_(
     n: *const MKL_INT,
     x: *const f32,
     incx: *const MKL_INT,
     y: *const f32,
     incy: *const MKL_INT,
 ) -> f32 {
-    dyload_lib().sdot.unwrap()(n, x, incx, y, incy)
+    dyload_lib().sdot_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn sdoti(nz: *const MKL_INT, x: *const f32, indx: *const MKL_INT, y: *const f32) -> f32 {
-    dyload_lib().sdoti.unwrap()(nz, x, indx, y)
+pub unsafe fn sdoti_(
+    nz: *const MKL_INT,
+    x: *const f32,
+    indx: *const MKL_INT,
+    y: *const f32,
+) -> f32 {
+    dyload_lib().sdoti_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn sdsdot(
+pub unsafe fn sdsdot_(
     n: *const MKL_INT,
     sb: *const f32,
     x: *const f32,
@@ -96,22 +101,22 @@ pub unsafe fn sdsdot(
     y: *const f32,
     incy: *const MKL_INT,
 ) -> f32 {
-    dyload_lib().sdsdot.unwrap()(n, sb, x, incx, y, incy)
+    dyload_lib().sdsdot_.unwrap()(n, sb, x, incx, y, incy)
 }
 
-pub unsafe fn sgthr(nz: *const MKL_INT, y: *const f32, x: *mut f32, indx: *const MKL_INT) {
-    dyload_lib().sgthr.unwrap()(nz, y, x, indx)
+pub unsafe fn sgthr_(nz: *const MKL_INT, y: *const f32, x: *mut f32, indx: *const MKL_INT) {
+    dyload_lib().sgthr_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn sgthrz(nz: *const MKL_INT, y: *mut f32, x: *mut f32, indx: *const MKL_INT) {
-    dyload_lib().sgthrz.unwrap()(nz, y, x, indx)
+pub unsafe fn sgthrz_(nz: *const MKL_INT, y: *mut f32, x: *mut f32, indx: *const MKL_INT) {
+    dyload_lib().sgthrz_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn snrm2(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32 {
-    dyload_lib().snrm2.unwrap()(n, x, incx)
+pub unsafe fn snrm2_(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32 {
+    dyload_lib().snrm2_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn srot(
+pub unsafe fn srot_(
     n: *const MKL_INT,
     x: *mut f32,
     incx: *const MKL_INT,
@@ -120,14 +125,14 @@ pub unsafe fn srot(
     c: *const f32,
     s: *const f32,
 ) {
-    dyload_lib().srot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().srot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn srotg(a: *mut f32, b: *mut f32, c: *mut f32, s: *mut f32) {
-    dyload_lib().srotg.unwrap()(a, b, c, s)
+pub unsafe fn srotg_(a: *mut f32, b: *mut f32, c: *mut f32, s: *mut f32) {
+    dyload_lib().srotg_.unwrap()(a, b, c, s)
 }
 
-pub unsafe fn sroti(
+pub unsafe fn sroti_(
     nz: *const MKL_INT,
     x: *mut f32,
     indx: *const MKL_INT,
@@ -135,10 +140,10 @@ pub unsafe fn sroti(
     c: *const f32,
     s: *const f32,
 ) {
-    dyload_lib().sroti.unwrap()(nz, x, indx, y, c, s)
+    dyload_lib().sroti_.unwrap()(nz, x, indx, y, c, s)
 }
 
-pub unsafe fn srotm(
+pub unsafe fn srotm_(
     n: *const MKL_INT,
     x: *mut f32,
     incx: *const MKL_INT,
@@ -146,40 +151,40 @@ pub unsafe fn srotm(
     incy: *const MKL_INT,
     param: *const f32,
 ) {
-    dyload_lib().srotm.unwrap()(n, x, incx, y, incy, param)
+    dyload_lib().srotm_.unwrap()(n, x, incx, y, incy, param)
 }
 
-pub unsafe fn srotmg(d1: *mut f32, d2: *mut f32, x1: *mut f32, y1: *const f32, param: *mut f32) {
-    dyload_lib().srotmg.unwrap()(d1, d2, x1, y1, param)
+pub unsafe fn srotmg_(d1: *mut f32, d2: *mut f32, x1: *mut f32, y1: *const f32, param: *mut f32) {
+    dyload_lib().srotmg_.unwrap()(d1, d2, x1, y1, param)
 }
 
-pub unsafe fn sscal(n: *const MKL_INT, a: *const f32, x: *mut f32, incx: *const MKL_INT) {
-    dyload_lib().sscal.unwrap()(n, a, x, incx)
+pub unsafe fn sscal_(n: *const MKL_INT, a: *const f32, x: *mut f32, incx: *const MKL_INT) {
+    dyload_lib().sscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn ssctr(nz: *const MKL_INT, x: *const f32, indx: *const MKL_INT, y: *mut f32) {
-    dyload_lib().ssctr.unwrap()(nz, x, indx, y)
+pub unsafe fn ssctr_(nz: *const MKL_INT, x: *const f32, indx: *const MKL_INT, y: *mut f32) {
+    dyload_lib().ssctr_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn sswap(
+pub unsafe fn sswap_(
     n: *const MKL_INT,
     x: *mut f32,
     incx: *const MKL_INT,
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().sswap.unwrap()(n, x, incx, y, incy)
+    dyload_lib().sswap_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn isamax(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().isamax.unwrap()(n, x, incx)
+pub unsafe fn isamax_(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().isamax_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn isamin(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().isamin.unwrap()(n, x, incx)
+pub unsafe fn isamin_(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().isamin_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn caxpy(
+pub unsafe fn caxpy_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
     x: *const MKL_Complex8,
@@ -187,10 +192,10 @@ pub unsafe fn caxpy(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().caxpy.unwrap()(n, alpha, x, incx, y, incy)
+    dyload_lib().caxpy_.unwrap()(n, alpha, x, incx, y, incy)
 }
 
-pub unsafe fn caxpby(
+pub unsafe fn caxpby_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
     x: *const MKL_Complex8,
@@ -199,30 +204,30 @@ pub unsafe fn caxpby(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().caxpby.unwrap()(n, alpha, x, incx, beta, y, incy)
+    dyload_lib().caxpby_.unwrap()(n, alpha, x, incx, beta, y, incy)
 }
 
-pub unsafe fn caxpyi(
+pub unsafe fn caxpyi_(
     nz: *const MKL_INT,
     a: *const MKL_Complex8,
     x: *const MKL_Complex8,
     indx: *const MKL_INT,
     y: *mut MKL_Complex8,
 ) {
-    dyload_lib().caxpyi.unwrap()(nz, a, x, indx, y)
+    dyload_lib().caxpyi_.unwrap()(nz, a, x, indx, y)
 }
 
-pub unsafe fn ccopy(
+pub unsafe fn ccopy_(
     n: *const MKL_INT,
     x: *const MKL_Complex8,
     incx: *const MKL_INT,
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().ccopy.unwrap()(n, x, incx, y, incy)
+    dyload_lib().ccopy_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn cdotc(
+pub unsafe fn cdotc_(
     pres: *mut MKL_Complex8,
     n: *const MKL_INT,
     x: *const MKL_Complex8,
@@ -230,20 +235,20 @@ pub unsafe fn cdotc(
     y: *const MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().cdotc.unwrap()(pres, n, x, incx, y, incy)
+    dyload_lib().cdotc_.unwrap()(pres, n, x, incx, y, incy)
 }
 
-pub unsafe fn cdotci(
+pub unsafe fn cdotci_(
     pres: *mut MKL_Complex8,
     nz: *const MKL_INT,
     x: *const MKL_Complex8,
     indx: *const MKL_INT,
     y: *const MKL_Complex8,
 ) {
-    dyload_lib().cdotci.unwrap()(pres, nz, x, indx, y)
+    dyload_lib().cdotci_.unwrap()(pres, nz, x, indx, y)
 }
 
-pub unsafe fn cdotu(
+pub unsafe fn cdotu_(
     pres: *mut MKL_Complex8,
     n: *const MKL_INT,
     x: *const MKL_Complex8,
@@ -251,38 +256,38 @@ pub unsafe fn cdotu(
     y: *const MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().cdotu.unwrap()(pres, n, x, incx, y, incy)
+    dyload_lib().cdotu_.unwrap()(pres, n, x, incx, y, incy)
 }
 
-pub unsafe fn cdotui(
+pub unsafe fn cdotui_(
     pres: *mut MKL_Complex8,
     nz: *const MKL_INT,
     x: *const MKL_Complex8,
     indx: *const MKL_INT,
     y: *const MKL_Complex8,
 ) {
-    dyload_lib().cdotui.unwrap()(pres, nz, x, indx, y)
+    dyload_lib().cdotui_.unwrap()(pres, nz, x, indx, y)
 }
 
-pub unsafe fn cgthr(
+pub unsafe fn cgthr_(
     nz: *const MKL_INT,
     y: *const MKL_Complex8,
     x: *mut MKL_Complex8,
     indx: *const MKL_INT,
 ) {
-    dyload_lib().cgthr.unwrap()(nz, y, x, indx)
+    dyload_lib().cgthr_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn cgthrz(
+pub unsafe fn cgthrz_(
     nz: *const MKL_INT,
     y: *mut MKL_Complex8,
     x: *mut MKL_Complex8,
     indx: *const MKL_INT,
 ) {
-    dyload_lib().cgthrz.unwrap()(nz, y, x, indx)
+    dyload_lib().cgthrz_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn crot(
+pub unsafe fn crot_(
     n: *const MKL_INT,
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
@@ -291,37 +296,37 @@ pub unsafe fn crot(
     c: *const f32,
     s: *const MKL_Complex8,
 ) {
-    dyload_lib().crot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().crot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn crotg(
+pub unsafe fn crotg_(
     a: *mut MKL_Complex8,
     b: *const MKL_Complex8,
     c: *mut f32,
     s: *mut MKL_Complex8,
 ) {
-    dyload_lib().crotg.unwrap()(a, b, c, s)
+    dyload_lib().crotg_.unwrap()(a, b, c, s)
 }
 
-pub unsafe fn cscal(
+pub unsafe fn cscal_(
     n: *const MKL_INT,
     a: *const MKL_Complex8,
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().cscal.unwrap()(n, a, x, incx)
+    dyload_lib().cscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn csctr(
+pub unsafe fn csctr_(
     nz: *const MKL_INT,
     x: *const MKL_Complex8,
     indx: *const MKL_INT,
     y: *mut MKL_Complex8,
 ) {
-    dyload_lib().csctr.unwrap()(nz, x, indx, y)
+    dyload_lib().csctr_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn csrot(
+pub unsafe fn csrot_(
     n: *const MKL_INT,
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
@@ -330,40 +335,45 @@ pub unsafe fn csrot(
     c: *const f32,
     s: *const f32,
 ) {
-    dyload_lib().csrot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().csrot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn csscal(n: *const MKL_INT, a: *const f32, x: *mut MKL_Complex8, incx: *const MKL_INT) {
-    dyload_lib().csscal.unwrap()(n, a, x, incx)
+pub unsafe fn csscal_(
+    n: *const MKL_INT,
+    a: *const f32,
+    x: *mut MKL_Complex8,
+    incx: *const MKL_INT,
+) {
+    dyload_lib().csscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn cswap(
+pub unsafe fn cswap_(
     n: *const MKL_INT,
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().cswap.unwrap()(n, x, incx, y, incy)
+    dyload_lib().cswap_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn icamax(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().icamax.unwrap()(n, x, incx)
+pub unsafe fn icamax_(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().icamax_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn icamin(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().icamin.unwrap()(n, x, incx)
+pub unsafe fn icamin_(n: *const MKL_INT, x: *const MKL_Complex8, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().icamin_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn dcabs1(z: *const MKL_Complex16) -> f64 {
-    dyload_lib().dcabs1.unwrap()(z)
+pub unsafe fn dcabs1_(z: *const MKL_Complex16) -> f64 {
+    dyload_lib().dcabs1_.unwrap()(z)
 }
 
-pub unsafe fn dasum(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64 {
-    dyload_lib().dasum.unwrap()(n, x, incx)
+pub unsafe fn dasum_(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64 {
+    dyload_lib().dasum_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn daxpy(
+pub unsafe fn daxpy_(
     n: *const MKL_INT,
     alpha: *const f64,
     x: *const f64,
@@ -371,10 +381,10 @@ pub unsafe fn daxpy(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().daxpy.unwrap()(n, alpha, x, incx, y, incy)
+    dyload_lib().daxpy_.unwrap()(n, alpha, x, incx, y, incy)
 }
 
-pub unsafe fn daxpby(
+pub unsafe fn daxpby_(
     n: *const MKL_INT,
     alpha: *const f64,
     x: *const f64,
@@ -383,66 +393,71 @@ pub unsafe fn daxpby(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().daxpby.unwrap()(n, alpha, x, incx, beta, y, incy)
+    dyload_lib().daxpby_.unwrap()(n, alpha, x, incx, beta, y, incy)
 }
 
-pub unsafe fn daxpyi(
+pub unsafe fn daxpyi_(
     nz: *const MKL_INT,
     a: *const f64,
     x: *const f64,
     indx: *const MKL_INT,
     y: *mut f64,
 ) {
-    dyload_lib().daxpyi.unwrap()(nz, a, x, indx, y)
+    dyload_lib().daxpyi_.unwrap()(nz, a, x, indx, y)
 }
 
-pub unsafe fn dcopy(
+pub unsafe fn dcopy_(
     n: *const MKL_INT,
     x: *const f64,
     incx: *const MKL_INT,
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dcopy.unwrap()(n, x, incx, y, incy)
+    dyload_lib().dcopy_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn ddot(
+pub unsafe fn ddot_(
     n: *const MKL_INT,
     x: *const f64,
     incx: *const MKL_INT,
     y: *const f64,
     incy: *const MKL_INT,
 ) -> f64 {
-    dyload_lib().ddot.unwrap()(n, x, incx, y, incy)
+    dyload_lib().ddot_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn dsdot(
+pub unsafe fn dsdot_(
     n: *const MKL_INT,
     x: *const f32,
     incx: *const MKL_INT,
     y: *const f32,
     incy: *const MKL_INT,
 ) -> f64 {
-    dyload_lib().dsdot.unwrap()(n, x, incx, y, incy)
+    dyload_lib().dsdot_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn ddoti(nz: *const MKL_INT, x: *const f64, indx: *const MKL_INT, y: *const f64) -> f64 {
-    dyload_lib().ddoti.unwrap()(nz, x, indx, y)
+pub unsafe fn ddoti_(
+    nz: *const MKL_INT,
+    x: *const f64,
+    indx: *const MKL_INT,
+    y: *const f64,
+) -> f64 {
+    dyload_lib().ddoti_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn dgthr(nz: *const MKL_INT, y: *const f64, x: *mut f64, indx: *const MKL_INT) {
-    dyload_lib().dgthr.unwrap()(nz, y, x, indx)
+pub unsafe fn dgthr_(nz: *const MKL_INT, y: *const f64, x: *mut f64, indx: *const MKL_INT) {
+    dyload_lib().dgthr_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn dgthrz(nz: *const MKL_INT, y: *mut f64, x: *mut f64, indx: *const MKL_INT) {
-    dyload_lib().dgthrz.unwrap()(nz, y, x, indx)
+pub unsafe fn dgthrz_(nz: *const MKL_INT, y: *mut f64, x: *mut f64, indx: *const MKL_INT) {
+    dyload_lib().dgthrz_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn dnrm2(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64 {
-    dyload_lib().dnrm2.unwrap()(n, x, incx)
+pub unsafe fn dnrm2_(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64 {
+    dyload_lib().dnrm2_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn drot(
+pub unsafe fn drot_(
     n: *const MKL_INT,
     x: *mut f64,
     incx: *const MKL_INT,
@@ -451,14 +466,14 @@ pub unsafe fn drot(
     c: *const f64,
     s: *const f64,
 ) {
-    dyload_lib().drot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().drot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn drotg(a: *mut f64, b: *mut f64, c: *mut f64, s: *mut f64) {
-    dyload_lib().drotg.unwrap()(a, b, c, s)
+pub unsafe fn drotg_(a: *mut f64, b: *mut f64, c: *mut f64, s: *mut f64) {
+    dyload_lib().drotg_.unwrap()(a, b, c, s)
 }
 
-pub unsafe fn droti(
+pub unsafe fn droti_(
     nz: *const MKL_INT,
     x: *mut f64,
     indx: *const MKL_INT,
@@ -466,10 +481,10 @@ pub unsafe fn droti(
     c: *const f64,
     s: *const f64,
 ) {
-    dyload_lib().droti.unwrap()(nz, x, indx, y, c, s)
+    dyload_lib().droti_.unwrap()(nz, x, indx, y, c, s)
 }
 
-pub unsafe fn drotm(
+pub unsafe fn drotm_(
     n: *const MKL_INT,
     x: *mut f64,
     incx: *const MKL_INT,
@@ -477,48 +492,48 @@ pub unsafe fn drotm(
     incy: *const MKL_INT,
     param: *const f64,
 ) {
-    dyload_lib().drotm.unwrap()(n, x, incx, y, incy, param)
+    dyload_lib().drotm_.unwrap()(n, x, incx, y, incy, param)
 }
 
-pub unsafe fn drotmg(d1: *mut f64, d2: *mut f64, x1: *mut f64, y1: *const f64, param: *mut f64) {
-    dyload_lib().drotmg.unwrap()(d1, d2, x1, y1, param)
+pub unsafe fn drotmg_(d1: *mut f64, d2: *mut f64, x1: *mut f64, y1: *const f64, param: *mut f64) {
+    dyload_lib().drotmg_.unwrap()(d1, d2, x1, y1, param)
 }
 
-pub unsafe fn dscal(n: *const MKL_INT, a: *const f64, x: *mut f64, incx: *const MKL_INT) {
-    dyload_lib().dscal.unwrap()(n, a, x, incx)
+pub unsafe fn dscal_(n: *const MKL_INT, a: *const f64, x: *mut f64, incx: *const MKL_INT) {
+    dyload_lib().dscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn dsctr(nz: *const MKL_INT, x: *const f64, indx: *const MKL_INT, y: *mut f64) {
-    dyload_lib().dsctr.unwrap()(nz, x, indx, y)
+pub unsafe fn dsctr_(nz: *const MKL_INT, x: *const f64, indx: *const MKL_INT, y: *mut f64) {
+    dyload_lib().dsctr_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn dswap(
+pub unsafe fn dswap_(
     n: *const MKL_INT,
     x: *mut f64,
     incx: *const MKL_INT,
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dswap.unwrap()(n, x, incx, y, incy)
+    dyload_lib().dswap_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn dzasum(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> f64 {
-    dyload_lib().dzasum.unwrap()(n, x, incx)
+pub unsafe fn dzasum_(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> f64 {
+    dyload_lib().dzasum_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn dznrm2(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> f64 {
-    dyload_lib().dznrm2.unwrap()(n, x, incx)
+pub unsafe fn dznrm2_(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> f64 {
+    dyload_lib().dznrm2_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn idamax(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().idamax.unwrap()(n, x, incx)
+pub unsafe fn idamax_(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().idamax_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn idamin(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().idamin.unwrap()(n, x, incx)
+pub unsafe fn idamin_(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().idamin_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn zaxpy(
+pub unsafe fn zaxpy_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
     x: *const MKL_Complex16,
@@ -526,10 +541,10 @@ pub unsafe fn zaxpy(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zaxpy.unwrap()(n, alpha, x, incx, y, incy)
+    dyload_lib().zaxpy_.unwrap()(n, alpha, x, incx, y, incy)
 }
 
-pub unsafe fn zaxpby(
+pub unsafe fn zaxpby_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
     x: *const MKL_Complex16,
@@ -538,30 +553,30 @@ pub unsafe fn zaxpby(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zaxpby.unwrap()(n, alpha, x, incx, beta, y, incy)
+    dyload_lib().zaxpby_.unwrap()(n, alpha, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zaxpyi(
+pub unsafe fn zaxpyi_(
     nz: *const MKL_INT,
     a: *const MKL_Complex16,
     x: *const MKL_Complex16,
     indx: *const MKL_INT,
     y: *mut MKL_Complex16,
 ) {
-    dyload_lib().zaxpyi.unwrap()(nz, a, x, indx, y)
+    dyload_lib().zaxpyi_.unwrap()(nz, a, x, indx, y)
 }
 
-pub unsafe fn zcopy(
+pub unsafe fn zcopy_(
     n: *const MKL_INT,
     x: *const MKL_Complex16,
     incx: *const MKL_INT,
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zcopy.unwrap()(n, x, incx, y, incy)
+    dyload_lib().zcopy_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn zdotc(
+pub unsafe fn zdotc_(
     pres: *mut MKL_Complex16,
     n: *const MKL_INT,
     x: *const MKL_Complex16,
@@ -569,20 +584,20 @@ pub unsafe fn zdotc(
     y: *const MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zdotc.unwrap()(pres, n, x, incx, y, incy)
+    dyload_lib().zdotc_.unwrap()(pres, n, x, incx, y, incy)
 }
 
-pub unsafe fn zdotci(
+pub unsafe fn zdotci_(
     pres: *mut MKL_Complex16,
     nz: *const MKL_INT,
     x: *const MKL_Complex16,
     indx: *const MKL_INT,
     y: *const MKL_Complex16,
 ) {
-    dyload_lib().zdotci.unwrap()(pres, nz, x, indx, y)
+    dyload_lib().zdotci_.unwrap()(pres, nz, x, indx, y)
 }
 
-pub unsafe fn zdotu(
+pub unsafe fn zdotu_(
     pres: *mut MKL_Complex16,
     n: *const MKL_INT,
     x: *const MKL_Complex16,
@@ -590,20 +605,20 @@ pub unsafe fn zdotu(
     y: *const MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zdotu.unwrap()(pres, n, x, incx, y, incy)
+    dyload_lib().zdotu_.unwrap()(pres, n, x, incx, y, incy)
 }
 
-pub unsafe fn zdotui(
+pub unsafe fn zdotui_(
     pres: *mut MKL_Complex16,
     nz: *const MKL_INT,
     x: *const MKL_Complex16,
     indx: *const MKL_INT,
     y: *const MKL_Complex16,
 ) {
-    dyload_lib().zdotui.unwrap()(pres, nz, x, indx, y)
+    dyload_lib().zdotui_.unwrap()(pres, nz, x, indx, y)
 }
 
-pub unsafe fn zdrot(
+pub unsafe fn zdrot_(
     n: *const MKL_INT,
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
@@ -612,37 +627,37 @@ pub unsafe fn zdrot(
     c: *const f64,
     s: *const f64,
 ) {
-    dyload_lib().zdrot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().zdrot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn zdscal(
+pub unsafe fn zdscal_(
     n: *const MKL_INT,
     a: *const f64,
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().zdscal.unwrap()(n, a, x, incx)
+    dyload_lib().zdscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn zgthr(
+pub unsafe fn zgthr_(
     nz: *const MKL_INT,
     y: *const MKL_Complex16,
     x: *mut MKL_Complex16,
     indx: *const MKL_INT,
 ) {
-    dyload_lib().zgthr.unwrap()(nz, y, x, indx)
+    dyload_lib().zgthr_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn zgthrz(
+pub unsafe fn zgthrz_(
     nz: *const MKL_INT,
     y: *mut MKL_Complex16,
     x: *mut MKL_Complex16,
     indx: *const MKL_INT,
 ) {
-    dyload_lib().zgthrz.unwrap()(nz, y, x, indx)
+    dyload_lib().zgthrz_.unwrap()(nz, y, x, indx)
 }
 
-pub unsafe fn zrot(
+pub unsafe fn zrot_(
     n: *const MKL_INT,
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
@@ -651,55 +666,55 @@ pub unsafe fn zrot(
     c: *const f64,
     s: *const MKL_Complex16,
 ) {
-    dyload_lib().zrot.unwrap()(n, x, incx, y, incy, c, s)
+    dyload_lib().zrot_.unwrap()(n, x, incx, y, incy, c, s)
 }
 
-pub unsafe fn zrotg(
+pub unsafe fn zrotg_(
     a: *mut MKL_Complex16,
     b: *const MKL_Complex16,
     c: *mut f64,
     s: *mut MKL_Complex16,
 ) {
-    dyload_lib().zrotg.unwrap()(a, b, c, s)
+    dyload_lib().zrotg_.unwrap()(a, b, c, s)
 }
 
-pub unsafe fn zscal(
+pub unsafe fn zscal_(
     n: *const MKL_INT,
     a: *const MKL_Complex16,
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().zscal.unwrap()(n, a, x, incx)
+    dyload_lib().zscal_.unwrap()(n, a, x, incx)
 }
 
-pub unsafe fn zsctr(
+pub unsafe fn zsctr_(
     nz: *const MKL_INT,
     x: *const MKL_Complex16,
     indx: *const MKL_INT,
     y: *mut MKL_Complex16,
 ) {
-    dyload_lib().zsctr.unwrap()(nz, x, indx, y)
+    dyload_lib().zsctr_.unwrap()(nz, x, indx, y)
 }
 
-pub unsafe fn zswap(
+pub unsafe fn zswap_(
     n: *const MKL_INT,
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zswap.unwrap()(n, x, incx, y, incy)
+    dyload_lib().zswap_.unwrap()(n, x, incx, y, incy)
 }
 
-pub unsafe fn izamax(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().izamax.unwrap()(n, x, incx)
+pub unsafe fn izamax_(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().izamax_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn izamin(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> MKL_INT {
-    dyload_lib().izamin.unwrap()(n, x, incx)
+pub unsafe fn izamin_(n: *const MKL_INT, x: *const MKL_Complex16, incx: *const MKL_INT) -> MKL_INT {
+    dyload_lib().izamin_.unwrap()(n, x, incx)
 }
 
-pub unsafe fn sgbmv(
+pub unsafe fn sgbmv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -714,10 +729,10 @@ pub unsafe fn sgbmv(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().sgbmv.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().sgbmv_.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn sgemv(
+pub unsafe fn sgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -730,10 +745,10 @@ pub unsafe fn sgemv(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().sgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().sgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn sger(
+pub unsafe fn sger_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -744,10 +759,10 @@ pub unsafe fn sger(
     a: *mut f32,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().sger.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().sger_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn ssbmv(
+pub unsafe fn ssbmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     k: *const MKL_INT,
@@ -760,10 +775,10 @@ pub unsafe fn ssbmv(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().ssbmv.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().ssbmv_.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn sspmv(
+pub unsafe fn sspmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -774,10 +789,10 @@ pub unsafe fn sspmv(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().sspmv.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
+    dyload_lib().sspmv_.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
 }
 
-pub unsafe fn sspr(
+pub unsafe fn sspr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -785,10 +800,10 @@ pub unsafe fn sspr(
     incx: *const MKL_INT,
     ap: *mut f32,
 ) {
-    dyload_lib().sspr.unwrap()(uplo, n, alpha, x, incx, ap)
+    dyload_lib().sspr_.unwrap()(uplo, n, alpha, x, incx, ap)
 }
 
-pub unsafe fn sspr2(
+pub unsafe fn sspr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -798,10 +813,10 @@ pub unsafe fn sspr2(
     incy: *const MKL_INT,
     ap: *mut f32,
 ) {
-    dyload_lib().sspr2.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
+    dyload_lib().sspr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
 }
 
-pub unsafe fn ssymv(
+pub unsafe fn ssymv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -813,10 +828,10 @@ pub unsafe fn ssymv(
     y: *mut f32,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().ssymv.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().ssymv_.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn ssyr(
+pub unsafe fn ssyr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -825,10 +840,10 @@ pub unsafe fn ssyr(
     a: *mut f32,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().ssyr.unwrap()(uplo, n, alpha, x, incx, a, lda)
+    dyload_lib().ssyr_.unwrap()(uplo, n, alpha, x, incx, a, lda)
 }
 
-pub unsafe fn ssyr2(
+pub unsafe fn ssyr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -839,10 +854,10 @@ pub unsafe fn ssyr2(
     a: *mut f32,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().ssyr2.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().ssyr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn stbmv(
+pub unsafe fn stbmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -853,10 +868,10 @@ pub unsafe fn stbmv(
     x: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().stbmv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().stbmv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn stbsv(
+pub unsafe fn stbsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -867,10 +882,10 @@ pub unsafe fn stbsv(
     x: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().stbsv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().stbsv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn stpmv(
+pub unsafe fn stpmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -879,10 +894,10 @@ pub unsafe fn stpmv(
     x: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().stpmv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().stpmv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn stpsv(
+pub unsafe fn stpsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -891,10 +906,10 @@ pub unsafe fn stpsv(
     x: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().stpsv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().stpsv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn strmv(
+pub unsafe fn strmv_(
     uplo: *const c_char,
     transa: *const c_char,
     diag: *const c_char,
@@ -904,10 +919,10 @@ pub unsafe fn strmv(
     b: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().strmv.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
+    dyload_lib().strmv_.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
 }
 
-pub unsafe fn strsv(
+pub unsafe fn strsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -917,10 +932,10 @@ pub unsafe fn strsv(
     x: *mut f32,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().strsv.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
+    dyload_lib().strsv_.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
 }
 
-pub unsafe fn sgem2vu(
+pub unsafe fn sgem2vu_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -936,12 +951,12 @@ pub unsafe fn sgem2vu(
     y2: *mut f32,
     incy2: *const MKL_INT,
 ) {
-    dyload_lib().sgem2vu.unwrap()(
+    dyload_lib().sgem2vu_.unwrap()(
         m, n, alpha, a, lda, x1, incx1, x2, incx2, beta, y1, incy1, y2, incy2,
     )
 }
 
-pub unsafe fn cgbmv(
+pub unsafe fn cgbmv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -956,10 +971,10 @@ pub unsafe fn cgbmv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().cgbmv.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().cgbmv_.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn cgemv(
+pub unsafe fn cgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -972,10 +987,10 @@ pub unsafe fn cgemv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().cgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().cgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn cgerc(
+pub unsafe fn cgerc_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -986,10 +1001,10 @@ pub unsafe fn cgerc(
     a: *mut MKL_Complex8,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().cgerc.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().cgerc_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn cgeru(
+pub unsafe fn cgeru_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1000,10 +1015,10 @@ pub unsafe fn cgeru(
     a: *mut MKL_Complex8,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().cgeru.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().cgeru_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn chbmv(
+pub unsafe fn chbmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     k: *const MKL_INT,
@@ -1016,10 +1031,10 @@ pub unsafe fn chbmv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().chbmv.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().chbmv_.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn chemv(
+pub unsafe fn chemv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1031,10 +1046,10 @@ pub unsafe fn chemv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().chemv.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().chemv_.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn cher(
+pub unsafe fn cher_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -1043,10 +1058,10 @@ pub unsafe fn cher(
     a: *mut MKL_Complex8,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().cher.unwrap()(uplo, n, alpha, x, incx, a, lda)
+    dyload_lib().cher_.unwrap()(uplo, n, alpha, x, incx, a, lda)
 }
 
-pub unsafe fn cher2(
+pub unsafe fn cher2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1057,10 +1072,10 @@ pub unsafe fn cher2(
     a: *mut MKL_Complex8,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().cher2.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().cher2_.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn chpmv(
+pub unsafe fn chpmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1071,10 +1086,10 @@ pub unsafe fn chpmv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().chpmv.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
+    dyload_lib().chpmv_.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
 }
 
-pub unsafe fn chpr(
+pub unsafe fn chpr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f32,
@@ -1082,10 +1097,10 @@ pub unsafe fn chpr(
     incx: *const MKL_INT,
     ap: *mut MKL_Complex8,
 ) {
-    dyload_lib().chpr.unwrap()(uplo, n, alpha, x, incx, ap)
+    dyload_lib().chpr_.unwrap()(uplo, n, alpha, x, incx, ap)
 }
 
-pub unsafe fn chpr2(
+pub unsafe fn chpr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1095,10 +1110,10 @@ pub unsafe fn chpr2(
     incy: *const MKL_INT,
     ap: *mut MKL_Complex8,
 ) {
-    dyload_lib().chpr2.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
+    dyload_lib().chpr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
 }
 
-pub unsafe fn ctbmv(
+pub unsafe fn ctbmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1109,10 +1124,10 @@ pub unsafe fn ctbmv(
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctbmv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().ctbmv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn ctbsv(
+pub unsafe fn ctbsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1123,10 +1138,10 @@ pub unsafe fn ctbsv(
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctbsv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().ctbsv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn ctpmv(
+pub unsafe fn ctpmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1135,10 +1150,10 @@ pub unsafe fn ctpmv(
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctpmv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().ctpmv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn ctpsv(
+pub unsafe fn ctpsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1147,10 +1162,10 @@ pub unsafe fn ctpsv(
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctpsv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().ctpsv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn ctrmv(
+pub unsafe fn ctrmv_(
     uplo: *const c_char,
     transa: *const c_char,
     diag: *const c_char,
@@ -1160,10 +1175,10 @@ pub unsafe fn ctrmv(
     b: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctrmv.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
+    dyload_lib().ctrmv_.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
 }
 
-pub unsafe fn ctrsv(
+pub unsafe fn ctrsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1173,10 +1188,10 @@ pub unsafe fn ctrsv(
     x: *mut MKL_Complex8,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ctrsv.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
+    dyload_lib().ctrsv_.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
 }
 
-pub unsafe fn cgem2vc(
+pub unsafe fn cgem2vc_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
@@ -1192,12 +1207,12 @@ pub unsafe fn cgem2vc(
     y2: *mut MKL_Complex8,
     incy2: *const MKL_INT,
 ) {
-    dyload_lib().cgem2vc.unwrap()(
+    dyload_lib().cgem2vc_.unwrap()(
         m, n, alpha, a, lda, x1, incx1, x2, incx2, beta, y1, incy1, y2, incy2,
     )
 }
 
-pub unsafe fn scgemv(
+pub unsafe fn scgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1210,10 +1225,10 @@ pub unsafe fn scgemv(
     y: *mut MKL_Complex8,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().scgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().scgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dgbmv(
+pub unsafe fn dgbmv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1228,10 +1243,10 @@ pub unsafe fn dgbmv(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dgbmv.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().dgbmv_.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dgemv(
+pub unsafe fn dgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1244,10 +1259,10 @@ pub unsafe fn dgemv(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().dgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dger(
+pub unsafe fn dger_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1258,10 +1273,10 @@ pub unsafe fn dger(
     a: *mut f64,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().dger.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().dger_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn dsbmv(
+pub unsafe fn dsbmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     k: *const MKL_INT,
@@ -1274,10 +1289,10 @@ pub unsafe fn dsbmv(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dsbmv.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().dsbmv_.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dspmv(
+pub unsafe fn dspmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1288,10 +1303,10 @@ pub unsafe fn dspmv(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dspmv.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
+    dyload_lib().dspmv_.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dspr(
+pub unsafe fn dspr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1299,10 +1314,10 @@ pub unsafe fn dspr(
     incx: *const MKL_INT,
     ap: *mut f64,
 ) {
-    dyload_lib().dspr.unwrap()(uplo, n, alpha, x, incx, ap)
+    dyload_lib().dspr_.unwrap()(uplo, n, alpha, x, incx, ap)
 }
 
-pub unsafe fn dspr2(
+pub unsafe fn dspr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1312,10 +1327,10 @@ pub unsafe fn dspr2(
     incy: *const MKL_INT,
     ap: *mut f64,
 ) {
-    dyload_lib().dspr2.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
+    dyload_lib().dspr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
 }
 
-pub unsafe fn dsymv(
+pub unsafe fn dsymv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1327,10 +1342,10 @@ pub unsafe fn dsymv(
     y: *mut f64,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dsymv.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().dsymv_.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn dsyr(
+pub unsafe fn dsyr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1339,10 +1354,10 @@ pub unsafe fn dsyr(
     a: *mut f64,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().dsyr.unwrap()(uplo, n, alpha, x, incx, a, lda)
+    dyload_lib().dsyr_.unwrap()(uplo, n, alpha, x, incx, a, lda)
 }
 
-pub unsafe fn dsyr2(
+pub unsafe fn dsyr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1353,10 +1368,10 @@ pub unsafe fn dsyr2(
     a: *mut f64,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().dsyr2.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().dsyr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn dtbmv(
+pub unsafe fn dtbmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1367,10 +1382,10 @@ pub unsafe fn dtbmv(
     x: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtbmv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().dtbmv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn dtbsv(
+pub unsafe fn dtbsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1381,10 +1396,10 @@ pub unsafe fn dtbsv(
     x: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtbsv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().dtbsv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn dtpmv(
+pub unsafe fn dtpmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1393,10 +1408,10 @@ pub unsafe fn dtpmv(
     x: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtpmv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().dtpmv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn dtpsv(
+pub unsafe fn dtpsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1405,10 +1420,10 @@ pub unsafe fn dtpsv(
     x: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtpsv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().dtpsv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn dtrmv(
+pub unsafe fn dtrmv_(
     uplo: *const c_char,
     transa: *const c_char,
     diag: *const c_char,
@@ -1418,10 +1433,10 @@ pub unsafe fn dtrmv(
     b: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtrmv.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
+    dyload_lib().dtrmv_.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
 }
 
-pub unsafe fn dtrsv(
+pub unsafe fn dtrsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1431,10 +1446,10 @@ pub unsafe fn dtrsv(
     x: *mut f64,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().dtrsv.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
+    dyload_lib().dtrsv_.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
 }
 
-pub unsafe fn dgem2vu(
+pub unsafe fn dgem2vu_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1450,12 +1465,12 @@ pub unsafe fn dgem2vu(
     y2: *mut f64,
     incy2: *const MKL_INT,
 ) {
-    dyload_lib().dgem2vu.unwrap()(
+    dyload_lib().dgem2vu_.unwrap()(
         m, n, alpha, a, lda, x1, incx1, x2, incx2, beta, y1, incy1, y2, incy2,
     )
 }
 
-pub unsafe fn zgbmv(
+pub unsafe fn zgbmv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1470,10 +1485,10 @@ pub unsafe fn zgbmv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zgbmv.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().zgbmv_.unwrap()(trans, m, n, kl, ku, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zgemv(
+pub unsafe fn zgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1486,10 +1501,10 @@ pub unsafe fn zgemv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().zgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zgerc(
+pub unsafe fn zgerc_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1500,10 +1515,10 @@ pub unsafe fn zgerc(
     a: *mut MKL_Complex16,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().zgerc.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().zgerc_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn zgeru(
+pub unsafe fn zgeru_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1514,10 +1529,10 @@ pub unsafe fn zgeru(
     a: *mut MKL_Complex16,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().zgeru.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().zgeru_.unwrap()(m, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn zhbmv(
+pub unsafe fn zhbmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     k: *const MKL_INT,
@@ -1530,10 +1545,10 @@ pub unsafe fn zhbmv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zhbmv.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().zhbmv_.unwrap()(uplo, n, k, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zhemv(
+pub unsafe fn zhemv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1545,10 +1560,10 @@ pub unsafe fn zhemv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zhemv.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().zhemv_.unwrap()(uplo, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zher(
+pub unsafe fn zher_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1557,10 +1572,10 @@ pub unsafe fn zher(
     a: *mut MKL_Complex16,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().zher.unwrap()(uplo, n, alpha, x, incx, a, lda)
+    dyload_lib().zher_.unwrap()(uplo, n, alpha, x, incx, a, lda)
 }
 
-pub unsafe fn zher2(
+pub unsafe fn zher2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1571,10 +1586,10 @@ pub unsafe fn zher2(
     a: *mut MKL_Complex16,
     lda: *const MKL_INT,
 ) {
-    dyload_lib().zher2.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
+    dyload_lib().zher2_.unwrap()(uplo, n, alpha, x, incx, y, incy, a, lda)
 }
 
-pub unsafe fn zhpmv(
+pub unsafe fn zhpmv_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1585,10 +1600,10 @@ pub unsafe fn zhpmv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().zhpmv.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
+    dyload_lib().zhpmv_.unwrap()(uplo, n, alpha, ap, x, incx, beta, y, incy)
 }
 
-pub unsafe fn zhpr(
+pub unsafe fn zhpr_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const f64,
@@ -1596,10 +1611,10 @@ pub unsafe fn zhpr(
     incx: *const MKL_INT,
     ap: *mut MKL_Complex16,
 ) {
-    dyload_lib().zhpr.unwrap()(uplo, n, alpha, x, incx, ap)
+    dyload_lib().zhpr_.unwrap()(uplo, n, alpha, x, incx, ap)
 }
 
-pub unsafe fn zhpr2(
+pub unsafe fn zhpr2_(
     uplo: *const c_char,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1609,10 +1624,10 @@ pub unsafe fn zhpr2(
     incy: *const MKL_INT,
     ap: *mut MKL_Complex16,
 ) {
-    dyload_lib().zhpr2.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
+    dyload_lib().zhpr2_.unwrap()(uplo, n, alpha, x, incx, y, incy, ap)
 }
 
-pub unsafe fn ztbmv(
+pub unsafe fn ztbmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1623,10 +1638,10 @@ pub unsafe fn ztbmv(
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztbmv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().ztbmv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn ztbsv(
+pub unsafe fn ztbsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1637,10 +1652,10 @@ pub unsafe fn ztbsv(
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztbsv.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
+    dyload_lib().ztbsv_.unwrap()(uplo, trans, diag, n, k, a, lda, x, incx)
 }
 
-pub unsafe fn ztpmv(
+pub unsafe fn ztpmv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1649,10 +1664,10 @@ pub unsafe fn ztpmv(
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztpmv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().ztpmv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn ztpsv(
+pub unsafe fn ztpsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1661,10 +1676,10 @@ pub unsafe fn ztpsv(
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztpsv.unwrap()(uplo, trans, diag, n, ap, x, incx)
+    dyload_lib().ztpsv_.unwrap()(uplo, trans, diag, n, ap, x, incx)
 }
 
-pub unsafe fn ztrmv(
+pub unsafe fn ztrmv_(
     uplo: *const c_char,
     transa: *const c_char,
     diag: *const c_char,
@@ -1674,10 +1689,10 @@ pub unsafe fn ztrmv(
     b: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztrmv.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
+    dyload_lib().ztrmv_.unwrap()(uplo, transa, diag, n, a, lda, b, incx)
 }
 
-pub unsafe fn ztrsv(
+pub unsafe fn ztrsv_(
     uplo: *const c_char,
     trans: *const c_char,
     diag: *const c_char,
@@ -1687,10 +1702,10 @@ pub unsafe fn ztrsv(
     x: *mut MKL_Complex16,
     incx: *const MKL_INT,
 ) {
-    dyload_lib().ztrsv.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
+    dyload_lib().ztrsv_.unwrap()(uplo, trans, diag, n, a, lda, x, incx)
 }
 
-pub unsafe fn zgem2vc(
+pub unsafe fn zgem2vc_(
     m: *const MKL_INT,
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
@@ -1706,12 +1721,12 @@ pub unsafe fn zgem2vc(
     y2: *mut MKL_Complex16,
     incy2: *const MKL_INT,
 ) {
-    dyload_lib().zgem2vc.unwrap()(
+    dyload_lib().zgem2vc_.unwrap()(
         m, n, alpha, a, lda, x1, incx1, x2, incx2, beta, y1, incy1, y2, incy2,
     )
 }
 
-pub unsafe fn dzgemv(
+pub unsafe fn dzgemv_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -1724,10 +1739,10 @@ pub unsafe fn dzgemv(
     y: *mut MKL_Complex16,
     incy: *const MKL_INT,
 ) {
-    dyload_lib().dzgemv.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
+    dyload_lib().dzgemv_.unwrap()(trans, m, n, alpha, a, lda, x, incx, beta, y, incy)
 }
 
-pub unsafe fn sgemm(
+pub unsafe fn sgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -1742,19 +1757,19 @@ pub unsafe fn sgemm(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().sgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().sgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn sgemm_pack_get_size(
+pub unsafe fn sgemm_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().sgemm_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().sgemm_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn sgemm_pack(
+pub unsafe fn sgemm_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -1765,10 +1780,10 @@ pub unsafe fn sgemm_pack(
     ld: *const MKL_INT,
     dest: *mut f32,
 ) {
-    dyload_lib().sgemm_pack.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
+    dyload_lib().sgemm_pack_.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
 }
 
-pub unsafe fn sgemm_compute(
+pub unsafe fn sgemm_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -1782,10 +1797,10 @@ pub unsafe fn sgemm_compute(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().sgemm_compute.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().sgemm_compute_.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn sgemm_batch(
+pub unsafe fn sgemm_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -1802,7 +1817,7 @@ pub unsafe fn sgemm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().sgemm_batch.unwrap()(
+    dyload_lib().sgemm_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -1821,7 +1836,7 @@ pub unsafe fn sgemm_batch(
     )
 }
 
-pub unsafe fn sgemm_batch_strided(
+pub unsafe fn sgemm_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -1840,13 +1855,13 @@ pub unsafe fn sgemm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().sgemm_batch_strided.unwrap()(
+    dyload_lib().sgemm_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn sgemmt(
+pub unsafe fn sgemmt_(
     uplo: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
@@ -1861,10 +1876,10 @@ pub unsafe fn sgemmt(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().sgemmt.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().sgemmt_.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn ssymm(
+pub unsafe fn ssymm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -1878,10 +1893,10 @@ pub unsafe fn ssymm(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ssymm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().ssymm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn ssyr2k(
+pub unsafe fn ssyr2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -1895,10 +1910,10 @@ pub unsafe fn ssyr2k(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ssyr2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().ssyr2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn ssyrk(
+pub unsafe fn ssyrk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -1910,10 +1925,10 @@ pub unsafe fn ssyrk(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ssyrk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().ssyrk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn ssyrk_batch(
+pub unsafe fn ssyrk_batch_(
     uplo_array: *const c_char,
     trans_array: *const c_char,
     n_array: *const MKL_INT,
@@ -1927,7 +1942,7 @@ pub unsafe fn ssyrk_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().ssyrk_batch.unwrap()(
+    dyload_lib().ssyrk_batch_.unwrap()(
         uplo_array,
         trans_array,
         n_array,
@@ -1943,7 +1958,7 @@ pub unsafe fn ssyrk_batch(
     )
 }
 
-pub unsafe fn ssyrk_batch_strided(
+pub unsafe fn ssyrk_batch_strided_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -1958,12 +1973,12 @@ pub unsafe fn ssyrk_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().ssyrk_batch_strided.unwrap()(
+    dyload_lib().ssyrk_batch_strided_.unwrap()(
         uplo, trans, n, k, alpha, a, lda, stridea, beta, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn strmm(
+pub unsafe fn strmm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -1976,10 +1991,10 @@ pub unsafe fn strmm(
     b: *mut f32,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().strmm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().strmm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn strmm_oop(
+pub unsafe fn strmm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -1995,12 +2010,12 @@ pub unsafe fn strmm_oop(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().strmm_oop.unwrap()(
+    dyload_lib().strmm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn strsm(
+pub unsafe fn strsm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2013,10 +2028,10 @@ pub unsafe fn strsm(
     b: *mut f32,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().strsm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().strsm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn strsm_oop(
+pub unsafe fn strsm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2032,12 +2047,12 @@ pub unsafe fn strsm_oop(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().strsm_oop.unwrap()(
+    dyload_lib().strsm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn strsm_batch(
+pub unsafe fn strsm_batch_(
     side_array: *const c_char,
     uplo_array: *const c_char,
     transa_array: *const c_char,
@@ -2052,7 +2067,7 @@ pub unsafe fn strsm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().strsm_batch.unwrap()(
+    dyload_lib().strsm_batch_.unwrap()(
         side_array,
         uplo_array,
         transa_array,
@@ -2069,7 +2084,7 @@ pub unsafe fn strsm_batch(
     )
 }
 
-pub unsafe fn strsm_batch_strided(
+pub unsafe fn strsm_batch_strided_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2085,12 +2100,12 @@ pub unsafe fn strsm_batch_strided(
     strideb: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().strsm_batch_strided.unwrap()(
+    dyload_lib().strsm_batch_strided_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, stridea, b, ldb, strideb, batch_size,
     )
 }
 
-pub unsafe fn cgemm(
+pub unsafe fn cgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2105,10 +2120,10 @@ pub unsafe fn cgemm(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().cgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().cgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn cgemm_batch(
+pub unsafe fn cgemm_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -2125,7 +2140,7 @@ pub unsafe fn cgemm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemm_batch.unwrap()(
+    dyload_lib().cgemm_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -2144,7 +2159,7 @@ pub unsafe fn cgemm_batch(
     )
 }
 
-pub unsafe fn cgemm_batch_strided(
+pub unsafe fn cgemm_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2163,13 +2178,13 @@ pub unsafe fn cgemm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemm_batch_strided.unwrap()(
+    dyload_lib().cgemm_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn scgemm(
+pub unsafe fn scgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2184,10 +2199,10 @@ pub unsafe fn scgemm(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().scgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().scgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn cgemm3m(
+pub unsafe fn cgemm3m_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2202,10 +2217,10 @@ pub unsafe fn cgemm3m(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().cgemm3m.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().cgemm3m_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn cgemm3m_batch(
+pub unsafe fn cgemm3m_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -2222,7 +2237,7 @@ pub unsafe fn cgemm3m_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemm3m_batch.unwrap()(
+    dyload_lib().cgemm3m_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -2241,7 +2256,7 @@ pub unsafe fn cgemm3m_batch(
     )
 }
 
-pub unsafe fn cgemm3m_batch_strided(
+pub unsafe fn cgemm3m_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2260,13 +2275,13 @@ pub unsafe fn cgemm3m_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemm3m_batch_strided.unwrap()(
+    dyload_lib().cgemm3m_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn cgemmt(
+pub unsafe fn cgemmt_(
     uplo: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
@@ -2281,10 +2296,10 @@ pub unsafe fn cgemmt(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().cgemmt.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().cgemmt_.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn chemm(
+pub unsafe fn chemm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -2298,10 +2313,10 @@ pub unsafe fn chemm(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().chemm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().chemm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn cher2k(
+pub unsafe fn cher2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2315,10 +2330,10 @@ pub unsafe fn cher2k(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().cher2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().cher2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn cherk(
+pub unsafe fn cherk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2330,10 +2345,10 @@ pub unsafe fn cherk(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().cherk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().cherk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn csymm(
+pub unsafe fn csymm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -2347,10 +2362,10 @@ pub unsafe fn csymm(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().csymm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().csymm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn csyr2k(
+pub unsafe fn csyr2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2364,10 +2379,10 @@ pub unsafe fn csyr2k(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().csyr2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().csyr2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn csyrk(
+pub unsafe fn csyrk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2379,10 +2394,10 @@ pub unsafe fn csyrk(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().csyrk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().csyrk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn csyrk_batch(
+pub unsafe fn csyrk_batch_(
     uplo_array: *const c_char,
     trans_array: *const c_char,
     n_array: *const MKL_INT,
@@ -2396,7 +2411,7 @@ pub unsafe fn csyrk_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().csyrk_batch.unwrap()(
+    dyload_lib().csyrk_batch_.unwrap()(
         uplo_array,
         trans_array,
         n_array,
@@ -2412,7 +2427,7 @@ pub unsafe fn csyrk_batch(
     )
 }
 
-pub unsafe fn csyrk_batch_strided(
+pub unsafe fn csyrk_batch_strided_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2427,12 +2442,12 @@ pub unsafe fn csyrk_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().csyrk_batch_strided.unwrap()(
+    dyload_lib().csyrk_batch_strided_.unwrap()(
         uplo, trans, n, k, alpha, a, lda, stridea, beta, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn ctrmm(
+pub unsafe fn ctrmm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2445,10 +2460,10 @@ pub unsafe fn ctrmm(
     b: *mut MKL_Complex8,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().ctrmm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().ctrmm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn ctrmm_oop(
+pub unsafe fn ctrmm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2464,12 +2479,12 @@ pub unsafe fn ctrmm_oop(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ctrmm_oop.unwrap()(
+    dyload_lib().ctrmm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn ctrsm(
+pub unsafe fn ctrsm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2482,10 +2497,10 @@ pub unsafe fn ctrsm(
     b: *mut MKL_Complex8,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().ctrsm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().ctrsm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn ctrsm_oop(
+pub unsafe fn ctrsm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2501,12 +2516,12 @@ pub unsafe fn ctrsm_oop(
     c: *mut MKL_Complex8,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ctrsm_oop.unwrap()(
+    dyload_lib().ctrsm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn ctrsm_batch(
+pub unsafe fn ctrsm_batch_(
     side_array: *const c_char,
     uplo_array: *const c_char,
     transa_array: *const c_char,
@@ -2521,7 +2536,7 @@ pub unsafe fn ctrsm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().ctrsm_batch.unwrap()(
+    dyload_lib().ctrsm_batch_.unwrap()(
         side_array,
         uplo_array,
         transa_array,
@@ -2538,7 +2553,7 @@ pub unsafe fn ctrsm_batch(
     )
 }
 
-pub unsafe fn ctrsm_batch_strided(
+pub unsafe fn ctrsm_batch_strided_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2554,12 +2569,12 @@ pub unsafe fn ctrsm_batch_strided(
     strideb: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().ctrsm_batch_strided.unwrap()(
+    dyload_lib().ctrsm_batch_strided_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, stridea, b, ldb, strideb, batch_size,
     )
 }
 
-pub unsafe fn dgemm(
+pub unsafe fn dgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2574,19 +2589,19 @@ pub unsafe fn dgemm(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn dgemm_pack_get_size(
+pub unsafe fn dgemm_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().dgemm_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().dgemm_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn dgemm_pack(
+pub unsafe fn dgemm_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -2597,10 +2612,10 @@ pub unsafe fn dgemm_pack(
     ld: *const MKL_INT,
     dest: *mut f64,
 ) {
-    dyload_lib().dgemm_pack.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
+    dyload_lib().dgemm_pack_.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
 }
 
-pub unsafe fn dgemm_compute(
+pub unsafe fn dgemm_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2614,10 +2629,10 @@ pub unsafe fn dgemm_compute(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dgemm_compute.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dgemm_compute_.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn dgemm_batch(
+pub unsafe fn dgemm_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -2634,7 +2649,7 @@ pub unsafe fn dgemm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().dgemm_batch.unwrap()(
+    dyload_lib().dgemm_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -2653,7 +2668,7 @@ pub unsafe fn dgemm_batch(
     )
 }
 
-pub unsafe fn dgemm_batch_strided(
+pub unsafe fn dgemm_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2672,13 +2687,13 @@ pub unsafe fn dgemm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().dgemm_batch_strided.unwrap()(
+    dyload_lib().dgemm_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn dgemmt(
+pub unsafe fn dgemmt_(
     uplo: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
@@ -2693,10 +2708,10 @@ pub unsafe fn dgemmt(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dgemmt.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dgemmt_.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn dsymm(
+pub unsafe fn dsymm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -2710,10 +2725,10 @@ pub unsafe fn dsymm(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dsymm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dsymm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn dsyr2k(
+pub unsafe fn dsyr2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2727,10 +2742,10 @@ pub unsafe fn dsyr2k(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dsyr2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dsyr2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn dsyrk(
+pub unsafe fn dsyrk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2742,10 +2757,10 @@ pub unsafe fn dsyrk(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dsyrk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().dsyrk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn dsyrk_batch(
+pub unsafe fn dsyrk_batch_(
     uplo_array: *const c_char,
     trans_array: *const c_char,
     n_array: *const MKL_INT,
@@ -2759,7 +2774,7 @@ pub unsafe fn dsyrk_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().dsyrk_batch.unwrap()(
+    dyload_lib().dsyrk_batch_.unwrap()(
         uplo_array,
         trans_array,
         n_array,
@@ -2775,7 +2790,7 @@ pub unsafe fn dsyrk_batch(
     )
 }
 
-pub unsafe fn dsyrk_batch_strided(
+pub unsafe fn dsyrk_batch_strided_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -2790,12 +2805,12 @@ pub unsafe fn dsyrk_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().dsyrk_batch_strided.unwrap()(
+    dyload_lib().dsyrk_batch_strided_.unwrap()(
         uplo, trans, n, k, alpha, a, lda, stridea, beta, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn dtrmm(
+pub unsafe fn dtrmm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2808,10 +2823,10 @@ pub unsafe fn dtrmm(
     b: *mut f64,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().dtrmm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().dtrmm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn dtrmm_oop(
+pub unsafe fn dtrmm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2827,12 +2842,12 @@ pub unsafe fn dtrmm_oop(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dtrmm_oop.unwrap()(
+    dyload_lib().dtrmm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn dtrsm(
+pub unsafe fn dtrsm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2845,10 +2860,10 @@ pub unsafe fn dtrsm(
     b: *mut f64,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().dtrsm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().dtrsm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn dtrsm_oop(
+pub unsafe fn dtrsm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2864,12 +2879,12 @@ pub unsafe fn dtrsm_oop(
     c: *mut f64,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dtrsm_oop.unwrap()(
+    dyload_lib().dtrsm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn dtrsm_batch(
+pub unsafe fn dtrsm_batch_(
     side_array: *const c_char,
     uplo_array: *const c_char,
     transa_array: *const c_char,
@@ -2884,7 +2899,7 @@ pub unsafe fn dtrsm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().dtrsm_batch.unwrap()(
+    dyload_lib().dtrsm_batch_.unwrap()(
         side_array,
         uplo_array,
         transa_array,
@@ -2901,7 +2916,7 @@ pub unsafe fn dtrsm_batch(
     )
 }
 
-pub unsafe fn dtrsm_batch_strided(
+pub unsafe fn dtrsm_batch_strided_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -2917,12 +2932,12 @@ pub unsafe fn dtrsm_batch_strided(
     strideb: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().dtrsm_batch_strided.unwrap()(
+    dyload_lib().dtrsm_batch_strided_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, stridea, b, ldb, strideb, batch_size,
     )
 }
 
-pub unsafe fn zgemm(
+pub unsafe fn zgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2937,10 +2952,10 @@ pub unsafe fn zgemm(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zgemm_batch(
+pub unsafe fn zgemm_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -2957,7 +2972,7 @@ pub unsafe fn zgemm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemm_batch.unwrap()(
+    dyload_lib().zgemm_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -2976,7 +2991,7 @@ pub unsafe fn zgemm_batch(
     )
 }
 
-pub unsafe fn zgemm_batch_strided(
+pub unsafe fn zgemm_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -2995,13 +3010,13 @@ pub unsafe fn zgemm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemm_batch_strided.unwrap()(
+    dyload_lib().zgemm_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn dzgemm(
+pub unsafe fn dzgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3016,10 +3031,10 @@ pub unsafe fn dzgemm(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().dzgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().dzgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zgemm3m(
+pub unsafe fn zgemm3m_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3034,10 +3049,10 @@ pub unsafe fn zgemm3m(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zgemm3m.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zgemm3m_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zgemm3m_batch(
+pub unsafe fn zgemm3m_batch_(
     transa_array: *const c_char,
     transb_array: *const c_char,
     m_array: *const MKL_INT,
@@ -3054,7 +3069,7 @@ pub unsafe fn zgemm3m_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemm3m_batch.unwrap()(
+    dyload_lib().zgemm3m_batch_.unwrap()(
         transa_array,
         transb_array,
         m_array,
@@ -3073,7 +3088,7 @@ pub unsafe fn zgemm3m_batch(
     )
 }
 
-pub unsafe fn zgemm3m_batch_strided(
+pub unsafe fn zgemm3m_batch_strided_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3092,13 +3107,13 @@ pub unsafe fn zgemm3m_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemm3m_batch_strided.unwrap()(
+    dyload_lib().zgemm3m_batch_strided_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, stridea, b, ldb, strideb, beta, c, ldc, stridec,
         batch_size,
     )
 }
 
-pub unsafe fn zgemmt(
+pub unsafe fn zgemmt_(
     uplo: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
@@ -3113,10 +3128,10 @@ pub unsafe fn zgemmt(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zgemmt.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zgemmt_.unwrap()(uplo, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zhemm(
+pub unsafe fn zhemm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -3130,10 +3145,10 @@ pub unsafe fn zhemm(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zhemm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zhemm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zher2k(
+pub unsafe fn zher2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -3147,10 +3162,10 @@ pub unsafe fn zher2k(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zher2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zher2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zherk(
+pub unsafe fn zherk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -3162,10 +3177,10 @@ pub unsafe fn zherk(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zherk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().zherk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn zsymm(
+pub unsafe fn zsymm_(
     side: *const c_char,
     uplo: *const c_char,
     m: *const MKL_INT,
@@ -3179,10 +3194,10 @@ pub unsafe fn zsymm(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zsymm.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zsymm_.unwrap()(side, uplo, m, n, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zsyr2k(
+pub unsafe fn zsyr2k_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -3196,10 +3211,10 @@ pub unsafe fn zsyr2k(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zsyr2k.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().zsyr2k_.unwrap()(uplo, trans, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn zsyrk(
+pub unsafe fn zsyrk_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -3211,10 +3226,10 @@ pub unsafe fn zsyrk(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().zsyrk.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+    dyload_lib().zsyrk_.unwrap()(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
 }
 
-pub unsafe fn zsyrk_batch(
+pub unsafe fn zsyrk_batch_(
     uplo_array: *const c_char,
     trans_array: *const c_char,
     n_array: *const MKL_INT,
@@ -3228,7 +3243,7 @@ pub unsafe fn zsyrk_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zsyrk_batch.unwrap()(
+    dyload_lib().zsyrk_batch_.unwrap()(
         uplo_array,
         trans_array,
         n_array,
@@ -3244,7 +3259,7 @@ pub unsafe fn zsyrk_batch(
     )
 }
 
-pub unsafe fn zsyrk_batch_strided(
+pub unsafe fn zsyrk_batch_strided_(
     uplo: *const c_char,
     trans: *const c_char,
     n: *const MKL_INT,
@@ -3259,12 +3274,12 @@ pub unsafe fn zsyrk_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zsyrk_batch_strided.unwrap()(
+    dyload_lib().zsyrk_batch_strided_.unwrap()(
         uplo, trans, n, k, alpha, a, lda, stridea, beta, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn ztrmm(
+pub unsafe fn ztrmm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -3277,10 +3292,10 @@ pub unsafe fn ztrmm(
     b: *mut MKL_Complex16,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().ztrmm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().ztrmm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn ztrmm_oop(
+pub unsafe fn ztrmm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -3296,12 +3311,12 @@ pub unsafe fn ztrmm_oop(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ztrmm_oop.unwrap()(
+    dyload_lib().ztrmm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn ztrsm(
+pub unsafe fn ztrsm_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -3314,10 +3329,10 @@ pub unsafe fn ztrsm(
     b: *mut MKL_Complex16,
     ldb: *const MKL_INT,
 ) {
-    dyload_lib().ztrsm.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
+    dyload_lib().ztrsm_.unwrap()(side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb)
 }
 
-pub unsafe fn ztrsm_oop(
+pub unsafe fn ztrsm_oop_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -3333,12 +3348,12 @@ pub unsafe fn ztrsm_oop(
     c: *mut MKL_Complex16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().ztrsm_oop.unwrap()(
+    dyload_lib().ztrsm_oop_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn ztrsm_batch(
+pub unsafe fn ztrsm_batch_(
     side_array: *const c_char,
     uplo_array: *const c_char,
     transa_array: *const c_char,
@@ -3353,7 +3368,7 @@ pub unsafe fn ztrsm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().ztrsm_batch.unwrap()(
+    dyload_lib().ztrsm_batch_.unwrap()(
         side_array,
         uplo_array,
         transa_array,
@@ -3370,7 +3385,7 @@ pub unsafe fn ztrsm_batch(
     )
 }
 
-pub unsafe fn ztrsm_batch_strided(
+pub unsafe fn ztrsm_batch_strided_(
     side: *const c_char,
     uplo: *const c_char,
     transa: *const c_char,
@@ -3386,12 +3401,12 @@ pub unsafe fn ztrsm_batch_strided(
     strideb: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().ztrsm_batch_strided.unwrap()(
+    dyload_lib().ztrsm_batch_strided_.unwrap()(
         side, uplo, transa, diag, m, n, alpha, a, lda, stridea, b, ldb, strideb, batch_size,
     )
 }
 
-pub unsafe fn gemm_s16s16s32(
+pub unsafe fn gemm_s16s16s32_(
     transa: *const c_char,
     transb: *const c_char,
     offsetc: *const c_char,
@@ -3410,12 +3425,12 @@ pub unsafe fn gemm_s16s16s32(
     ldc: *const MKL_INT,
     co: *const MKL_INT32,
 ) {
-    dyload_lib().gemm_s16s16s32.unwrap()(
+    dyload_lib().gemm_s16s16s32_.unwrap()(
         transa, transb, offsetc, m, n, k, alpha, a, lda, ao, b, ldb, bo, beta, c, ldc, co,
     )
 }
 
-pub unsafe fn gemm_s8u8s32(
+pub unsafe fn gemm_s8u8s32_(
     transa: *const c_char,
     transb: *const c_char,
     offsetc: *const c_char,
@@ -3434,12 +3449,12 @@ pub unsafe fn gemm_s8u8s32(
     ldc: *const MKL_INT,
     co: *const MKL_INT32,
 ) {
-    dyload_lib().gemm_s8u8s32.unwrap()(
+    dyload_lib().gemm_s8u8s32_.unwrap()(
         transa, transb, offsetc, m, n, k, alpha, a, lda, ao, b, ldb, bo, beta, c, ldc, co,
     )
 }
 
-pub unsafe fn gemm_bf16bf16f32(
+pub unsafe fn gemm_bf16bf16f32_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3454,12 +3469,12 @@ pub unsafe fn gemm_bf16bf16f32(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_bf16bf16f32.unwrap()(
+    dyload_lib().gemm_bf16bf16f32_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_f16f16f32(
+pub unsafe fn gemm_f16f16f32_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3474,12 +3489,12 @@ pub unsafe fn gemm_f16f16f32(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_f16f16f32.unwrap()(
+    dyload_lib().gemm_f16f16f32_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_e5m2e5m2f32(
+pub unsafe fn gemm_e5m2e5m2f32_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3494,12 +3509,12 @@ pub unsafe fn gemm_e5m2e5m2f32(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_e5m2e5m2f32.unwrap()(
+    dyload_lib().gemm_e5m2e5m2f32_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_e4m3e4m3f32(
+pub unsafe fn gemm_e4m3e4m3f32_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3514,66 +3529,66 @@ pub unsafe fn gemm_e4m3e4m3f32(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_e4m3e4m3f32.unwrap()(
+    dyload_lib().gemm_e4m3e4m3f32_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_s8u8s32_pack_get_size(
+pub unsafe fn gemm_s8u8s32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_s8u8s32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_s8u8s32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_s16s16s32_pack_get_size(
+pub unsafe fn gemm_s16s16s32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_s16s16s32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_s16s16s32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_bf16bf16f32_pack_get_size(
+pub unsafe fn gemm_bf16bf16f32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_bf16bf16f32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_bf16bf16f32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_f16f16f32_pack_get_size(
+pub unsafe fn gemm_f16f16f32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_f16f16f32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_f16f16f32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_e5m2e5m2f32_pack_get_size(
+pub unsafe fn gemm_e5m2e5m2f32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_e5m2e5m2f32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_e5m2e5m2f32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_e4m3e4m3f32_pack_get_size(
+pub unsafe fn gemm_e4m3e4m3f32_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().gemm_e4m3e4m3f32_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().gemm_e4m3e4m3f32_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn gemm_s8u8s32_pack(
+pub unsafe fn gemm_s8u8s32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3583,10 +3598,10 @@ pub unsafe fn gemm_s8u8s32_pack(
     ld: *const MKL_INT,
     dest: *mut c_void,
 ) {
-    dyload_lib().gemm_s8u8s32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_s8u8s32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_s16s16s32_pack(
+pub unsafe fn gemm_s16s16s32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3596,10 +3611,10 @@ pub unsafe fn gemm_s16s16s32_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_INT16,
 ) {
-    dyload_lib().gemm_s16s16s32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_s16s16s32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_bf16bf16f32_pack(
+pub unsafe fn gemm_bf16bf16f32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3609,10 +3624,10 @@ pub unsafe fn gemm_bf16bf16f32_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_BF16,
 ) {
-    dyload_lib().gemm_bf16bf16f32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_bf16bf16f32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_f16f16f32_pack(
+pub unsafe fn gemm_f16f16f32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3622,10 +3637,10 @@ pub unsafe fn gemm_f16f16f32_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_F16,
 ) {
-    dyload_lib().gemm_f16f16f32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_f16f16f32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_e5m2e5m2f32_pack(
+pub unsafe fn gemm_e5m2e5m2f32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3635,10 +3650,10 @@ pub unsafe fn gemm_e5m2e5m2f32_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_E5M2,
 ) {
-    dyload_lib().gemm_e5m2e5m2f32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_e5m2e5m2f32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_e4m3e4m3f32_pack(
+pub unsafe fn gemm_e4m3e4m3f32_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3648,10 +3663,10 @@ pub unsafe fn gemm_e4m3e4m3f32_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_E4M3,
 ) {
-    dyload_lib().gemm_e4m3e4m3f32_pack.unwrap()(identifier, trans, m, n, k, src, ld, dest)
+    dyload_lib().gemm_e4m3e4m3f32_pack_.unwrap()(identifier, trans, m, n, k, src, ld, dest)
 }
 
-pub unsafe fn gemm_s8u8s32_compute(
+pub unsafe fn gemm_s8u8s32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     offsetc: *const c_char,
@@ -3670,12 +3685,12 @@ pub unsafe fn gemm_s8u8s32_compute(
     ldc: *const MKL_INT,
     co: *const MKL_INT32,
 ) {
-    dyload_lib().gemm_s8u8s32_compute.unwrap()(
+    dyload_lib().gemm_s8u8s32_compute_.unwrap()(
         transa, transb, offsetc, m, n, k, alpha, a, lda, ao, b, ldb, bo, beta, c, ldc, co,
     )
 }
 
-pub unsafe fn gemm_s16s16s32_compute(
+pub unsafe fn gemm_s16s16s32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     offsetc: *const c_char,
@@ -3694,12 +3709,12 @@ pub unsafe fn gemm_s16s16s32_compute(
     ldc: *const MKL_INT,
     co: *const MKL_INT32,
 ) {
-    dyload_lib().gemm_s16s16s32_compute.unwrap()(
+    dyload_lib().gemm_s16s16s32_compute_.unwrap()(
         transa, transb, offsetc, m, n, k, alpha, a, lda, ao, b, ldb, bo, beta, c, ldc, co,
     )
 }
 
-pub unsafe fn gemm_bf16bf16f32_compute(
+pub unsafe fn gemm_bf16bf16f32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3714,12 +3729,12 @@ pub unsafe fn gemm_bf16bf16f32_compute(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_bf16bf16f32_compute.unwrap()(
+    dyload_lib().gemm_bf16bf16f32_compute_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_f16f16f32_compute(
+pub unsafe fn gemm_f16f16f32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3734,12 +3749,12 @@ pub unsafe fn gemm_f16f16f32_compute(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_f16f16f32_compute.unwrap()(
+    dyload_lib().gemm_f16f16f32_compute_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_e5m2e5m2f32_compute(
+pub unsafe fn gemm_e5m2e5m2f32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3754,12 +3769,12 @@ pub unsafe fn gemm_e5m2e5m2f32_compute(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_e5m2e5m2f32_compute.unwrap()(
+    dyload_lib().gemm_e5m2e5m2f32_compute_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn gemm_e4m3e4m3f32_compute(
+pub unsafe fn gemm_e4m3e4m3f32_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3774,12 +3789,12 @@ pub unsafe fn gemm_e4m3e4m3f32_compute(
     c: *mut f32,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().gemm_e4m3e4m3f32_compute.unwrap()(
+    dyload_lib().gemm_e4m3e4m3f32_compute_.unwrap()(
         transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
 
-pub unsafe fn hgemm(
+pub unsafe fn hgemm_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3794,19 +3809,19 @@ pub unsafe fn hgemm(
     c: *mut MKL_F16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().hgemm.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().hgemm_.unwrap()(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn hgemm_pack_get_size(
+pub unsafe fn hgemm_pack_get_size_(
     identifier: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
     k: *const MKL_INT,
 ) -> usize {
-    dyload_lib().hgemm_pack_get_size.unwrap()(identifier, m, n, k)
+    dyload_lib().hgemm_pack_get_size_.unwrap()(identifier, m, n, k)
 }
 
-pub unsafe fn hgemm_pack(
+pub unsafe fn hgemm_pack_(
     identifier: *const c_char,
     trans: *const c_char,
     m: *const MKL_INT,
@@ -3817,10 +3832,10 @@ pub unsafe fn hgemm_pack(
     ld: *const MKL_INT,
     dest: *mut MKL_F16,
 ) {
-    dyload_lib().hgemm_pack.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
+    dyload_lib().hgemm_pack_.unwrap()(identifier, trans, m, n, k, alpha, src, ld, dest)
 }
 
-pub unsafe fn hgemm_compute(
+pub unsafe fn hgemm_compute_(
     transa: *const c_char,
     transb: *const c_char,
     m: *const MKL_INT,
@@ -3834,10 +3849,10 @@ pub unsafe fn hgemm_compute(
     c: *mut MKL_F16,
     ldc: *const MKL_INT,
 ) {
-    dyload_lib().hgemm_compute.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().hgemm_compute_.unwrap()(transa, transb, m, n, k, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn mkl_cblas_jit_create_dgemm(
+pub unsafe fn mkl_cblas_jit_create_dgemm_(
     jitter: *mut *mut c_void,
     layout: MKL_LAYOUT,
     transa: MKL_TRANSPOSE,
@@ -3851,12 +3866,12 @@ pub unsafe fn mkl_cblas_jit_create_dgemm(
     beta: f64,
     ldc: MKL_INT,
 ) -> mkl_jit_status_t {
-    dyload_lib().mkl_cblas_jit_create_dgemm.unwrap()(
+    dyload_lib().mkl_cblas_jit_create_dgemm_.unwrap()(
         jitter, layout, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc,
     )
 }
 
-pub unsafe fn mkl_cblas_jit_create_sgemm(
+pub unsafe fn mkl_cblas_jit_create_sgemm_(
     jitter: *mut *mut c_void,
     layout: MKL_LAYOUT,
     transa: MKL_TRANSPOSE,
@@ -3870,12 +3885,12 @@ pub unsafe fn mkl_cblas_jit_create_sgemm(
     beta: f32,
     ldc: MKL_INT,
 ) -> mkl_jit_status_t {
-    dyload_lib().mkl_cblas_jit_create_sgemm.unwrap()(
+    dyload_lib().mkl_cblas_jit_create_sgemm_.unwrap()(
         jitter, layout, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc,
     )
 }
 
-pub unsafe fn mkl_cblas_jit_create_cgemm(
+pub unsafe fn mkl_cblas_jit_create_cgemm_(
     jitter: *mut *mut c_void,
     layout: MKL_LAYOUT,
     transa: MKL_TRANSPOSE,
@@ -3889,12 +3904,12 @@ pub unsafe fn mkl_cblas_jit_create_cgemm(
     beta: *const c_void,
     ldc: MKL_INT,
 ) -> mkl_jit_status_t {
-    dyload_lib().mkl_cblas_jit_create_cgemm.unwrap()(
+    dyload_lib().mkl_cblas_jit_create_cgemm_.unwrap()(
         jitter, layout, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc,
     )
 }
 
-pub unsafe fn mkl_cblas_jit_create_zgemm(
+pub unsafe fn mkl_cblas_jit_create_zgemm_(
     jitter: *mut *mut c_void,
     layout: MKL_LAYOUT,
     transa: MKL_TRANSPOSE,
@@ -3908,32 +3923,32 @@ pub unsafe fn mkl_cblas_jit_create_zgemm(
     beta: *const c_void,
     ldc: MKL_INT,
 ) -> mkl_jit_status_t {
-    dyload_lib().mkl_cblas_jit_create_zgemm.unwrap()(
+    dyload_lib().mkl_cblas_jit_create_zgemm_.unwrap()(
         jitter, layout, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc,
     )
 }
 
-pub unsafe fn mkl_jit_get_dgemm_ptr(jitter: *const c_void) -> dgemm_jit_kernel_t {
-    dyload_lib().mkl_jit_get_dgemm_ptr.unwrap()(jitter)
+pub unsafe fn mkl_jit_get_dgemm_ptr_(jitter: *const c_void) -> dgemm_jit_kernel_t {
+    dyload_lib().mkl_jit_get_dgemm_ptr_.unwrap()(jitter)
 }
 
-pub unsafe fn mkl_jit_get_sgemm_ptr(jitter: *const c_void) -> sgemm_jit_kernel_t {
-    dyload_lib().mkl_jit_get_sgemm_ptr.unwrap()(jitter)
+pub unsafe fn mkl_jit_get_sgemm_ptr_(jitter: *const c_void) -> sgemm_jit_kernel_t {
+    dyload_lib().mkl_jit_get_sgemm_ptr_.unwrap()(jitter)
 }
 
-pub unsafe fn mkl_jit_get_cgemm_ptr(jitter: *const c_void) -> cgemm_jit_kernel_t {
-    dyload_lib().mkl_jit_get_cgemm_ptr.unwrap()(jitter)
+pub unsafe fn mkl_jit_get_cgemm_ptr_(jitter: *const c_void) -> cgemm_jit_kernel_t {
+    dyload_lib().mkl_jit_get_cgemm_ptr_.unwrap()(jitter)
 }
 
-pub unsafe fn mkl_jit_get_zgemm_ptr(jitter: *const c_void) -> zgemm_jit_kernel_t {
-    dyload_lib().mkl_jit_get_zgemm_ptr.unwrap()(jitter)
+pub unsafe fn mkl_jit_get_zgemm_ptr_(jitter: *const c_void) -> zgemm_jit_kernel_t {
+    dyload_lib().mkl_jit_get_zgemm_ptr_.unwrap()(jitter)
 }
 
-pub unsafe fn mkl_jit_destroy(jitter: *mut c_void) -> mkl_jit_status_t {
-    dyload_lib().mkl_jit_destroy.unwrap()(jitter)
+pub unsafe fn mkl_jit_destroy_(jitter: *mut c_void) -> mkl_jit_status_t {
+    dyload_lib().mkl_jit_destroy_.unwrap()(jitter)
 }
 
-pub unsafe fn saxpy_batch(
+pub unsafe fn saxpy_batch_(
     n: *const MKL_INT,
     alpha: *const f32,
     x: *mut *const f32,
@@ -3943,10 +3958,10 @@ pub unsafe fn saxpy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().saxpy_batch.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
+    dyload_lib().saxpy_batch_.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn daxpy_batch(
+pub unsafe fn daxpy_batch_(
     n: *const MKL_INT,
     alpha: *const f64,
     x: *mut *const f64,
@@ -3956,10 +3971,10 @@ pub unsafe fn daxpy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().daxpy_batch.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
+    dyload_lib().daxpy_batch_.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn caxpy_batch(
+pub unsafe fn caxpy_batch_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
     x: *mut *const MKL_Complex8,
@@ -3969,10 +3984,10 @@ pub unsafe fn caxpy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().caxpy_batch.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
+    dyload_lib().caxpy_batch_.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn zaxpy_batch(
+pub unsafe fn zaxpy_batch_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
     x: *mut *const MKL_Complex16,
@@ -3982,10 +3997,10 @@ pub unsafe fn zaxpy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zaxpy_batch.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
+    dyload_lib().zaxpy_batch_.unwrap()(n, alpha, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn scopy_batch(
+pub unsafe fn scopy_batch_(
     n: *const MKL_INT,
     x: *mut *const f32,
     incx: *const MKL_INT,
@@ -3994,10 +4009,10 @@ pub unsafe fn scopy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().scopy_batch.unwrap()(n, x, incx, y, incy, group_count, group_size)
+    dyload_lib().scopy_batch_.unwrap()(n, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn dcopy_batch(
+pub unsafe fn dcopy_batch_(
     n: *const MKL_INT,
     x: *mut *const f64,
     incx: *const MKL_INT,
@@ -4006,10 +4021,10 @@ pub unsafe fn dcopy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().dcopy_batch.unwrap()(n, x, incx, y, incy, group_count, group_size)
+    dyload_lib().dcopy_batch_.unwrap()(n, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn ccopy_batch(
+pub unsafe fn ccopy_batch_(
     n: *const MKL_INT,
     x: *mut *const MKL_Complex8,
     incx: *const MKL_INT,
@@ -4018,10 +4033,10 @@ pub unsafe fn ccopy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().ccopy_batch.unwrap()(n, x, incx, y, incy, group_count, group_size)
+    dyload_lib().ccopy_batch_.unwrap()(n, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn zcopy_batch(
+pub unsafe fn zcopy_batch_(
     n: *const MKL_INT,
     x: *mut *const MKL_Complex16,
     incx: *const MKL_INT,
@@ -4030,10 +4045,10 @@ pub unsafe fn zcopy_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zcopy_batch.unwrap()(n, x, incx, y, incy, group_count, group_size)
+    dyload_lib().zcopy_batch_.unwrap()(n, x, incx, y, incy, group_count, group_size)
 }
 
-pub unsafe fn saxpy_batch_strided(
+pub unsafe fn saxpy_batch_strided_(
     n: *const MKL_INT,
     alpha: *const f32,
     x: *const f32,
@@ -4044,12 +4059,12 @@ pub unsafe fn saxpy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().saxpy_batch_strided.unwrap()(
+    dyload_lib().saxpy_batch_strided_.unwrap()(
         n, alpha, x, incx, stridex, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn daxpy_batch_strided(
+pub unsafe fn daxpy_batch_strided_(
     n: *const MKL_INT,
     alpha: *const f64,
     x: *const f64,
@@ -4060,12 +4075,12 @@ pub unsafe fn daxpy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().daxpy_batch_strided.unwrap()(
+    dyload_lib().daxpy_batch_strided_.unwrap()(
         n, alpha, x, incx, stridex, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn caxpy_batch_strided(
+pub unsafe fn caxpy_batch_strided_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex8,
     x: *const MKL_Complex8,
@@ -4076,12 +4091,12 @@ pub unsafe fn caxpy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().caxpy_batch_strided.unwrap()(
+    dyload_lib().caxpy_batch_strided_.unwrap()(
         n, alpha, x, incx, stridex, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn zaxpy_batch_strided(
+pub unsafe fn zaxpy_batch_strided_(
     n: *const MKL_INT,
     alpha: *const MKL_Complex16,
     x: *const MKL_Complex16,
@@ -4092,12 +4107,12 @@ pub unsafe fn zaxpy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zaxpy_batch_strided.unwrap()(
+    dyload_lib().zaxpy_batch_strided_.unwrap()(
         n, alpha, x, incx, stridex, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn scopy_batch_strided(
+pub unsafe fn scopy_batch_strided_(
     n: *const MKL_INT,
     x: *const f32,
     incx: *const MKL_INT,
@@ -4107,10 +4122,10 @@ pub unsafe fn scopy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().scopy_batch_strided.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
+    dyload_lib().scopy_batch_strided_.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
 }
 
-pub unsafe fn dcopy_batch_strided(
+pub unsafe fn dcopy_batch_strided_(
     n: *const MKL_INT,
     x: *const f64,
     incx: *const MKL_INT,
@@ -4120,10 +4135,10 @@ pub unsafe fn dcopy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().dcopy_batch_strided.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
+    dyload_lib().dcopy_batch_strided_.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
 }
 
-pub unsafe fn ccopy_batch_strided(
+pub unsafe fn ccopy_batch_strided_(
     n: *const MKL_INT,
     x: *const MKL_Complex8,
     incx: *const MKL_INT,
@@ -4133,10 +4148,10 @@ pub unsafe fn ccopy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().ccopy_batch_strided.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
+    dyload_lib().ccopy_batch_strided_.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
 }
 
-pub unsafe fn zcopy_batch_strided(
+pub unsafe fn zcopy_batch_strided_(
     n: *const MKL_INT,
     x: *const MKL_Complex16,
     incx: *const MKL_INT,
@@ -4146,10 +4161,10 @@ pub unsafe fn zcopy_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zcopy_batch_strided.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
+    dyload_lib().zcopy_batch_strided_.unwrap()(n, x, incx, stridex, y, incy, stridey, batch_size)
 }
 
-pub unsafe fn sgemv_batch(
+pub unsafe fn sgemv_batch_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4164,7 +4179,7 @@ pub unsafe fn sgemv_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().sgemv_batch.unwrap()(
+    dyload_lib().sgemv_batch_.unwrap()(
         trans,
         m,
         n,
@@ -4181,7 +4196,7 @@ pub unsafe fn sgemv_batch(
     )
 }
 
-pub unsafe fn sgemv_batch_strided(
+pub unsafe fn sgemv_batch_strided_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4198,12 +4213,12 @@ pub unsafe fn sgemv_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().sgemv_batch_strided.unwrap()(
+    dyload_lib().sgemv_batch_strided_.unwrap()(
         trans, m, n, alpha, a, lda, stridea, x, incx, stridex, beta, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn dgemv_batch(
+pub unsafe fn dgemv_batch_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4218,7 +4233,7 @@ pub unsafe fn dgemv_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().dgemv_batch.unwrap()(
+    dyload_lib().dgemv_batch_.unwrap()(
         trans,
         m,
         n,
@@ -4235,7 +4250,7 @@ pub unsafe fn dgemv_batch(
     )
 }
 
-pub unsafe fn dgemv_batch_strided(
+pub unsafe fn dgemv_batch_strided_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4252,12 +4267,12 @@ pub unsafe fn dgemv_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().dgemv_batch_strided.unwrap()(
+    dyload_lib().dgemv_batch_strided_.unwrap()(
         trans, m, n, alpha, a, lda, stridea, x, incx, stridex, beta, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn cgemv_batch(
+pub unsafe fn cgemv_batch_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4272,7 +4287,7 @@ pub unsafe fn cgemv_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemv_batch.unwrap()(
+    dyload_lib().cgemv_batch_.unwrap()(
         trans,
         m,
         n,
@@ -4289,7 +4304,7 @@ pub unsafe fn cgemv_batch(
     )
 }
 
-pub unsafe fn cgemv_batch_strided(
+pub unsafe fn cgemv_batch_strided_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4306,12 +4321,12 @@ pub unsafe fn cgemv_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().cgemv_batch_strided.unwrap()(
+    dyload_lib().cgemv_batch_strided_.unwrap()(
         trans, m, n, alpha, a, lda, stridea, x, incx, stridex, beta, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn zgemv_batch(
+pub unsafe fn zgemv_batch_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4326,7 +4341,7 @@ pub unsafe fn zgemv_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemv_batch.unwrap()(
+    dyload_lib().zgemv_batch_.unwrap()(
         trans,
         m,
         n,
@@ -4343,7 +4358,7 @@ pub unsafe fn zgemv_batch(
     )
 }
 
-pub unsafe fn zgemv_batch_strided(
+pub unsafe fn zgemv_batch_strided_(
     trans: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4360,12 +4375,12 @@ pub unsafe fn zgemv_batch_strided(
     stridey: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zgemv_batch_strided.unwrap()(
+    dyload_lib().zgemv_batch_strided_.unwrap()(
         trans, m, n, alpha, a, lda, stridea, x, incx, stridex, beta, y, incy, stridey, batch_size,
     )
 }
 
-pub unsafe fn sdgmm_batch(
+pub unsafe fn sdgmm_batch_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4378,10 +4393,10 @@ pub unsafe fn sdgmm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().sdgmm_batch.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
+    dyload_lib().sdgmm_batch_.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
 }
 
-pub unsafe fn sdgmm_batch_strided(
+pub unsafe fn sdgmm_batch_strided_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4396,12 +4411,12 @@ pub unsafe fn sdgmm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().sdgmm_batch_strided.unwrap()(
+    dyload_lib().sdgmm_batch_strided_.unwrap()(
         side, m, n, a, lda, stridea, x, incx, stridex, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn ddgmm_batch(
+pub unsafe fn ddgmm_batch_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4414,10 +4429,10 @@ pub unsafe fn ddgmm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().ddgmm_batch.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
+    dyload_lib().ddgmm_batch_.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
 }
 
-pub unsafe fn ddgmm_batch_strided(
+pub unsafe fn ddgmm_batch_strided_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4432,12 +4447,12 @@ pub unsafe fn ddgmm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().ddgmm_batch_strided.unwrap()(
+    dyload_lib().ddgmm_batch_strided_.unwrap()(
         side, m, n, a, lda, stridea, x, incx, stridex, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn cdgmm_batch(
+pub unsafe fn cdgmm_batch_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4450,10 +4465,10 @@ pub unsafe fn cdgmm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().cdgmm_batch.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
+    dyload_lib().cdgmm_batch_.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
 }
 
-pub unsafe fn cdgmm_batch_strided(
+pub unsafe fn cdgmm_batch_strided_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4468,12 +4483,12 @@ pub unsafe fn cdgmm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().cdgmm_batch_strided.unwrap()(
+    dyload_lib().cdgmm_batch_strided_.unwrap()(
         side, m, n, a, lda, stridea, x, incx, stridex, c, ldc, stridec, batch_size,
     )
 }
 
-pub unsafe fn zdgmm_batch(
+pub unsafe fn zdgmm_batch_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4486,10 +4501,10 @@ pub unsafe fn zdgmm_batch(
     group_count: *const MKL_INT,
     group_size: *const MKL_INT,
 ) {
-    dyload_lib().zdgmm_batch.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
+    dyload_lib().zdgmm_batch_.unwrap()(side, m, n, a, lda, x, incx, c, ldc, group_count, group_size)
 }
 
-pub unsafe fn zdgmm_batch_strided(
+pub unsafe fn zdgmm_batch_strided_(
     side: *const c_char,
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -4504,635 +4519,635 @@ pub unsafe fn zdgmm_batch_strided(
     stridec: *const MKL_INT,
     batch_size: *const MKL_INT,
 ) {
-    dyload_lib().zdgmm_batch_strided.unwrap()(
+    dyload_lib().zdgmm_batch_strided_.unwrap()(
         side, m, n, a, lda, stridea, x, incx, stridex, c, ldc, stridec, batch_size,
     )
 }
 
 /* #region upper case alias */
 
-pub use caxpby as CAXPBY;
-pub use caxpy as CAXPY;
-pub use caxpy_batch as CAXPY_BATCH;
-pub use caxpy_batch_strided as CAXPY_BATCH_STRIDED;
-pub use caxpyi as CAXPYI;
-pub use ccopy as CCOPY;
-pub use ccopy_batch as CCOPY_BATCH;
-pub use ccopy_batch_strided as CCOPY_BATCH_STRIDED;
-pub use cdgmm_batch as CDGMM_BATCH;
-pub use cdgmm_batch_strided as CDGMM_BATCH_STRIDED;
-pub use cdotc as CDOTC;
-pub use cdotci as CDOTCI;
-pub use cdotu as CDOTU;
-pub use cdotui as CDOTUI;
-pub use cgbmv as CGBMV;
-pub use cgem2vc as CGEM2VC;
-pub use cgemm as CGEMM;
-pub use cgemm3m as CGEMM3M;
-pub use cgemm3m_batch as CGEMM3M_BATCH;
-pub use cgemm3m_batch_strided as CGEMM3M_BATCH_STRIDED;
-pub use cgemm_batch as CGEMM_BATCH;
-pub use cgemm_batch_strided as CGEMM_BATCH_STRIDED;
-pub use cgemmt as CGEMMT;
-pub use cgemv as CGEMV;
-pub use cgemv_batch as CGEMV_BATCH;
-pub use cgemv_batch_strided as CGEMV_BATCH_STRIDED;
-pub use cgerc as CGERC;
-pub use cgeru as CGERU;
-pub use cgthr as CGTHR;
-pub use cgthrz as CGTHRZ;
-pub use chbmv as CHBMV;
-pub use chemm as CHEMM;
-pub use chemv as CHEMV;
-pub use cher as CHER;
-pub use cher2 as CHER2;
-pub use cher2k as CHER2K;
-pub use cherk as CHERK;
-pub use chpmv as CHPMV;
-pub use chpr as CHPR;
-pub use chpr2 as CHPR2;
-pub use crot as CROT;
-pub use crotg as CROTG;
-pub use cscal as CSCAL;
-pub use csctr as CSCTR;
-pub use csrot as CSROT;
-pub use csscal as CSSCAL;
-pub use cswap as CSWAP;
-pub use csymm as CSYMM;
-pub use csyr2k as CSYR2K;
-pub use csyrk as CSYRK;
-pub use csyrk_batch as CSYRK_BATCH;
-pub use csyrk_batch_strided as CSYRK_BATCH_STRIDED;
-pub use ctbmv as CTBMV;
-pub use ctbsv as CTBSV;
-pub use ctpmv as CTPMV;
-pub use ctpsv as CTPSV;
-pub use ctrmm as CTRMM;
-pub use ctrmm_oop as CTRMM_OOP;
-pub use ctrmv as CTRMV;
-pub use ctrsm as CTRSM;
-pub use ctrsm_batch as CTRSM_BATCH;
-pub use ctrsm_batch_strided as CTRSM_BATCH_STRIDED;
-pub use ctrsm_oop as CTRSM_OOP;
-pub use ctrsv as CTRSV;
-pub use dasum as DASUM;
-pub use daxpby as DAXPBY;
-pub use daxpy as DAXPY;
-pub use daxpy_batch as DAXPY_BATCH;
-pub use daxpy_batch_strided as DAXPY_BATCH_STRIDED;
-pub use daxpyi as DAXPYI;
-pub use dcabs1 as DCABS1;
-pub use dcopy as DCOPY;
-pub use dcopy_batch as DCOPY_BATCH;
-pub use dcopy_batch_strided as DCOPY_BATCH_STRIDED;
-pub use ddgmm_batch as DDGMM_BATCH;
-pub use ddgmm_batch_strided as DDGMM_BATCH_STRIDED;
-pub use ddot as DDOT;
-pub use ddoti as DDOTI;
-pub use dgbmv as DGBMV;
-pub use dgem2vu as DGEM2VU;
-pub use dgemm as DGEMM;
-pub use dgemm_batch as DGEMM_BATCH;
-pub use dgemm_batch_strided as DGEMM_BATCH_STRIDED;
-pub use dgemm_compute as DGEMM_COMPUTE;
-pub use dgemm_pack as DGEMM_PACK;
-pub use dgemm_pack_get_size as DGEMM_PACK_GET_SIZE;
-pub use dgemmt as DGEMMT;
-pub use dgemv as DGEMV;
-pub use dgemv_batch as DGEMV_BATCH;
-pub use dgemv_batch_strided as DGEMV_BATCH_STRIDED;
-pub use dger as DGER;
-pub use dgthr as DGTHR;
-pub use dgthrz as DGTHRZ;
-pub use dnrm2 as DNRM2;
-pub use drot as DROT;
-pub use drotg as DROTG;
-pub use droti as DROTI;
-pub use drotm as DROTM;
-pub use drotmg as DROTMG;
-pub use dsbmv as DSBMV;
-pub use dscal as DSCAL;
-pub use dsctr as DSCTR;
-pub use dsdot as DSDOT;
-pub use dspmv as DSPMV;
-pub use dspr as DSPR;
-pub use dspr2 as DSPR2;
-pub use dswap as DSWAP;
-pub use dsymm as DSYMM;
-pub use dsymv as DSYMV;
-pub use dsyr as DSYR;
-pub use dsyr2 as DSYR2;
-pub use dsyr2k as DSYR2K;
-pub use dsyrk as DSYRK;
-pub use dsyrk_batch as DSYRK_BATCH;
-pub use dsyrk_batch_strided as DSYRK_BATCH_STRIDED;
-pub use dtbmv as DTBMV;
-pub use dtbsv as DTBSV;
-pub use dtpmv as DTPMV;
-pub use dtpsv as DTPSV;
-pub use dtrmm as DTRMM;
-pub use dtrmm_oop as DTRMM_OOP;
-pub use dtrmv as DTRMV;
-pub use dtrsm as DTRSM;
-pub use dtrsm_batch as DTRSM_BATCH;
-pub use dtrsm_batch_strided as DTRSM_BATCH_STRIDED;
-pub use dtrsm_oop as DTRSM_OOP;
-pub use dtrsv as DTRSV;
-pub use dzasum as DZASUM;
-pub use dzgemm as DZGEMM;
-pub use dzgemv as DZGEMV;
-pub use dznrm2 as DZNRM2;
-pub use gemm_bf16bf16f32 as GEMM_BF16BF16F32;
-pub use gemm_bf16bf16f32_compute as GEMM_BF16BF16F32_COMPUTE;
-pub use gemm_bf16bf16f32_pack as GEMM_BF16BF16F32_PACK;
-pub use gemm_bf16bf16f32_pack_get_size as GEMM_BF16BF16F32_PACK_GET_SIZE;
-pub use gemm_e4m3e4m3f32 as GEMM_E4M3E4M3F32;
-pub use gemm_e4m3e4m3f32_compute as GEMM_E4M3E4M3F32_COMPUTE;
-pub use gemm_e4m3e4m3f32_pack as GEMM_E4M3E4M3F32_PACK;
-pub use gemm_e4m3e4m3f32_pack_get_size as GEMM_E4M3E4M3F32_PACK_GET_SIZE;
-pub use gemm_e5m2e5m2f32 as GEMM_E5M2E5M2F32;
-pub use gemm_e5m2e5m2f32_compute as GEMM_E5M2E5M2F32_COMPUTE;
-pub use gemm_e5m2e5m2f32_pack as GEMM_E5M2E5M2F32_PACK;
-pub use gemm_e5m2e5m2f32_pack_get_size as GEMM_E5M2E5M2F32_PACK_GET_SIZE;
-pub use gemm_f16f16f32 as GEMM_F16F16F32;
-pub use gemm_f16f16f32_compute as GEMM_F16F16F32_COMPUTE;
-pub use gemm_f16f16f32_pack as GEMM_F16F16F32_PACK;
-pub use gemm_f16f16f32_pack_get_size as GEMM_F16F16F32_PACK_GET_SIZE;
-pub use gemm_s16s16s32 as GEMM_S16S16S32;
-pub use gemm_s16s16s32_compute as GEMM_S16S16S32_COMPUTE;
-pub use gemm_s16s16s32_pack as GEMM_S16S16S32_PACK;
-pub use gemm_s16s16s32_pack_get_size as GEMM_S16S16S32_PACK_GET_SIZE;
-pub use gemm_s8u8s32 as GEMM_S8U8S32;
-pub use gemm_s8u8s32_compute as GEMM_S8U8S32_COMPUTE;
-pub use gemm_s8u8s32_pack as GEMM_S8U8S32_PACK;
-pub use gemm_s8u8s32_pack_get_size as GEMM_S8U8S32_PACK_GET_SIZE;
-pub use hgemm as HGEMM;
-pub use hgemm_compute as HGEMM_COMPUTE;
-pub use hgemm_pack as HGEMM_PACK;
-pub use hgemm_pack_get_size as HGEMM_PACK_GET_SIZE;
-pub use icamax as ICAMAX;
-pub use icamin as ICAMIN;
-pub use idamax as IDAMAX;
-pub use idamin as IDAMIN;
-pub use isamax as ISAMAX;
-pub use isamin as ISAMIN;
-pub use izamax as IZAMAX;
-pub use izamin as IZAMIN;
-pub use lsame as LSAME;
-pub use mkl_cblas_jit_create_cgemm as MKL_CBLAS_JIT_CREATE_CGEMM;
-pub use mkl_cblas_jit_create_dgemm as MKL_CBLAS_JIT_CREATE_DGEMM;
-pub use mkl_cblas_jit_create_sgemm as MKL_CBLAS_JIT_CREATE_SGEMM;
-pub use mkl_cblas_jit_create_zgemm as MKL_CBLAS_JIT_CREATE_ZGEMM;
-pub use mkl_jit_destroy as MKL_JIT_DESTROY;
-pub use mkl_jit_get_cgemm_ptr as MKL_JIT_GET_CGEMM_PTR;
-pub use mkl_jit_get_dgemm_ptr as MKL_JIT_GET_DGEMM_PTR;
-pub use mkl_jit_get_sgemm_ptr as MKL_JIT_GET_SGEMM_PTR;
-pub use mkl_jit_get_zgemm_ptr as MKL_JIT_GET_ZGEMM_PTR;
-pub use sasum as SASUM;
-pub use saxpby as SAXPBY;
-pub use saxpy as SAXPY;
-pub use saxpy_batch as SAXPY_BATCH;
-pub use saxpy_batch_strided as SAXPY_BATCH_STRIDED;
-pub use saxpyi as SAXPYI;
-pub use scabs1 as SCABS1;
-pub use scasum as SCASUM;
-pub use scgemm as SCGEMM;
-pub use scgemv as SCGEMV;
-pub use scnrm2 as SCNRM2;
-pub use scopy as SCOPY;
-pub use scopy_batch as SCOPY_BATCH;
-pub use scopy_batch_strided as SCOPY_BATCH_STRIDED;
-pub use sdgmm_batch as SDGMM_BATCH;
-pub use sdgmm_batch_strided as SDGMM_BATCH_STRIDED;
-pub use sdot as SDOT;
-pub use sdoti as SDOTI;
-pub use sdsdot as SDSDOT;
-pub use sgbmv as SGBMV;
-pub use sgem2vu as SGEM2VU;
-pub use sgemm as SGEMM;
-pub use sgemm_batch as SGEMM_BATCH;
-pub use sgemm_batch_strided as SGEMM_BATCH_STRIDED;
-pub use sgemm_compute as SGEMM_COMPUTE;
-pub use sgemm_pack as SGEMM_PACK;
-pub use sgemm_pack_get_size as SGEMM_PACK_GET_SIZE;
-pub use sgemmt as SGEMMT;
-pub use sgemv as SGEMV;
-pub use sgemv_batch as SGEMV_BATCH;
-pub use sgemv_batch_strided as SGEMV_BATCH_STRIDED;
-pub use sger as SGER;
-pub use sgthr as SGTHR;
-pub use sgthrz as SGTHRZ;
-pub use snrm2 as SNRM2;
-pub use srot as SROT;
-pub use srotg as SROTG;
-pub use sroti as SROTI;
-pub use srotm as SROTM;
-pub use srotmg as SROTMG;
-pub use ssbmv as SSBMV;
-pub use sscal as SSCAL;
-pub use ssctr as SSCTR;
-pub use sspmv as SSPMV;
-pub use sspr as SSPR;
-pub use sspr2 as SSPR2;
-pub use sswap as SSWAP;
-pub use ssymm as SSYMM;
-pub use ssymv as SSYMV;
-pub use ssyr as SSYR;
-pub use ssyr2 as SSYR2;
-pub use ssyr2k as SSYR2K;
-pub use ssyrk as SSYRK;
-pub use ssyrk_batch as SSYRK_BATCH;
-pub use ssyrk_batch_strided as SSYRK_BATCH_STRIDED;
-pub use stbmv as STBMV;
-pub use stbsv as STBSV;
-pub use stpmv as STPMV;
-pub use stpsv as STPSV;
-pub use strmm as STRMM;
-pub use strmm_oop as STRMM_OOP;
-pub use strmv as STRMV;
-pub use strsm as STRSM;
-pub use strsm_batch as STRSM_BATCH;
-pub use strsm_batch_strided as STRSM_BATCH_STRIDED;
-pub use strsm_oop as STRSM_OOP;
-pub use strsv as STRSV;
-pub use xerbla as XERBLA;
-pub use zaxpby as ZAXPBY;
-pub use zaxpy as ZAXPY;
-pub use zaxpy_batch as ZAXPY_BATCH;
-pub use zaxpy_batch_strided as ZAXPY_BATCH_STRIDED;
-pub use zaxpyi as ZAXPYI;
-pub use zcopy as ZCOPY;
-pub use zcopy_batch as ZCOPY_BATCH;
-pub use zcopy_batch_strided as ZCOPY_BATCH_STRIDED;
-pub use zdgmm_batch as ZDGMM_BATCH;
-pub use zdgmm_batch_strided as ZDGMM_BATCH_STRIDED;
-pub use zdotc as ZDOTC;
-pub use zdotci as ZDOTCI;
-pub use zdotu as ZDOTU;
-pub use zdotui as ZDOTUI;
-pub use zdrot as ZDROT;
-pub use zdscal as ZDSCAL;
-pub use zgbmv as ZGBMV;
-pub use zgem2vc as ZGEM2VC;
-pub use zgemm as ZGEMM;
-pub use zgemm3m as ZGEMM3M;
-pub use zgemm3m_batch as ZGEMM3M_BATCH;
-pub use zgemm3m_batch_strided as ZGEMM3M_BATCH_STRIDED;
-pub use zgemm_batch as ZGEMM_BATCH;
-pub use zgemm_batch_strided as ZGEMM_BATCH_STRIDED;
-pub use zgemmt as ZGEMMT;
-pub use zgemv as ZGEMV;
-pub use zgemv_batch as ZGEMV_BATCH;
-pub use zgemv_batch_strided as ZGEMV_BATCH_STRIDED;
-pub use zgerc as ZGERC;
-pub use zgeru as ZGERU;
-pub use zgthr as ZGTHR;
-pub use zgthrz as ZGTHRZ;
-pub use zhbmv as ZHBMV;
-pub use zhemm as ZHEMM;
-pub use zhemv as ZHEMV;
-pub use zher as ZHER;
-pub use zher2 as ZHER2;
-pub use zher2k as ZHER2K;
-pub use zherk as ZHERK;
-pub use zhpmv as ZHPMV;
-pub use zhpr as ZHPR;
-pub use zhpr2 as ZHPR2;
-pub use zrot as ZROT;
-pub use zrotg as ZROTG;
-pub use zscal as ZSCAL;
-pub use zsctr as ZSCTR;
-pub use zswap as ZSWAP;
-pub use zsymm as ZSYMM;
-pub use zsyr2k as ZSYR2K;
-pub use zsyrk as ZSYRK;
-pub use zsyrk_batch as ZSYRK_BATCH;
-pub use zsyrk_batch_strided as ZSYRK_BATCH_STRIDED;
-pub use ztbmv as ZTBMV;
-pub use ztbsv as ZTBSV;
-pub use ztpmv as ZTPMV;
-pub use ztpsv as ZTPSV;
-pub use ztrmm as ZTRMM;
-pub use ztrmm_oop as ZTRMM_OOP;
-pub use ztrmv as ZTRMV;
-pub use ztrsm as ZTRSM;
-pub use ztrsm_batch as ZTRSM_BATCH;
-pub use ztrsm_batch_strided as ZTRSM_BATCH_STRIDED;
-pub use ztrsm_oop as ZTRSM_OOP;
-pub use ztrsv as ZTRSV;
+pub use caxpby_ as CAXPBY;
+pub use caxpy_ as CAXPY;
+pub use caxpy_batch_ as CAXPY_BATCH;
+pub use caxpy_batch_strided_ as CAXPY_BATCH_STRIDED;
+pub use caxpyi_ as CAXPYI;
+pub use ccopy_ as CCOPY;
+pub use ccopy_batch_ as CCOPY_BATCH;
+pub use ccopy_batch_strided_ as CCOPY_BATCH_STRIDED;
+pub use cdgmm_batch_ as CDGMM_BATCH;
+pub use cdgmm_batch_strided_ as CDGMM_BATCH_STRIDED;
+pub use cdotc_ as CDOTC;
+pub use cdotci_ as CDOTCI;
+pub use cdotu_ as CDOTU;
+pub use cdotui_ as CDOTUI;
+pub use cgbmv_ as CGBMV;
+pub use cgem2vc_ as CGEM2VC;
+pub use cgemm3m_ as CGEMM3M;
+pub use cgemm3m_batch_ as CGEMM3M_BATCH;
+pub use cgemm3m_batch_strided_ as CGEMM3M_BATCH_STRIDED;
+pub use cgemm_ as CGEMM;
+pub use cgemm_batch_ as CGEMM_BATCH;
+pub use cgemm_batch_strided_ as CGEMM_BATCH_STRIDED;
+pub use cgemmt_ as CGEMMT;
+pub use cgemv_ as CGEMV;
+pub use cgemv_batch_ as CGEMV_BATCH;
+pub use cgemv_batch_strided_ as CGEMV_BATCH_STRIDED;
+pub use cgerc_ as CGERC;
+pub use cgeru_ as CGERU;
+pub use cgthr_ as CGTHR;
+pub use cgthrz_ as CGTHRZ;
+pub use chbmv_ as CHBMV;
+pub use chemm_ as CHEMM;
+pub use chemv_ as CHEMV;
+pub use cher2_ as CHER2;
+pub use cher2k_ as CHER2K;
+pub use cher_ as CHER;
+pub use cherk_ as CHERK;
+pub use chpmv_ as CHPMV;
+pub use chpr2_ as CHPR2;
+pub use chpr_ as CHPR;
+pub use crot_ as CROT;
+pub use crotg_ as CROTG;
+pub use cscal_ as CSCAL;
+pub use csctr_ as CSCTR;
+pub use csrot_ as CSROT;
+pub use csscal_ as CSSCAL;
+pub use cswap_ as CSWAP;
+pub use csymm_ as CSYMM;
+pub use csyr2k_ as CSYR2K;
+pub use csyrk_ as CSYRK;
+pub use csyrk_batch_ as CSYRK_BATCH;
+pub use csyrk_batch_strided_ as CSYRK_BATCH_STRIDED;
+pub use ctbmv_ as CTBMV;
+pub use ctbsv_ as CTBSV;
+pub use ctpmv_ as CTPMV;
+pub use ctpsv_ as CTPSV;
+pub use ctrmm_ as CTRMM;
+pub use ctrmm_oop_ as CTRMM_OOP;
+pub use ctrmv_ as CTRMV;
+pub use ctrsm_ as CTRSM;
+pub use ctrsm_batch_ as CTRSM_BATCH;
+pub use ctrsm_batch_strided_ as CTRSM_BATCH_STRIDED;
+pub use ctrsm_oop_ as CTRSM_OOP;
+pub use ctrsv_ as CTRSV;
+pub use dasum_ as DASUM;
+pub use daxpby_ as DAXPBY;
+pub use daxpy_ as DAXPY;
+pub use daxpy_batch_ as DAXPY_BATCH;
+pub use daxpy_batch_strided_ as DAXPY_BATCH_STRIDED;
+pub use daxpyi_ as DAXPYI;
+pub use dcabs1_ as DCABS1;
+pub use dcopy_ as DCOPY;
+pub use dcopy_batch_ as DCOPY_BATCH;
+pub use dcopy_batch_strided_ as DCOPY_BATCH_STRIDED;
+pub use ddgmm_batch_ as DDGMM_BATCH;
+pub use ddgmm_batch_strided_ as DDGMM_BATCH_STRIDED;
+pub use ddot_ as DDOT;
+pub use ddoti_ as DDOTI;
+pub use dgbmv_ as DGBMV;
+pub use dgem2vu_ as DGEM2VU;
+pub use dgemm_ as DGEMM;
+pub use dgemm_batch_ as DGEMM_BATCH;
+pub use dgemm_batch_strided_ as DGEMM_BATCH_STRIDED;
+pub use dgemm_compute_ as DGEMM_COMPUTE;
+pub use dgemm_pack_ as DGEMM_PACK;
+pub use dgemm_pack_get_size_ as DGEMM_PACK_GET_SIZE;
+pub use dgemmt_ as DGEMMT;
+pub use dgemv_ as DGEMV;
+pub use dgemv_batch_ as DGEMV_BATCH;
+pub use dgemv_batch_strided_ as DGEMV_BATCH_STRIDED;
+pub use dger_ as DGER;
+pub use dgthr_ as DGTHR;
+pub use dgthrz_ as DGTHRZ;
+pub use dnrm2_ as DNRM2;
+pub use drot_ as DROT;
+pub use drotg_ as DROTG;
+pub use droti_ as DROTI;
+pub use drotm_ as DROTM;
+pub use drotmg_ as DROTMG;
+pub use dsbmv_ as DSBMV;
+pub use dscal_ as DSCAL;
+pub use dsctr_ as DSCTR;
+pub use dsdot_ as DSDOT;
+pub use dspmv_ as DSPMV;
+pub use dspr2_ as DSPR2;
+pub use dspr_ as DSPR;
+pub use dswap_ as DSWAP;
+pub use dsymm_ as DSYMM;
+pub use dsymv_ as DSYMV;
+pub use dsyr2_ as DSYR2;
+pub use dsyr2k_ as DSYR2K;
+pub use dsyr_ as DSYR;
+pub use dsyrk_ as DSYRK;
+pub use dsyrk_batch_ as DSYRK_BATCH;
+pub use dsyrk_batch_strided_ as DSYRK_BATCH_STRIDED;
+pub use dtbmv_ as DTBMV;
+pub use dtbsv_ as DTBSV;
+pub use dtpmv_ as DTPMV;
+pub use dtpsv_ as DTPSV;
+pub use dtrmm_ as DTRMM;
+pub use dtrmm_oop_ as DTRMM_OOP;
+pub use dtrmv_ as DTRMV;
+pub use dtrsm_ as DTRSM;
+pub use dtrsm_batch_ as DTRSM_BATCH;
+pub use dtrsm_batch_strided_ as DTRSM_BATCH_STRIDED;
+pub use dtrsm_oop_ as DTRSM_OOP;
+pub use dtrsv_ as DTRSV;
+pub use dzasum_ as DZASUM;
+pub use dzgemm_ as DZGEMM;
+pub use dzgemv_ as DZGEMV;
+pub use dznrm2_ as DZNRM2;
+pub use gemm_bf16bf16f32_ as GEMM_BF16BF16F32;
+pub use gemm_bf16bf16f32_compute_ as GEMM_BF16BF16F32_COMPUTE;
+pub use gemm_bf16bf16f32_pack_ as GEMM_BF16BF16F32_PACK;
+pub use gemm_bf16bf16f32_pack_get_size_ as GEMM_BF16BF16F32_PACK_GET_SIZE;
+pub use gemm_e4m3e4m3f32_ as GEMM_E4M3E4M3F32;
+pub use gemm_e4m3e4m3f32_compute_ as GEMM_E4M3E4M3F32_COMPUTE;
+pub use gemm_e4m3e4m3f32_pack_ as GEMM_E4M3E4M3F32_PACK;
+pub use gemm_e4m3e4m3f32_pack_get_size_ as GEMM_E4M3E4M3F32_PACK_GET_SIZE;
+pub use gemm_e5m2e5m2f32_ as GEMM_E5M2E5M2F32;
+pub use gemm_e5m2e5m2f32_compute_ as GEMM_E5M2E5M2F32_COMPUTE;
+pub use gemm_e5m2e5m2f32_pack_ as GEMM_E5M2E5M2F32_PACK;
+pub use gemm_e5m2e5m2f32_pack_get_size_ as GEMM_E5M2E5M2F32_PACK_GET_SIZE;
+pub use gemm_f16f16f32_ as GEMM_F16F16F32;
+pub use gemm_f16f16f32_compute_ as GEMM_F16F16F32_COMPUTE;
+pub use gemm_f16f16f32_pack_ as GEMM_F16F16F32_PACK;
+pub use gemm_f16f16f32_pack_get_size_ as GEMM_F16F16F32_PACK_GET_SIZE;
+pub use gemm_s16s16s32_ as GEMM_S16S16S32;
+pub use gemm_s16s16s32_compute_ as GEMM_S16S16S32_COMPUTE;
+pub use gemm_s16s16s32_pack_ as GEMM_S16S16S32_PACK;
+pub use gemm_s16s16s32_pack_get_size_ as GEMM_S16S16S32_PACK_GET_SIZE;
+pub use gemm_s8u8s32_ as GEMM_S8U8S32;
+pub use gemm_s8u8s32_compute_ as GEMM_S8U8S32_COMPUTE;
+pub use gemm_s8u8s32_pack_ as GEMM_S8U8S32_PACK;
+pub use gemm_s8u8s32_pack_get_size_ as GEMM_S8U8S32_PACK_GET_SIZE;
+pub use hgemm_ as HGEMM;
+pub use hgemm_compute_ as HGEMM_COMPUTE;
+pub use hgemm_pack_ as HGEMM_PACK;
+pub use hgemm_pack_get_size_ as HGEMM_PACK_GET_SIZE;
+pub use icamax_ as ICAMAX;
+pub use icamin_ as ICAMIN;
+pub use idamax_ as IDAMAX;
+pub use idamin_ as IDAMIN;
+pub use isamax_ as ISAMAX;
+pub use isamin_ as ISAMIN;
+pub use izamax_ as IZAMAX;
+pub use izamin_ as IZAMIN;
+pub use lsame_ as LSAME;
+pub use mkl_cblas_jit_create_cgemm_ as MKL_CBLAS_JIT_CREATE_CGEMM;
+pub use mkl_cblas_jit_create_dgemm_ as MKL_CBLAS_JIT_CREATE_DGEMM;
+pub use mkl_cblas_jit_create_sgemm_ as MKL_CBLAS_JIT_CREATE_SGEMM;
+pub use mkl_cblas_jit_create_zgemm_ as MKL_CBLAS_JIT_CREATE_ZGEMM;
+pub use mkl_jit_destroy_ as MKL_JIT_DESTROY;
+pub use mkl_jit_get_cgemm_ptr_ as MKL_JIT_GET_CGEMM_PTR;
+pub use mkl_jit_get_dgemm_ptr_ as MKL_JIT_GET_DGEMM_PTR;
+pub use mkl_jit_get_sgemm_ptr_ as MKL_JIT_GET_SGEMM_PTR;
+pub use mkl_jit_get_zgemm_ptr_ as MKL_JIT_GET_ZGEMM_PTR;
+pub use sasum_ as SASUM;
+pub use saxpby_ as SAXPBY;
+pub use saxpy_ as SAXPY;
+pub use saxpy_batch_ as SAXPY_BATCH;
+pub use saxpy_batch_strided_ as SAXPY_BATCH_STRIDED;
+pub use saxpyi_ as SAXPYI;
+pub use scabs1_ as SCABS1;
+pub use scasum_ as SCASUM;
+pub use scgemm_ as SCGEMM;
+pub use scgemv_ as SCGEMV;
+pub use scnrm2_ as SCNRM2;
+pub use scopy_ as SCOPY;
+pub use scopy_batch_ as SCOPY_BATCH;
+pub use scopy_batch_strided_ as SCOPY_BATCH_STRIDED;
+pub use sdgmm_batch_ as SDGMM_BATCH;
+pub use sdgmm_batch_strided_ as SDGMM_BATCH_STRIDED;
+pub use sdot_ as SDOT;
+pub use sdoti_ as SDOTI;
+pub use sdsdot_ as SDSDOT;
+pub use sgbmv_ as SGBMV;
+pub use sgem2vu_ as SGEM2VU;
+pub use sgemm_ as SGEMM;
+pub use sgemm_batch_ as SGEMM_BATCH;
+pub use sgemm_batch_strided_ as SGEMM_BATCH_STRIDED;
+pub use sgemm_compute_ as SGEMM_COMPUTE;
+pub use sgemm_pack_ as SGEMM_PACK;
+pub use sgemm_pack_get_size_ as SGEMM_PACK_GET_SIZE;
+pub use sgemmt_ as SGEMMT;
+pub use sgemv_ as SGEMV;
+pub use sgemv_batch_ as SGEMV_BATCH;
+pub use sgemv_batch_strided_ as SGEMV_BATCH_STRIDED;
+pub use sger_ as SGER;
+pub use sgthr_ as SGTHR;
+pub use sgthrz_ as SGTHRZ;
+pub use snrm2_ as SNRM2;
+pub use srot_ as SROT;
+pub use srotg_ as SROTG;
+pub use sroti_ as SROTI;
+pub use srotm_ as SROTM;
+pub use srotmg_ as SROTMG;
+pub use ssbmv_ as SSBMV;
+pub use sscal_ as SSCAL;
+pub use ssctr_ as SSCTR;
+pub use sspmv_ as SSPMV;
+pub use sspr2_ as SSPR2;
+pub use sspr_ as SSPR;
+pub use sswap_ as SSWAP;
+pub use ssymm_ as SSYMM;
+pub use ssymv_ as SSYMV;
+pub use ssyr2_ as SSYR2;
+pub use ssyr2k_ as SSYR2K;
+pub use ssyr_ as SSYR;
+pub use ssyrk_ as SSYRK;
+pub use ssyrk_batch_ as SSYRK_BATCH;
+pub use ssyrk_batch_strided_ as SSYRK_BATCH_STRIDED;
+pub use stbmv_ as STBMV;
+pub use stbsv_ as STBSV;
+pub use stpmv_ as STPMV;
+pub use stpsv_ as STPSV;
+pub use strmm_ as STRMM;
+pub use strmm_oop_ as STRMM_OOP;
+pub use strmv_ as STRMV;
+pub use strsm_ as STRSM;
+pub use strsm_batch_ as STRSM_BATCH;
+pub use strsm_batch_strided_ as STRSM_BATCH_STRIDED;
+pub use strsm_oop_ as STRSM_OOP;
+pub use strsv_ as STRSV;
+pub use xerbla_ as XERBLA;
+pub use zaxpby_ as ZAXPBY;
+pub use zaxpy_ as ZAXPY;
+pub use zaxpy_batch_ as ZAXPY_BATCH;
+pub use zaxpy_batch_strided_ as ZAXPY_BATCH_STRIDED;
+pub use zaxpyi_ as ZAXPYI;
+pub use zcopy_ as ZCOPY;
+pub use zcopy_batch_ as ZCOPY_BATCH;
+pub use zcopy_batch_strided_ as ZCOPY_BATCH_STRIDED;
+pub use zdgmm_batch_ as ZDGMM_BATCH;
+pub use zdgmm_batch_strided_ as ZDGMM_BATCH_STRIDED;
+pub use zdotc_ as ZDOTC;
+pub use zdotci_ as ZDOTCI;
+pub use zdotu_ as ZDOTU;
+pub use zdotui_ as ZDOTUI;
+pub use zdrot_ as ZDROT;
+pub use zdscal_ as ZDSCAL;
+pub use zgbmv_ as ZGBMV;
+pub use zgem2vc_ as ZGEM2VC;
+pub use zgemm3m_ as ZGEMM3M;
+pub use zgemm3m_batch_ as ZGEMM3M_BATCH;
+pub use zgemm3m_batch_strided_ as ZGEMM3M_BATCH_STRIDED;
+pub use zgemm_ as ZGEMM;
+pub use zgemm_batch_ as ZGEMM_BATCH;
+pub use zgemm_batch_strided_ as ZGEMM_BATCH_STRIDED;
+pub use zgemmt_ as ZGEMMT;
+pub use zgemv_ as ZGEMV;
+pub use zgemv_batch_ as ZGEMV_BATCH;
+pub use zgemv_batch_strided_ as ZGEMV_BATCH_STRIDED;
+pub use zgerc_ as ZGERC;
+pub use zgeru_ as ZGERU;
+pub use zgthr_ as ZGTHR;
+pub use zgthrz_ as ZGTHRZ;
+pub use zhbmv_ as ZHBMV;
+pub use zhemm_ as ZHEMM;
+pub use zhemv_ as ZHEMV;
+pub use zher2_ as ZHER2;
+pub use zher2k_ as ZHER2K;
+pub use zher_ as ZHER;
+pub use zherk_ as ZHERK;
+pub use zhpmv_ as ZHPMV;
+pub use zhpr2_ as ZHPR2;
+pub use zhpr_ as ZHPR;
+pub use zrot_ as ZROT;
+pub use zrotg_ as ZROTG;
+pub use zscal_ as ZSCAL;
+pub use zsctr_ as ZSCTR;
+pub use zswap_ as ZSWAP;
+pub use zsymm_ as ZSYMM;
+pub use zsyr2k_ as ZSYR2K;
+pub use zsyrk_ as ZSYRK;
+pub use zsyrk_batch_ as ZSYRK_BATCH;
+pub use zsyrk_batch_strided_ as ZSYRK_BATCH_STRIDED;
+pub use ztbmv_ as ZTBMV;
+pub use ztbsv_ as ZTBSV;
+pub use ztpmv_ as ZTPMV;
+pub use ztpsv_ as ZTPSV;
+pub use ztrmm_ as ZTRMM;
+pub use ztrmm_oop_ as ZTRMM_OOP;
+pub use ztrmv_ as ZTRMV;
+pub use ztrsm_ as ZTRSM;
+pub use ztrsm_batch_ as ZTRSM_BATCH;
+pub use ztrsm_batch_strided_ as ZTRSM_BATCH_STRIDED;
+pub use ztrsm_oop_ as ZTRSM_OOP;
+pub use ztrsv_ as ZTRSV;
 
 /* #endregion */
 
 /* #region lower case with underscore alias */
 
-pub use caxpby as caxpby_;
-pub use caxpy as caxpy_;
-pub use caxpy_batch as caxpy_batch_;
-pub use caxpy_batch_strided as caxpy_batch_strided_;
-pub use caxpyi as caxpyi_;
-pub use ccopy as ccopy_;
-pub use ccopy_batch as ccopy_batch_;
-pub use ccopy_batch_strided as ccopy_batch_strided_;
-pub use cdgmm_batch as cdgmm_batch_;
-pub use cdgmm_batch_strided as cdgmm_batch_strided_;
-pub use cdotc as cdotc_;
-pub use cdotci as cdotci_;
-pub use cdotu as cdotu_;
-pub use cdotui as cdotui_;
-pub use cgbmv as cgbmv_;
-pub use cgem2vc as cgem2vc_;
-pub use cgemm as cgemm_;
-pub use cgemm3m as cgemm3m_;
-pub use cgemm3m_batch as cgemm3m_batch_;
-pub use cgemm3m_batch_strided as cgemm3m_batch_strided_;
-pub use cgemm_batch as cgemm_batch_;
-pub use cgemm_batch_strided as cgemm_batch_strided_;
-pub use cgemmt as cgemmt_;
-pub use cgemv as cgemv_;
-pub use cgemv_batch as cgemv_batch_;
-pub use cgemv_batch_strided as cgemv_batch_strided_;
-pub use cgerc as cgerc_;
-pub use cgeru as cgeru_;
-pub use cgthr as cgthr_;
-pub use cgthrz as cgthrz_;
-pub use chbmv as chbmv_;
-pub use chemm as chemm_;
-pub use chemv as chemv_;
-pub use cher as cher_;
-pub use cher2 as cher2_;
-pub use cher2k as cher2k_;
-pub use cherk as cherk_;
-pub use chpmv as chpmv_;
-pub use chpr as chpr_;
-pub use chpr2 as chpr2_;
-pub use crot as crot_;
-pub use crotg as crotg_;
-pub use cscal as cscal_;
-pub use csctr as csctr_;
-pub use csrot as csrot_;
-pub use csscal as csscal_;
-pub use cswap as cswap_;
-pub use csymm as csymm_;
-pub use csyr2k as csyr2k_;
-pub use csyrk as csyrk_;
-pub use csyrk_batch as csyrk_batch_;
-pub use csyrk_batch_strided as csyrk_batch_strided_;
-pub use ctbmv as ctbmv_;
-pub use ctbsv as ctbsv_;
-pub use ctpmv as ctpmv_;
-pub use ctpsv as ctpsv_;
-pub use ctrmm as ctrmm_;
-pub use ctrmm_oop as ctrmm_oop_;
-pub use ctrmv as ctrmv_;
-pub use ctrsm as ctrsm_;
-pub use ctrsm_batch as ctrsm_batch_;
-pub use ctrsm_batch_strided as ctrsm_batch_strided_;
-pub use ctrsm_oop as ctrsm_oop_;
-pub use ctrsv as ctrsv_;
-pub use dasum as dasum_;
-pub use daxpby as daxpby_;
-pub use daxpy as daxpy_;
-pub use daxpy_batch as daxpy_batch_;
-pub use daxpy_batch_strided as daxpy_batch_strided_;
-pub use daxpyi as daxpyi_;
-pub use dcabs1 as dcabs1_;
-pub use dcopy as dcopy_;
-pub use dcopy_batch as dcopy_batch_;
-pub use dcopy_batch_strided as dcopy_batch_strided_;
-pub use ddgmm_batch as ddgmm_batch_;
-pub use ddgmm_batch_strided as ddgmm_batch_strided_;
-pub use ddot as ddot_;
-pub use ddoti as ddoti_;
-pub use dgbmv as dgbmv_;
-pub use dgem2vu as dgem2vu_;
-pub use dgemm as dgemm_;
-pub use dgemm_batch as dgemm_batch_;
-pub use dgemm_batch_strided as dgemm_batch_strided_;
-pub use dgemm_compute as dgemm_compute_;
-pub use dgemm_pack as dgemm_pack_;
-pub use dgemm_pack_get_size as dgemm_pack_get_size_;
-pub use dgemmt as dgemmt_;
-pub use dgemv as dgemv_;
-pub use dgemv_batch as dgemv_batch_;
-pub use dgemv_batch_strided as dgemv_batch_strided_;
-pub use dger as dger_;
-pub use dgthr as dgthr_;
-pub use dgthrz as dgthrz_;
-pub use dnrm2 as dnrm2_;
-pub use drot as drot_;
-pub use drotg as drotg_;
-pub use droti as droti_;
-pub use drotm as drotm_;
-pub use drotmg as drotmg_;
-pub use dsbmv as dsbmv_;
-pub use dscal as dscal_;
-pub use dsctr as dsctr_;
-pub use dsdot as dsdot_;
-pub use dspmv as dspmv_;
-pub use dspr as dspr_;
-pub use dspr2 as dspr2_;
-pub use dswap as dswap_;
-pub use dsymm as dsymm_;
-pub use dsymv as dsymv_;
-pub use dsyr as dsyr_;
-pub use dsyr2 as dsyr2_;
-pub use dsyr2k as dsyr2k_;
-pub use dsyrk as dsyrk_;
-pub use dsyrk_batch as dsyrk_batch_;
-pub use dsyrk_batch_strided as dsyrk_batch_strided_;
-pub use dtbmv as dtbmv_;
-pub use dtbsv as dtbsv_;
-pub use dtpmv as dtpmv_;
-pub use dtpsv as dtpsv_;
-pub use dtrmm as dtrmm_;
-pub use dtrmm_oop as dtrmm_oop_;
-pub use dtrmv as dtrmv_;
-pub use dtrsm as dtrsm_;
-pub use dtrsm_batch as dtrsm_batch_;
-pub use dtrsm_batch_strided as dtrsm_batch_strided_;
-pub use dtrsm_oop as dtrsm_oop_;
-pub use dtrsv as dtrsv_;
-pub use dzasum as dzasum_;
-pub use dzgemm as dzgemm_;
-pub use dzgemv as dzgemv_;
-pub use dznrm2 as dznrm2_;
-pub use gemm_bf16bf16f32 as gemm_bf16bf16f32_;
-pub use gemm_bf16bf16f32_compute as gemm_bf16bf16f32_compute_;
-pub use gemm_bf16bf16f32_pack as gemm_bf16bf16f32_pack_;
-pub use gemm_bf16bf16f32_pack_get_size as gemm_bf16bf16f32_pack_get_size_;
-pub use gemm_e4m3e4m3f32 as gemm_e4m3e4m3f32_;
-pub use gemm_e4m3e4m3f32_compute as gemm_e4m3e4m3f32_compute_;
-pub use gemm_e4m3e4m3f32_pack as gemm_e4m3e4m3f32_pack_;
-pub use gemm_e4m3e4m3f32_pack_get_size as gemm_e4m3e4m3f32_pack_get_size_;
-pub use gemm_e5m2e5m2f32 as gemm_e5m2e5m2f32_;
-pub use gemm_e5m2e5m2f32_compute as gemm_e5m2e5m2f32_compute_;
-pub use gemm_e5m2e5m2f32_pack as gemm_e5m2e5m2f32_pack_;
-pub use gemm_e5m2e5m2f32_pack_get_size as gemm_e5m2e5m2f32_pack_get_size_;
-pub use gemm_f16f16f32 as gemm_f16f16f32_;
-pub use gemm_f16f16f32_compute as gemm_f16f16f32_compute_;
-pub use gemm_f16f16f32_pack as gemm_f16f16f32_pack_;
-pub use gemm_f16f16f32_pack_get_size as gemm_f16f16f32_pack_get_size_;
-pub use gemm_s16s16s32 as gemm_s16s16s32_;
-pub use gemm_s16s16s32_compute as gemm_s16s16s32_compute_;
-pub use gemm_s16s16s32_pack as gemm_s16s16s32_pack_;
-pub use gemm_s16s16s32_pack_get_size as gemm_s16s16s32_pack_get_size_;
-pub use gemm_s8u8s32 as gemm_s8u8s32_;
-pub use gemm_s8u8s32_compute as gemm_s8u8s32_compute_;
-pub use gemm_s8u8s32_pack as gemm_s8u8s32_pack_;
-pub use gemm_s8u8s32_pack_get_size as gemm_s8u8s32_pack_get_size_;
-pub use hgemm as hgemm_;
-pub use hgemm_compute as hgemm_compute_;
-pub use hgemm_pack as hgemm_pack_;
-pub use hgemm_pack_get_size as hgemm_pack_get_size_;
-pub use icamax as icamax_;
-pub use icamin as icamin_;
-pub use idamax as idamax_;
-pub use idamin as idamin_;
-pub use isamax as isamax_;
-pub use isamin as isamin_;
-pub use izamax as izamax_;
-pub use izamin as izamin_;
-pub use lsame as lsame_;
-pub use mkl_cblas_jit_create_cgemm as mkl_cblas_jit_create_cgemm_;
-pub use mkl_cblas_jit_create_dgemm as mkl_cblas_jit_create_dgemm_;
-pub use mkl_cblas_jit_create_sgemm as mkl_cblas_jit_create_sgemm_;
-pub use mkl_cblas_jit_create_zgemm as mkl_cblas_jit_create_zgemm_;
-pub use mkl_jit_destroy as mkl_jit_destroy_;
-pub use mkl_jit_get_cgemm_ptr as mkl_jit_get_cgemm_ptr_;
-pub use mkl_jit_get_dgemm_ptr as mkl_jit_get_dgemm_ptr_;
-pub use mkl_jit_get_sgemm_ptr as mkl_jit_get_sgemm_ptr_;
-pub use mkl_jit_get_zgemm_ptr as mkl_jit_get_zgemm_ptr_;
-pub use sasum as sasum_;
-pub use saxpby as saxpby_;
-pub use saxpy as saxpy_;
-pub use saxpy_batch as saxpy_batch_;
-pub use saxpy_batch_strided as saxpy_batch_strided_;
-pub use saxpyi as saxpyi_;
-pub use scabs1 as scabs1_;
-pub use scasum as scasum_;
-pub use scgemm as scgemm_;
-pub use scgemv as scgemv_;
-pub use scnrm2 as scnrm2_;
-pub use scopy as scopy_;
-pub use scopy_batch as scopy_batch_;
-pub use scopy_batch_strided as scopy_batch_strided_;
-pub use sdgmm_batch as sdgmm_batch_;
-pub use sdgmm_batch_strided as sdgmm_batch_strided_;
-pub use sdot as sdot_;
-pub use sdoti as sdoti_;
-pub use sdsdot as sdsdot_;
-pub use sgbmv as sgbmv_;
-pub use sgem2vu as sgem2vu_;
-pub use sgemm as sgemm_;
-pub use sgemm_batch as sgemm_batch_;
-pub use sgemm_batch_strided as sgemm_batch_strided_;
-pub use sgemm_compute as sgemm_compute_;
-pub use sgemm_pack as sgemm_pack_;
-pub use sgemm_pack_get_size as sgemm_pack_get_size_;
-pub use sgemmt as sgemmt_;
-pub use sgemv as sgemv_;
-pub use sgemv_batch as sgemv_batch_;
-pub use sgemv_batch_strided as sgemv_batch_strided_;
-pub use sger as sger_;
-pub use sgthr as sgthr_;
-pub use sgthrz as sgthrz_;
-pub use snrm2 as snrm2_;
-pub use srot as srot_;
-pub use srotg as srotg_;
-pub use sroti as sroti_;
-pub use srotm as srotm_;
-pub use srotmg as srotmg_;
-pub use ssbmv as ssbmv_;
-pub use sscal as sscal_;
-pub use ssctr as ssctr_;
-pub use sspmv as sspmv_;
-pub use sspr as sspr_;
-pub use sspr2 as sspr2_;
-pub use sswap as sswap_;
-pub use ssymm as ssymm_;
-pub use ssymv as ssymv_;
-pub use ssyr as ssyr_;
-pub use ssyr2 as ssyr2_;
-pub use ssyr2k as ssyr2k_;
-pub use ssyrk as ssyrk_;
-pub use ssyrk_batch as ssyrk_batch_;
-pub use ssyrk_batch_strided as ssyrk_batch_strided_;
-pub use stbmv as stbmv_;
-pub use stbsv as stbsv_;
-pub use stpmv as stpmv_;
-pub use stpsv as stpsv_;
-pub use strmm as strmm_;
-pub use strmm_oop as strmm_oop_;
-pub use strmv as strmv_;
-pub use strsm as strsm_;
-pub use strsm_batch as strsm_batch_;
-pub use strsm_batch_strided as strsm_batch_strided_;
-pub use strsm_oop as strsm_oop_;
-pub use strsv as strsv_;
-pub use xerbla as xerbla_;
-pub use zaxpby as zaxpby_;
-pub use zaxpy as zaxpy_;
-pub use zaxpy_batch as zaxpy_batch_;
-pub use zaxpy_batch_strided as zaxpy_batch_strided_;
-pub use zaxpyi as zaxpyi_;
-pub use zcopy as zcopy_;
-pub use zcopy_batch as zcopy_batch_;
-pub use zcopy_batch_strided as zcopy_batch_strided_;
-pub use zdgmm_batch as zdgmm_batch_;
-pub use zdgmm_batch_strided as zdgmm_batch_strided_;
-pub use zdotc as zdotc_;
-pub use zdotci as zdotci_;
-pub use zdotu as zdotu_;
-pub use zdotui as zdotui_;
-pub use zdrot as zdrot_;
-pub use zdscal as zdscal_;
-pub use zgbmv as zgbmv_;
-pub use zgem2vc as zgem2vc_;
-pub use zgemm as zgemm_;
-pub use zgemm3m as zgemm3m_;
-pub use zgemm3m_batch as zgemm3m_batch_;
-pub use zgemm3m_batch_strided as zgemm3m_batch_strided_;
-pub use zgemm_batch as zgemm_batch_;
-pub use zgemm_batch_strided as zgemm_batch_strided_;
-pub use zgemmt as zgemmt_;
-pub use zgemv as zgemv_;
-pub use zgemv_batch as zgemv_batch_;
-pub use zgemv_batch_strided as zgemv_batch_strided_;
-pub use zgerc as zgerc_;
-pub use zgeru as zgeru_;
-pub use zgthr as zgthr_;
-pub use zgthrz as zgthrz_;
-pub use zhbmv as zhbmv_;
-pub use zhemm as zhemm_;
-pub use zhemv as zhemv_;
-pub use zher as zher_;
-pub use zher2 as zher2_;
-pub use zher2k as zher2k_;
-pub use zherk as zherk_;
-pub use zhpmv as zhpmv_;
-pub use zhpr as zhpr_;
-pub use zhpr2 as zhpr2_;
-pub use zrot as zrot_;
-pub use zrotg as zrotg_;
-pub use zscal as zscal_;
-pub use zsctr as zsctr_;
-pub use zswap as zswap_;
-pub use zsymm as zsymm_;
-pub use zsyr2k as zsyr2k_;
-pub use zsyrk as zsyrk_;
-pub use zsyrk_batch as zsyrk_batch_;
-pub use zsyrk_batch_strided as zsyrk_batch_strided_;
-pub use ztbmv as ztbmv_;
-pub use ztbsv as ztbsv_;
-pub use ztpmv as ztpmv_;
-pub use ztpsv as ztpsv_;
-pub use ztrmm as ztrmm_;
-pub use ztrmm_oop as ztrmm_oop_;
-pub use ztrmv as ztrmv_;
-pub use ztrsm as ztrsm_;
-pub use ztrsm_batch as ztrsm_batch_;
-pub use ztrsm_batch_strided as ztrsm_batch_strided_;
-pub use ztrsm_oop as ztrsm_oop_;
-pub use ztrsv as ztrsv_;
+pub use caxpby_ as caxpby;
+pub use caxpy_ as caxpy;
+pub use caxpy_batch_ as caxpy_batch;
+pub use caxpy_batch_strided_ as caxpy_batch_strided;
+pub use caxpyi_ as caxpyi;
+pub use ccopy_ as ccopy;
+pub use ccopy_batch_ as ccopy_batch;
+pub use ccopy_batch_strided_ as ccopy_batch_strided;
+pub use cdgmm_batch_ as cdgmm_batch;
+pub use cdgmm_batch_strided_ as cdgmm_batch_strided;
+pub use cdotc_ as cdotc;
+pub use cdotci_ as cdotci;
+pub use cdotu_ as cdotu;
+pub use cdotui_ as cdotui;
+pub use cgbmv_ as cgbmv;
+pub use cgem2vc_ as cgem2vc;
+pub use cgemm3m_ as cgemm3m;
+pub use cgemm3m_batch_ as cgemm3m_batch;
+pub use cgemm3m_batch_strided_ as cgemm3m_batch_strided;
+pub use cgemm_ as cgemm;
+pub use cgemm_batch_ as cgemm_batch;
+pub use cgemm_batch_strided_ as cgemm_batch_strided;
+pub use cgemmt_ as cgemmt;
+pub use cgemv_ as cgemv;
+pub use cgemv_batch_ as cgemv_batch;
+pub use cgemv_batch_strided_ as cgemv_batch_strided;
+pub use cgerc_ as cgerc;
+pub use cgeru_ as cgeru;
+pub use cgthr_ as cgthr;
+pub use cgthrz_ as cgthrz;
+pub use chbmv_ as chbmv;
+pub use chemm_ as chemm;
+pub use chemv_ as chemv;
+pub use cher2_ as cher2;
+pub use cher2k_ as cher2k;
+pub use cher_ as cher;
+pub use cherk_ as cherk;
+pub use chpmv_ as chpmv;
+pub use chpr2_ as chpr2;
+pub use chpr_ as chpr;
+pub use crot_ as crot;
+pub use crotg_ as crotg;
+pub use cscal_ as cscal;
+pub use csctr_ as csctr;
+pub use csrot_ as csrot;
+pub use csscal_ as csscal;
+pub use cswap_ as cswap;
+pub use csymm_ as csymm;
+pub use csyr2k_ as csyr2k;
+pub use csyrk_ as csyrk;
+pub use csyrk_batch_ as csyrk_batch;
+pub use csyrk_batch_strided_ as csyrk_batch_strided;
+pub use ctbmv_ as ctbmv;
+pub use ctbsv_ as ctbsv;
+pub use ctpmv_ as ctpmv;
+pub use ctpsv_ as ctpsv;
+pub use ctrmm_ as ctrmm;
+pub use ctrmm_oop_ as ctrmm_oop;
+pub use ctrmv_ as ctrmv;
+pub use ctrsm_ as ctrsm;
+pub use ctrsm_batch_ as ctrsm_batch;
+pub use ctrsm_batch_strided_ as ctrsm_batch_strided;
+pub use ctrsm_oop_ as ctrsm_oop;
+pub use ctrsv_ as ctrsv;
+pub use dasum_ as dasum;
+pub use daxpby_ as daxpby;
+pub use daxpy_ as daxpy;
+pub use daxpy_batch_ as daxpy_batch;
+pub use daxpy_batch_strided_ as daxpy_batch_strided;
+pub use daxpyi_ as daxpyi;
+pub use dcabs1_ as dcabs1;
+pub use dcopy_ as dcopy;
+pub use dcopy_batch_ as dcopy_batch;
+pub use dcopy_batch_strided_ as dcopy_batch_strided;
+pub use ddgmm_batch_ as ddgmm_batch;
+pub use ddgmm_batch_strided_ as ddgmm_batch_strided;
+pub use ddot_ as ddot;
+pub use ddoti_ as ddoti;
+pub use dgbmv_ as dgbmv;
+pub use dgem2vu_ as dgem2vu;
+pub use dgemm_ as dgemm;
+pub use dgemm_batch_ as dgemm_batch;
+pub use dgemm_batch_strided_ as dgemm_batch_strided;
+pub use dgemm_compute_ as dgemm_compute;
+pub use dgemm_pack_ as dgemm_pack;
+pub use dgemm_pack_get_size_ as dgemm_pack_get_size;
+pub use dgemmt_ as dgemmt;
+pub use dgemv_ as dgemv;
+pub use dgemv_batch_ as dgemv_batch;
+pub use dgemv_batch_strided_ as dgemv_batch_strided;
+pub use dger_ as dger;
+pub use dgthr_ as dgthr;
+pub use dgthrz_ as dgthrz;
+pub use dnrm2_ as dnrm2;
+pub use drot_ as drot;
+pub use drotg_ as drotg;
+pub use droti_ as droti;
+pub use drotm_ as drotm;
+pub use drotmg_ as drotmg;
+pub use dsbmv_ as dsbmv;
+pub use dscal_ as dscal;
+pub use dsctr_ as dsctr;
+pub use dsdot_ as dsdot;
+pub use dspmv_ as dspmv;
+pub use dspr2_ as dspr2;
+pub use dspr_ as dspr;
+pub use dswap_ as dswap;
+pub use dsymm_ as dsymm;
+pub use dsymv_ as dsymv;
+pub use dsyr2_ as dsyr2;
+pub use dsyr2k_ as dsyr2k;
+pub use dsyr_ as dsyr;
+pub use dsyrk_ as dsyrk;
+pub use dsyrk_batch_ as dsyrk_batch;
+pub use dsyrk_batch_strided_ as dsyrk_batch_strided;
+pub use dtbmv_ as dtbmv;
+pub use dtbsv_ as dtbsv;
+pub use dtpmv_ as dtpmv;
+pub use dtpsv_ as dtpsv;
+pub use dtrmm_ as dtrmm;
+pub use dtrmm_oop_ as dtrmm_oop;
+pub use dtrmv_ as dtrmv;
+pub use dtrsm_ as dtrsm;
+pub use dtrsm_batch_ as dtrsm_batch;
+pub use dtrsm_batch_strided_ as dtrsm_batch_strided;
+pub use dtrsm_oop_ as dtrsm_oop;
+pub use dtrsv_ as dtrsv;
+pub use dzasum_ as dzasum;
+pub use dzgemm_ as dzgemm;
+pub use dzgemv_ as dzgemv;
+pub use dznrm2_ as dznrm2;
+pub use gemm_bf16bf16f32_ as gemm_bf16bf16f32;
+pub use gemm_bf16bf16f32_compute_ as gemm_bf16bf16f32_compute;
+pub use gemm_bf16bf16f32_pack_ as gemm_bf16bf16f32_pack;
+pub use gemm_bf16bf16f32_pack_get_size_ as gemm_bf16bf16f32_pack_get_size;
+pub use gemm_e4m3e4m3f32_ as gemm_e4m3e4m3f32;
+pub use gemm_e4m3e4m3f32_compute_ as gemm_e4m3e4m3f32_compute;
+pub use gemm_e4m3e4m3f32_pack_ as gemm_e4m3e4m3f32_pack;
+pub use gemm_e4m3e4m3f32_pack_get_size_ as gemm_e4m3e4m3f32_pack_get_size;
+pub use gemm_e5m2e5m2f32_ as gemm_e5m2e5m2f32;
+pub use gemm_e5m2e5m2f32_compute_ as gemm_e5m2e5m2f32_compute;
+pub use gemm_e5m2e5m2f32_pack_ as gemm_e5m2e5m2f32_pack;
+pub use gemm_e5m2e5m2f32_pack_get_size_ as gemm_e5m2e5m2f32_pack_get_size;
+pub use gemm_f16f16f32_ as gemm_f16f16f32;
+pub use gemm_f16f16f32_compute_ as gemm_f16f16f32_compute;
+pub use gemm_f16f16f32_pack_ as gemm_f16f16f32_pack;
+pub use gemm_f16f16f32_pack_get_size_ as gemm_f16f16f32_pack_get_size;
+pub use gemm_s16s16s32_ as gemm_s16s16s32;
+pub use gemm_s16s16s32_compute_ as gemm_s16s16s32_compute;
+pub use gemm_s16s16s32_pack_ as gemm_s16s16s32_pack;
+pub use gemm_s16s16s32_pack_get_size_ as gemm_s16s16s32_pack_get_size;
+pub use gemm_s8u8s32_ as gemm_s8u8s32;
+pub use gemm_s8u8s32_compute_ as gemm_s8u8s32_compute;
+pub use gemm_s8u8s32_pack_ as gemm_s8u8s32_pack;
+pub use gemm_s8u8s32_pack_get_size_ as gemm_s8u8s32_pack_get_size;
+pub use hgemm_ as hgemm;
+pub use hgemm_compute_ as hgemm_compute;
+pub use hgemm_pack_ as hgemm_pack;
+pub use hgemm_pack_get_size_ as hgemm_pack_get_size;
+pub use icamax_ as icamax;
+pub use icamin_ as icamin;
+pub use idamax_ as idamax;
+pub use idamin_ as idamin;
+pub use isamax_ as isamax;
+pub use isamin_ as isamin;
+pub use izamax_ as izamax;
+pub use izamin_ as izamin;
+pub use lsame_ as lsame;
+pub use mkl_cblas_jit_create_cgemm_ as mkl_cblas_jit_create_cgemm;
+pub use mkl_cblas_jit_create_dgemm_ as mkl_cblas_jit_create_dgemm;
+pub use mkl_cblas_jit_create_sgemm_ as mkl_cblas_jit_create_sgemm;
+pub use mkl_cblas_jit_create_zgemm_ as mkl_cblas_jit_create_zgemm;
+pub use mkl_jit_destroy_ as mkl_jit_destroy;
+pub use mkl_jit_get_cgemm_ptr_ as mkl_jit_get_cgemm_ptr;
+pub use mkl_jit_get_dgemm_ptr_ as mkl_jit_get_dgemm_ptr;
+pub use mkl_jit_get_sgemm_ptr_ as mkl_jit_get_sgemm_ptr;
+pub use mkl_jit_get_zgemm_ptr_ as mkl_jit_get_zgemm_ptr;
+pub use sasum_ as sasum;
+pub use saxpby_ as saxpby;
+pub use saxpy_ as saxpy;
+pub use saxpy_batch_ as saxpy_batch;
+pub use saxpy_batch_strided_ as saxpy_batch_strided;
+pub use saxpyi_ as saxpyi;
+pub use scabs1_ as scabs1;
+pub use scasum_ as scasum;
+pub use scgemm_ as scgemm;
+pub use scgemv_ as scgemv;
+pub use scnrm2_ as scnrm2;
+pub use scopy_ as scopy;
+pub use scopy_batch_ as scopy_batch;
+pub use scopy_batch_strided_ as scopy_batch_strided;
+pub use sdgmm_batch_ as sdgmm_batch;
+pub use sdgmm_batch_strided_ as sdgmm_batch_strided;
+pub use sdot_ as sdot;
+pub use sdoti_ as sdoti;
+pub use sdsdot_ as sdsdot;
+pub use sgbmv_ as sgbmv;
+pub use sgem2vu_ as sgem2vu;
+pub use sgemm_ as sgemm;
+pub use sgemm_batch_ as sgemm_batch;
+pub use sgemm_batch_strided_ as sgemm_batch_strided;
+pub use sgemm_compute_ as sgemm_compute;
+pub use sgemm_pack_ as sgemm_pack;
+pub use sgemm_pack_get_size_ as sgemm_pack_get_size;
+pub use sgemmt_ as sgemmt;
+pub use sgemv_ as sgemv;
+pub use sgemv_batch_ as sgemv_batch;
+pub use sgemv_batch_strided_ as sgemv_batch_strided;
+pub use sger_ as sger;
+pub use sgthr_ as sgthr;
+pub use sgthrz_ as sgthrz;
+pub use snrm2_ as snrm2;
+pub use srot_ as srot;
+pub use srotg_ as srotg;
+pub use sroti_ as sroti;
+pub use srotm_ as srotm;
+pub use srotmg_ as srotmg;
+pub use ssbmv_ as ssbmv;
+pub use sscal_ as sscal;
+pub use ssctr_ as ssctr;
+pub use sspmv_ as sspmv;
+pub use sspr2_ as sspr2;
+pub use sspr_ as sspr;
+pub use sswap_ as sswap;
+pub use ssymm_ as ssymm;
+pub use ssymv_ as ssymv;
+pub use ssyr2_ as ssyr2;
+pub use ssyr2k_ as ssyr2k;
+pub use ssyr_ as ssyr;
+pub use ssyrk_ as ssyrk;
+pub use ssyrk_batch_ as ssyrk_batch;
+pub use ssyrk_batch_strided_ as ssyrk_batch_strided;
+pub use stbmv_ as stbmv;
+pub use stbsv_ as stbsv;
+pub use stpmv_ as stpmv;
+pub use stpsv_ as stpsv;
+pub use strmm_ as strmm;
+pub use strmm_oop_ as strmm_oop;
+pub use strmv_ as strmv;
+pub use strsm_ as strsm;
+pub use strsm_batch_ as strsm_batch;
+pub use strsm_batch_strided_ as strsm_batch_strided;
+pub use strsm_oop_ as strsm_oop;
+pub use strsv_ as strsv;
+pub use xerbla_ as xerbla;
+pub use zaxpby_ as zaxpby;
+pub use zaxpy_ as zaxpy;
+pub use zaxpy_batch_ as zaxpy_batch;
+pub use zaxpy_batch_strided_ as zaxpy_batch_strided;
+pub use zaxpyi_ as zaxpyi;
+pub use zcopy_ as zcopy;
+pub use zcopy_batch_ as zcopy_batch;
+pub use zcopy_batch_strided_ as zcopy_batch_strided;
+pub use zdgmm_batch_ as zdgmm_batch;
+pub use zdgmm_batch_strided_ as zdgmm_batch_strided;
+pub use zdotc_ as zdotc;
+pub use zdotci_ as zdotci;
+pub use zdotu_ as zdotu;
+pub use zdotui_ as zdotui;
+pub use zdrot_ as zdrot;
+pub use zdscal_ as zdscal;
+pub use zgbmv_ as zgbmv;
+pub use zgem2vc_ as zgem2vc;
+pub use zgemm3m_ as zgemm3m;
+pub use zgemm3m_batch_ as zgemm3m_batch;
+pub use zgemm3m_batch_strided_ as zgemm3m_batch_strided;
+pub use zgemm_ as zgemm;
+pub use zgemm_batch_ as zgemm_batch;
+pub use zgemm_batch_strided_ as zgemm_batch_strided;
+pub use zgemmt_ as zgemmt;
+pub use zgemv_ as zgemv;
+pub use zgemv_batch_ as zgemv_batch;
+pub use zgemv_batch_strided_ as zgemv_batch_strided;
+pub use zgerc_ as zgerc;
+pub use zgeru_ as zgeru;
+pub use zgthr_ as zgthr;
+pub use zgthrz_ as zgthrz;
+pub use zhbmv_ as zhbmv;
+pub use zhemm_ as zhemm;
+pub use zhemv_ as zhemv;
+pub use zher2_ as zher2;
+pub use zher2k_ as zher2k;
+pub use zher_ as zher;
+pub use zherk_ as zherk;
+pub use zhpmv_ as zhpmv;
+pub use zhpr2_ as zhpr2;
+pub use zhpr_ as zhpr;
+pub use zrot_ as zrot;
+pub use zrotg_ as zrotg;
+pub use zscal_ as zscal;
+pub use zsctr_ as zsctr;
+pub use zswap_ as zswap;
+pub use zsymm_ as zsymm;
+pub use zsyr2k_ as zsyr2k;
+pub use zsyrk_ as zsyrk;
+pub use zsyrk_batch_ as zsyrk_batch;
+pub use zsyrk_batch_strided_ as zsyrk_batch_strided;
+pub use ztbmv_ as ztbmv;
+pub use ztbsv_ as ztbsv;
+pub use ztpmv_ as ztpmv;
+pub use ztpsv_ as ztpsv;
+pub use ztrmm_ as ztrmm;
+pub use ztrmm_oop_ as ztrmm_oop;
+pub use ztrmv_ as ztrmv;
+pub use ztrsm_ as ztrsm;
+pub use ztrsm_batch_ as ztrsm_batch;
+pub use ztrsm_batch_strided_ as ztrsm_batch_strided;
+pub use ztrsm_oop_ as ztrsm_oop;
+pub use ztrsv_ as ztrsv;
 
 /* #endregion */

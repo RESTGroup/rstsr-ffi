@@ -7,9 +7,9 @@ use super::*;
 pub struct DyLoadLib {
     pub __libraries: Vec<libloading::Library>,
     pub __libraries_path: Vec<String>,
-    pub xerbla:
+    pub xerbla_:
         Option<unsafe extern "C" fn(srname: *const c_char, info: *const c_int, lsrname: c_int)>,
-    pub lsame: Option<
+    pub lsame_: Option<
         unsafe extern "C" fn(
             ca: *const c_char,
             cb: *const c_char,
@@ -17,10 +17,10 @@ pub struct DyLoadLib {
             lcb: MKL_INT,
         ) -> c_int,
     >,
-    pub scabs1: Option<unsafe extern "C" fn(c: *const MKL_Complex8) -> f32>,
-    pub sasum:
+    pub scabs1_: Option<unsafe extern "C" fn(c: *const MKL_Complex8) -> f32>,
+    pub sasum_:
         Option<unsafe extern "C" fn(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32>,
-    pub saxpy: Option<
+    pub saxpy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f32,
@@ -30,7 +30,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub saxpby: Option<
+    pub saxpby_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f32,
@@ -41,7 +41,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub saxpyi: Option<
+    pub saxpyi_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             a: *const f32,
@@ -50,21 +50,21 @@ pub struct DyLoadLib {
             y: *mut f32,
         ),
     >,
-    pub scasum: Option<
+    pub scasum_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
             incx: *const MKL_INT,
         ) -> f32,
     >,
-    pub scnrm2: Option<
+    pub scnrm2_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
             incx: *const MKL_INT,
         ) -> f32,
     >,
-    pub scopy: Option<
+    pub scopy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f32,
@@ -73,7 +73,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sdot: Option<
+    pub sdot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f32,
@@ -82,7 +82,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ) -> f32,
     >,
-    pub sdoti: Option<
+    pub sdoti_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *const f32,
@@ -90,7 +90,7 @@ pub struct DyLoadLib {
             y: *const f32,
         ) -> f32,
     >,
-    pub sdsdot: Option<
+    pub sdsdot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             sb: *const f32,
@@ -100,15 +100,15 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ) -> f32,
     >,
-    pub sgthr: Option<
+    pub sgthr_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, y: *const f32, x: *mut f32, indx: *const MKL_INT),
     >,
-    pub sgthrz: Option<
+    pub sgthrz_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, y: *mut f32, x: *mut f32, indx: *const MKL_INT),
     >,
-    pub snrm2:
+    pub snrm2_:
         Option<unsafe extern "C" fn(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> f32>,
-    pub srot: Option<
+    pub srot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f32,
@@ -119,8 +119,8 @@ pub struct DyLoadLib {
             s: *const f32,
         ),
     >,
-    pub srotg: Option<unsafe extern "C" fn(a: *mut f32, b: *mut f32, c: *mut f32, s: *mut f32)>,
-    pub sroti: Option<
+    pub srotg_: Option<unsafe extern "C" fn(a: *mut f32, b: *mut f32, c: *mut f32, s: *mut f32)>,
+    pub sroti_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *mut f32,
@@ -130,7 +130,7 @@ pub struct DyLoadLib {
             s: *const f32,
         ),
     >,
-    pub srotm: Option<
+    pub srotm_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f32,
@@ -140,7 +140,7 @@ pub struct DyLoadLib {
             param: *const f32,
         ),
     >,
-    pub srotmg: Option<
+    pub srotmg_: Option<
         unsafe extern "C" fn(
             d1: *mut f32,
             d2: *mut f32,
@@ -149,13 +149,13 @@ pub struct DyLoadLib {
             param: *mut f32,
         ),
     >,
-    pub sscal: Option<
+    pub sscal_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, a: *const f32, x: *mut f32, incx: *const MKL_INT),
     >,
-    pub ssctr: Option<
+    pub ssctr_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, x: *const f32, indx: *const MKL_INT, y: *mut f32),
     >,
-    pub sswap: Option<
+    pub sswap_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f32,
@@ -164,13 +164,13 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub isamax: Option<
+    pub isamax_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT,
     >,
-    pub isamin: Option<
+    pub isamin_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, x: *const f32, incx: *const MKL_INT) -> MKL_INT,
     >,
-    pub caxpy: Option<
+    pub caxpy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex8,
@@ -180,7 +180,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub caxpby: Option<
+    pub caxpby_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex8,
@@ -191,7 +191,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub caxpyi: Option<
+    pub caxpyi_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             a: *const MKL_Complex8,
@@ -200,7 +200,7 @@ pub struct DyLoadLib {
             y: *mut MKL_Complex8,
         ),
     >,
-    pub ccopy: Option<
+    pub ccopy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
@@ -209,7 +209,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cdotc: Option<
+    pub cdotc_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex8,
             n: *const MKL_INT,
@@ -219,7 +219,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cdotci: Option<
+    pub cdotci_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex8,
             nz: *const MKL_INT,
@@ -228,7 +228,7 @@ pub struct DyLoadLib {
             y: *const MKL_Complex8,
         ),
     >,
-    pub cdotu: Option<
+    pub cdotu_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex8,
             n: *const MKL_INT,
@@ -238,7 +238,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cdotui: Option<
+    pub cdotui_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex8,
             nz: *const MKL_INT,
@@ -247,7 +247,7 @@ pub struct DyLoadLib {
             y: *const MKL_Complex8,
         ),
     >,
-    pub cgthr: Option<
+    pub cgthr_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             y: *const MKL_Complex8,
@@ -255,7 +255,7 @@ pub struct DyLoadLib {
             indx: *const MKL_INT,
         ),
     >,
-    pub cgthrz: Option<
+    pub cgthrz_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             y: *mut MKL_Complex8,
@@ -263,7 +263,7 @@ pub struct DyLoadLib {
             indx: *const MKL_INT,
         ),
     >,
-    pub crot: Option<
+    pub crot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex8,
@@ -274,7 +274,7 @@ pub struct DyLoadLib {
             s: *const MKL_Complex8,
         ),
     >,
-    pub crotg: Option<
+    pub crotg_: Option<
         unsafe extern "C" fn(
             a: *mut MKL_Complex8,
             b: *const MKL_Complex8,
@@ -282,7 +282,7 @@ pub struct DyLoadLib {
             s: *mut MKL_Complex8,
         ),
     >,
-    pub cscal: Option<
+    pub cscal_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             a: *const MKL_Complex8,
@@ -290,7 +290,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub csctr: Option<
+    pub csctr_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *const MKL_Complex8,
@@ -298,7 +298,7 @@ pub struct DyLoadLib {
             y: *mut MKL_Complex8,
         ),
     >,
-    pub csrot: Option<
+    pub csrot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex8,
@@ -309,7 +309,7 @@ pub struct DyLoadLib {
             s: *const f32,
         ),
     >,
-    pub csscal: Option<
+    pub csscal_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             a: *const f32,
@@ -317,7 +317,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub cswap: Option<
+    pub cswap_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex8,
@@ -326,24 +326,24 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub icamax: Option<
+    pub icamax_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
             incx: *const MKL_INT,
         ) -> MKL_INT,
     >,
-    pub icamin: Option<
+    pub icamin_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
             incx: *const MKL_INT,
         ) -> MKL_INT,
     >,
-    pub dcabs1: Option<unsafe extern "C" fn(z: *const MKL_Complex16) -> f64>,
-    pub dasum:
+    pub dcabs1_: Option<unsafe extern "C" fn(z: *const MKL_Complex16) -> f64>,
+    pub dasum_:
         Option<unsafe extern "C" fn(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64>,
-    pub daxpy: Option<
+    pub daxpy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f64,
@@ -353,7 +353,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub daxpby: Option<
+    pub daxpby_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f64,
@@ -364,7 +364,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub daxpyi: Option<
+    pub daxpyi_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             a: *const f64,
@@ -373,7 +373,7 @@ pub struct DyLoadLib {
             y: *mut f64,
         ),
     >,
-    pub dcopy: Option<
+    pub dcopy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f64,
@@ -382,7 +382,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub ddot: Option<
+    pub ddot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f64,
@@ -391,7 +391,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ) -> f64,
     >,
-    pub dsdot: Option<
+    pub dsdot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f32,
@@ -400,7 +400,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ) -> f64,
     >,
-    pub ddoti: Option<
+    pub ddoti_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *const f64,
@@ -408,15 +408,15 @@ pub struct DyLoadLib {
             y: *const f64,
         ) -> f64,
     >,
-    pub dgthr: Option<
+    pub dgthr_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, y: *const f64, x: *mut f64, indx: *const MKL_INT),
     >,
-    pub dgthrz: Option<
+    pub dgthrz_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, y: *mut f64, x: *mut f64, indx: *const MKL_INT),
     >,
-    pub dnrm2:
+    pub dnrm2_:
         Option<unsafe extern "C" fn(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> f64>,
-    pub drot: Option<
+    pub drot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f64,
@@ -427,8 +427,8 @@ pub struct DyLoadLib {
             s: *const f64,
         ),
     >,
-    pub drotg: Option<unsafe extern "C" fn(a: *mut f64, b: *mut f64, c: *mut f64, s: *mut f64)>,
-    pub droti: Option<
+    pub drotg_: Option<unsafe extern "C" fn(a: *mut f64, b: *mut f64, c: *mut f64, s: *mut f64)>,
+    pub droti_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *mut f64,
@@ -438,7 +438,7 @@ pub struct DyLoadLib {
             s: *const f64,
         ),
     >,
-    pub drotm: Option<
+    pub drotm_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f64,
@@ -448,7 +448,7 @@ pub struct DyLoadLib {
             param: *const f64,
         ),
     >,
-    pub drotmg: Option<
+    pub drotmg_: Option<
         unsafe extern "C" fn(
             d1: *mut f64,
             d2: *mut f64,
@@ -457,13 +457,13 @@ pub struct DyLoadLib {
             param: *mut f64,
         ),
     >,
-    pub dscal: Option<
+    pub dscal_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, a: *const f64, x: *mut f64, incx: *const MKL_INT),
     >,
-    pub dsctr: Option<
+    pub dsctr_: Option<
         unsafe extern "C" fn(nz: *const MKL_INT, x: *const f64, indx: *const MKL_INT, y: *mut f64),
     >,
-    pub dswap: Option<
+    pub dswap_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut f64,
@@ -472,27 +472,27 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dzasum: Option<
+    pub dzasum_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
             incx: *const MKL_INT,
         ) -> f64,
     >,
-    pub dznrm2: Option<
+    pub dznrm2_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
             incx: *const MKL_INT,
         ) -> f64,
     >,
-    pub idamax: Option<
+    pub idamax_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT,
     >,
-    pub idamin: Option<
+    pub idamin_: Option<
         unsafe extern "C" fn(n: *const MKL_INT, x: *const f64, incx: *const MKL_INT) -> MKL_INT,
     >,
-    pub zaxpy: Option<
+    pub zaxpy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex16,
@@ -502,7 +502,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zaxpby: Option<
+    pub zaxpby_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex16,
@@ -513,7 +513,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zaxpyi: Option<
+    pub zaxpyi_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             a: *const MKL_Complex16,
@@ -522,7 +522,7 @@ pub struct DyLoadLib {
             y: *mut MKL_Complex16,
         ),
     >,
-    pub zcopy: Option<
+    pub zcopy_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
@@ -531,7 +531,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zdotc: Option<
+    pub zdotc_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex16,
             n: *const MKL_INT,
@@ -541,7 +541,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zdotci: Option<
+    pub zdotci_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex16,
             nz: *const MKL_INT,
@@ -550,7 +550,7 @@ pub struct DyLoadLib {
             y: *const MKL_Complex16,
         ),
     >,
-    pub zdotu: Option<
+    pub zdotu_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex16,
             n: *const MKL_INT,
@@ -560,7 +560,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zdotui: Option<
+    pub zdotui_: Option<
         unsafe extern "C" fn(
             pres: *mut MKL_Complex16,
             nz: *const MKL_INT,
@@ -569,7 +569,7 @@ pub struct DyLoadLib {
             y: *const MKL_Complex16,
         ),
     >,
-    pub zdrot: Option<
+    pub zdrot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex16,
@@ -580,7 +580,7 @@ pub struct DyLoadLib {
             s: *const f64,
         ),
     >,
-    pub zdscal: Option<
+    pub zdscal_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             a: *const f64,
@@ -588,7 +588,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub zgthr: Option<
+    pub zgthr_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             y: *const MKL_Complex16,
@@ -596,7 +596,7 @@ pub struct DyLoadLib {
             indx: *const MKL_INT,
         ),
     >,
-    pub zgthrz: Option<
+    pub zgthrz_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             y: *mut MKL_Complex16,
@@ -604,7 +604,7 @@ pub struct DyLoadLib {
             indx: *const MKL_INT,
         ),
     >,
-    pub zrot: Option<
+    pub zrot_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex16,
@@ -615,7 +615,7 @@ pub struct DyLoadLib {
             s: *const MKL_Complex16,
         ),
     >,
-    pub zrotg: Option<
+    pub zrotg_: Option<
         unsafe extern "C" fn(
             a: *mut MKL_Complex16,
             b: *const MKL_Complex16,
@@ -623,7 +623,7 @@ pub struct DyLoadLib {
             s: *mut MKL_Complex16,
         ),
     >,
-    pub zscal: Option<
+    pub zscal_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             a: *const MKL_Complex16,
@@ -631,7 +631,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub zsctr: Option<
+    pub zsctr_: Option<
         unsafe extern "C" fn(
             nz: *const MKL_INT,
             x: *const MKL_Complex16,
@@ -639,7 +639,7 @@ pub struct DyLoadLib {
             y: *mut MKL_Complex16,
         ),
     >,
-    pub zswap: Option<
+    pub zswap_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut MKL_Complex16,
@@ -648,21 +648,21 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub izamax: Option<
+    pub izamax_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
             incx: *const MKL_INT,
         ) -> MKL_INT,
     >,
-    pub izamin: Option<
+    pub izamin_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
             incx: *const MKL_INT,
         ) -> MKL_INT,
     >,
-    pub sgbmv: Option<
+    pub sgbmv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -679,7 +679,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sgemv: Option<
+    pub sgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -694,7 +694,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sger: Option<
+    pub sger_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -707,7 +707,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub ssbmv: Option<
+    pub ssbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -722,7 +722,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sspmv: Option<
+    pub sspmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -735,7 +735,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sspr: Option<
+    pub sspr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -745,7 +745,7 @@ pub struct DyLoadLib {
             ap: *mut f32,
         ),
     >,
-    pub sspr2: Option<
+    pub sspr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -757,7 +757,7 @@ pub struct DyLoadLib {
             ap: *mut f32,
         ),
     >,
-    pub ssymv: Option<
+    pub ssymv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -771,7 +771,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub ssyr: Option<
+    pub ssyr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -782,7 +782,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub ssyr2: Option<
+    pub ssyr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -795,7 +795,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub stbmv: Option<
+    pub stbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -808,7 +808,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub stbsv: Option<
+    pub stbsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -821,7 +821,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub stpmv: Option<
+    pub stpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -832,7 +832,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub stpsv: Option<
+    pub stpsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -843,7 +843,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub strmv: Option<
+    pub strmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -855,7 +855,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub strsv: Option<
+    pub strsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -867,7 +867,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub sgem2vu: Option<
+    pub sgem2vu_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -885,7 +885,7 @@ pub struct DyLoadLib {
             incy2: *const MKL_INT,
         ),
     >,
-    pub cgbmv: Option<
+    pub cgbmv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -902,7 +902,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cgemv: Option<
+    pub cgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -917,7 +917,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cgerc: Option<
+    pub cgerc_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -930,7 +930,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub cgeru: Option<
+    pub cgeru_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -943,7 +943,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub chbmv: Option<
+    pub chbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -958,7 +958,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub chemv: Option<
+    pub chemv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -972,7 +972,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub cher: Option<
+    pub cher_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -983,7 +983,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub cher2: Option<
+    pub cher2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -996,7 +996,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub chpmv: Option<
+    pub chpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1009,7 +1009,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub chpr: Option<
+    pub chpr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1019,7 +1019,7 @@ pub struct DyLoadLib {
             ap: *mut MKL_Complex8,
         ),
     >,
-    pub chpr2: Option<
+    pub chpr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1031,7 +1031,7 @@ pub struct DyLoadLib {
             ap: *mut MKL_Complex8,
         ),
     >,
-    pub ctbmv: Option<
+    pub ctbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1044,7 +1044,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ctbsv: Option<
+    pub ctbsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1057,7 +1057,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ctpmv: Option<
+    pub ctpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1068,7 +1068,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ctpsv: Option<
+    pub ctpsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1079,7 +1079,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ctrmv: Option<
+    pub ctrmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -1091,7 +1091,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ctrsv: Option<
+    pub ctrsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1103,7 +1103,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub cgem2vc: Option<
+    pub cgem2vc_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1121,7 +1121,7 @@ pub struct DyLoadLib {
             incy2: *const MKL_INT,
         ),
     >,
-    pub scgemv: Option<
+    pub scgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1136,7 +1136,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dgbmv: Option<
+    pub dgbmv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1153,7 +1153,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dgemv: Option<
+    pub dgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1168,7 +1168,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dger: Option<
+    pub dger_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1181,7 +1181,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub dsbmv: Option<
+    pub dsbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1196,7 +1196,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dspmv: Option<
+    pub dspmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1209,7 +1209,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dspr: Option<
+    pub dspr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1219,7 +1219,7 @@ pub struct DyLoadLib {
             ap: *mut f64,
         ),
     >,
-    pub dspr2: Option<
+    pub dspr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1231,7 +1231,7 @@ pub struct DyLoadLib {
             ap: *mut f64,
         ),
     >,
-    pub dsymv: Option<
+    pub dsymv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1245,7 +1245,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub dsyr: Option<
+    pub dsyr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1256,7 +1256,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub dsyr2: Option<
+    pub dsyr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1269,7 +1269,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub dtbmv: Option<
+    pub dtbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1282,7 +1282,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dtbsv: Option<
+    pub dtbsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1295,7 +1295,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dtpmv: Option<
+    pub dtpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1306,7 +1306,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dtpsv: Option<
+    pub dtpsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1317,7 +1317,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dtrmv: Option<
+    pub dtrmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -1329,7 +1329,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dtrsv: Option<
+    pub dtrsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1341,7 +1341,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub dgem2vu: Option<
+    pub dgem2vu_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1359,7 +1359,7 @@ pub struct DyLoadLib {
             incy2: *const MKL_INT,
         ),
     >,
-    pub zgbmv: Option<
+    pub zgbmv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1376,7 +1376,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zgemv: Option<
+    pub zgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1391,7 +1391,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zgerc: Option<
+    pub zgerc_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1404,7 +1404,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub zgeru: Option<
+    pub zgeru_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1417,7 +1417,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub zhbmv: Option<
+    pub zhbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1432,7 +1432,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zhemv: Option<
+    pub zhemv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1446,7 +1446,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zher: Option<
+    pub zher_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1457,7 +1457,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub zher2: Option<
+    pub zher2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1470,7 +1470,7 @@ pub struct DyLoadLib {
             lda: *const MKL_INT,
         ),
     >,
-    pub zhpmv: Option<
+    pub zhpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1483,7 +1483,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub zhpr: Option<
+    pub zhpr_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1493,7 +1493,7 @@ pub struct DyLoadLib {
             ap: *mut MKL_Complex16,
         ),
     >,
-    pub zhpr2: Option<
+    pub zhpr2_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             n: *const MKL_INT,
@@ -1505,7 +1505,7 @@ pub struct DyLoadLib {
             ap: *mut MKL_Complex16,
         ),
     >,
-    pub ztbmv: Option<
+    pub ztbmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1518,7 +1518,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ztbsv: Option<
+    pub ztbsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1531,7 +1531,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ztpmv: Option<
+    pub ztpmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1542,7 +1542,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ztpsv: Option<
+    pub ztpsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1553,7 +1553,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ztrmv: Option<
+    pub ztrmv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -1565,7 +1565,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub ztrsv: Option<
+    pub ztrsv_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1577,7 +1577,7 @@ pub struct DyLoadLib {
             incx: *const MKL_INT,
         ),
     >,
-    pub zgem2vc: Option<
+    pub zgem2vc_: Option<
         unsafe extern "C" fn(
             m: *const MKL_INT,
             n: *const MKL_INT,
@@ -1595,7 +1595,7 @@ pub struct DyLoadLib {
             incy2: *const MKL_INT,
         ),
     >,
-    pub dzgemv: Option<
+    pub dzgemv_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -1610,7 +1610,7 @@ pub struct DyLoadLib {
             incy: *const MKL_INT,
         ),
     >,
-    pub sgemm: Option<
+    pub sgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1627,7 +1627,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub sgemm_pack_get_size: Option<
+    pub sgemm_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -1635,7 +1635,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub sgemm_pack: Option<
+    pub sgemm_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -1648,7 +1648,7 @@ pub struct DyLoadLib {
             dest: *mut f32,
         ),
     >,
-    pub sgemm_compute: Option<
+    pub sgemm_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1664,7 +1664,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub sgemm_batch: Option<
+    pub sgemm_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -1683,7 +1683,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub sgemm_batch_strided: Option<
+    pub sgemm_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1704,7 +1704,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub sgemmt: Option<
+    pub sgemmt_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -1721,7 +1721,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ssymm: Option<
+    pub ssymm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1737,7 +1737,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ssyr2k: Option<
+    pub ssyr2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1753,7 +1753,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ssyrk: Option<
+    pub ssyrk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1767,7 +1767,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ssyrk_batch: Option<
+    pub ssyrk_batch_: Option<
         unsafe extern "C" fn(
             uplo_array: *const c_char,
             trans_array: *const c_char,
@@ -1783,7 +1783,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub ssyrk_batch_strided: Option<
+    pub ssyrk_batch_strided_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -1800,7 +1800,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub strmm: Option<
+    pub strmm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1815,7 +1815,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub strmm_oop: Option<
+    pub strmm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1833,7 +1833,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub strsm: Option<
+    pub strsm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1848,7 +1848,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub strsm_oop: Option<
+    pub strsm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1866,7 +1866,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub strsm_batch: Option<
+    pub strsm_batch_: Option<
         unsafe extern "C" fn(
             side_array: *const c_char,
             uplo_array: *const c_char,
@@ -1883,7 +1883,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub strsm_batch_strided: Option<
+    pub strsm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -1901,7 +1901,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub cgemm: Option<
+    pub cgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1918,7 +1918,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub cgemm_batch: Option<
+    pub cgemm_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -1937,7 +1937,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub cgemm_batch_strided: Option<
+    pub cgemm_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1958,7 +1958,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub scgemm: Option<
+    pub scgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1975,7 +1975,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub cgemm3m: Option<
+    pub cgemm3m_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -1992,7 +1992,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub cgemm3m_batch: Option<
+    pub cgemm3m_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -2011,7 +2011,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub cgemm3m_batch_strided: Option<
+    pub cgemm3m_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2032,7 +2032,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub cgemmt: Option<
+    pub cgemmt_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -2049,7 +2049,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub chemm: Option<
+    pub chemm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2065,7 +2065,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub cher2k: Option<
+    pub cher2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2081,7 +2081,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub cherk: Option<
+    pub cherk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2095,7 +2095,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub csymm: Option<
+    pub csymm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2111,7 +2111,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub csyr2k: Option<
+    pub csyr2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2127,7 +2127,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub csyrk: Option<
+    pub csyrk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2141,7 +2141,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub csyrk_batch: Option<
+    pub csyrk_batch_: Option<
         unsafe extern "C" fn(
             uplo_array: *const c_char,
             trans_array: *const c_char,
@@ -2157,7 +2157,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub csyrk_batch_strided: Option<
+    pub csyrk_batch_strided_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2174,7 +2174,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub ctrmm: Option<
+    pub ctrmm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2189,7 +2189,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub ctrmm_oop: Option<
+    pub ctrmm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2207,7 +2207,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ctrsm: Option<
+    pub ctrsm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2222,7 +2222,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub ctrsm_oop: Option<
+    pub ctrsm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2240,7 +2240,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ctrsm_batch: Option<
+    pub ctrsm_batch_: Option<
         unsafe extern "C" fn(
             side_array: *const c_char,
             uplo_array: *const c_char,
@@ -2257,7 +2257,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub ctrsm_batch_strided: Option<
+    pub ctrsm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2275,7 +2275,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dgemm: Option<
+    pub dgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2292,7 +2292,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dgemm_pack_get_size: Option<
+    pub dgemm_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -2300,7 +2300,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub dgemm_pack: Option<
+    pub dgemm_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -2313,7 +2313,7 @@ pub struct DyLoadLib {
             dest: *mut f64,
         ),
     >,
-    pub dgemm_compute: Option<
+    pub dgemm_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2329,7 +2329,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dgemm_batch: Option<
+    pub dgemm_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -2348,7 +2348,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub dgemm_batch_strided: Option<
+    pub dgemm_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2369,7 +2369,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dgemmt: Option<
+    pub dgemmt_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -2386,7 +2386,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dsymm: Option<
+    pub dsymm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2402,7 +2402,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dsyr2k: Option<
+    pub dsyr2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2418,7 +2418,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dsyrk: Option<
+    pub dsyrk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2432,7 +2432,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dsyrk_batch: Option<
+    pub dsyrk_batch_: Option<
         unsafe extern "C" fn(
             uplo_array: *const c_char,
             trans_array: *const c_char,
@@ -2448,7 +2448,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub dsyrk_batch_strided: Option<
+    pub dsyrk_batch_strided_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2465,7 +2465,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dtrmm: Option<
+    pub dtrmm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2480,7 +2480,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub dtrmm_oop: Option<
+    pub dtrmm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2498,7 +2498,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dtrsm: Option<
+    pub dtrsm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2513,7 +2513,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub dtrsm_oop: Option<
+    pub dtrsm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2531,7 +2531,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub dtrsm_batch: Option<
+    pub dtrsm_batch_: Option<
         unsafe extern "C" fn(
             side_array: *const c_char,
             uplo_array: *const c_char,
@@ -2548,7 +2548,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub dtrsm_batch_strided: Option<
+    pub dtrsm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2566,7 +2566,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zgemm: Option<
+    pub zgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2583,7 +2583,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zgemm_batch: Option<
+    pub zgemm_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -2602,7 +2602,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zgemm_batch_strided: Option<
+    pub zgemm_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2623,7 +2623,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dzgemm: Option<
+    pub dzgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2640,7 +2640,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zgemm3m: Option<
+    pub zgemm3m_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2657,7 +2657,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zgemm3m_batch: Option<
+    pub zgemm3m_batch_: Option<
         unsafe extern "C" fn(
             transa_array: *const c_char,
             transb_array: *const c_char,
@@ -2676,7 +2676,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zgemm3m_batch_strided: Option<
+    pub zgemm3m_batch_strided_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2697,7 +2697,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zgemmt: Option<
+    pub zgemmt_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             transa: *const c_char,
@@ -2714,7 +2714,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zhemm: Option<
+    pub zhemm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2730,7 +2730,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zher2k: Option<
+    pub zher2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2746,7 +2746,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zherk: Option<
+    pub zherk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2760,7 +2760,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zsymm: Option<
+    pub zsymm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2776,7 +2776,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zsyr2k: Option<
+    pub zsyr2k_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2792,7 +2792,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zsyrk: Option<
+    pub zsyrk_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2806,7 +2806,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub zsyrk_batch: Option<
+    pub zsyrk_batch_: Option<
         unsafe extern "C" fn(
             uplo_array: *const c_char,
             trans_array: *const c_char,
@@ -2822,7 +2822,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zsyrk_batch_strided: Option<
+    pub zsyrk_batch_strided_: Option<
         unsafe extern "C" fn(
             uplo: *const c_char,
             trans: *const c_char,
@@ -2839,7 +2839,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub ztrmm: Option<
+    pub ztrmm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2854,7 +2854,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub ztrmm_oop: Option<
+    pub ztrmm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2872,7 +2872,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ztrsm: Option<
+    pub ztrsm_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2887,7 +2887,7 @@ pub struct DyLoadLib {
             ldb: *const MKL_INT,
         ),
     >,
-    pub ztrsm_oop: Option<
+    pub ztrsm_oop_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2905,7 +2905,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub ztrsm_batch: Option<
+    pub ztrsm_batch_: Option<
         unsafe extern "C" fn(
             side_array: *const c_char,
             uplo_array: *const c_char,
@@ -2922,7 +2922,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub ztrsm_batch_strided: Option<
+    pub ztrsm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             uplo: *const c_char,
@@ -2940,7 +2940,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub gemm_s16s16s32: Option<
+    pub gemm_s16s16s32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2961,7 +2961,7 @@ pub struct DyLoadLib {
             co: *const MKL_INT32,
         ),
     >,
-    pub gemm_s8u8s32: Option<
+    pub gemm_s8u8s32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2982,7 +2982,7 @@ pub struct DyLoadLib {
             co: *const MKL_INT32,
         ),
     >,
-    pub gemm_bf16bf16f32: Option<
+    pub gemm_bf16bf16f32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -2999,7 +2999,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_f16f16f32: Option<
+    pub gemm_f16f16f32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3016,7 +3016,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_e5m2e5m2f32: Option<
+    pub gemm_e5m2e5m2f32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3033,7 +3033,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_e4m3e4m3f32: Option<
+    pub gemm_e4m3e4m3f32_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3050,7 +3050,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_s8u8s32_pack_get_size: Option<
+    pub gemm_s8u8s32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3058,7 +3058,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_s16s16s32_pack_get_size: Option<
+    pub gemm_s16s16s32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3066,7 +3066,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_bf16bf16f32_pack_get_size: Option<
+    pub gemm_bf16bf16f32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3074,7 +3074,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_f16f16f32_pack_get_size: Option<
+    pub gemm_f16f16f32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3082,7 +3082,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_e5m2e5m2f32_pack_get_size: Option<
+    pub gemm_e5m2e5m2f32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3090,7 +3090,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_e4m3e4m3f32_pack_get_size: Option<
+    pub gemm_e4m3e4m3f32_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3098,7 +3098,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub gemm_s8u8s32_pack: Option<
+    pub gemm_s8u8s32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3110,7 +3110,7 @@ pub struct DyLoadLib {
             dest: *mut c_void,
         ),
     >,
-    pub gemm_s16s16s32_pack: Option<
+    pub gemm_s16s16s32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3122,7 +3122,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_INT16,
         ),
     >,
-    pub gemm_bf16bf16f32_pack: Option<
+    pub gemm_bf16bf16f32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3134,7 +3134,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_BF16,
         ),
     >,
-    pub gemm_f16f16f32_pack: Option<
+    pub gemm_f16f16f32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3146,7 +3146,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_F16,
         ),
     >,
-    pub gemm_e5m2e5m2f32_pack: Option<
+    pub gemm_e5m2e5m2f32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3158,7 +3158,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_E5M2,
         ),
     >,
-    pub gemm_e4m3e4m3f32_pack: Option<
+    pub gemm_e4m3e4m3f32_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3170,7 +3170,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_E4M3,
         ),
     >,
-    pub gemm_s8u8s32_compute: Option<
+    pub gemm_s8u8s32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3191,7 +3191,7 @@ pub struct DyLoadLib {
             co: *const MKL_INT32,
         ),
     >,
-    pub gemm_s16s16s32_compute: Option<
+    pub gemm_s16s16s32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3212,7 +3212,7 @@ pub struct DyLoadLib {
             co: *const MKL_INT32,
         ),
     >,
-    pub gemm_bf16bf16f32_compute: Option<
+    pub gemm_bf16bf16f32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3229,7 +3229,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_f16f16f32_compute: Option<
+    pub gemm_f16f16f32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3246,7 +3246,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_e5m2e5m2f32_compute: Option<
+    pub gemm_e5m2e5m2f32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3263,7 +3263,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub gemm_e4m3e4m3f32_compute: Option<
+    pub gemm_e4m3e4m3f32_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3280,7 +3280,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub hgemm: Option<
+    pub hgemm_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3297,7 +3297,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub hgemm_pack_get_size: Option<
+    pub hgemm_pack_get_size_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             m: *const MKL_INT,
@@ -3305,7 +3305,7 @@ pub struct DyLoadLib {
             k: *const MKL_INT,
         ) -> usize,
     >,
-    pub hgemm_pack: Option<
+    pub hgemm_pack_: Option<
         unsafe extern "C" fn(
             identifier: *const c_char,
             trans: *const c_char,
@@ -3318,7 +3318,7 @@ pub struct DyLoadLib {
             dest: *mut MKL_F16,
         ),
     >,
-    pub hgemm_compute: Option<
+    pub hgemm_compute_: Option<
         unsafe extern "C" fn(
             transa: *const c_char,
             transb: *const c_char,
@@ -3334,7 +3334,7 @@ pub struct DyLoadLib {
             ldc: *const MKL_INT,
         ),
     >,
-    pub mkl_cblas_jit_create_dgemm: Option<
+    pub mkl_cblas_jit_create_dgemm_: Option<
         unsafe extern "C" fn(
             jitter: *mut *mut c_void,
             layout: MKL_LAYOUT,
@@ -3350,7 +3350,7 @@ pub struct DyLoadLib {
             ldc: MKL_INT,
         ) -> mkl_jit_status_t,
     >,
-    pub mkl_cblas_jit_create_sgemm: Option<
+    pub mkl_cblas_jit_create_sgemm_: Option<
         unsafe extern "C" fn(
             jitter: *mut *mut c_void,
             layout: MKL_LAYOUT,
@@ -3366,7 +3366,7 @@ pub struct DyLoadLib {
             ldc: MKL_INT,
         ) -> mkl_jit_status_t,
     >,
-    pub mkl_cblas_jit_create_cgemm: Option<
+    pub mkl_cblas_jit_create_cgemm_: Option<
         unsafe extern "C" fn(
             jitter: *mut *mut c_void,
             layout: MKL_LAYOUT,
@@ -3382,7 +3382,7 @@ pub struct DyLoadLib {
             ldc: MKL_INT,
         ) -> mkl_jit_status_t,
     >,
-    pub mkl_cblas_jit_create_zgemm: Option<
+    pub mkl_cblas_jit_create_zgemm_: Option<
         unsafe extern "C" fn(
             jitter: *mut *mut c_void,
             layout: MKL_LAYOUT,
@@ -3398,16 +3398,16 @@ pub struct DyLoadLib {
             ldc: MKL_INT,
         ) -> mkl_jit_status_t,
     >,
-    pub mkl_jit_get_dgemm_ptr:
+    pub mkl_jit_get_dgemm_ptr_:
         Option<unsafe extern "C" fn(jitter: *const c_void) -> dgemm_jit_kernel_t>,
-    pub mkl_jit_get_sgemm_ptr:
+    pub mkl_jit_get_sgemm_ptr_:
         Option<unsafe extern "C" fn(jitter: *const c_void) -> sgemm_jit_kernel_t>,
-    pub mkl_jit_get_cgemm_ptr:
+    pub mkl_jit_get_cgemm_ptr_:
         Option<unsafe extern "C" fn(jitter: *const c_void) -> cgemm_jit_kernel_t>,
-    pub mkl_jit_get_zgemm_ptr:
+    pub mkl_jit_get_zgemm_ptr_:
         Option<unsafe extern "C" fn(jitter: *const c_void) -> zgemm_jit_kernel_t>,
-    pub mkl_jit_destroy: Option<unsafe extern "C" fn(jitter: *mut c_void) -> mkl_jit_status_t>,
-    pub saxpy_batch: Option<
+    pub mkl_jit_destroy_: Option<unsafe extern "C" fn(jitter: *mut c_void) -> mkl_jit_status_t>,
+    pub saxpy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f32,
@@ -3419,7 +3419,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub daxpy_batch: Option<
+    pub daxpy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f64,
@@ -3431,7 +3431,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub caxpy_batch: Option<
+    pub caxpy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex8,
@@ -3443,7 +3443,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zaxpy_batch: Option<
+    pub zaxpy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex16,
@@ -3455,7 +3455,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub scopy_batch: Option<
+    pub scopy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut *const f32,
@@ -3466,7 +3466,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub dcopy_batch: Option<
+    pub dcopy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut *const f64,
@@ -3477,7 +3477,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub ccopy_batch: Option<
+    pub ccopy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut *const MKL_Complex8,
@@ -3488,7 +3488,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zcopy_batch: Option<
+    pub zcopy_batch_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *mut *const MKL_Complex16,
@@ -3499,7 +3499,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub saxpy_batch_strided: Option<
+    pub saxpy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f32,
@@ -3512,7 +3512,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub daxpy_batch_strided: Option<
+    pub daxpy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const f64,
@@ -3525,7 +3525,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub caxpy_batch_strided: Option<
+    pub caxpy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex8,
@@ -3538,7 +3538,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zaxpy_batch_strided: Option<
+    pub zaxpy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             alpha: *const MKL_Complex16,
@@ -3551,7 +3551,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub scopy_batch_strided: Option<
+    pub scopy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f32,
@@ -3563,7 +3563,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dcopy_batch_strided: Option<
+    pub dcopy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const f64,
@@ -3575,7 +3575,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub ccopy_batch_strided: Option<
+    pub ccopy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex8,
@@ -3587,7 +3587,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zcopy_batch_strided: Option<
+    pub zcopy_batch_strided_: Option<
         unsafe extern "C" fn(
             n: *const MKL_INT,
             x: *const MKL_Complex16,
@@ -3599,7 +3599,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub sgemv_batch: Option<
+    pub sgemv_batch_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3616,7 +3616,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub sgemv_batch_strided: Option<
+    pub sgemv_batch_strided_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3635,7 +3635,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub dgemv_batch: Option<
+    pub dgemv_batch_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3652,7 +3652,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub dgemv_batch_strided: Option<
+    pub dgemv_batch_strided_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3671,7 +3671,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub cgemv_batch: Option<
+    pub cgemv_batch_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3688,7 +3688,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub cgemv_batch_strided: Option<
+    pub cgemv_batch_strided_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3707,7 +3707,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zgemv_batch: Option<
+    pub zgemv_batch_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3724,7 +3724,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zgemv_batch_strided: Option<
+    pub zgemv_batch_strided_: Option<
         unsafe extern "C" fn(
             trans: *const c_char,
             m: *const MKL_INT,
@@ -3743,7 +3743,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub sdgmm_batch: Option<
+    pub sdgmm_batch_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3758,7 +3758,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub sdgmm_batch_strided: Option<
+    pub sdgmm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3775,7 +3775,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub ddgmm_batch: Option<
+    pub ddgmm_batch_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3790,7 +3790,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub ddgmm_batch_strided: Option<
+    pub ddgmm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3807,7 +3807,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub cdgmm_batch: Option<
+    pub cdgmm_batch_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3822,7 +3822,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub cdgmm_batch_strided: Option<
+    pub cdgmm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3839,7 +3839,7 @@ pub struct DyLoadLib {
             batch_size: *const MKL_INT,
         ),
     >,
-    pub zdgmm_batch: Option<
+    pub zdgmm_batch_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
@@ -3854,7 +3854,7 @@ pub struct DyLoadLib {
             group_size: *const MKL_INT,
         ),
     >,
-    pub zdgmm_batch_strided: Option<
+    pub zdgmm_batch_strided_: Option<
         unsafe extern "C" fn(
             side: *const c_char,
             m: *const MKL_INT,
