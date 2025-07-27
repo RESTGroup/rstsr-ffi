@@ -4,6 +4,8 @@
 #![allow(clippy::type_complexity)]
 #![allow(clippy::too_many_arguments)]
 
+pub const MOD_NAME: &str = module_path!();
+
 #[cfg(feature = "dynamic_loading")]
 mod dynamic_loading_specific {
     use super::*;
