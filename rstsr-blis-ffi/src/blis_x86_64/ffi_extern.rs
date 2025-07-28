@@ -1,4 +1,3 @@
-
 //! FFI function declarations for non-dynamic-loading.
 //!
 //! This file is generated automatically.
@@ -9,15 +8,10 @@ unsafe extern "C" {
     pub fn bli_pthread_create(
         thread: *mut bli_pthread_t,
         attr: *const bli_pthread_attr_t,
-        start_routine: Option<
-            extern "C" fn(arg1: *mut c_void) -> *mut c_void,
-        >,
+        start_routine: Option<extern "C" fn(arg1: *mut c_void) -> *mut c_void>,
         arg: *mut c_void,
     ) -> c_int;
-    pub fn bli_pthread_join(
-        thread: bli_pthread_t,
-        retval: *mut *mut c_void,
-    ) -> c_int;
+    pub fn bli_pthread_join(thread: bli_pthread_t, retval: *mut *mut c_void) -> c_int;
     pub fn bli_pthread_mutex_init(
         mutex: *mut bli_pthread_mutex_t,
         attr: *const bli_pthread_mutexattr_t,
@@ -36,10 +30,7 @@ unsafe extern "C" {
         mutex: *mut bli_pthread_mutex_t,
     ) -> c_int;
     pub fn bli_pthread_cond_broadcast(cond: *mut bli_pthread_cond_t) -> c_int;
-    pub fn bli_pthread_once(
-        once: *mut bli_pthread_once_t,
-        init: Option<extern "C" fn()>,
-    );
+    pub fn bli_pthread_once(once: *mut bli_pthread_once_t, init: Option<extern "C" fn()>);
     pub fn bli_pthread_barrier_init(
         barrier: *mut bli_pthread_barrier_t,
         attr: *const bli_pthread_barrierattr_t,
@@ -5799,29 +5790,12 @@ unsafe extern "C" {
     pub fn bli_thrinfo_split(n_way: dim_t, thread_par: *mut thrinfo_t) -> *mut thrinfo_t;
     pub fn bli_thrinfo_print(thread: *mut thrinfo_t);
     pub fn bli_thrinfo_print_sub(thread: *mut thrinfo_t, level: gint_t);
-    pub fn bli_thread_launch_openmp(
-        nt: dim_t,
-        func: thread_func_t,
-        params: *const c_void,
-    );
-    pub fn bli_thread_launch_pthreads(
-        nt: dim_t,
-        func: thread_func_t,
-        params: *const c_void,
-    );
-    pub fn bli_thread_launch_single(
-        nt: dim_t,
-        func: thread_func_t,
-        params: *const c_void,
-    );
+    pub fn bli_thread_launch_openmp(nt: dim_t, func: thread_func_t, params: *const c_void);
+    pub fn bli_thread_launch_pthreads(nt: dim_t, func: thread_func_t, params: *const c_void);
+    pub fn bli_thread_launch_single(nt: dim_t, func: thread_func_t, params: *const c_void);
     pub fn bli_thread_init() -> c_int;
     pub fn bli_thread_finalize() -> c_int;
-    pub fn bli_thread_launch(
-        ti: timpl_t,
-        nt: dim_t,
-        func: thread_func_t,
-        params: *const c_void,
-    );
+    pub fn bli_thread_launch(ti: timpl_t, nt: dim_t, func: thread_func_t, params: *const c_void);
     pub fn bli_prime_factorization(n: dim_t, factors: *mut bli_prime_factors_t);
     pub fn bli_next_prime_factor(factors: *mut bli_prime_factors_t) -> dim_t;
     pub fn bli_is_prime(n: dim_t) -> bool;
@@ -6074,11 +6048,7 @@ unsafe extern "C" {
         r_val: *mut err_t,
     ) -> *mut c_void;
     pub fn bli_ffree_align(f: free_ft, p: *mut c_void);
-    pub fn bli_fmalloc_noalign(
-        f: malloc_ft,
-        size: usize,
-        r_val: *mut err_t,
-    ) -> *mut c_void;
+    pub fn bli_fmalloc_noalign(f: malloc_ft, size: usize, r_val: *mut err_t) -> *mut c_void;
     pub fn bli_ffree_noalign(f: free_ft, p: *mut c_void);
     pub fn bli_fmalloc_align_check(f: malloc_ft, size: usize, align_size: usize);
     pub fn bli_fmalloc_post_check(p: *mut c_void);
@@ -6121,19 +6091,9 @@ unsafe extern "C" {
     );
     pub fn bli_obj_create_without_buffer(dt: num_t, m: dim_t, n: dim_t, obj: *mut obj_t);
     pub fn bli_obj_alloc_buffer(rs: inc_t, cs: inc_t, is: inc_t, obj: *mut obj_t);
-    pub fn bli_obj_attach_buffer(
-        p: *mut c_void,
-        rs: inc_t,
-        cs: inc_t,
-        is: inc_t,
-        obj: *mut obj_t,
-    );
+    pub fn bli_obj_attach_buffer(p: *mut c_void, rs: inc_t, cs: inc_t, is: inc_t, obj: *mut obj_t);
     pub fn bli_obj_create_1x1(dt: num_t, obj: *mut obj_t);
-    pub fn bli_obj_create_1x1_with_attached_buffer(
-        dt: num_t,
-        p: *mut c_void,
-        obj: *mut obj_t,
-    );
+    pub fn bli_obj_create_1x1_with_attached_buffer(dt: num_t, p: *mut c_void, obj: *mut obj_t);
     pub fn bli_obj_create_conf_to(s: *const obj_t, d: *mut obj_t);
     pub fn bli_obj_free(obj: *mut obj_t);
     pub fn bli_adjust_strides(
@@ -6296,17 +6256,9 @@ unsafe extern "C" {
         stack: *mut stck_t,
     ) -> err_t;
     pub fn bli_stack_finalize(stack: *mut stck_t) -> err_t;
-    pub fn bli_stack_get(
-        i: siz_t,
-        elem: *mut *mut c_void,
-        stack: *const stck_t,
-    ) -> err_t;
+    pub fn bli_stack_get(i: siz_t, elem: *mut *mut c_void, stack: *const stck_t) -> err_t;
     pub fn bli_stack_push(i: *mut siz_t, stack: *mut stck_t) -> err_t;
-    pub fn bli_check_error_code_helper(
-        code: gint_t,
-        file: *const c_char,
-        line: guint_t,
-    ) -> err_t;
+    pub fn bli_check_error_code_helper(code: gint_t, file: *const c_char, line: guint_t) -> err_t;
     pub fn bli_check_valid_error_level(level: errlev_t) -> err_t;
     pub fn bli_check_null_pointer(ptr: *const c_void) -> err_t;
     pub fn bli_check_valid_side(side: side_t) -> err_t;
@@ -6438,11 +6390,7 @@ unsafe extern "C" {
         ukr_id: ukr_t,
         cntx: *const cntx_t,
     ) -> bool;
-    pub fn bli_gks_l3_ukr_impl_string(
-        ukr: ukr_t,
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
+    pub fn bli_gks_l3_ukr_impl_string(ukr: ukr_t, method: ind_t, dt: num_t) -> *const c_char;
     pub fn bli_gks_l3_ukr_impl_type(ukr: ukr_t, method: ind_t, dt: num_t) -> kimpl_t;
     pub fn bli_gks_register_blksz(bs_id: *mut kerid_t) -> err_t;
     pub fn bli_gks_register_ukr(ukr_id: *mut kerid_t) -> err_t;
@@ -6473,10 +6421,7 @@ unsafe extern "C" {
     pub fn bli_ind_oper_enable_only(oper: opid_t, method: ind_t, dt: num_t);
     pub fn bli_ind_oper_is_impl(oper: opid_t, method: ind_t) -> bool;
     pub fn bli_ind_oper_find_avail(oper: opid_t, dt: num_t) -> ind_t;
-    pub fn bli_ind_oper_get_avail_impl_string(
-        oper: opid_t,
-        dt: num_t,
-    ) -> *const c_char;
+    pub fn bli_ind_oper_get_avail_impl_string(oper: opid_t, dt: num_t) -> *const c_char;
     pub fn bli_ind_get_impl_string(method: ind_t) -> *const c_char;
     pub fn bli_ind_map_cdt_to_index(dt: num_t) -> num_t;
     pub fn bli_pba_query() -> *mut pba_t;
@@ -6692,10 +6637,7 @@ unsafe extern "C" {
     pub fn bli_param_map_blis_to_netlib_uplo(uplo: uplo_t, blas_uplo: *mut c_char);
     pub fn bli_param_map_blis_to_netlib_trans(trans: trans_t, blas_trans: *mut c_char);
     pub fn bli_param_map_blis_to_netlib_diag(diag: diag_t, blas_diag: *mut c_char);
-    pub fn bli_param_map_blis_to_netlib_machval(
-        machval: machval_t,
-        blas_machval: *mut c_char,
-    );
+    pub fn bli_param_map_blis_to_netlib_machval(machval: machval_t, blas_machval: *mut c_char);
     pub fn bli_param_map_char_to_blis_side(side: c_char, blis_side: *mut side_t);
     pub fn bli_param_map_char_to_blis_uplo(uplo: c_char, blis_uplo: *mut uplo_t);
     pub fn bli_param_map_char_to_blis_trans(trans: c_char, blis_trans: *mut trans_t);
@@ -6714,11 +6656,7 @@ unsafe extern "C" {
     pub fn bli_error_checking_level() -> errlev_t;
     pub fn bli_error_checking_level_set(new_level: errlev_t);
     pub fn bli_error_checking_is_enabled() -> bool;
-    pub fn bli_print_msg(
-        str_: *const c_char,
-        file: *const c_char,
-        line: guint_t,
-    );
+    pub fn bli_print_msg(str_: *const c_char, file: *const c_char, line: guint_t);
     pub fn bli_abort();
     pub fn bli_error_string_for_code(code: gint_t) -> *const c_char;
     pub fn bli_lsame(
@@ -6790,26 +6728,11 @@ unsafe extern "C" {
     pub fn bli_info_get_enable_tls() -> gint_t;
     pub fn bli_info_get_enable_memkind() -> gint_t;
     pub fn bli_info_get_enable_sandbox() -> gint_t;
-    pub fn bli_info_get_gemm_ukr_impl_string(
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
-    pub fn bli_info_get_gemmtrsm_l_ukr_impl_string(
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
-    pub fn bli_info_get_gemmtrsm_u_ukr_impl_string(
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
-    pub fn bli_info_get_trsm_l_ukr_impl_string(
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
-    pub fn bli_info_get_trsm_u_ukr_impl_string(
-        method: ind_t,
-        dt: num_t,
-    ) -> *const c_char;
+    pub fn bli_info_get_gemm_ukr_impl_string(method: ind_t, dt: num_t) -> *const c_char;
+    pub fn bli_info_get_gemmtrsm_l_ukr_impl_string(method: ind_t, dt: num_t) -> *const c_char;
+    pub fn bli_info_get_gemmtrsm_u_ukr_impl_string(method: ind_t, dt: num_t) -> *const c_char;
+    pub fn bli_info_get_trsm_l_ukr_impl_string(method: ind_t, dt: num_t) -> *const c_char;
+    pub fn bli_info_get_trsm_u_ukr_impl_string(method: ind_t, dt: num_t) -> *const c_char;
     pub fn bli_info_get_gemm_impl_string(dt: num_t) -> *const c_char;
     pub fn bli_info_get_gemmt_impl_string(dt: num_t) -> *const c_char;
     pub fn bli_info_get_hemm_impl_string(dt: num_t) -> *const c_char;
@@ -6854,42 +6777,10 @@ unsafe extern "C" {
     pub fn vpu_count() -> c_int;
     pub fn bli_string_mkupper(s: *mut c_char);
     pub fn bli_setijm(ar: f64, ai: f64, i: dim_t, j: dim_t, b: *const obj_t) -> err_t;
-    pub fn bli_ssetijm(
-        ar: f64,
-        ai: f64,
-        i: dim_t,
-        j: dim_t,
-        b: *mut c_void,
-        rs: inc_t,
-        cs: inc_t,
-    );
-    pub fn bli_dsetijm(
-        ar: f64,
-        ai: f64,
-        i: dim_t,
-        j: dim_t,
-        b: *mut c_void,
-        rs: inc_t,
-        cs: inc_t,
-    );
-    pub fn bli_csetijm(
-        ar: f64,
-        ai: f64,
-        i: dim_t,
-        j: dim_t,
-        b: *mut c_void,
-        rs: inc_t,
-        cs: inc_t,
-    );
-    pub fn bli_zsetijm(
-        ar: f64,
-        ai: f64,
-        i: dim_t,
-        j: dim_t,
-        b: *mut c_void,
-        rs: inc_t,
-        cs: inc_t,
-    );
+    pub fn bli_ssetijm(ar: f64, ai: f64, i: dim_t, j: dim_t, b: *mut c_void, rs: inc_t, cs: inc_t);
+    pub fn bli_dsetijm(ar: f64, ai: f64, i: dim_t, j: dim_t, b: *mut c_void, rs: inc_t, cs: inc_t);
+    pub fn bli_csetijm(ar: f64, ai: f64, i: dim_t, j: dim_t, b: *mut c_void, rs: inc_t, cs: inc_t);
+    pub fn bli_zsetijm(ar: f64, ai: f64, i: dim_t, j: dim_t, b: *mut c_void, rs: inc_t, cs: inc_t);
     pub fn bli_getijm(i: dim_t, j: dim_t, b: *const obj_t, ar: *mut f64, ai: *mut f64) -> err_t;
     pub fn bli_sgetijm(
         i: dim_t,
@@ -6933,34 +6824,10 @@ unsafe extern "C" {
     pub fn bli_csetijv(ar: f64, ai: f64, i: dim_t, x: *mut c_void, incx: inc_t);
     pub fn bli_zsetijv(ar: f64, ai: f64, i: dim_t, x: *mut c_void, incx: inc_t);
     pub fn bli_getijv(i: dim_t, x: *const obj_t, ar: *mut f64, ai: *mut f64) -> err_t;
-    pub fn bli_sgetijv(
-        i: dim_t,
-        b: *const c_void,
-        incx: inc_t,
-        ar: *mut f64,
-        ai: *mut f64,
-    );
-    pub fn bli_dgetijv(
-        i: dim_t,
-        b: *const c_void,
-        incx: inc_t,
-        ar: *mut f64,
-        ai: *mut f64,
-    );
-    pub fn bli_cgetijv(
-        i: dim_t,
-        b: *const c_void,
-        incx: inc_t,
-        ar: *mut f64,
-        ai: *mut f64,
-    );
-    pub fn bli_zgetijv(
-        i: dim_t,
-        b: *const c_void,
-        incx: inc_t,
-        ar: *mut f64,
-        ai: *mut f64,
-    );
+    pub fn bli_sgetijv(i: dim_t, b: *const c_void, incx: inc_t, ar: *mut f64, ai: *mut f64);
+    pub fn bli_dgetijv(i: dim_t, b: *const c_void, incx: inc_t, ar: *mut f64, ai: *mut f64);
+    pub fn bli_cgetijv(i: dim_t, b: *const c_void, incx: inc_t, ar: *mut f64, ai: *mut f64);
+    pub fn bli_zgetijv(i: dim_t, b: *const c_void, incx: inc_t, ar: *mut f64, ai: *mut f64);
     pub fn bli_setrm(alpha: *const obj_t, b: *const obj_t);
     pub fn bli_setrv(alpha: *const obj_t, x: *const obj_t);
     pub fn bli_setim(alpha: *const obj_t, b: *const obj_t);
@@ -7554,86 +7421,22 @@ unsafe extern "C" {
     pub fn bli_getsc_qfp(dt: num_t) -> getsc_vft;
     pub fn bli_setsc_qfp(dt: num_t) -> setsc_vft;
     pub fn bli_copysc(chi: *const obj_t, psi: *const obj_t);
-    pub fn bli_sscopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_ddcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_cccopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_zzcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_sccopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_cscopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_dzcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_zdcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_sdcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_szcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_dscopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_dccopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_cdcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_czcopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_zscopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
-    pub fn bli_zccopysc(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    );
+    pub fn bli_sscopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_ddcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_cccopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_zzcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_sccopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_cscopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_dzcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_zdcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_sdcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_szcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_dscopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_dccopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_cdcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_czcopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_zscopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
+    pub fn bli_zccopysc(conjchi: conj_t, chi: *const c_void, psi: *mut c_void);
     pub fn bli_addv_check(x: *const obj_t, y: *const obj_t);
     pub fn bli_copyv_check(x: *const obj_t, y: *const obj_t);
     pub fn bli_subv_check(x: *const obj_t, y: *const obj_t);
@@ -20362,18 +20165,8 @@ unsafe extern "C" {
         format: *const c_char,
         s2: *const c_char,
     );
-    pub fn bli_printv(
-        s1: *const c_char,
-        x: *const obj_t,
-        format: *const c_char,
-        s2: *const c_char,
-    );
-    pub fn bli_printm(
-        s1: *const c_char,
-        x: *const obj_t,
-        format: *const c_char,
-        s2: *const c_char,
-    );
+    pub fn bli_printv(s1: *const c_char, x: *const obj_t, format: *const c_char, s2: *const c_char);
+    pub fn bli_printm(s1: *const c_char, x: *const obj_t, format: *const c_char, s2: *const c_char);
     pub fn bli_sasumv_ex(
         n: dim_t,
         x: *const f32,
@@ -22185,12 +21978,7 @@ unsafe extern "C" {
     pub fn bla_d_abs(x: *const bla_double) -> f64;
     pub fn bla_c_abs(z: *const bla_scomplex) -> f64;
     pub fn bla_z_abs(z: *const bla_dcomplex) -> f64;
-    pub fn lsame_(
-        ca: *const c_char,
-        cb: *const c_char,
-        ca_len: c_int,
-        cb_len: c_int,
-    ) -> c_int;
+    pub fn lsame_(ca: *const c_char, cb: *const c_char, ca_len: c_int, cb_len: c_int) -> c_int;
     pub fn xerbla_(
         srname: *const bla_character,
         info: *const bla_integer,
@@ -24108,20 +23896,8 @@ unsafe extern "C" {
         Y: *mut f64,
         incY: f77_int,
     );
-    pub fn cblas_cswap(
-        N: f77_int,
-        X: *mut c_void,
-        incX: f77_int,
-        Y: *mut c_void,
-        incY: f77_int,
-    );
-    pub fn cblas_ccopy(
-        N: f77_int,
-        X: *const c_void,
-        incX: f77_int,
-        Y: *mut c_void,
-        incY: f77_int,
-    );
+    pub fn cblas_cswap(N: f77_int, X: *mut c_void, incX: f77_int, Y: *mut c_void, incY: f77_int);
+    pub fn cblas_ccopy(N: f77_int, X: *const c_void, incX: f77_int, Y: *mut c_void, incY: f77_int);
     pub fn cblas_caxpy(
         N: f77_int,
         alpha: *const c_void,
@@ -24130,20 +23906,8 @@ unsafe extern "C" {
         Y: *mut c_void,
         incY: f77_int,
     );
-    pub fn cblas_zswap(
-        N: f77_int,
-        X: *mut c_void,
-        incX: f77_int,
-        Y: *mut c_void,
-        incY: f77_int,
-    );
-    pub fn cblas_zcopy(
-        N: f77_int,
-        X: *const c_void,
-        incX: f77_int,
-        Y: *mut c_void,
-        incY: f77_int,
-    );
+    pub fn cblas_zswap(N: f77_int, X: *mut c_void, incX: f77_int, Y: *mut c_void, incY: f77_int);
+    pub fn cblas_zcopy(N: f77_int, X: *const c_void, incX: f77_int, Y: *mut c_void, incY: f77_int);
     pub fn cblas_zaxpy(
         N: f77_int,
         alpha: *const c_void,
@@ -24192,18 +23956,8 @@ unsafe extern "C" {
     );
     pub fn cblas_sscal(N: f77_int, alpha: f32, X: *mut f32, incX: f77_int);
     pub fn cblas_dscal(N: f77_int, alpha: f64, X: *mut f64, incX: f77_int);
-    pub fn cblas_cscal(
-        N: f77_int,
-        alpha: *const c_void,
-        X: *mut c_void,
-        incX: f77_int,
-    );
-    pub fn cblas_zscal(
-        N: f77_int,
-        alpha: *const c_void,
-        X: *mut c_void,
-        incX: f77_int,
-    );
+    pub fn cblas_cscal(N: f77_int, alpha: *const c_void, X: *mut c_void, incX: f77_int);
+    pub fn cblas_zscal(N: f77_int, alpha: *const c_void, X: *mut c_void, incX: f77_int);
     pub fn cblas_csscal(N: f77_int, alpha: f32, X: *mut c_void, incX: f77_int);
     pub fn cblas_zdscal(N: f77_int, alpha: f64, X: *mut c_void, incX: f77_int);
     pub fn cblas_sgemv(
@@ -25420,12 +25174,7 @@ unsafe extern "C" {
         C: *mut c_void,
         ldc: f77_int,
     );
-    pub fn cblas_xerbla(
-        p: f77_int,
-        rout: *const c_char,
-        form: *const c_char,
-        ...
-    );
+    pub fn cblas_xerbla(p: f77_int, rout: *const c_char, form: *const c_char, ...);
     pub fn cblas_saxpby(
         N: f77_int,
         alpha: f32,
@@ -25696,4 +25445,3 @@ unsafe extern "C" {
     );
     pub fn bli_sleep(secs: c_uint);
 }
-    

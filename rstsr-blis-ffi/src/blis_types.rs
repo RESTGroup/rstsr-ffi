@@ -18,3 +18,8 @@ pub use mode_lp64::*;
 
 pub type blas_int = f77_int;
 pub type lapack_int = f77_int;
+
+pub use rstsr_lapack_ffi::cblas::{
+    CBLAS_DIAG, CBLAS_LAYOUT, CBLAS_SIDE, CBLAS_TRANSPOSE, CBLAS_UPLO,
+};
+pub use CBLAS_LAYOUT as CBLAS_ORDER;

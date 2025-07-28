@@ -10,3 +10,15 @@ pub use blis_types::*;
 pub mod blis_x86_64;
 #[cfg(feature = "x86_64")]
 pub use blis_x86_64 as blis;
+
+pub use blis as blas;
+pub use blis as cblas;
+
+#[cfg(feature = "lapack")]
+pub mod lapack;
+
+#[cfg(feature = "flame")]
+pub mod flame;
+
+#[cfg(all(feature = "flame", feature = "ilp64"))]
+compile_error!("Feature `flame` and `ilp64` are mutually exclusive, please disable one of them.");

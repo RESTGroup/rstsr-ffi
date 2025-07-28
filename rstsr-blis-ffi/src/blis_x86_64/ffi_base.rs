@@ -1,4 +1,3 @@
-
 //! Base of current FFI.
 //!
 //! Declaration of types, enums, cargo feature controls, etc.
@@ -201,8 +200,7 @@ pub type f77_double = f64;
 pub type f77_scomplex = scomplex;
 pub type f77_dcomplex = dcomplex;
 pub type void_fp = *mut c_void;
-pub type malloc_ft =
-    Option<extern "C" fn(size: usize) -> *mut c_void>;
+pub type malloc_ft = Option<extern "C" fn(size: usize) -> *mut c_void>;
 pub type free_ft = Option<extern "C" fn(p: *mut c_void)>;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -968,11 +966,9 @@ pub struct thrcomm_s {
     pub padding3: [c_char; 64usize],
 }
 pub type thrcomm_t = thrcomm_s;
-pub type thrcomm_init_ft =
-    Option<extern "C" fn(nt: dim_t, comm: *mut thrcomm_t)>;
+pub type thrcomm_init_ft = Option<extern "C" fn(nt: dim_t, comm: *mut thrcomm_t)>;
 pub type thrcomm_cleanup_ft = Option<extern "C" fn(comm: *mut thrcomm_t)>;
-pub type thrcomm_barrier_ft =
-    Option<extern "C" fn(tid: dim_t, comm: *mut thrcomm_t)>;
+pub type thrcomm_barrier_ft = Option<extern "C" fn(tid: dim_t, comm: *mut thrcomm_t)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct thrinfo_s {
@@ -987,9 +983,8 @@ pub struct thrinfo_s {
     pub sub_nodes: [*mut thrinfo_s; 2usize],
 }
 pub type thrinfo_t = thrinfo_s;
-pub type thread_func_t = Option<
-    extern "C" fn(gl_comm: *mut thrcomm_t, tid: dim_t, params: *const c_void),
->;
+pub type thread_func_t =
+    Option<extern "C" fn(gl_comm: *mut thrcomm_t, tid: dim_t, params: *const c_void)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct bli_prime_factors_t {
@@ -1073,461 +1068,154 @@ pub enum _bindgen_ty_15 {
     FEATURE_AVX512BW = 8192,
     FEATURE_AVX512VL = 16384,
 }
-pub type saddsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
-pub type daddsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
-pub type caddsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex),
->;
-pub type zaddsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex),
->;
-pub type saddsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type daddsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type caddsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type zaddsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type addsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type sdivsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
-pub type ddivsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
-pub type cdivsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex),
->;
-pub type zdivsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex),
->;
-pub type sdivsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type ddivsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type cdivsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type zdivsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type divsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type ssubsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
-pub type dsubsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
-pub type csubsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex),
->;
-pub type zsubsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex),
->;
-pub type ssubsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type dsubsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type csubsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type zsubsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type subsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type sinvertsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
-pub type dinvertsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
-pub type cinvertsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex),
->;
-pub type zinvertsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex),
->;
-pub type sinvertsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type dinvertsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type cinvertsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type zinvertsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type invertsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type smulsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
-pub type dmulsc_ft =
-    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
-pub type cmulsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex),
->;
-pub type zmulsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex),
->;
-pub type smulsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type dmulsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type cmulsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type zmulsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
-pub type mulsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *mut c_void,
-    ),
->;
+pub type saddsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
+pub type daddsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
+pub type caddsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex)>;
+pub type zaddsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type saddsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type daddsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type caddsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type zaddsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type addsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type sdivsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
+pub type ddivsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
+pub type cdivsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex)>;
+pub type zdivsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type sdivsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type ddivsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type cdivsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type zdivsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type divsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type ssubsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
+pub type dsubsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
+pub type csubsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex)>;
+pub type zsubsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type ssubsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type dsubsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type csubsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type zsubsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type subsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type sinvertsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
+pub type dinvertsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
+pub type cinvertsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex)>;
+pub type zinvertsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type sinvertsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type dinvertsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type cinvertsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type zinvertsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type invertsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type smulsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *mut f32)>;
+pub type dmulsc_ft = Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *mut f64)>;
+pub type cmulsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *mut scomplex)>;
+pub type zmulsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type smulsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type dmulsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type cmulsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type zmulsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
+pub type mulsc_vft = Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *mut c_void)>;
 pub type sabsqsc_ft = Option<extern "C" fn(chi: *const f32, absq: *mut f32)>;
 pub type dabsqsc_ft = Option<extern "C" fn(chi: *const f64, absq: *mut f64)>;
-pub type cabsqsc_ft =
-    Option<extern "C" fn(chi: *const scomplex, absq: *mut f32)>;
-pub type zabsqsc_ft =
-    Option<extern "C" fn(chi: *const dcomplex, absq: *mut f64)>;
-pub type sabsqsc_vft = Option<
-    extern "C" fn(chi: *const c_void, absq: *mut c_void),
->;
-pub type dabsqsc_vft = Option<
-    extern "C" fn(chi: *const c_void, absq: *mut c_void),
->;
-pub type cabsqsc_vft = Option<
-    extern "C" fn(chi: *const c_void, absq: *mut c_void),
->;
-pub type zabsqsc_vft = Option<
-    extern "C" fn(chi: *const c_void, absq: *mut c_void),
->;
-pub type absqsc_vft = Option<
-    extern "C" fn(chi: *const c_void, absq: *mut c_void),
->;
-pub type snormfsc_ft =
-    Option<extern "C" fn(chi: *const f32, norm: *mut f32)>;
-pub type dnormfsc_ft =
-    Option<extern "C" fn(chi: *const f64, norm: *mut f64)>;
-pub type cnormfsc_ft =
-    Option<extern "C" fn(chi: *const scomplex, norm: *mut f32)>;
-pub type znormfsc_ft =
-    Option<extern "C" fn(chi: *const dcomplex, norm: *mut f64)>;
-pub type snormfsc_vft = Option<
-    extern "C" fn(chi: *const c_void, norm: *mut c_void),
->;
-pub type dnormfsc_vft = Option<
-    extern "C" fn(chi: *const c_void, norm: *mut c_void),
->;
-pub type cnormfsc_vft = Option<
-    extern "C" fn(chi: *const c_void, norm: *mut c_void),
->;
-pub type znormfsc_vft = Option<
-    extern "C" fn(chi: *const c_void, norm: *mut c_void),
->;
-pub type normfsc_vft = Option<
-    extern "C" fn(chi: *const c_void, norm: *mut c_void),
->;
+pub type cabsqsc_ft = Option<extern "C" fn(chi: *const scomplex, absq: *mut f32)>;
+pub type zabsqsc_ft = Option<extern "C" fn(chi: *const dcomplex, absq: *mut f64)>;
+pub type sabsqsc_vft = Option<extern "C" fn(chi: *const c_void, absq: *mut c_void)>;
+pub type dabsqsc_vft = Option<extern "C" fn(chi: *const c_void, absq: *mut c_void)>;
+pub type cabsqsc_vft = Option<extern "C" fn(chi: *const c_void, absq: *mut c_void)>;
+pub type zabsqsc_vft = Option<extern "C" fn(chi: *const c_void, absq: *mut c_void)>;
+pub type absqsc_vft = Option<extern "C" fn(chi: *const c_void, absq: *mut c_void)>;
+pub type snormfsc_ft = Option<extern "C" fn(chi: *const f32, norm: *mut f32)>;
+pub type dnormfsc_ft = Option<extern "C" fn(chi: *const f64, norm: *mut f64)>;
+pub type cnormfsc_ft = Option<extern "C" fn(chi: *const scomplex, norm: *mut f32)>;
+pub type znormfsc_ft = Option<extern "C" fn(chi: *const dcomplex, norm: *mut f64)>;
+pub type snormfsc_vft = Option<extern "C" fn(chi: *const c_void, norm: *mut c_void)>;
+pub type dnormfsc_vft = Option<extern "C" fn(chi: *const c_void, norm: *mut c_void)>;
+pub type cnormfsc_vft = Option<extern "C" fn(chi: *const c_void, norm: *mut c_void)>;
+pub type znormfsc_vft = Option<extern "C" fn(chi: *const c_void, norm: *mut c_void)>;
+pub type normfsc_vft = Option<extern "C" fn(chi: *const c_void, norm: *mut c_void)>;
 pub type ssqrtsc_ft = Option<extern "C" fn(chi: *const f32, psi: *mut f32)>;
 pub type dsqrtsc_ft = Option<extern "C" fn(chi: *const f64, psi: *mut f64)>;
-pub type csqrtsc_ft =
-    Option<extern "C" fn(chi: *const scomplex, psi: *mut scomplex)>;
-pub type zsqrtsc_ft =
-    Option<extern "C" fn(chi: *const dcomplex, psi: *mut dcomplex)>;
-pub type ssqrtsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type dsqrtsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type csqrtsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type zsqrtsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type sqrtsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
+pub type csqrtsc_ft = Option<extern "C" fn(chi: *const scomplex, psi: *mut scomplex)>;
+pub type zsqrtsc_ft = Option<extern "C" fn(chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type ssqrtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type dsqrtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type csqrtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type zsqrtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type sqrtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
 pub type ssqrtrsc_ft = Option<extern "C" fn(chi: *const f32, psi: *mut f32)>;
 pub type dsqrtrsc_ft = Option<extern "C" fn(chi: *const f64, psi: *mut f64)>;
-pub type csqrtrsc_ft =
-    Option<extern "C" fn(chi: *const scomplex, psi: *mut scomplex)>;
-pub type zsqrtrsc_ft =
-    Option<extern "C" fn(chi: *const dcomplex, psi: *mut dcomplex)>;
-pub type ssqrtrsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type dsqrtrsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type csqrtrsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type zsqrtrsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type sqrtrsc_vft = Option<
-    extern "C" fn(chi: *const c_void, psi: *mut c_void),
->;
-pub type sgetsc_ft = Option<
-    extern "C" fn(chi: *const f32, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type dgetsc_ft = Option<
-    extern "C" fn(chi: *const f64, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type cgetsc_ft = Option<
-    extern "C" fn(chi: *const scomplex, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type zgetsc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type sgetsc_vft = Option<
-    extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type dgetsc_vft = Option<
-    extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type cgetsc_vft = Option<
-    extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type zgetsc_vft = Option<
-    extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type getsc_vft = Option<
-    extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type ssetsc_ft =
-    Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut f32)>;
-pub type dsetsc_ft =
-    Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut f64)>;
-pub type csetsc_ft =
-    Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut scomplex)>;
-pub type zsetsc_ft =
-    Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut dcomplex)>;
-pub type ssetsc_vft = Option<
-    extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void),
->;
-pub type dsetsc_vft = Option<
-    extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void),
->;
-pub type csetsc_vft = Option<
-    extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void),
->;
-pub type zsetsc_vft = Option<
-    extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void),
->;
-pub type setsc_vft = Option<
-    extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void),
->;
-pub type sunzipsc_ft = Option<
-    extern "C" fn(chi: *const f32, zeta_r: *mut f32, zeta_i: *mut f32),
->;
-pub type dunzipsc_ft = Option<
-    extern "C" fn(chi: *const f64, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type cunzipsc_ft = Option<
-    extern "C" fn(chi: *const scomplex, zeta_r: *mut f32, zeta_i: *mut f32),
->;
-pub type zunzipsc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, zeta_r: *mut f64, zeta_i: *mut f64),
->;
-pub type sunzipsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        zeta_r: *mut c_void,
-        zeta_i: *mut c_void,
-    ),
->;
-pub type dunzipsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        zeta_r: *mut c_void,
-        zeta_i: *mut c_void,
-    ),
->;
-pub type cunzipsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        zeta_r: *mut c_void,
-        zeta_i: *mut c_void,
-    ),
->;
-pub type zunzipsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        zeta_r: *mut c_void,
-        zeta_i: *mut c_void,
-    ),
->;
-pub type unzipsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        zeta_r: *mut c_void,
-        zeta_i: *mut c_void,
-    ),
->;
-pub type szipsc_ft = Option<
-    extern "C" fn(zeta_r: *const f32, zeta_i: *const f32, chi: *mut f32),
->;
-pub type dzipsc_ft = Option<
-    extern "C" fn(zeta_r: *const f64, zeta_i: *const f64, chi: *mut f64),
->;
-pub type czipsc_ft = Option<
-    extern "C" fn(zeta_r: *const f32, zeta_i: *const f32, chi: *mut scomplex),
->;
-pub type zzipsc_ft = Option<
-    extern "C" fn(zeta_r: *const f64, zeta_i: *const f64, chi: *mut dcomplex),
->;
-pub type szipsc_vft = Option<
-    extern "C" fn(
-        zeta_r: *const c_void,
-        zeta_i: *const c_void,
-        chi: *mut c_void,
-    ),
->;
-pub type dzipsc_vft = Option<
-    extern "C" fn(
-        zeta_r: *const c_void,
-        zeta_i: *const c_void,
-        chi: *mut c_void,
-    ),
->;
-pub type czipsc_vft = Option<
-    extern "C" fn(
-        zeta_r: *const c_void,
-        zeta_i: *const c_void,
-        chi: *mut c_void,
-    ),
->;
-pub type zzipsc_vft = Option<
-    extern "C" fn(
-        zeta_r: *const c_void,
-        zeta_i: *const c_void,
-        chi: *mut c_void,
-    ),
->;
-pub type zipsc_vft = Option<
-    extern "C" fn(
-        zeta_r: *const c_void,
-        zeta_i: *const c_void,
-        chi: *mut c_void,
-    ),
->;
+pub type csqrtrsc_ft = Option<extern "C" fn(chi: *const scomplex, psi: *mut scomplex)>;
+pub type zsqrtrsc_ft = Option<extern "C" fn(chi: *const dcomplex, psi: *mut dcomplex)>;
+pub type ssqrtrsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type dsqrtrsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type csqrtrsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type zsqrtrsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type sqrtrsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *mut c_void)>;
+pub type sgetsc_ft = Option<extern "C" fn(chi: *const f32, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type dgetsc_ft = Option<extern "C" fn(chi: *const f64, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type cgetsc_ft =
+    Option<extern "C" fn(chi: *const scomplex, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type zgetsc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type sgetsc_vft = Option<extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type dgetsc_vft = Option<extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type cgetsc_vft = Option<extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type zgetsc_vft = Option<extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type getsc_vft = Option<extern "C" fn(chi: *const c_void, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type ssetsc_ft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut f32)>;
+pub type dsetsc_ft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut f64)>;
+pub type csetsc_ft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut scomplex)>;
+pub type zsetsc_ft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut dcomplex)>;
+pub type ssetsc_vft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void)>;
+pub type dsetsc_vft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void)>;
+pub type csetsc_vft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void)>;
+pub type zsetsc_vft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void)>;
+pub type setsc_vft = Option<extern "C" fn(zeta_r: f64, zeta_i: f64, chi: *mut c_void)>;
+pub type sunzipsc_ft = Option<extern "C" fn(chi: *const f32, zeta_r: *mut f32, zeta_i: *mut f32)>;
+pub type dunzipsc_ft = Option<extern "C" fn(chi: *const f64, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type cunzipsc_ft =
+    Option<extern "C" fn(chi: *const scomplex, zeta_r: *mut f32, zeta_i: *mut f32)>;
+pub type zunzipsc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, zeta_r: *mut f64, zeta_i: *mut f64)>;
+pub type sunzipsc_vft =
+    Option<extern "C" fn(chi: *const c_void, zeta_r: *mut c_void, zeta_i: *mut c_void)>;
+pub type dunzipsc_vft =
+    Option<extern "C" fn(chi: *const c_void, zeta_r: *mut c_void, zeta_i: *mut c_void)>;
+pub type cunzipsc_vft =
+    Option<extern "C" fn(chi: *const c_void, zeta_r: *mut c_void, zeta_i: *mut c_void)>;
+pub type zunzipsc_vft =
+    Option<extern "C" fn(chi: *const c_void, zeta_r: *mut c_void, zeta_i: *mut c_void)>;
+pub type unzipsc_vft =
+    Option<extern "C" fn(chi: *const c_void, zeta_r: *mut c_void, zeta_i: *mut c_void)>;
+pub type szipsc_ft = Option<extern "C" fn(zeta_r: *const f32, zeta_i: *const f32, chi: *mut f32)>;
+pub type dzipsc_ft = Option<extern "C" fn(zeta_r: *const f64, zeta_i: *const f64, chi: *mut f64)>;
+pub type czipsc_ft =
+    Option<extern "C" fn(zeta_r: *const f32, zeta_i: *const f32, chi: *mut scomplex)>;
+pub type zzipsc_ft =
+    Option<extern "C" fn(zeta_r: *const f64, zeta_i: *const f64, chi: *mut dcomplex)>;
+pub type szipsc_vft =
+    Option<extern "C" fn(zeta_r: *const c_void, zeta_i: *const c_void, chi: *mut c_void)>;
+pub type dzipsc_vft =
+    Option<extern "C" fn(zeta_r: *const c_void, zeta_i: *const c_void, chi: *mut c_void)>;
+pub type czipsc_vft =
+    Option<extern "C" fn(zeta_r: *const c_void, zeta_i: *const c_void, chi: *mut c_void)>;
+pub type zzipsc_vft =
+    Option<extern "C" fn(zeta_r: *const c_void, zeta_i: *const c_void, chi: *mut c_void)>;
+pub type zipsc_vft =
+    Option<extern "C" fn(zeta_r: *const c_void, zeta_i: *const c_void, chi: *mut c_void)>;
 pub type addv_ker_ft = Option<
     extern "C" fn(
         conjx: conj_t,
@@ -1540,13 +1228,7 @@ pub type addv_ker_ft = Option<
     ),
 >;
 pub type amaxv_ker_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        index: *mut dim_t,
-        cntx: *const cntx_t,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t, cntx: *const cntx_t),
 >;
 pub type axpbyv_ker_ft = Option<
     extern "C" fn(
@@ -1612,9 +1294,8 @@ pub type dotxv_ker_ft = Option<
         cntx: *const cntx_t,
     ),
 >;
-pub type invertv_ker_ft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t),
->;
+pub type invertv_ker_ft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t)>;
 pub type invscalv_ker_ft = Option<
     extern "C" fn(
         conjalpha: conj_t,
@@ -2735,22 +2416,10 @@ pub type dotxv_ex_vft = Option<
     ),
 >;
 pub type sinvertv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f32,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type dinvertv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f64,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type cinvertv_ex_ft = Option<
     extern "C" fn(
@@ -2771,49 +2440,19 @@ pub type zinvertv_ex_ft = Option<
     ),
 >;
 pub type sinvertv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type dinvertv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type cinvertv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type zinvertv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type invertv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type sinvscalv_ex_ft = Option<
     extern "C" fn(
@@ -3329,24 +2968,10 @@ pub type xpbyv_ex_vft = Option<
     ),
 >;
 pub type saddv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f32,
-        incx: inc_t,
-        y: *mut f32,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f32, incx: inc_t, y: *mut f32, incy: inc_t),
 >;
 pub type daddv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f64,
-        incx: inc_t,
-        y: *mut f64,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f64, incx: inc_t, y: *mut f64, incy: inc_t),
 >;
 pub type caddv_ft = Option<
     extern "C" fn(
@@ -3419,24 +3044,10 @@ pub type addv_vft = Option<
     ),
 >;
 pub type scopyv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f32,
-        incx: inc_t,
-        y: *mut f32,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f32, incx: inc_t, y: *mut f32, incy: inc_t),
 >;
 pub type dcopyv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f64,
-        incx: inc_t,
-        y: *mut f64,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f64, incx: inc_t, y: *mut f64, incy: inc_t),
 >;
 pub type ccopyv_ft = Option<
     extern "C" fn(
@@ -3509,24 +3120,10 @@ pub type copyv_vft = Option<
     ),
 >;
 pub type ssubv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f32,
-        incx: inc_t,
-        y: *mut f32,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f32, incx: inc_t, y: *mut f32, incy: inc_t),
 >;
 pub type dsubv_ft = Option<
-    extern "C" fn(
-        conjx: conj_t,
-        n: dim_t,
-        x: *const f64,
-        incx: inc_t,
-        y: *mut f64,
-        incy: inc_t,
-    ),
+    extern "C" fn(conjx: conj_t, n: dim_t, x: *const f64, incx: inc_t, y: *mut f64, incy: inc_t),
 >;
 pub type csubv_ft = Option<
     extern "C" fn(
@@ -3598,33 +3195,22 @@ pub type subv_vft = Option<
         incy: inc_t,
     ),
 >;
-pub type samaxv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, index: *mut dim_t),
->;
-pub type damaxv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, index: *mut dim_t),
->;
-pub type camaxv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, index: *mut dim_t),
->;
-pub type zamaxv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, index: *mut dim_t),
->;
-pub type samaxv_vft = Option<
-    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t),
->;
-pub type damaxv_vft = Option<
-    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t),
->;
-pub type camaxv_vft = Option<
-    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t),
->;
-pub type zamaxv_vft = Option<
-    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t),
->;
-pub type amaxv_vft = Option<
-    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t),
->;
+pub type samaxv_ft = Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, index: *mut dim_t)>;
+pub type damaxv_ft = Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, index: *mut dim_t)>;
+pub type camaxv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, index: *mut dim_t)>;
+pub type zamaxv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, index: *mut dim_t)>;
+pub type samaxv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t)>;
+pub type damaxv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t)>;
+pub type camaxv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t)>;
+pub type zamaxv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t)>;
+pub type amaxv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, index: *mut dim_t)>;
 pub type saxpbyv_ft = Option<
     extern "C" fn(
         conjx: conj_t,
@@ -4165,35 +3751,19 @@ pub type dotxv_vft = Option<
         rho: *mut c_void,
     ),
 >;
-pub type sinvertv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
-pub type dinvertv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
-pub type cinvertv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
-pub type zinvertv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
-pub type sinvertv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type dinvertv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type cinvertv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type zinvertv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type invertv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type sinvscalv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t),
->;
-pub type dinvscalv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t),
->;
+pub type sinvertv_ft = Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
+pub type dinvertv_ft = Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
+pub type cinvertv_ft = Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
+pub type zinvertv_ft = Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
+pub type sinvertv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type dinvertv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type cinvertv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type zinvertv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type invertv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type sinvscalv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t)>;
+pub type dinvscalv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t)>;
 pub type cinvscalv_ft = Option<
     extern "C" fn(
         conjalpha: conj_t,
@@ -4213,56 +3783,24 @@ pub type zinvscalv_ft = Option<
     ),
 >;
 pub type sinvscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type dinvscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type cinvscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type zinvscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type invscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
-pub type sscalv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t),
->;
-pub type dscalv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t),
->;
+pub type sscalv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t)>;
+pub type dscalv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t)>;
 pub type cscalv_ft = Option<
     extern "C" fn(
         conjalpha: conj_t,
@@ -4282,56 +3820,24 @@ pub type zscalv_ft = Option<
     ),
 >;
 pub type sscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type dscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type cscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type zscalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type scalv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
-pub type ssetv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t),
->;
-pub type dsetv_ft = Option<
-    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t),
->;
+pub type ssetv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f32, x: *mut f32, incx: inc_t)>;
+pub type dsetv_ft =
+    Option<extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const f64, x: *mut f64, incx: inc_t)>;
 pub type csetv_ft = Option<
     extern "C" fn(
         conjalpha: conj_t,
@@ -4351,107 +3857,38 @@ pub type zsetv_ft = Option<
     ),
 >;
 pub type ssetv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type dsetv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type csetv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type zsetv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
 pub type setv_vft = Option<
-    extern "C" fn(
-        conjalpha: conj_t,
-        n: dim_t,
-        alpha: *const c_void,
-        x: *mut c_void,
-        incx: inc_t,
-    ),
+    extern "C" fn(conjalpha: conj_t, n: dim_t, alpha: *const c_void, x: *mut c_void, incx: inc_t),
 >;
-pub type sswapv_ft = Option<
-    extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, y: *mut f32, incy: inc_t),
->;
-pub type dswapv_ft = Option<
-    extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, y: *mut f64, incy: inc_t),
->;
-pub type cswapv_ft = Option<
-    extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t, y: *mut scomplex, incy: inc_t),
->;
-pub type zswapv_ft = Option<
-    extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t, y: *mut dcomplex, incy: inc_t),
->;
-pub type sswapv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        y: *mut c_void,
-        incy: inc_t,
-    ),
->;
-pub type dswapv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        y: *mut c_void,
-        incy: inc_t,
-    ),
->;
-pub type cswapv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        y: *mut c_void,
-        incy: inc_t,
-    ),
->;
-pub type zswapv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        y: *mut c_void,
-        incy: inc_t,
-    ),
->;
-pub type swapv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        y: *mut c_void,
-        incy: inc_t,
-    ),
->;
+pub type sswapv_ft =
+    Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, y: *mut f32, incy: inc_t)>;
+pub type dswapv_ft =
+    Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, y: *mut f64, incy: inc_t)>;
+pub type cswapv_ft =
+    Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t, y: *mut scomplex, incy: inc_t)>;
+pub type zswapv_ft =
+    Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t, y: *mut dcomplex, incy: inc_t)>;
+pub type sswapv_vft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, y: *mut c_void, incy: inc_t)>;
+pub type dswapv_vft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, y: *mut c_void, incy: inc_t)>;
+pub type cswapv_vft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, y: *mut c_void, incy: inc_t)>;
+pub type zswapv_vft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, y: *mut c_void, incy: inc_t)>;
+pub type swapv_vft =
+    Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, y: *mut c_void, incy: inc_t)>;
 pub type sxpbyv_ft = Option<
     extern "C" fn(
         conjx: conj_t,
@@ -6910,94 +6347,31 @@ pub type scal2d_vft = Option<
     ),
 >;
 pub type sinvertd_ft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut f32,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut f32, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type dinvertd_ft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut f64,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut f64, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type cinvertd_ft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut scomplex,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut scomplex, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type zinvertd_ft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut dcomplex,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut dcomplex, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type sinvertd_vft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut c_void,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut c_void, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type dinvertd_vft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut c_void,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut c_void, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type cinvertd_vft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut c_void,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut c_void, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type zinvertd_vft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut c_void,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut c_void, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type invertd_vft = Option<
-    extern "C" fn(
-        diagoffx: doff_t,
-        m: dim_t,
-        n: dim_t,
-        x: *mut c_void,
-        rs_x: inc_t,
-        cs_x: inc_t,
-    ),
+    extern "C" fn(diagoffx: doff_t, m: dim_t, n: dim_t, x: *mut c_void, rs_x: inc_t, cs_x: inc_t),
 >;
 pub type sinvscald_ft = Option<
     extern "C" fn(
@@ -18136,22 +17510,10 @@ pub type fprintm_ex_vft = Option<
     ),
 >;
 pub type srandv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f32,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type drandv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f64,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type crandv_ex_ft = Option<
     extern "C" fn(
@@ -18172,67 +17534,25 @@ pub type zrandv_ex_ft = Option<
     ),
 >;
 pub type srandv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type drandv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type crandv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type zrandv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type randv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type srandnv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f32,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type drandnv_ex_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut f64,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type crandnv_ex_ft = Option<
     extern "C" fn(
@@ -18253,49 +17573,19 @@ pub type zrandnv_ex_ft = Option<
     ),
 >;
 pub type srandnv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type drandnv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type crandnv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type zrandnv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type randnv_ex_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *mut c_void,
-        incx: inc_t,
-        cntx: *const cntx_t,
-        rntm: *const rntm_t,
-    ),
+    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t, cntx: *const cntx_t, rntm: *const rntm_t),
 >;
 pub type srandm_ex_ft = Option<
     extern "C" fn(
@@ -18630,385 +17920,124 @@ pub type sumsqv_ex_vft = Option<
         rntm: *const rntm_t,
     ),
 >;
-pub type sasumv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, asum: *mut f32),
->;
-pub type dasumv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, asum: *mut f64),
->;
-pub type casumv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, asum: *mut f32),
->;
-pub type zasumv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, asum: *mut f64),
->;
-pub type sasumv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        asum: *mut c_void,
-    ),
->;
-pub type dasumv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        asum: *mut c_void,
-    ),
->;
-pub type casumv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        asum: *mut c_void,
-    ),
->;
-pub type zasumv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        asum: *mut c_void,
-    ),
->;
-pub type asumv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        asum: *mut c_void,
-    ),
->;
-pub type smkherm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t),
->;
-pub type dmkherm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t),
->;
-pub type cmkherm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type zmkherm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type smkherm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type dmkherm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type cmkherm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type zmkherm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type mkherm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type smksymm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t),
->;
-pub type dmksymm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t),
->;
-pub type cmksymm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type zmksymm_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type smksymm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type dmksymm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type cmksymm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type zmksymm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type mksymm_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type smktrim_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t),
->;
-pub type dmktrim_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t),
->;
-pub type cmktrim_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type zmktrim_ft = Option<
-    extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t),
->;
-pub type smktrim_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type dmktrim_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type cmktrim_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type zmktrim_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type mktrim_vft = Option<
-    extern "C" fn(
-        uploa: uplo_t,
-        m: dim_t,
-        a: *mut c_void,
-        rs_a: inc_t,
-        cs_a: inc_t,
-    ),
->;
-pub type snorm1v_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32),
->;
-pub type dnorm1v_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64),
->;
-pub type cnorm1v_ft = Option<
-    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32),
->;
-pub type znorm1v_ft = Option<
-    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64),
->;
-pub type snorm1v_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type dnorm1v_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type cnorm1v_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type znorm1v_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type norm1v_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type snormfv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32),
->;
-pub type dnormfv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64),
->;
-pub type cnormfv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32),
->;
-pub type znormfv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64),
->;
-pub type snormfv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type dnormfv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type cnormfv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type znormfv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type normfv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type snormiv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32),
->;
-pub type dnormiv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64),
->;
-pub type cnormiv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32),
->;
-pub type znormiv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64),
->;
-pub type snormiv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type dnormiv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type cnormiv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type znormiv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
-pub type normiv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        norm: *mut c_void,
-    ),
->;
+pub type sasumv_ft = Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, asum: *mut f32)>;
+pub type dasumv_ft = Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, asum: *mut f64)>;
+pub type casumv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, asum: *mut f32)>;
+pub type zasumv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, asum: *mut f64)>;
+pub type sasumv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, asum: *mut c_void)>;
+pub type dasumv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, asum: *mut c_void)>;
+pub type casumv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, asum: *mut c_void)>;
+pub type zasumv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, asum: *mut c_void)>;
+pub type asumv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, asum: *mut c_void)>;
+pub type smkherm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmkherm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmkherm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmkherm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type smkherm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmkherm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmkherm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmkherm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type mkherm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type smksymm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmksymm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmksymm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmksymm_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type smksymm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmksymm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmksymm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmksymm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type mksymm_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type smktrim_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f32, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmktrim_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut f64, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmktrim_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut scomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmktrim_ft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut dcomplex, rs_a: inc_t, cs_a: inc_t)>;
+pub type smktrim_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type dmktrim_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type cmktrim_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type zmktrim_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type mktrim_vft =
+    Option<extern "C" fn(uploa: uplo_t, m: dim_t, a: *mut c_void, rs_a: inc_t, cs_a: inc_t)>;
+pub type snorm1v_ft = Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32)>;
+pub type dnorm1v_ft = Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64)>;
+pub type cnorm1v_ft =
+    Option<extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32)>;
+pub type znorm1v_ft =
+    Option<extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64)>;
+pub type snorm1v_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type dnorm1v_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type cnorm1v_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type znorm1v_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type norm1v_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type snormfv_ft = Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32)>;
+pub type dnormfv_ft = Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64)>;
+pub type cnormfv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32)>;
+pub type znormfv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64)>;
+pub type snormfv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type dnormfv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type cnormfv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type znormfv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type normfv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type snormiv_ft = Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, norm: *mut f32)>;
+pub type dnormiv_ft = Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, norm: *mut f64)>;
+pub type cnormiv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, norm: *mut f32)>;
+pub type znormiv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, norm: *mut f64)>;
+pub type snormiv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type dnormiv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type cnormiv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type znormiv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
+pub type normiv_vft =
+    Option<extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, norm: *mut c_void)>;
 pub type snorm1m_ft = Option<
     extern "C" fn(
         diagoffx: doff_t,
@@ -19576,52 +18605,24 @@ pub type fprintm_vft = Option<
         s2: *const c_char,
     ),
 >;
-pub type srandv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
-pub type drandv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
-pub type crandv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
-pub type zrandv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
-pub type srandv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type drandv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type crandv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type zrandv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type randv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type srandnv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
-pub type drandnv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
-pub type crandnv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
-pub type zrandnv_ft =
-    Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
-pub type srandnv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type drandnv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type crandnv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type zrandnv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
-pub type randnv_vft = Option<
-    extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t),
->;
+pub type srandv_ft = Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
+pub type drandv_ft = Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
+pub type crandv_ft = Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
+pub type zrandv_ft = Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
+pub type srandv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type drandv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type crandv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type zrandv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type randv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type srandnv_ft = Option<extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t)>;
+pub type drandnv_ft = Option<extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t)>;
+pub type crandnv_ft = Option<extern "C" fn(n: dim_t, x: *mut scomplex, incx: inc_t)>;
+pub type zrandnv_ft = Option<extern "C" fn(n: dim_t, x: *mut dcomplex, incx: inc_t)>;
+pub type srandnv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type drandnv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type crandnv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type zrandnv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
+pub type randnv_vft = Option<extern "C" fn(n: dim_t, x: *mut c_void, incx: inc_t)>;
 pub type srandm_ft = Option<
     extern "C" fn(
         diagoffx: doff_t,
@@ -19820,137 +18821,51 @@ pub type randnm_vft = Option<
         cs_x: inc_t,
     ),
 >;
-pub type ssumsqv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, scale: *mut f32, sumsq: *mut f32),
->;
-pub type dsumsqv_ft = Option<
-    extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, scale: *mut f64, sumsq: *mut f64),
->;
+pub type ssumsqv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const f32, incx: inc_t, scale: *mut f32, sumsq: *mut f32)>;
+pub type dsumsqv_ft =
+    Option<extern "C" fn(n: dim_t, x: *const f64, incx: inc_t, scale: *mut f64, sumsq: *mut f64)>;
 pub type csumsqv_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const scomplex,
-        incx: inc_t,
-        scale: *mut f32,
-        sumsq: *mut f32,
-    ),
+    extern "C" fn(n: dim_t, x: *const scomplex, incx: inc_t, scale: *mut f32, sumsq: *mut f32),
 >;
 pub type zsumsqv_ft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const dcomplex,
-        incx: inc_t,
-        scale: *mut f64,
-        sumsq: *mut f64,
-    ),
+    extern "C" fn(n: dim_t, x: *const dcomplex, incx: inc_t, scale: *mut f64, sumsq: *mut f64),
 >;
 pub type ssumsqv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        scale: *mut c_void,
-        sumsq: *mut c_void,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, scale: *mut c_void, sumsq: *mut c_void),
 >;
 pub type dsumsqv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        scale: *mut c_void,
-        sumsq: *mut c_void,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, scale: *mut c_void, sumsq: *mut c_void),
 >;
 pub type csumsqv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        scale: *mut c_void,
-        sumsq: *mut c_void,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, scale: *mut c_void, sumsq: *mut c_void),
 >;
 pub type zsumsqv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        scale: *mut c_void,
-        sumsq: *mut c_void,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, scale: *mut c_void, sumsq: *mut c_void),
 >;
 pub type sumsqv_vft = Option<
-    extern "C" fn(
-        n: dim_t,
-        x: *const c_void,
-        incx: inc_t,
-        scale: *mut c_void,
-        sumsq: *mut c_void,
-    ),
+    extern "C" fn(n: dim_t, x: *const c_void, incx: inc_t, scale: *mut c_void, sumsq: *mut c_void),
 >;
-pub type seqsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *const f32, is: *mut bool),
->;
-pub type deqsc_ft = Option<
-    extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *const f64, is: *mut bool),
->;
+pub type seqsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const f32, psi: *const f32, is: *mut bool)>;
+pub type deqsc_ft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const f64, psi: *const f64, is: *mut bool)>;
 pub type ceqsc_ft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const scomplex,
-        psi: *const scomplex,
-        is: *mut bool,
-    ),
+    extern "C" fn(conjchi: conj_t, chi: *const scomplex, psi: *const scomplex, is: *mut bool),
 >;
 pub type zeqsc_ft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const dcomplex,
-        psi: *const dcomplex,
-        is: *mut bool,
-    ),
+    extern "C" fn(conjchi: conj_t, chi: *const dcomplex, psi: *const dcomplex, is: *mut bool),
 >;
-pub type seqsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type deqsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type ceqsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type zeqsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type eqsc_vft = Option<
-    extern "C" fn(
-        conjchi: conj_t,
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
+pub type seqsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type deqsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type ceqsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type zeqsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type eqsc_vft =
+    Option<extern "C" fn(conjchi: conj_t, chi: *const c_void, psi: *const c_void, is: *mut bool)>;
 pub type seqv_ft = Option<
     extern "C" fn(
         conjx: conj_t,
@@ -20203,186 +19118,50 @@ pub type eqm_vft = Option<
         is: *mut bool,
     ),
 >;
-pub type sltsc_ft =
-    Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
-pub type dltsc_ft =
-    Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
-pub type cltsc_ft = Option<
-    extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool),
->;
-pub type zltsc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool),
->;
-pub type sltsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type dltsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type cltsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type zltsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type ltsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type slesc_ft =
-    Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
-pub type dlesc_ft =
-    Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
-pub type clesc_ft = Option<
-    extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool),
->;
-pub type zlesc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool),
->;
-pub type slesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type dlesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type clesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type zlesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type lesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type sgtsc_ft =
-    Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
-pub type dgtsc_ft =
-    Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
-pub type cgtsc_ft = Option<
-    extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool),
->;
-pub type zgtsc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool),
->;
-pub type sgtsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type dgtsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type cgtsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type zgtsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type gtsc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type sgesc_ft =
-    Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
-pub type dgesc_ft =
-    Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
-pub type cgesc_ft = Option<
-    extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool),
->;
-pub type zgesc_ft = Option<
-    extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool),
->;
-pub type sgesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type dgesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type cgesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type zgesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
-pub type gesc_vft = Option<
-    extern "C" fn(
-        chi: *const c_void,
-        psi: *const c_void,
-        is: *mut bool,
-    ),
->;
+pub type sltsc_ft = Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
+pub type dltsc_ft = Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
+pub type cltsc_ft =
+    Option<extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool)>;
+pub type zltsc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool)>;
+pub type sltsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type dltsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type cltsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type zltsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type ltsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type slesc_ft = Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
+pub type dlesc_ft = Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
+pub type clesc_ft =
+    Option<extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool)>;
+pub type zlesc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool)>;
+pub type slesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type dlesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type clesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type zlesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type lesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type sgtsc_ft = Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
+pub type dgtsc_ft = Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
+pub type cgtsc_ft =
+    Option<extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool)>;
+pub type zgtsc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool)>;
+pub type sgtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type dgtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type cgtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type zgtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type gtsc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type sgesc_ft = Option<extern "C" fn(chi: *const f32, psi: *const f32, is: *mut bool)>;
+pub type dgesc_ft = Option<extern "C" fn(chi: *const f64, psi: *const f64, is: *mut bool)>;
+pub type cgesc_ft =
+    Option<extern "C" fn(chi: *const scomplex, psi: *const scomplex, is: *mut bool)>;
+pub type zgesc_ft =
+    Option<extern "C" fn(chi: *const dcomplex, psi: *const dcomplex, is: *mut bool)>;
+pub type sgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type dgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type cgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type zgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
+pub type gesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum CBLAS_ORDER {
@@ -20414,6 +19193,3 @@ pub enum CBLAS_SIDE {
     CblasLeft = 141,
     CblasRight = 142,
 }
-
-
-    

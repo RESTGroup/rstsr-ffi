@@ -1,0 +1,1 @@
+../../../rstsr-lapack-ffi/src/lapack/dyload_initializer.rs
