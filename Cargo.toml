@@ -4,6 +4,7 @@ members = [
     "rstsr-lapack-ffi",
     "rstsr-openblas-ffi",
     "rstsr-mkl-ffi",
+    "rstsr-blis-ffi",
 ]
 
 [workspace.package]
