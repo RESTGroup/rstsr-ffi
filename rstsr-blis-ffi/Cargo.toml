@@ -11,7 +11,7 @@ categories.workspace = true
 license.workspace = true
 
 [dependencies]
-rstsr-lapack-ffi = { workspace = true }
+rstsr-lapack-ffi = { workspace = true, features = ["cblas"] }
 libloading = { workspace = true }
 half = { workspace = true }
 num = { workspace = true }

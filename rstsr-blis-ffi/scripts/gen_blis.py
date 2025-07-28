@@ -95,7 +95,7 @@ dir_relative = "blis_x86_64"
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, string in [
-    ("ffi_base", files_split["ffi_base"]),
+    ("ffi_base_template", files_split["ffi_base"]), # ffi_base needs to be manually modified for CBLAS
     ("ffi_extern", files_split["ffi_extern"]),
     ("dyload_initializer", files_split["dyload_initializer"]),
     ("dyload_struct", files_split["dyload_struct"]),
