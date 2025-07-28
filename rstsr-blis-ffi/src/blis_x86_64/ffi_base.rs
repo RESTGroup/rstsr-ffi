@@ -19162,34 +19162,3 @@ pub type dgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void
 pub type cgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
 pub type zgesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
 pub type gesc_vft = Option<extern "C" fn(chi: *const c_void, psi: *const c_void, is: *mut bool)>;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_ORDER {
-    CblasRowMajor = 101,
-    CblasColMajor = 102,
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_TRANSPOSE {
-    CblasNoTrans = 111,
-    CblasTrans = 112,
-    CblasConjTrans = 113,
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_UPLO {
-    CblasUpper = 121,
-    CblasLower = 122,
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_DIAG {
-    CblasNonUnit = 131,
-    CblasUnit = 132,
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_SIDE {
-    CblasLeft = 141,
-    CblasRight = 142,
-}
