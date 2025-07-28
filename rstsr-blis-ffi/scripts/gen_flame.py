@@ -12,7 +12,7 @@
 #     name: python3
 # ---
 
-# # Bindgen of BLIS (blis.h)
+# # Bindgen of FLAME (FLAME.h)
 
 import subprocess
 import os
@@ -55,8 +55,8 @@ os.chdir(path_temp)
 
 subprocess.run([
     "bindgen",
-    "blis.h", "-o", "blis.rs",
-    "--allowlist-file", "blis.h",
+    "FLAME.h", "-o", "flame.rs",
+    "--allowlist-file", "FLAME.h",
     "--default-enum-style", "rust",
     "--no-layout-tests",
     "--use-core",
@@ -70,27 +70,15 @@ subprocess.run([
 # - remove all type definitions, and use that of `crate::mkl_types`;
 # - exclude all upper-case functions, and add fn alias;
 
-with open("blis.rs", "r") as f:
-    token_lines = f.readlines()
-
-# +
-token = """
-pub use crate::blis_types::*;
-
-"""
-
-for l in token_lines:
-    if "BLIS_INT_TYPE_SIZE" in l: continue
-    if "pub type f77_int" in l: continue
-    token += l
-# -
+with open("flame.rs", "r") as f:
+    token = f.read()
 
 token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 files_split = util_dyload.dyload_main(token)
 
 # +
-dir_relative = "blis_x86_64"
+dir_relative = "flame"
 
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)

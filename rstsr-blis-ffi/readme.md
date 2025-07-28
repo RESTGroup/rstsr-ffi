@@ -18,14 +18,17 @@ This crate is not official bindgen project. It is originally intended to serve r
 - **Audience**: Anyone uses BLIS function may also find it useful, not only RSTSR or REST program developers.
 - **Pure Extern or Dynamic Loading**: This crate supports either pure extern (usual FFI, requires dynamic or static linking) and dynamic-loading, by cargo feature `dynamic_loading`.
 
-## Configuration of BLIS header
+## Configuration of BLIS/FLAME header
 
-BLIS header, used in this project, is not directly obtained from BLIS repository, but from the installed library.
+BLIS/FLAME header, used in this project, is not directly obtained from BLIS repository, but from the installed library.
 
 The header file for x86_64 architectures is obtained by
 
 ```bash
+# BLIS
 ./configure --enable-shared --enable-cblas --enable-blas --enable-threading=openmp,pthread x86_64
+# FLAME
+LDFLAGS=-L<blis_dir> LIBS=-lblis ./configure --enable-dynamic-build --enable-lapack2flame
 ```
 
 ## Dynamic loading
@@ -34,7 +37,7 @@ This crate supports dynamic loading by default.
 
 If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
 
-The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_BLIS` to the dynamic library path.
+The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_BLIS`, `RSTSR_DYLOAD_FLAME` to the dynamic library path.
 
 **NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_blis_ffi::blis`, `rstsr_blis_ffi::lapack`. Sticking to using `rstsr_blis_ffi` will make sure you are calling BLAS and LAPACK functions from BLIS, instead of other BLAS vendors.
 
@@ -52,12 +55,16 @@ Default features:
 
 - `dynamic_loading`: Supports dynamic loading.
 - `lapack`: Include LAPACK bindgens.
+- `x86_64`: Use bindgen generated from x86_64 (not necessarily meaning arm64 could not use most functions in x86_64 bindgen, but arm64 will not able to use much lower-level ASM functions).
 
 Optional features:
 
 - `ilp64`: Use `int64_t` for dimension specification, or lapack error code types if this feature specified. Otherwise, use `int32_t`.
     - Please note that in module `blas`, error code is returned by `c_int`; in module `cblas`, BLIS utility functions use `c_int` for input or output.
-- `lapacke`: Include LAPACKE bindgens.
+- `flame`: Include FLAME bindgens.
+
+Mutually exclusive features:
+- `flame` and `ilp64`: We found that FLAME must be compiled with `int` of C, which is `lp64` exclusive. Also use `ilp64` carefully in BLIS and lapack.
 
 ## Crate structure
 

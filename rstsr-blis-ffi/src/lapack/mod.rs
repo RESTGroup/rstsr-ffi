@@ -1,0 +1,1 @@
+../../../rstsr-lapack-ffi/src/lapack/mod_template.rs
