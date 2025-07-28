@@ -74,6 +74,7 @@ with open("flame.rs", "r") as f:
     token = f.read()
 
 token = token.replace("::core::ffi::", "").replace("::core::option::", "")
+token = """pub(crate) use crate::blis_types::*;\n\n""" + token
 
 files_split = util_dyload.dyload_main(token)
 
