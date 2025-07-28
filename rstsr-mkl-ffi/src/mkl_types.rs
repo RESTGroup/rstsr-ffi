@@ -24,6 +24,10 @@ mod mode_lp64 {
 #[cfg(not(feature = "ilp64"))]
 pub use mode_lp64::*;
 
+// compatibility of BLAS FFIs
+pub use MKL_INT as blas_int;
+pub use MKL_INT as lapack_int;
+
 pub type MKL_INT8 = i8;
 pub type MKL_UINT8 = u8;
 pub type MKL_INT16 = i16;

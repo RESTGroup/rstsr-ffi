@@ -68,6 +68,10 @@ Optional features:
 
 ## Changelog
 
+- v0.1.1
+
+    - **Fix**: Add compatibility of definition of `blas_int` and `lapack_int`.
+
 - v0.1.0
 
-    **Initialize**: Added blas, cblas, lapack, lapacke bindgens.
+    - **Initialize**: Added blas, cblas, lapack, lapacke bindgens.
