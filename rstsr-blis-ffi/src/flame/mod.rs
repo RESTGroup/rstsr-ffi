@@ -16,6 +16,7 @@ pub const LIB_NAME_LINK: &str = "flame"; // for linking, e.g. "mkl_rt"
 #[cfg(feature = "dynamic_loading")]
 mod dynamic_loading_specific {
     use super::*;
+    use crate::blis_types::BLIS_INT_TYPE_SIZE;
     use libloading::Library;
     use std::fmt::Debug;
     use std::sync::OnceLock;

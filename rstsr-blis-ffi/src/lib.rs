@@ -27,5 +27,5 @@ pub mod lapack;
 #[cfg(feature = "flame")]
 pub mod flame;
 
-#[cfg(all(feature = "flame", feature = "ilp64"))]
+#[cfg(all(not(clippy), feature = "flame", feature = "ilp64"))]
 compile_error!("Feature `flame` and `ilp64` are mutually exclusive, please disable one of them.");
