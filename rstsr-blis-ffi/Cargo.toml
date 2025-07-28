@@ -1,0 +1,30 @@
+[package]
+name = "rstsr-blis-ffi"
+version = "0.1.0"
+description = "BLIS and FLAME FFI bindings"
+readme = "readme.md"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+
+[dependencies]
+rstsr-lapack-ffi = { workspace = true, optional = true }
+libloading = { workspace = true }
+half = { workspace = true }
+num = { workspace = true }
+
+[features]
+default = ["blas", "cblas", "lapack", "dynamic_loading", "x86_64"]
+
+ilp64 = []
+dynamic_loading = []
+
+blas = []
+cblas = ["dep:rstsr-lapack-ffi", "rstsr-lapack-ffi/cblas"]
+lapack = []
+lapacke = []
+
+x86_64 = []
