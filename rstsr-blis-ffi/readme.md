@@ -1,6 +1,6 @@
-# Intel BLIS (FLAME framework) FFI bindings
+# BLIS (FLAME framework) FFI bindings
 
-This crate contains Intel BLIS (Math Kernel Library) FFI bindings.
+This crate contains BLIS (Math Kernel Library) FFI bindings.
 
 Current FFI version is [BLIS v2.0](https://github.com/flame/blis/releases/tag/2.0). If you are using an older version of BLIS, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
 
@@ -11,7 +11,7 @@ Current FFI version is [BLIS v2.0](https://github.com/flame/blis/releases/tag/2.
 > - file an issue to let us know some other architecture is required,
 > - use `blis-sys` crate for usual extern FFIs (without dynamic loading).
 
-Intel BLIS is freely distributed in binary (along with header), not source code. Please note the license of oneAPI (Intel Simplified Software License) is not fully free software.
+BLIS is freely distributed in binary (along with header), not source code. Please note the license of oneAPI (Intel Simplified Software License) is not fully free software.
 
 This crate is not official bindgen project. It is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest).
 
