@@ -77,3 +77,9 @@ Mutually exclusive features:
     - `dyload_initializer.rs`: The initialization function of `Lib` for dynamic loading.
     - `dyload_compatible.rs`: Unsafe bindgen function that is compatible to that of `ffi_extern.rs`. Only activated when dynamic loading.
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
+
+## Changelog
+
+- v0.1.1
+
+    - **API Breaking**: Change CBLAS enum definition to crate `rstsr-cblas-base`.
