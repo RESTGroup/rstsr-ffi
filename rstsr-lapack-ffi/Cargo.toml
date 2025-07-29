@@ -11,13 +11,15 @@ categories.workspace = true
 license.workspace = true
 
 [dependencies]
-libloading = { workspace = true }
+rstsr-cblas-base = { workspace = true }
+libloading = { workspace = true, optional = true }
 
 [features]
 default = ["blas", "cblas", "lapack", "dynamic_loading"]
 
-ilp64 = []
-dynamic_loading = []
+ilp64 = ["rstsr-cblas-base/ilp64"]
+lp64_as_int = ["rstsr-cblas-base/lp64_as_int"]
+dynamic_loading = ["dep:libloading"]
 
 blas = []
 cblas = []
