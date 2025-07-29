@@ -7,6 +7,7 @@
 import subprocess
 import os
 import shutil
+import re
 
 import sys
 sys.path.append("../..")
@@ -104,23 +105,9 @@ token = token.replace("pub type xdouble = f64;", "")
 token = token.replace("pub type blas_int = ::core::ffi::c_int;", "")
 
 # +
-# remove somehow redundant code
-
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
-
-# +
 # add headers
 
 token = """
-pub(crate) use core::ffi::{c_char, c_void, c_int};
-
-#[cfg(not(feature = "ilp64"))]
-pub type blas_int = i32;
-#[cfg(feature = "ilp64")]
-pub type blas_int = i64;
 
 #[cfg(all(feature = "quad_precision", not(feature = "ex_precision")))]
 #[repr(C)]
@@ -147,6 +134,17 @@ pub struct xdouble {
 pub struct xdouble {
     pub _phantom: (),
 }
+""" + "\n\n" + token
+
+# +
+# remove somehow redundant code
+
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
+
+token = """
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
+
 """ + "\n\n" + token
 # -
 
@@ -203,23 +201,23 @@ token = token.replace("blasint", "blas_int")
 token = token.replace("pub type blas_int = ::core::ffi::c_int;", "")
 
 # +
-# remove somehow redundant code
+# remove CBLAS enums
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
 
 # +
-# add headers
+# remove somehow redundant code
+
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-pub(crate) use core::ffi::{c_char, c_void, c_int};
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type blas_int = i32;
-#[cfg(feature = "ilp64")]
-pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -242,8 +240,6 @@ shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, item in util_dyload.dyload_main(token, token_extra).items():
     # ffi_base should be handled manually, so copy to ffi_base_template.rs
-    if key == "ffi_base":
-        key = "ffi_base_template"
     with open(f"{dir_relative}/{key}.rs", "w") as f:
         f.write(item)
 # -
@@ -255,6 +251,4 @@ for name in ["blas", "cblas"]:
 
 # ## Cargo fmt
 
-os.chdir(path_out)
-
-subprocess.run(["cargo", "fmt"])
+subprocess.run(["cargo", "fmt", "-p", "rstsr-openblas-ffi"])

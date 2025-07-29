@@ -4,12 +4,8 @@
 //!
 //! This file is generated automatically.
 
-pub(crate) use core::ffi::{c_char, c_int, c_void};
-
-#[cfg(not(feature = "ilp64"))]
-pub type blas_int = i32;
-#[cfg(feature = "ilp64")]
-pub type blas_int = i64;
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
 #[cfg(all(feature = "quad_precision", not(feature = "ex_precision")))]
 #[repr(C)]

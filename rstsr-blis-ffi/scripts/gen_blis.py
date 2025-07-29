@@ -17,6 +17,7 @@
 import subprocess
 import os
 import shutil
+import re
 from tree_sitter import Language, Parser
 import tree_sitter_rust
 
@@ -87,6 +88,17 @@ for l in token_lines:
 
 token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
+# +
+# remove CBLAS enums
+
+token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_ORDER {[^#]*?}", "", token)
+# -
+
 files_split = util_dyload.dyload_main(token)
 
 # +
@@ -95,7 +107,7 @@ dir_relative = "blis_x86_64"
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, string in [
-    ("ffi_base_template", files_split["ffi_base"]), # ffi_base needs to be manually modified for CBLAS
+    ("ffi_base", files_split["ffi_base"]),
     ("ffi_extern", files_split["ffi_extern"]),
     ("dyload_initializer", files_split["dyload_initializer"]),
     ("dyload_struct", files_split["dyload_struct"]),

@@ -1,25 +1,9 @@
 pub(crate) use core::ffi::*;
-
-#[cfg(feature = "ilp64")]
-mod mode_ilp64 {
-    pub const BLIS_INT_TYPE_SIZE: u32 = 64;
-    pub type f77_int = i64;
-}
-#[cfg(feature = "ilp64")]
-pub use mode_ilp64::*;
+pub use rstsr_cblas_base::*;
 
 #[cfg(not(feature = "ilp64"))]
-mod mode_lp64 {
-    pub const BLIS_INT_TYPE_SIZE: u32 = 32;
-    pub type f77_int = i32;
-}
-#[cfg(not(feature = "ilp64"))]
-pub use mode_lp64::*;
+pub const BLIS_INT_TYPE_SIZE: u32 = 32;
+#[cfg(feature = "ilp64")]
+pub const BLIS_INT_TYPE_SIZE: u32 = 64;
 
-pub type blas_int = f77_int;
-pub type lapack_int = f77_int;
-
-pub use rstsr_lapack_ffi::cblas::{
-    CBLAS_DIAG, CBLAS_LAYOUT, CBLAS_SIDE, CBLAS_TRANSPOSE, CBLAS_UPLO,
-};
-pub use CBLAS_LAYOUT as CBLAS_ORDER;
+pub use blas_int as f77_int;
