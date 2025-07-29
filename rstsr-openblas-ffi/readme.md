@@ -62,7 +62,7 @@ Optional features:
 
 ## Changelog
 
-- v0.4.2
+- v0.4.3
 
     - **API Breaking**: Change CBLAS enum definition to crate `rstsr-cblas-base`.
 

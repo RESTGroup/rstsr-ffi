@@ -38,11 +38,3 @@ pub type openblas_threads_callback = Option<
         dojob_data: c_int,
     ),
 >;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_ORDER {
-    CblasRowMajor = 101,
-    CblasColMajor = 102,
-}
-
-pub use self::CBLAS_ORDER as CBLAS_LAYOUT;
