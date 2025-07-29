@@ -38,6 +38,9 @@ mod dynamic_loading_specific {
             format!("{DLL_PREFIX}blis_{BLIS_INT_TYPE_SIZE}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blis-{BLIS_INT_TYPE_SIZE}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}blis{DLL_SUFFIX}"),
+            // AOCL-BLIS convention (should use with caution, since AOCL is not BLIS)
+            format!("{DLL_PREFIX}blis-mt{DLL_SUFFIX}"),
+            format!("{DLL_PREFIX}blis_mt{DLL_SUFFIX}"),
         ]);
         candidates
     }
