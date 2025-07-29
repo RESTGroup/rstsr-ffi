@@ -1,8 +1,10 @@
 /* The following part is manually handled */
 
-pub(crate) use core::ffi::{c_char, c_int, c_uchar, c_void};
+pub(crate) use core::ffi::*;
 pub(crate) use half::{bf16, f16};
 pub(crate) use num::complex::Complex;
+
+pub use rstsr_cblas_base::*;
 
 #[cfg(feature = "ilp64")]
 mod mode_ilp64 {
@@ -13,20 +15,27 @@ mod mode_ilp64 {
 #[cfg(feature = "ilp64")]
 pub use mode_ilp64::*;
 
-#[cfg(not(feature = "ilp64"))]
-mod mode_lp64 {
+#[cfg(all(not(feature = "ilp64"), feature = "lp64_as_int"))]
+mod mode_lp64_as_int {
     use core::ffi::{c_int, c_long, c_uint};
 
     pub type MKL_INT = c_int;
     pub type MKL_UINT = c_uint;
     pub type MKL_LONG = c_long;
 }
-#[cfg(not(feature = "ilp64"))]
-pub use mode_lp64::*;
+#[cfg(all(not(feature = "ilp64"), feature = "lp64_as_int"))]
+pub use mode_lp64_as_int::*;
 
-// compatibility of BLAS FFIs
-pub use MKL_INT as blas_int;
-pub use MKL_INT as lapack_int;
+#[cfg(all(not(feature = "ilp64"), not(feature = "lp64_as_int")))]
+mod mode_lp64 {
+    use core::ffi::c_long;
+
+    pub type MKL_INT = i32;
+    pub type MKL_UINT = u32;
+    pub type MKL_LONG = c_long;
+}
+#[cfg(all(not(feature = "ilp64"), not(feature = "lp64_as_int")))]
+pub use mode_lp64::*;
 
 pub type MKL_INT8 = i8;
 pub type MKL_UINT8 = u8;

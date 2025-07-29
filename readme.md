@@ -8,9 +8,11 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 
 | crate | crate version | FFI library | FFI version |
 |--|--|--|--|
-| rstsr-lapack-ffi | v0.4.0 | Reference LAPACK | v3.12.1 |
-| rstsr-openblas-ffi | v0.4.1 | OpenBLAS | v0.3.30 |
-| rstsr-mkl-ffi | v0.1.1 | Intel oneAPI MKL | 2025.2 |
+| rstsr-cblas-base | [![Crate](https://img.shields.io/crates/v/rstsr-cblas-base.svg)](https://crates.io/crates/rstsr-cblas-base) |
+| rstsr-lapack-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-lapack-ffi.svg)](https://crates.io/crates/rstsr-lapack-ffi) | [Reference LAPACK](https://github.com/Reference-LAPACK/lapack) | v3.12.1 |
+| rstsr-openblas-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-openblas-ffi.svg)](https://crates.io/crates/rstsr-openblas-ffi) | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS/) | v0.3.30 |
+| rstsr-mkl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-mkl-ffi.svg)](https://crates.io/crates/rstsr-mkl-ffi) | Intel oneAPI MKL | 2025.2 |
+| rstsr-blis-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-blis-ffi.svg)](https://crates.io/crates/rstsr-blis-ffi) | [BLIS](https://github.com/flame/blis), [FLAME](https://github.com/flame/libflame) | v2.0 |
 
 ## Motivation
 

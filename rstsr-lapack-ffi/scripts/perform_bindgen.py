@@ -7,6 +7,7 @@
 import subprocess
 import os
 import shutil
+import re
 
 import sys
 sys.path.append("../..")
@@ -120,19 +121,12 @@ token = token.replace("pub type blas_int = i32;", "")
 # +
 # remove somehow redundant code
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-#![allow(non_camel_case_types)]
-pub(crate) use core::ffi::{c_char, c_void};
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type blas_int = i32;
-#[cfg(feature = "ilp64")]
-pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -198,20 +192,23 @@ token = token.replace("CBLAS_INT", "blas_int")
 token = token.replace("pub type blas_int = i32;", "")
 
 # +
+# remove CBLAS enums
+
+token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+
+# +
 # remove somehow redundant code
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-pub(crate) use core::ffi::{c_char, c_void};
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type blas_int = i32;
-#[cfg(feature = "ilp64")]
-pub type blas_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -271,18 +268,12 @@ token = "\n".join([i for i in token.split("\n") if "LAPACK_IFMT" not in i])
 # +
 # remove somehow redundant code
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-pub(crate) use core::ffi::c_char;
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type lapack_int = i32;
-#[cfg(feature = "ilp64")]
-pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -335,18 +326,12 @@ token = token.replace("ERROR: i32", "ERROR: lapack_int")
 # +
 # remove somehow redundant code
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-pub(crate) use core::ffi::{c_char, c_int};
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type lapack_int = i32;
-#[cfg(feature = "ilp64")]
-pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -397,18 +382,12 @@ token = token.replace("pub type lapack_int = i32;", "")
 # +
 # remove somehow redundant code
 
-token = token.replace("::core::ffi::c_char", "c_char")
-token = token.replace("::core::ffi::c_void", "c_void")
-token = token.replace("::core::ffi::c_int", "c_int")
-token = token.replace("::core::option::Option", "Option")
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
 
 token = """
-pub(crate) use core::ffi::{c_char, c_int};
+pub(crate) use core::ffi::*;
+pub use rstsr_cblas_base::*;
 
-#[cfg(not(feature = "ilp64"))]
-pub type lapack_int = i32;
-#[cfg(feature = "ilp64")]
-pub type lapack_int = i64;
 """ + "\n\n" + token
 # -
 
@@ -431,6 +410,4 @@ for name in ["blas", "cblas", "lapack", "lapacke", "lapacke_utils"]:
 
 # ## Cargo fmt
 
-os.chdir(path_out)
-
-subprocess.run(["cargo", "fmt"])
+subprocess.run(["cargo", "fmt", "-p", "rstsr-lapack-ffi"])

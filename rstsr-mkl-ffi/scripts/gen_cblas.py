@@ -3,6 +3,7 @@
 import subprocess
 import os
 import shutil
+import re
 from tree_sitter import Language, Parser
 import tree_sitter_rust
 
@@ -73,34 +74,28 @@ tree = parser.parse(bytes(token.replace("unsafe extern", "extern"), "utf8"))
 node_extern = tree.root_node.children[-1]
 assert(node_extern.type == "foreign_mod_item")
 
-token = "unsafe " + node_extern.text.decode().replace("::core::ffi::", "").replace("::core::option::", "")
+# +
+# remove somehow redundant code
+
+token = token.replace("::core::ffi::", "").replace("::core::option::", "")
+
+token = """
+pub use crate::mkl_types::*;
+
+""" + "\n\n" + token
 
 # +
+# remove CBLAS enums
+
+token = token.replace("pub use self::CBLAS_LAYOUT as CBLAS_ORDER;", "")
+token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+# -
+
 files_split = util_dyload.dyload_main(token)
-
-ffi_base = files_split["ffi_base"]
-ffi_base += "\n\n"
-ffi_base += "pub use crate::mkl_types::*;";
-ffi_base += """
-pub use rstsr_lapack_ffi::cblas::{
-    CBLAS_DIAG, CBLAS_LAYOUT, CBLAS_SIDE, CBLAS_TRANSPOSE, CBLAS_UPLO,
-};
-pub use CBLAS_LAYOUT as CBLAS_ORDER;
-
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_IDENTIFIER {
-    CblasAMatrix = 161,
-    CblasBMatrix = 162,
-}
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CBLAS_OFFSET {
-    CblasRowOffset = 171,
-    CblasColOffset = 172,
-    CblasFixOffset = 173,
-}
-""";
 
 # +
 dir_relative = "cblas"
@@ -108,7 +103,7 @@ dir_relative = "cblas"
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, string in [
-    ("ffi_base", ffi_base),
+    ("ffi_base", files_split["ffi_base"]),
     ("ffi_extern", files_split["ffi_extern"]),
     ("dyload_initializer", files_split["dyload_initializer"]),
     ("dyload_struct", files_split["dyload_struct"]),

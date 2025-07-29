@@ -62,6 +62,10 @@ Optional features:
 
 ## Changelog
 
+- v0.4.2
+
+    - **API Breaking**: Change CBLAS enum definition to crate `rstsr-cblas-base`.
+
 - v0.4.1
 
     - **Minor fix**: fixed error printing of module information.

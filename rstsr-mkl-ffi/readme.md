@@ -65,6 +65,10 @@ Optional features:
 
 ## Changelog
 
+- v0.1.2
+
+    - **API Breaking**: Change CBLAS enum definition to crate `rstsr-cblas-base`.
+
 - v0.1.1
 
     - **Fix**: Add compatibility of definition of `blas_int` and `lapack_int`.

@@ -1,0 +1,17 @@
+[package]
+name = "rstsr-cblas-base"
+version = "0.1.0"
+description = "CBLAS enums and blas_int, lapack_int definition"
+readme = "readme.md"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+
+[dependencies]
+
+[features]
+ilp64 = []
+lp64_as_int = []

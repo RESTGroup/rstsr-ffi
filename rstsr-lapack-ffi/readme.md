@@ -66,6 +66,10 @@ Optional features:
 
 ## Changelog
 
+- v0.4.1
+
+    - **API Breaking**: Change CBLAS enum definition to crate `rstsr-cblas-base`.
+
 - v0.4.0
 
     - **API breaking change**: Supports and defaults to dynamic loading.
