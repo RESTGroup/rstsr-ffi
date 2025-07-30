@@ -48,4 +48,17 @@ This project is licensed to Apache v2.
 It should be noted that, this project includes some headers directly copied from other open-source or closed-source libraries. These files should be considered to have its original license. We include these files only for convenience/clarification and for FFI binding generation, but not actually using these files.
 - Netlib (reference) LAPACK: BSD-3-Clause
 - OpenBLAS: BSD-3-Clause
-- oneMKL (of oneAPI): Intel Simplified Software License
+- oneMKL (of oneAPI): Intel Simplified Software License (Version October 2022)
+- BLIS: BSD-3-Clause
+- AOCL: Mostly BSD-3-Clause
+- KML: Kunpeng BoostKit License Agreement 2.0
+
+### Note on licenses
+
+For Apache, BSD-3, or Intel Simplified Software License, it is not so easy to breach license restrictions, if you just use them for academic purpose or efficiency benchmark in the domain of scientific computation.
+
+However, **Kunpeng BoostKit License Agreement is a relatively restrictive license**. Even usual scientific computation user can breach license in some cases, for example:
+- 3.1 Without Huawei's prior written consent, you shall not sell, rent, lend, share, disclose, sublicense, or distribute all or part of the Kunpeng BoostKit to third parties for profit purposes.
+    - Please do not use `rstsr-kml-ffi` for profiting products, unless consented by Huawei.
+- 3.2.7 Disclosing Kunpeng BoostKit-related data, including but not limited to performance evaluation data, without Huawei's written consent;
+    - Do not perform efficiency benchmark with `rstsr-kml-ffi`, unless consented by Huawei.
