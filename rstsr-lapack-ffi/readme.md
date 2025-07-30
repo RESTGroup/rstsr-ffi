@@ -17,11 +17,13 @@ This crate supports dynamic loading by default.
 
 If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
 
-The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variables to the dynamic library path:
-- `RSTSR_DYLOAD_BLAS` for `rstsr_lapack_ffi::blas`;
-- `RSTSR_DYLOAD_CBLAS` for `rstsr_lapack_ffi::cblas`;
-- `RSTSR_DYLOAD_LAPACK` for `rstsr_lapack_ffi::lapack`;
-- `RSTSR_DYLOAD_LAPACKE` for `rstsr_lapack_ffi::lapacke` and `rstsr_lapack_ffi::lapacke_utils`.
+The dynamic loading will try to find proper library when your program initializes.
+- This crate will automatically detect proper libraries, if these libraries are in environmental path `LD_LIBRARY_PATH` (Linux) `DYLD_LIBRARY_PATH` (Mac OS), `PATH` (Windows).
+- If you want to override the library to be loaded, please set these shell environmental variables to the dynamic library path:
+    - `RSTSR_DYLOAD_BLAS` for `rstsr_lapack_ffi::blas`;
+    - `RSTSR_DYLOAD_CBLAS` for `rstsr_lapack_ffi::cblas`;
+    - `RSTSR_DYLOAD_LAPACK` for `rstsr_lapack_ffi::lapack`;
+    - `RSTSR_DYLOAD_LAPACKE` for `rstsr_lapack_ffi::lapacke` and `rstsr_lapack_ffi::lapacke_utils`.
 
 If you encountered large compile time or disk consumption, you may consider add these lines in your Cargo.toml:
 
@@ -65,6 +67,10 @@ Optional features:
     - `dyload_compatible.rs`: Unsafe bindgen function that is compatible to that of `ffi_extern.rs`. Only activated when dynamic loading.
 
 ## Changelog
+
+- v0.4.2
+
+    - **Docs Update**
 
 - v0.4.1
 

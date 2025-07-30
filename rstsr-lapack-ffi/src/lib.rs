@@ -1,3 +1,5 @@
+#![doc = include_str!("../readme.md")]
+
 #[cfg(feature = "blas")]
 pub mod blas;
 #[cfg(feature = "cblas")]

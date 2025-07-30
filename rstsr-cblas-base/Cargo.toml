@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-cblas-base"
-version = "0.1.0"
+version = "0.1.1"
 description = "CBLAS enums and blas_int, lapack_int definition"
 readme = "readme.md"
 

@@ -13,12 +13,13 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 | rstsr-openblas-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-openblas-ffi.svg)](https://crates.io/crates/rstsr-openblas-ffi) | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS/) | v0.3.30 |
 | rstsr-mkl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-mkl-ffi.svg)](https://crates.io/crates/rstsr-mkl-ffi) | Intel oneAPI MKL | 2025.2 |
 | rstsr-blis-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-blis-ffi.svg)](https://crates.io/crates/rstsr-blis-ffi) | [BLIS](https://github.com/flame/blis), [FLAME](https://github.com/flame/libflame) | v2.0 |
+| rstsr-aocl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-aocl-ffi.svg)](https://crates.io/crates/rstsr-aocl-ffi) | [AOCL](https://www.amd.com/en/developer/aocl.html) | v5.1 |
 
 ## Motivation
 
 Motivation of this repository, is that we want some of the following features:
 
-- **Dynamic loading support**. We support either usual FFI (requires library linking) or dynamic loading (load library in runtime) by switching crate feature `dynamic_loading`. Dynamic loading scheme is the default.s
+- **Dynamic loading support**. We support either usual FFI (requires library linking) or dynamic loading (load library in runtime) by switching crate feature `dynamic_loading`. Dynamic loading scheme is the default.
 - **Preprocessor directives support**. This is especially for `ILP64`, where integers can be `int`, `int32_t` or `int64_t`, which will also affect signature in FFI bindings.
 - **Utilities from BLAS distributions**. For example, To use BLAS with proper threading, we may need to use utilities that is written from BLAS distributions, instead of reference (netlib) BLAS.
 - **Additional BLAS extensions**. Many current BLAS implementations have some useful BLAS extensions (such as batched gemm, complex gemm3m, half-precision gemm, i/omatcopy, etc.). Some of these extensions may be essential (more than non-negligible) to efficiency (such as application in machine learning). However, it is difficult (or not very proper) to declare these BLAS extensions in one crate.
