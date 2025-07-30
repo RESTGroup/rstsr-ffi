@@ -12,7 +12,6 @@ pub const BLIS_VERSION_STRING: &[u8; 4] = b"2.0\0";
 pub const BLIS_VERSION_MAJOR: u32 = 2;
 pub const BLIS_VERSION_MINOR: u32 = 0;
 pub const BLIS_VERSION_REVISION: u32 = 0;
-pub const BLIS_BLAS_INT_TYPE_SIZE: u32 = 32;
 pub const _POSIX_C_SOURCE: u32 = 200809;
 pub const BLIS_OS_LINUX: u32 = 1;
 pub const BLIS_CACHE_LINE_SIZE: u32 = 64;

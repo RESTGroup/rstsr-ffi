@@ -82,6 +82,7 @@ pub use crate::blis_types::*;
 
 for l in token_lines:
     if "BLIS_INT_TYPE_SIZE" in l: continue
+    if "BLIS_BLAS_INT_TYPE_SIZE" in l: continue
     if "pub type f77_int" in l: continue
     token += l
 # -
