@@ -25,4 +25,5 @@ dynamic_loading = ["dep:libloading"]
 
 blis = []
 lapack = []
+lapacke = []
 flame = []

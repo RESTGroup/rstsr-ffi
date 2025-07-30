@@ -13,7 +13,9 @@ pub use blis as blas;
 #[cfg(feature = "blis")]
 pub use blis as cblas;
 
-#[cfg(any(feature = "lapack", feature = "flame"))]
+#[cfg(feature = "flame")]
 pub mod flame;
-#[cfg(any(feature = "lapack", feature = "flame"))]
-pub use flame as lapack;
+#[cfg(feature = "lapack")]
+pub mod lapack;
+#[cfg(feature = "lapacke")]
+pub mod lapacke;

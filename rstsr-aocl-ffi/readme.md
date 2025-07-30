@@ -1,35 +1,19 @@
 # AMD Optimizing CPU Libraries FFI bindings
 
-This crate contains BLIS (Math Kernel Library) FFI bindings.
+This crate contains AOCL (AMD Optimizing CPU Libraries) FFI bindings.
 
-Current FFI version is [BLIS v2.0](https://github.com/flame/blis/releases/tag/2.0). If you are using an older version of BLIS, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
+Current FFI version is [AOCL 5.1](https://www.amd.com/en/developer/aocl.html), where codes are available in github organization [amd](https://github.com/amd). If you are using an older version of AOCL, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
 
-> **Architecture Not Complete**: The current bindgen is generated in x86_64. We are planning to generate arm64 in future.
+> **Feature Not Complete**: AOCL is a large collection of math functions. This crate currently only have following bindgens:
+> - blis (for blas, cblas utilities)
+> - flame (for cblas, lapack, lapacke utilities)
 >
-> This crate aims to provide common usage (architecture-independent) of BLIS and FLAME. All architecture-independent functions/constants are actually included in this crate. However, if you are interested in other architectures, you either
-> - do not use architecture-dependent functions,
-> - file an issue to let us know some other architecture is required,
-> - use `blis-sys` crate for usual extern FFIs (without dynamic loading).
-
-BLIS is freely distributed in binary (along with header), not source code. Please note the license of oneAPI (Intel Simplified Software License) is not fully free software.
+> We surely want to perform more bindgens (such as fftw, etc.) in future; but these are not of priority for project REST and RSTSR. If you wish to put these bindgens in this crate, currently you can file an issue, and we will quickly realize the bindgen of other features in AOCL.
 
 This crate is not official bindgen project. It is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest).
 
-- **Audience**: Anyone uses BLIS function may also find it useful, not only RSTSR or REST program developers.
+- **Audience**: Anyone uses AOCL function may also find it useful, not only RSTSR or REST program developers.
 - **Pure Extern or Dynamic Loading**: This crate supports either pure extern (usual FFI, requires dynamic or static linking) and dynamic-loading, by cargo feature `dynamic_loading`.
-
-## Configuration of BLIS/FLAME header
-
-BLIS/FLAME header, used in this project, is not directly obtained from BLIS repository, but from the installed library.
-
-The header file for x86_64 architectures is obtained by
-
-```bash
-# BLIS
-./configure --enable-shared --enable-cblas --enable-blas --enable-threading=openmp,pthread x86_64
-# FLAME
-LDFLAGS=-L<blis_dir> LIBS=-lblis ./configure --enable-dynamic-build --enable-lapack2flame
-```
 
 ## Dynamic loading
 
@@ -37,14 +21,16 @@ This crate supports dynamic loading by default.
 
 If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
 
-The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_BLIS`, `RSTSR_DYLOAD_FLAME` to the dynamic library path.
+The dynamic loading will try to find proper library when your program initializes.
+- This crate will automatically detect proper libraries, if these libraries are in environmental path `LD_LIBRARY_PATH` (Linux) `DYLD_LIBRARY_PATH` (Mac OS), `PATH` (Windows).
+- If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_AOCL_BLIS`, `RSTSR_DYLOAD_AOCL_FLAME` to the dynamic library path.
 
-**NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_blis_ffi::blis`, `rstsr_blis_ffi::lapack`. Sticking to using `rstsr_blis_ffi` will make sure you are calling BLAS and LAPACK functions from BLIS, instead of other BLAS vendors.
+**NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_aocl_ffi::blis`, `rstsr_aocl_ffi::flame`. Sticking to using `rstsr_aocl_ffi` will make sure you are calling BLAS and LAPACK functions from AOCL, instead of other BLAS vendors.
 
 If you encountered large compile time or disk consumption, you may consider add these lines in your Cargo.toml:
 
 ```toml
-[profile.dev.package.rstsr-blis-ffi]
+[profile.dev.package.rstsr-aocl-ffi]
 opt-level = 0
 debug = false
 ```
@@ -54,17 +40,13 @@ debug = false
 Default features:
 
 - `dynamic_loading`: Supports dynamic loading.
-- `lapack`: Include LAPACK bindgens.
-- `x86_64`: Use bindgen generated from x86_64 (not necessarily meaning arm64 could not use most functions in x86_64 bindgen, but arm64 will not able to use much lower-level ASM functions).
+- `blis`: Include BLIS bindgens.
+- `flame`: Include LAPACK bindgens.
 
 Optional features:
 
 - `ilp64`: Use `int64_t` for dimension specification, or lapack error code types if this feature specified. Otherwise, use `int32_t`.
     - Please note that in module `blas`, error code is returned by `c_int`; in module `cblas`, BLIS utility functions use `c_int` for input or output.
-- `flame`: Include FLAME bindgens.
-
-Mutually exclusive features:
-- `flame` and `ilp64`: We found that FLAME must be compiled with `int` of C, which is `lp64` exclusive. Also use `ilp64` carefully in BLIS and lapack.
 
 ## Crate structure
 

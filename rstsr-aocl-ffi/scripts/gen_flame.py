@@ -85,6 +85,8 @@ with open("flame.rs", "r") as f:
     token = f.read()
 
 token = token.replace("::core::ffi::", "").replace("::core::option::", "")
+token = token.replace("pub type integer = c_int;", "")
+token = token.replace("pub type uinteger = c_ulong;", "")
 token = """pub(crate) use crate::blis_types::*;\n\n""" + token
 
 files_split = util_dyload.dyload_main(token)

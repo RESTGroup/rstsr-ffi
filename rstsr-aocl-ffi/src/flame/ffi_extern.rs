@@ -1,4 +1,3 @@
-
 //! FFI function declarations for non-dynamic-loading.
 //!
 //! This file is generated automatically.
@@ -41,10 +40,7 @@ unsafe extern "C" {
     ) -> c_int;
     pub fn fla_pthread_mutex_lock(mutex: *mut fla_pthread_mutex_t) -> c_int;
     pub fn fla_pthread_mutex_unlock(mutex: *mut fla_pthread_mutex_t) -> c_int;
-    pub fn fla_pthread_once(
-        once: *mut fla_pthread_once_t,
-        init: Option<extern "C" fn()>,
-    );
+    pub fn fla_pthread_once(once: *mut fla_pthread_once_t, init: Option<extern "C" fn()>);
     pub static mut fla_global_context: fla_context;
     pub static mut fla_tl_context: fla_tl_context_t;
     pub fn aocl_fla_init();
@@ -1204,10 +1200,7 @@ unsafe extern "C" {
     pub fn bl1_zero_dim3(m: integer, k: integer, n: integer) -> c_int;
     pub fn bl1_abort();
     pub fn bl1_abort_msg(message: *mut c_char);
-    pub fn bl1_param_map_to_netlib_trans(
-        blis_trans: trans1_t,
-        blas_trans: *mut c_void,
-    );
+    pub fn bl1_param_map_to_netlib_trans(blis_trans: trans1_t, blas_trans: *mut c_void);
     pub fn bl1_param_map_to_netlib_uplo(blis_uplo: uplo1_t, blas_uplo: *mut c_void);
     pub fn bl1_param_map_to_netlib_side(blis_side: side1_t, blas_side: *mut c_void);
     pub fn bl1_param_map_to_netlib_diag(blis_diag: diag1_t, blas_diag: *mut c_void);
@@ -6075,11 +6068,7 @@ unsafe extern "C" {
     pub fn FLA_determine_matrix_size(A_unproc: FLA_Obj, to_dir: FLA_Quadrant) -> fla_dim_t;
     pub fn FLA_Check_error_level() -> c_uint;
     pub fn FLA_Check_error_level_set(level: c_uint) -> c_uint;
-    pub fn FLA_Check_error_code_helper(
-        code: c_int,
-        file: *mut c_char,
-        line: c_int,
-    ) -> FLA_Error;
+    pub fn FLA_Check_error_code_helper(code: c_int, file: *mut c_char, line: c_int) -> FLA_Error;
     pub fn FLA_Check_valid_side(side: FLA_Side) -> FLA_Error;
     pub fn FLA_Check_valid_uplo(uplo: FLA_Uplo) -> FLA_Error;
     pub fn FLA_Check_valid_trans(trans: FLA_Trans) -> FLA_Error;
@@ -6133,11 +6122,7 @@ unsafe extern "C" {
     ) -> FLA_Error;
     pub fn FLA_Check_equal_vector_dims(x: FLA_Obj, y: FLA_Obj) -> FLA_Error;
     pub fn FLA_Check_conj1_trans_and_datatype(trans: FLA_Trans, A: FLA_Obj) -> FLA_Error;
-    pub fn FLA_Check_hess_indices(
-        A: FLA_Obj,
-        ilo: c_int,
-        ihi: c_int,
-    ) -> FLA_Error;
+    pub fn FLA_Check_hess_indices(A: FLA_Obj, ilo: c_int, ihi: c_int) -> FLA_Error;
     pub fn FLA_Check_null_pointer(ptr: *mut c_void) -> FLA_Error;
     pub fn FLA_Check_object_dims(
         trans: FLA_Trans,
@@ -6162,20 +6147,11 @@ unsafe extern "C" {
         bp: *mut fla_blocksize_t,
     ) -> FLA_Error;
     pub fn FLA_Check_file_descriptor(fd: c_int) -> FLA_Error;
-    pub fn FLA_Check_lseek_result(
-        requested_offset: c_int,
-        lseek_r_val: c_int,
-    ) -> FLA_Error;
+    pub fn FLA_Check_lseek_result(requested_offset: c_int, lseek_r_val: c_int) -> FLA_Error;
     pub fn FLA_Check_close_result(close_r_val: c_int) -> FLA_Error;
     pub fn FLA_Check_unlink_result(unlink_r_val: c_int) -> FLA_Error;
-    pub fn FLA_Check_read_result(
-        requested_size: c_int,
-        read_r_val: c_int,
-    ) -> FLA_Error;
-    pub fn FLA_Check_write_result(
-        requested_size: c_int,
-        write_r_val: c_int,
-    ) -> FLA_Error;
+    pub fn FLA_Check_read_result(requested_size: c_int, read_r_val: c_int) -> FLA_Error;
+    pub fn FLA_Check_write_result(requested_size: c_int, write_r_val: c_int) -> FLA_Error;
     pub fn FLA_Check_valid_quadrant(quad: FLA_Quadrant) -> FLA_Error;
     pub fn FLA_Check_vector_dim_min(x: FLA_Obj, min_dim: fla_dim_t) -> FLA_Error;
     pub fn FLA_Check_pthread_create_result(pthread_create_r_val: c_int) -> FLA_Error;
@@ -6235,11 +6211,7 @@ unsafe extern "C" {
     pub fn FLA_Check_row_storage(A: FLA_Obj) -> FLA_Error;
     pub fn FLA_Error_string_for_code(code: c_int) -> *mut c_char;
     pub fn FLA_Error_messages_init();
-    pub fn FLA_Print_message(
-        str_: *mut c_char,
-        file: *mut c_char,
-        line: c_int,
-    );
+    pub fn FLA_Print_message(str_: *mut c_char, file: *mut c_char, line: c_int);
     pub fn FLA_Abort();
     pub fn FLA_Init();
     pub fn FLA_Finalize();
@@ -6580,21 +6552,12 @@ unsafe extern "C" {
         cs: fla_dim_t,
     ) -> FLA_Error;
     pub fn FLA_Obj_has_nan_check(A: FLA_Obj) -> FLA_Error;
-    pub fn FLA_Param_map_flame_to_netlib_trans(
-        trans: FLA_Trans,
-        blas_trans: *mut c_void,
-    );
+    pub fn FLA_Param_map_flame_to_netlib_trans(trans: FLA_Trans, blas_trans: *mut c_void);
     pub fn FLA_Param_map_flame_to_netlib_uplo(uplo: FLA_Uplo, blas_uplo: *mut c_void);
     pub fn FLA_Param_map_flame_to_netlib_side(side: FLA_Uplo, blas_side: *mut c_void);
     pub fn FLA_Param_map_flame_to_netlib_diag(diag: FLA_Diag, blas_diag: *mut c_void);
-    pub fn FLA_Param_map_flame_to_netlib_direct(
-        direct: FLA_Direct,
-        lapack_direct: *mut c_void,
-    );
-    pub fn FLA_Param_map_flame_to_netlib_storev(
-        storev: FLA_Store,
-        lapack_storev: *mut c_void,
-    );
+    pub fn FLA_Param_map_flame_to_netlib_direct(direct: FLA_Direct, lapack_direct: *mut c_void);
+    pub fn FLA_Param_map_flame_to_netlib_storev(storev: FLA_Store, lapack_storev: *mut c_void);
     pub fn FLA_Param_map_flame_to_netlib_evd_type(
         evd_type: FLA_Evd_type,
         lapack_evd_type: *mut c_void,
@@ -6603,10 +6566,7 @@ unsafe extern "C" {
         svd_type: FLA_Svd_type,
         lapack_svd_type: *mut c_void,
     );
-    pub fn FLA_Param_map_flame_to_netlib_machval(
-        machval: FLA_Machval,
-        blas_machval: *mut c_void,
-    );
+    pub fn FLA_Param_map_flame_to_netlib_machval(machval: FLA_Machval, blas_machval: *mut c_void);
     pub fn FLA_Param_map_flame_to_blis_trans(trans: FLA_Trans, blis_trans: *mut trans1_t);
     pub fn FLA_Param_map_flame_to_blis_conj(conj: FLA_Conj, blis_conj: *mut conj1_t);
     pub fn FLA_Param_map_flame_to_blis_uplo(uplo: FLA_Uplo, blis_uplo: *mut uplo1_t);
@@ -6616,55 +6576,19 @@ unsafe extern "C" {
     pub fn FLA_Param_map_blis_to_flame_uplo(uplo: uplo1_t, flame_uplo: *mut FLA_Uplo);
     pub fn FLA_Param_map_blis_to_flame_side(side: side1_t, flame_side: *mut FLA_Side);
     pub fn FLA_Param_map_blis_to_flame_diag(diag: diag1_t, flame_diag: *mut FLA_Diag);
-    pub fn FLA_Param_map_char_to_flame_trans(
-        trans: *mut c_char,
-        flame_trans: *mut FLA_Trans,
-    );
-    pub fn FLA_Param_map_char_to_flame_uplo(
-        uplo: *mut c_char,
-        flame_uplo: *mut FLA_Uplo,
-    );
-    pub fn FLA_Param_map_char_to_flame_side(
-        side: *mut c_char,
-        flame_side: *mut FLA_Side,
-    );
-    pub fn FLA_Param_map_char_to_flame_diag(
-        diag: *mut c_char,
-        flame_diag: *mut FLA_Diag,
-    );
-    pub fn FLA_Param_map_char_to_flame_storev(
-        storev: *mut c_char,
-        flame_storev: *mut FLA_Direct,
-    );
-    pub fn FLA_Param_map_char_to_flame_direct(
-        direct: *mut c_char,
-        flame_direct: *mut FLA_Direct,
-    );
+    pub fn FLA_Param_map_char_to_flame_trans(trans: *mut c_char, flame_trans: *mut FLA_Trans);
+    pub fn FLA_Param_map_char_to_flame_uplo(uplo: *mut c_char, flame_uplo: *mut FLA_Uplo);
+    pub fn FLA_Param_map_char_to_flame_side(side: *mut c_char, flame_side: *mut FLA_Side);
+    pub fn FLA_Param_map_char_to_flame_diag(diag: *mut c_char, flame_diag: *mut FLA_Diag);
+    pub fn FLA_Param_map_char_to_flame_storev(storev: *mut c_char, flame_storev: *mut FLA_Direct);
+    pub fn FLA_Param_map_char_to_flame_direct(direct: *mut c_char, flame_direct: *mut FLA_Direct);
     pub fn FLA_Param_map_char_to_flame_inv(inv: *mut c_char, flame_inv: *mut FLA_Inv);
-    pub fn FLA_Param_map_netlib_to_flame_trans(
-        trans: *mut c_char,
-        flame_trans: *mut FLA_Trans,
-    );
-    pub fn FLA_Param_map_netlib_to_flame_uplo(
-        uplo: *mut c_char,
-        flame_uplo: *mut FLA_Uplo,
-    );
-    pub fn FLA_Param_map_netlib_to_flame_side(
-        side: *mut c_char,
-        flame_side: *mut FLA_Side,
-    );
-    pub fn FLA_Param_map_netlib_to_flame_diag(
-        diag: *mut c_char,
-        flame_diag: *mut FLA_Diag,
-    );
-    pub fn FLA_Param_map_netlib_to_flame_inv(
-        itype: *mut c_int,
-        flame_inv: *mut FLA_Inv,
-    );
-    pub fn FLA_Param_map_netlib_to_flame_svd_type(
-        svd: *mut c_char,
-        flame_svd: *mut FLA_Svd_type,
-    );
+    pub fn FLA_Param_map_netlib_to_flame_trans(trans: *mut c_char, flame_trans: *mut FLA_Trans);
+    pub fn FLA_Param_map_netlib_to_flame_uplo(uplo: *mut c_char, flame_uplo: *mut FLA_Uplo);
+    pub fn FLA_Param_map_netlib_to_flame_side(side: *mut c_char, flame_side: *mut FLA_Side);
+    pub fn FLA_Param_map_netlib_to_flame_diag(diag: *mut c_char, flame_diag: *mut FLA_Diag);
+    pub fn FLA_Param_map_netlib_to_flame_inv(itype: *mut c_int, flame_inv: *mut FLA_Inv);
+    pub fn FLA_Param_map_netlib_to_flame_svd_type(svd: *mut c_char, flame_svd: *mut FLA_Svd_type);
     pub fn FLA_Part_2x2(
         A: FLA_Obj,
         A11: *mut FLA_Obj,
@@ -7706,12 +7630,7 @@ unsafe extern "C" {
     pub fn FLA_LU_find_zero_on_diagonal(A: FLA_Obj) -> FLA_Error;
     pub fn fla_dlamch(cmach: *mut c_char, cmach_len: ftnlen) -> doublereal;
     pub fn fla_slamch(cmach: *mut c_char, cmach_len: ftnlen) -> real;
-    pub fn fla_lsame(
-        ca: *mut c_char,
-        cb: *mut c_char,
-        ca_len: ftnlen,
-        cb_len: ftnlen,
-    ) -> logical;
+    pub fn fla_lsame(ca: *mut c_char, cb: *mut c_char, ca_len: ftnlen, cb_len: ftnlen) -> logical;
     pub fn fla_pow_di(a: *mut doublereal, n: *mut integer) -> f64;
     pub fn fla_pow_ri(a: *mut real, n: *mut integer) -> real;
     pub fn FLA_Househ2_UT_check(
@@ -8012,11 +7931,7 @@ unsafe extern "C" {
         B: FLA_Obj,
         B_gpu: *mut c_void,
     ) -> FLA_Error;
-    pub fn FLA_Scal_external_gpu(
-        alpha: FLA_Obj,
-        A: FLA_Obj,
-        A_gpu: *mut c_void,
-    ) -> FLA_Error;
+    pub fn FLA_Scal_external_gpu(alpha: FLA_Obj, A: FLA_Obj, A_gpu: *mut c_void) -> FLA_Error;
     pub fn FLA_Scalr_external_gpu(
         uplo: FLA_Uplo,
         alpha: FLA_Obj,
@@ -30176,11 +30091,7 @@ unsafe extern "C" {
         -> FLA_Error;
     pub fn FLASH_Copy_hier_to_flat(i: fla_dim_t, j: fla_dim_t, H: FLA_Obj, F: FLA_Obj)
         -> FLA_Error;
-    pub fn FLASH_Copy_hierarchy(
-        direction: c_int,
-        F: FLA_Obj,
-        H: *mut FLA_Obj,
-    ) -> FLA_Error;
+    pub fn FLASH_Copy_hierarchy(direction: c_int, F: FLA_Obj, H: *mut FLA_Obj) -> FLA_Error;
     pub fn FLASH_Obj_datatype(H: FLA_Obj) -> FLA_Datatype;
     pub fn FLASH_Obj_depth(H: FLA_Obj) -> fla_dim_t;
     pub fn FLASH_Obj_blocksizes(H: FLA_Obj, b_m: *mut fla_dim_t, b_n: *mut fla_dim_t) -> fla_dim_t;
@@ -31387,12 +31298,7 @@ unsafe extern "C" {
         ap: *mut f64,
         work: *mut f64,
     ) -> f64;
-    pub fn dlanst_(
-        norm: *mut c_char,
-        n: *mut integer,
-        d: *mut f64,
-        e: *mut f64,
-    ) -> f64;
+    pub fn dlanst_(norm: *mut c_char, n: *mut integer, d: *mut f64, e: *mut f64) -> f64;
     pub fn dlansy_(
         norm: *mut c_char,
         uplo: *mut c_char,
@@ -31656,12 +31562,7 @@ unsafe extern "C" {
         lda: *mut integer,
         work: *mut f64,
     ) -> f64;
-    pub fn zlanht_(
-        norm: *mut c_char,
-        n: *mut integer,
-        d: *mut f64,
-        e: *mut dcomplex,
-    ) -> f64;
+    pub fn zlanht_(norm: *mut c_char, n: *mut integer, d: *mut f64, e: *mut dcomplex) -> f64;
     pub fn zlansb_(
         norm: *mut c_char,
         uplo: *mut c_char,
@@ -31963,12 +31864,7 @@ unsafe extern "C" {
         lda: *mut integer,
         work: *mut f32,
     ) -> f32;
-    pub fn clanht_(
-        norm: *mut c_char,
-        n: *mut integer,
-        d: *mut f32,
-        e: *mut scomplex,
-    ) -> f32;
+    pub fn clanht_(norm: *mut c_char, n: *mut integer, d: *mut f32, e: *mut scomplex) -> f32;
     pub fn clansb_(
         norm: *mut c_char,
         uplo: *mut c_char,
@@ -32197,12 +32093,7 @@ unsafe extern "C" {
         ap: *mut f32,
         work: *mut f32,
     ) -> f32;
-    pub fn slanst_(
-        norm: *mut c_char,
-        n: *mut integer,
-        d: *mut f32,
-        e: *mut f32,
-    ) -> f32;
+    pub fn slanst_(norm: *mut c_char, n: *mut integer, d: *mut f32, e: *mut f32) -> f32;
     pub fn slansy_(
         norm: *mut c_char,
         uplo: *mut c_char,
@@ -36869,18 +36760,8 @@ unsafe extern "C" {
         rwork: *mut f32,
         info: *mut integer,
     );
-    pub fn cpptrf_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut scomplex,
-        info: *mut integer,
-    );
-    pub fn cpptri_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut scomplex,
-        info: *mut integer,
-    );
+    pub fn cpptrf_(uplo: *mut c_char, n: *mut integer, ap: *mut scomplex, info: *mut integer);
+    pub fn cpptri_(uplo: *mut c_char, n: *mut integer, ap: *mut scomplex, info: *mut integer);
     pub fn cpptrs_(
         uplo: *mut c_char,
         n: *mut integer,
@@ -43293,18 +43174,8 @@ unsafe extern "C" {
         iwork: *mut integer,
         info: *mut integer,
     );
-    pub fn dpptrf_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut f64,
-        info: *mut integer,
-    );
-    pub fn dpptri_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut f64,
-        info: *mut integer,
-    );
+    pub fn dpptrf_(uplo: *mut c_char, n: *mut integer, ap: *mut f64, info: *mut integer);
+    pub fn dpptri_(uplo: *mut c_char, n: *mut integer, ap: *mut f64, info: *mut integer);
     pub fn dpptrs_(
         uplo: *mut c_char,
         n: *mut integer,
@@ -49911,18 +49782,8 @@ unsafe extern "C" {
         iwork: *mut integer,
         info: *mut integer,
     );
-    pub fn spptrf_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut f32,
-        info: *mut integer,
-    );
-    pub fn spptri_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut f32,
-        info: *mut integer,
-    );
+    pub fn spptrf_(uplo: *mut c_char, n: *mut integer, ap: *mut f32, info: *mut integer);
+    pub fn spptri_(uplo: *mut c_char, n: *mut integer, ap: *mut f32, info: *mut integer);
     pub fn spptrs_(
         uplo: *mut c_char,
         n: *mut integer,
@@ -56632,18 +56493,8 @@ unsafe extern "C" {
         rwork: *mut f64,
         info: *mut integer,
     );
-    pub fn zpptrf_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut dcomplex,
-        info: *mut integer,
-    );
-    pub fn zpptri_(
-        uplo: *mut c_char,
-        n: *mut integer,
-        ap: *mut dcomplex,
-        info: *mut integer,
-    );
+    pub fn zpptrf_(uplo: *mut c_char, n: *mut integer, ap: *mut dcomplex, info: *mut integer);
+    pub fn zpptri_(uplo: *mut c_char, n: *mut integer, ap: *mut dcomplex, info: *mut integer);
     pub fn zpptrs_(
         uplo: *mut c_char,
         n: *mut integer,
@@ -58917,4 +58768,3 @@ unsafe extern "C" {
         info: *mut integer,
     );
 }
-    

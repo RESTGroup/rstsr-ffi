@@ -1,4 +1,3 @@
-
 //! Base of current FFI.
 //!
 //! Declaration of types, enums, cargo feature controls, etc.
@@ -497,8 +496,7 @@ pub union pthread_mutex_t {
     pub __size: [c_char; 40usize],
     pub __align: c_long,
 }
-pub type integer = c_int;
-pub type uinteger = c_ulong;
+
 #[repr(C)]
 #[repr(align(4))]
 #[derive(Debug, Copy, Clone)]
@@ -786,27 +784,17 @@ pub type C_fp = Option<extern "C" fn()>;
 pub type Z_fp = Option<extern "C" fn()>;
 pub type L_fp = Option<extern "C" fn() -> logical>;
 pub type L_fp1 = Option<extern "C" fn(arg1: *mut complex) -> logical>;
-pub type L_fp2 =
-    Option<extern "C" fn(arg1: *mut complex, arg2: *mut complex) -> logical>;
-pub type L_fps2 =
-    Option<extern "C" fn(arg1: *mut real, arg2: *mut real) -> logical>;
-pub type L_fps3 = Option<
-    extern "C" fn(arg1: *mut real, arg2: *mut real, arg3: *mut real) -> logical,
->;
-pub type L_fpd2 = Option<
-    extern "C" fn(arg1: *mut doublereal, arg2: *mut doublereal) -> logical,
->;
+pub type L_fp2 = Option<extern "C" fn(arg1: *mut complex, arg2: *mut complex) -> logical>;
+pub type L_fps2 = Option<extern "C" fn(arg1: *mut real, arg2: *mut real) -> logical>;
+pub type L_fps3 =
+    Option<extern "C" fn(arg1: *mut real, arg2: *mut real, arg3: *mut real) -> logical>;
+pub type L_fpd2 = Option<extern "C" fn(arg1: *mut doublereal, arg2: *mut doublereal) -> logical>;
 pub type L_fpd3 = Option<
-    extern "C" fn(
-        arg1: *mut doublereal,
-        arg2: *mut doublereal,
-        arg3: *mut doublereal,
-    ) -> logical,
+    extern "C" fn(arg1: *mut doublereal, arg2: *mut doublereal, arg3: *mut doublereal) -> logical,
 >;
 pub type L_fpz1 = Option<extern "C" fn(arg1: *mut doublecomplex) -> logical>;
-pub type L_fpz2 = Option<
-    extern "C" fn(arg1: *mut doublecomplex, arg2: *mut doublecomplex) -> logical,
->;
+pub type L_fpz2 =
+    Option<extern "C" fn(arg1: *mut doublecomplex, arg2: *mut doublecomplex) -> logical>;
 pub type K_fp = Option<extern "C" fn() -> shortlogical>;
 pub type H_fp = Option<extern "C" fn()>;
 pub type S_fp = Option<extern "C" fn() -> c_int>;
@@ -1399,6 +1387,3 @@ pub struct fla_eig_gest_s {
     pub sub_trsm2: *mut fla_trsm_s,
 }
 pub type fla_eig_gest_t = fla_eig_gest_s;
-
-
-    
