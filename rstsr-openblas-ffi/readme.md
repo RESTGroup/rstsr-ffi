@@ -17,7 +17,9 @@ This crate supports dynamic loading by default.
 
 If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
 
-The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_OPENBLAS` to the dynamic library path.
+The dynamic loading will try to find proper library when your program initializes.
+- This crate will automatically detect proper libraries, if these libraries are in environmental path `LD_LIBRARY_PATH` (Linux) `DYLD_LIBRARY_PATH` (Mac OS), `PATH` (Windows).
+- If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_OPENBLAS` to the dynamic library path.
 
 **NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_openblas_ffi::blas`, `rstsr_openblas_ffi::cblas` and `rstsr_openblas_ffi::lapack`. Sticking to using `rstsr_openblas_ffi` will make sure you are calling BLAS and LAPACK functions from OpenBLAS, instead of other BLAS vendors.
 
@@ -61,6 +63,10 @@ Optional features:
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
 
 ## Changelog
+
+- v0.4.4
+
+    - **Docs Update**
 
 - v0.4.3
 

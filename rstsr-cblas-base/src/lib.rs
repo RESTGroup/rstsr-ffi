@@ -1,3 +1,4 @@
+#![doc = include_str!("../readme.md")]
 #![allow(non_camel_case_types)]
 
 #[cfg(all(not(feature = "ilp64"), not(feature = "lp64_as_int")))]

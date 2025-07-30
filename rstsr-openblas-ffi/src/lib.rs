@@ -1,3 +1,4 @@
+#![doc = include_str!("../readme.md")]
 #![allow(clashing_extern_declarations)]
 
 #[cfg(feature = "blas")]

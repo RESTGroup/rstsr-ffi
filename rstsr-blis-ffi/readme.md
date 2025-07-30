@@ -1,6 +1,6 @@
 # BLIS (FLAME framework) FFI bindings
 
-This crate contains BLIS (Math Kernel Library) FFI bindings.
+This crate contains BLIS FFI bindings.
 
 Current FFI version is [BLIS v2.0](https://github.com/flame/blis/releases/tag/2.0). If you are using an older version of BLIS, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
 
@@ -10,8 +10,6 @@ Current FFI version is [BLIS v2.0](https://github.com/flame/blis/releases/tag/2.
 > - do not use architecture-dependent functions,
 > - file an issue to let us know some other architecture is required,
 > - use `blis-sys` crate for usual extern FFIs (without dynamic loading).
-
-BLIS is freely distributed in binary (along with header), not source code. Please note the license of oneAPI (Intel Simplified Software License) is not fully free software.
 
 This crate is not official bindgen project. It is originally intended to serve rust tensor toolkit [RSTSR](https://github.com/RESTGroup/rstsr) and rust electronic structure toolkit [REST](https://gitee.com/RESTGroup/rest).
 
@@ -37,7 +35,9 @@ This crate supports dynamic loading by default.
 
 If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
 
-The dynamic loading will try to find proper library when your program initializes. If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_BLIS`, `RSTSR_DYLOAD_FLAME` to the dynamic library path.
+The dynamic loading will try to find proper library when your program initializes.
+- This crate will automatically detect proper libraries, if these libraries are in environmental path `LD_LIBRARY_PATH` (Linux) `DYLD_LIBRARY_PATH` (Mac OS), `PATH` (Windows).
+- If you want to override the library to be loaded, please set these shell environmental variable `RSTSR_DYLOAD_BLIS`, `RSTSR_DYLOAD_FLAME` to the dynamic library path.
 
 **NOTE**: When you call BLAS and LAPACK functions with dynamic loading, please **DO NOT USE** other crates (such as `rstsr_lapack_ffi`). Please make sure you are only using `rstsr_blis_ffi::blis`, `rstsr_blis_ffi::lapack`. Sticking to using `rstsr_blis_ffi` will make sure you are calling BLAS and LAPACK functions from BLIS, instead of other BLAS vendors.
 
@@ -79,6 +79,11 @@ Mutually exclusive features:
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
 
 ## Changelog
+
+- v0.1.2
+
+    - **Docs Update**
+    - **Fix**: Define `BLIS_BLAS_INT_TYPE_SIZE` in root level.
 
 - v0.1.1
 
