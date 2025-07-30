@@ -203,11 +203,13 @@ token = token.replace("pub type blas_int = ::core::ffi::c_int;", "")
 # +
 # remove CBLAS enums
 
+token = token.replace("pub use self::CBLAS_ORDER as CBLAS_LAYOUT;", "")
 token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+token = re.sub(r"\#\[repr[^=]*CBLAS_ORDER {[^#]*?}", "", token)
 
 # +
 # remove somehow redundant code
