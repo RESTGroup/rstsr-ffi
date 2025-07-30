@@ -67,9 +67,10 @@ Optional features:
 
 ## Changelog
 
-- v0.1.3
+- v0.1.4
 
     - **Docs Update**
+    - **Fix**: Fix ilp64 integer type definition in cblas module.
 
 - v0.1.2
 

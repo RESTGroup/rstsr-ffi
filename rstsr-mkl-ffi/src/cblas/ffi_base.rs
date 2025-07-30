@@ -22,7 +22,7 @@ pub struct _MKL_Complex16 {
     pub imag: f64,
 }
 pub type MKL_Complex16 = _MKL_Complex16;
-pub type MKL_INT = c_int;
+
 pub type MKL_INT8 = c_char;
 pub type MKL_E5M2 = c_uchar;
 pub type MKL_E4M3 = c_uchar;

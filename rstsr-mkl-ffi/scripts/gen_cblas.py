@@ -87,6 +87,7 @@ pub use crate::mkl_types::*;
 # +
 # remove CBLAS enums
 
+token = token.replace("pub type MKL_INT = c_int;", "")
 token = token.replace("pub use self::CBLAS_LAYOUT as CBLAS_ORDER;", "")
 token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
