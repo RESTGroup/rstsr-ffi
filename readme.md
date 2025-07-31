@@ -9,11 +9,12 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 | crate | crate version | FFI library | FFI version |
 |--|--|--|--|
 | rstsr-cblas-base | [![Crate](https://img.shields.io/crates/v/rstsr-cblas-base.svg)](https://crates.io/crates/rstsr-cblas-base) |
-| rstsr-lapack-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-lapack-ffi.svg)](https://crates.io/crates/rstsr-lapack-ffi) | [Reference LAPACK](https://github.com/Reference-LAPACK/lapack) | v3.12.1 |
-| rstsr-openblas-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-openblas-ffi.svg)](https://crates.io/crates/rstsr-openblas-ffi) | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS/) | v0.3.30 |
-| rstsr-mkl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-mkl-ffi.svg)](https://crates.io/crates/rstsr-mkl-ffi) | Intel oneAPI MKL | 2025.2 |
-| rstsr-blis-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-blis-ffi.svg)](https://crates.io/crates/rstsr-blis-ffi) | [BLIS](https://github.com/flame/blis), [FLAME](https://github.com/flame/libflame) | v2.0 |
-| rstsr-aocl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-aocl-ffi.svg)](https://crates.io/crates/rstsr-aocl-ffi) | [AOCL](https://www.amd.com/en/developer/aocl.html) | v5.1 |
+| rstsr-lapack-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-lapack-ffi.svg)](https://crates.io/crates/rstsr-lapack-ffi) | [Reference LAPACK](https://github.com/Reference-LAPACK/lapack) (Netlib) | v3.12.1 |
+| rstsr-openblas-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-openblas-ffi.svg)](https://crates.io/crates/rstsr-openblas-ffi) | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS/) (Goto -> Zhang -> Community) | v0.3.30 |
+| rstsr-mkl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-mkl-ffi.svg)](https://crates.io/crates/rstsr-mkl-ffi) | [Intel oneAPI MKL](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html) (Math Kernel Library) | 2025.2 |
+| rstsr-blis-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-blis-ffi.svg)](https://crates.io/crates/rstsr-blis-ffi) | [BLIS](https://github.com/flame/blis), [FLAME](https://github.com/flame/libflame) (Univ Texas, SHPC group) | v2.0 |
+| rstsr-aocl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-aocl-ffi.svg)](https://crates.io/crates/rstsr-aocl-ffi) | [AOCL](https://www.amd.com/en/developer/aocl.html) (AMD Optimizing CPU Libraries) | v5.1 |
+| rstsr-kml-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-kml-ffi.svg)](https://crates.io/crates/rstsr-kml-ffi) | [KML](https://www.hikunpeng.com/zh/developer/boostkit/library/detail?subtab=%E6%95%B0%E5%AD%A6%E5%BA%93) (Huawei Kunpeng Math Library) | v24.0.0 |
 
 ## Motivation
 
