@@ -1,0 +1,29 @@
+[package]
+name = "rstsr-kml-ffi"
+version = "0.0.1"
+description = "Huawei Kunpeng Math Library FFI bindings"
+readme = "readme.md"
+
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+
+[dependencies]
+rstsr-cblas-base = { workspace = true }
+libloading = { workspace = true, optional = true }
+half = { workspace = true }
+num = { workspace = true }
+
+[features]
+default = ["blas", "kblas", "lapack", "dynamic_loading"]
+
+ilp64 = ["rstsr-cblas-base/ilp64"]
+lp64_as_int = ["rstsr-cblas-base/lp64_as_int"]
+dynamic_loading = ["dep:libloading"]
+
+blas = []
+kblas = []
+lapack = []
+

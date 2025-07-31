@@ -1,0 +1,1 @@
+../../../rstsr-lapack-ffi/src/blas/dyload_compatible.rs
