@@ -96,7 +96,7 @@ token = re.sub(r"\bBLASINT\b", "blas_int", token)
 # +
 # add type definition
 
-token = "pub(crate) use crate::kml_types::*;\n\n" + token
+token = "pub use crate::kml_types::*;\n\n" + token
 # -
 
 files_split = util_dyload.dyload_main(token)

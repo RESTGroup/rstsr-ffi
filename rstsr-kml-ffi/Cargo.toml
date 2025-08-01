@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-kml-ffi"
-version = "0.0.1"
+version = "0.0.2"
 description = "Huawei Kunpeng Math Library FFI bindings"
 readme = "readme.md"
 
