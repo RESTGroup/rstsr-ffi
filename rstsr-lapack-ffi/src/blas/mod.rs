@@ -160,4 +160,6 @@ fn playground() {
     let incx = 1;
     unsafe { ddotsub_(&n, a.as_ptr(), &incx, b.as_ptr(), &incx, &mut c) };
     assert_eq!(c, 70.0);
+    let c = unsafe { ddot_(&n, a.as_ptr(), &incx, b.as_ptr(), &incx) };
+    assert_eq!(c, 70.0);
 }

@@ -8,6 +8,8 @@ import subprocess
 import os
 import shutil
 import re
+from tree_sitter import Language, Parser
+import tree_sitter_rust
 
 import sys
 sys.path.append("../..")
@@ -107,7 +109,7 @@ subprocess.run([
     "--merge-extern-blocks",
 ])
 
-# ### Post-processing
+# ### Post-processing (1)
 
 with open("blas.rs", "r") as f:
     token = f.read()
@@ -129,6 +131,64 @@ pub use rstsr_cblas_base::*;
 
 """ + "\n\n" + token
 # -
+
+# ### Post-processing (2) Sub functions
+
+# This only happens in F77 BLAS. Some BLAS are functions (instead of subroutines) by definition; however, Netlib BLAS only handles subroutines in C fashion: those functions are suffixed by `sub_`, and the returned value is located at the last parameter.
+#
+# After FFI, for example,
+# ```rust
+# pub fn dnrm2sub_(arg1: *const F77_INT, arg2: *const f64, arg3: *const F77_INT, arg4: *mut f64);
+# ```
+#
+# Many BLAS distributions do not provide such subroutine `dnrm2sub_`, but instead the function:
+# ```rust
+# pub fn dnrm2_(arg1: *const F77_INT, arg2: *const f64, arg3: *const F77_INT) -> f64;
+# ```
+#
+# So here we need to provide the definitions of those functions.
+
+token = token.replace("unsafe extern", "extern")
+
+parser = Parser(Language(tree_sitter_rust.language()))
+
+parsed = parser.parse(bytes(token, "utf8"))
+
+assert(parsed.root_node.children[-1].type == "foreign_mod_item")
+
+nodes_fn = [n for n in parsed.root_node.children[-1].children[1].children
+            if n.type == "function_signature_item"]
+
+nodes_fn_sub = [n for n in nodes_fn if util_dyload.dyload_fn_split(n)["identifier"].text.decode().endswith("sub_")]
+
+
+def sub_to_func(node):
+    assert(node.type == "function_signature_item")
+    fn_dict = util_dyload.dyload_fn_split(node)
+    assert(fn_dict["identifier"].text.decode().endswith("sub_"))
+    assert(fn_dict["return_type"] is None)
+    # strip parameters
+    parameters = [n for n in fn_dict["parameters"].children if n.type == "parameter"]
+    parameters_normal = parameters[:-1]
+    parameters_last = parameters[-1]
+    assert(parameters_last.children[-1].type == "pointer_type")
+    return_type = parameters_last.children[-1].children[-1].text.decode()
+    # reformulate function token
+    visibility_modifier = fn_dict["visibility_modifier"].text.decode()
+    identifier_sub = fn_dict["identifier"].text.decode()
+    identifier = identifier_sub[:-4] + "_"
+    parameters_token = ", ".join([n.text.decode() for n in parameters_normal])
+    return f"{visibility_modifier} fn {identifier}({parameters_token}) -> {return_type};"
+
+
+token_sub_to_func = (
+    "unsafe extern \"C\" {"
+    + "\n".join([n.text.decode() for n in nodes_fn])
+    + "\n".join([sub_to_func(n) for n in nodes_fn_sub])
+    + "}"
+)
+
+token = token.replace(parsed.root_node.children[-1].text.decode(), token_sub_to_func)
 
 # ### Dynamic loading
 
