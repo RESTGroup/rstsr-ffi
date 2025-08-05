@@ -80,6 +80,10 @@ Mutually exclusive features:
 
 ## Changelog
 
+- v0.1.3
+
+    - **Enhancements**: Updated panic information.
+
 - v0.1.2
 
     - **Docs Update**

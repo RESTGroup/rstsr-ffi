@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-mkl-ffi"
-version = "0.1.4"
+version = "0.1.5"
 description = "Intel oneAPI MKL FFI bindings"
 readme = "readme.md"
 
