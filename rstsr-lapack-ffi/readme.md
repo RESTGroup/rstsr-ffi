@@ -68,6 +68,11 @@ Optional features:
 
 ## Changelog
 
+- v0.4.3
+
+    - **Additional FFIs**: Functions (such as `ddot_`) to the subroutine counterparts (such as `ddotsub_`). Some BLAS vendors just provide functions instead of subroutines.
+    - **Enhancements**: Updated panic information.
+
 - v0.4.2
 
     - **Docs Update**

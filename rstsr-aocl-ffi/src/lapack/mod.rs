@@ -35,7 +35,7 @@ mod dynamic_loading_specific {
         lib.dsyevd_.is_some()
     }
 
-    fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
+    fn panic_no_lib_found<S: Debug>(candidates: &[S], err_msg: &str) -> ! {
         panic!(
             r#"
 This happens in module `{MOD_NAME}`.
@@ -49,6 +49,9 @@ Please check
 - if `LD_LIBRARY_PATH` (linux) or `DYLD_LIBRARY_PATH` (macOS) or `PATH` (Windows) environment variable is set correctly (any path that's visible to linker).
 - this crate does not use things like `LD_PRELOAD` or `DYLD_INSERT_LIBRARIES` to load the library.
 - this crate does not support static linking of libraries when dynamic-loading.
+
+Error message(s):
+{err_msg}
 "#
         )
     }
@@ -75,15 +78,19 @@ Please check
         LIB.get_or_init(|| {
             let candidates = get_lib_candidates();
             let (mut libraries, mut libraries_path) = (vec![], vec![]);
+            let mut err_msg = String::new();
             for candidate in &candidates {
-                if let Ok(l) = Library::new(candidate) {
-                    libraries.push(l);
-                    libraries_path.push(candidate.to_string());
+                match Library::new(candidate) {
+                    Ok(l) => {
+                        libraries.push(l);
+                        libraries_path.push(candidate.to_string());
+                    },
+                    Err(e) => err_msg.push_str(&format!("Failed to load `{candidate}`: {e}\n")),
                 }
             }
             let lib = DyLoadLib::new(libraries, libraries_path);
             if lib.__libraries.is_empty() {
-                panic_no_lib_found(&candidates);
+                panic_no_lib_found(&candidates, &err_msg);
             }
             if !check_lib_loaded(&lib) {
                 panic_condition_not_met(&lib.__libraries_path);

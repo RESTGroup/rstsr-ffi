@@ -2025,3 +2025,148 @@ pub unsafe fn ztrsm_(
 ) {
     dyload_lib().ztrsm_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
 }
+
+pub unsafe fn sdot_(
+    arg1: *const blas_int,
+    arg2: *const f32,
+    arg3: *const blas_int,
+    arg4: *const f32,
+    arg5: *const blas_int,
+) -> f32 {
+    dyload_lib().sdot_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn sdsdot_(
+    arg1: *const blas_int,
+    arg2: *const f32,
+    arg3: *const f32,
+    arg4: *const blas_int,
+    arg5: *const f32,
+    arg6: *const blas_int,
+) -> f32 {
+    dyload_lib().sdsdot_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+pub unsafe fn snrm2_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32 {
+    dyload_lib().snrm2_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn sasum_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32 {
+    dyload_lib().sasum_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn isamax_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> blas_int {
+    dyload_lib().isamax_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn dsdot_(
+    arg1: *const blas_int,
+    arg2: *const f32,
+    arg3: *const blas_int,
+    arg4: *const f32,
+    arg5: *const blas_int,
+) -> f64 {
+    dyload_lib().dsdot_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn ddot_(
+    arg1: *const blas_int,
+    arg2: *const f64,
+    arg3: *const blas_int,
+    arg4: *const f64,
+    arg5: *const blas_int,
+) -> f64 {
+    dyload_lib().ddot_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn dnrm2_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64 {
+    dyload_lib().dnrm2_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn dasum_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64 {
+    dyload_lib().dasum_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn idamax_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> blas_int {
+    dyload_lib().idamax_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn cdotc_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+    arg4: *const c_void,
+    arg5: *const blas_int,
+) -> c_void {
+    dyload_lib().cdotc_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn cdotu_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+    arg4: *const c_void,
+    arg5: *const blas_int,
+) -> c_void {
+    dyload_lib().cdotu_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn icamax_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+) -> blas_int {
+    dyload_lib().icamax_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn scnrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32 {
+    dyload_lib().scnrm2_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn scasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32 {
+    dyload_lib().scasum_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn scabs1_(arg1: *const c_void) -> f32 {
+    dyload_lib().scabs1_.unwrap()(arg1)
+}
+
+pub unsafe fn zdotc_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+    arg4: *const c_void,
+    arg5: *const blas_int,
+) -> c_void {
+    dyload_lib().zdotc_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn zdotu_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+    arg4: *const c_void,
+    arg5: *const blas_int,
+) -> c_void {
+    dyload_lib().zdotu_.unwrap()(arg1, arg2, arg3, arg4, arg5)
+}
+
+pub unsafe fn dznrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64 {
+    dyload_lib().dznrm2_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn dzasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64 {
+    dyload_lib().dzasum_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn izamax_(
+    arg1: *const blas_int,
+    arg2: *const c_void,
+    arg3: *const blas_int,
+) -> blas_int {
+    dyload_lib().izamax_.unwrap()(arg1, arg2, arg3)
+}
+
+pub unsafe fn dcabs1_(arg1: *const c_void) -> f64 {
+    dyload_lib().dcabs1_.unwrap()(arg1)
+}

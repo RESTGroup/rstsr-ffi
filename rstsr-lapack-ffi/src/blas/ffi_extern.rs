@@ -1507,4 +1507,75 @@ unsafe extern "C" {
         arg10: *mut c_void,
         arg11: *const blas_int,
     );
+    pub fn sdot_(
+        arg1: *const blas_int,
+        arg2: *const f32,
+        arg3: *const blas_int,
+        arg4: *const f32,
+        arg5: *const blas_int,
+    ) -> f32;
+    pub fn sdsdot_(
+        arg1: *const blas_int,
+        arg2: *const f32,
+        arg3: *const f32,
+        arg4: *const blas_int,
+        arg5: *const f32,
+        arg6: *const blas_int,
+    ) -> f32;
+    pub fn snrm2_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32;
+    pub fn sasum_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32;
+    pub fn isamax_(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> blas_int;
+    pub fn dsdot_(
+        arg1: *const blas_int,
+        arg2: *const f32,
+        arg3: *const blas_int,
+        arg4: *const f32,
+        arg5: *const blas_int,
+    ) -> f64;
+    pub fn ddot_(
+        arg1: *const blas_int,
+        arg2: *const f64,
+        arg3: *const blas_int,
+        arg4: *const f64,
+        arg5: *const blas_int,
+    ) -> f64;
+    pub fn dnrm2_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64;
+    pub fn dasum_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64;
+    pub fn idamax_(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> blas_int;
+    pub fn cdotc_(
+        arg1: *const blas_int,
+        arg2: *const c_void,
+        arg3: *const blas_int,
+        arg4: *const c_void,
+        arg5: *const blas_int,
+    ) -> c_void;
+    pub fn cdotu_(
+        arg1: *const blas_int,
+        arg2: *const c_void,
+        arg3: *const blas_int,
+        arg4: *const c_void,
+        arg5: *const blas_int,
+    ) -> c_void;
+    pub fn icamax_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> blas_int;
+    pub fn scnrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32;
+    pub fn scasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32;
+    pub fn scabs1_(arg1: *const c_void) -> f32;
+    pub fn zdotc_(
+        arg1: *const blas_int,
+        arg2: *const c_void,
+        arg3: *const blas_int,
+        arg4: *const c_void,
+        arg5: *const blas_int,
+    ) -> c_void;
+    pub fn zdotu_(
+        arg1: *const blas_int,
+        arg2: *const c_void,
+        arg3: *const blas_int,
+        arg4: *const c_void,
+        arg5: *const blas_int,
+    ) -> c_void;
+    pub fn dznrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64;
+    pub fn dzasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64;
+    pub fn izamax_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> blas_int;
+    pub fn dcabs1_(arg1: *const c_void) -> f64;
 }

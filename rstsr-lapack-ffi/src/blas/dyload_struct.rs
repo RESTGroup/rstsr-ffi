@@ -1829,4 +1829,147 @@ pub struct DyLoadLib {
             arg11: *const blas_int,
         ),
     >,
+    pub sdot_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f32,
+            arg3: *const blas_int,
+            arg4: *const f32,
+            arg5: *const blas_int,
+        ) -> f32,
+    >,
+    pub sdsdot_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f32,
+            arg3: *const f32,
+            arg4: *const blas_int,
+            arg5: *const f32,
+            arg6: *const blas_int,
+        ) -> f32,
+    >,
+    pub snrm2_: Option<
+        unsafe extern "C" fn(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32,
+    >,
+    pub sasum_: Option<
+        unsafe extern "C" fn(arg1: *const blas_int, arg2: *const f32, arg3: *const blas_int) -> f32,
+    >,
+    pub isamax_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f32,
+            arg3: *const blas_int,
+        ) -> blas_int,
+    >,
+    pub dsdot_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f32,
+            arg3: *const blas_int,
+            arg4: *const f32,
+            arg5: *const blas_int,
+        ) -> f64,
+    >,
+    pub ddot_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f64,
+            arg3: *const blas_int,
+            arg4: *const f64,
+            arg5: *const blas_int,
+        ) -> f64,
+    >,
+    pub dnrm2_: Option<
+        unsafe extern "C" fn(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64,
+    >,
+    pub dasum_: Option<
+        unsafe extern "C" fn(arg1: *const blas_int, arg2: *const f64, arg3: *const blas_int) -> f64,
+    >,
+    pub idamax_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const f64,
+            arg3: *const blas_int,
+        ) -> blas_int,
+    >,
+    pub cdotc_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+            arg4: *const c_void,
+            arg5: *const blas_int,
+        ) -> c_void,
+    >,
+    pub cdotu_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+            arg4: *const c_void,
+            arg5: *const blas_int,
+        ) -> c_void,
+    >,
+    pub icamax_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> blas_int,
+    >,
+    pub scnrm2_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> f32,
+    >,
+    pub scasum_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> f32,
+    >,
+    pub scabs1_: Option<unsafe extern "C" fn(arg1: *const c_void) -> f32>,
+    pub zdotc_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+            arg4: *const c_void,
+            arg5: *const blas_int,
+        ) -> c_void,
+    >,
+    pub zdotu_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+            arg4: *const c_void,
+            arg5: *const blas_int,
+        ) -> c_void,
+    >,
+    pub dznrm2_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> f64,
+    >,
+    pub dzasum_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> f64,
+    >,
+    pub izamax_: Option<
+        unsafe extern "C" fn(
+            arg1: *const blas_int,
+            arg2: *const c_void,
+            arg3: *const blas_int,
+        ) -> blas_int,
+    >,
+    pub dcabs1_: Option<unsafe extern "C" fn(arg1: *const c_void) -> f64>,
 }

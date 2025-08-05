@@ -64,6 +64,10 @@ Optional features:
 
 ## Changelog
 
+- v0.4.5
+
+    - **Enhancements**: Updated panic information.
+
 - v0.4.4
 
     - **Docs Update**

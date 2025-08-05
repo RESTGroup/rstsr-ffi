@@ -72,3 +72,84 @@ Optional features:
     - Do not perform efficiency benchmark with `rstsr-kml-ffi`, unless consented by Huawei.
 
 ### Note on Installation of KML `libklapack_full.so`
+
+By KML's yum or deb binary, you just installed `libkblas.so` (openmp version recommended) and `libklapack.so` (not linked with kblas, nor full lapack that covers all Netlib's version).
+
+To use KML properly, it is better to generate full lapack (instead of the `libklapack.so` that only contains a few optimized subroutines). The guide for generating full lapack to `libklapack_full.so` is [here (in simplified Chinese)](https://www.hikunpeng.com/document/detail/zh/kunpengaccel/math-lib/devg-kml/kunpengaccel_kml_0007.html).
+
+The guide above mentioned is sufficient if you are not using dynamic loading. However, **if you are using dynamic loading, it is advised to also link `libkblas.so` into `libklapack_full.so`**.
+
+To also link to `libkblas.so`, an example script can be the following:
+
+<details>
+<summary>Example script to generate <code>libklapack_full.so</code> and also linked with <code>libkblas.so</code></summary>
+
+```bash
+set -eE
+
+echo "LAPACK_SRC_DIR         ${LAPACK_SRC_DIR:-<undefined>}"
+echo "LAPACK_TGZ             ${LAPACK_TGZ:=${HOME}/Downloads/lapack-3.12.0.tar.gz}"
+echo "LIBKLAPACK_A           ${LIBKLAPACK_A:=/usr/local/kml/lib/neon/libklapack.a}"
+echo "LIBKSERVICE_A          ${LIBKSERVICE_A:=/usr/local/kml/lib/neon/libkservice.a}"
+echo "LIBKBLAS_DIR           ${LIBKBLAS_DIR:=/usr/local/kml/lib/neon/kblas/omp}"
+echo "ADAPT_DIR              ${ADAPT_DIR:=./lapack_adapt}"
+echo "CMAKE_BUILD_TYPE       ${CMAKE_BUILD_TYPE:=Release}"
+echo "LIBLAPACK_ADAPT_A      ${LIBLAPACK_ADAPT_A:=liblapack_adapt.a}"
+echo "LIBKLAPACK_FULL_SO     ${LIBKLAPACK_FULL_SO:=libklapack_full.so}"
+echo "CC                     ${CC:=gcc}"
+echo "FC                     ${FC:=gfortran}"
+
+mkdir -p ${ADAPT_DIR}
+cd ${ADAPT_DIR}
+
+# build netlib lapack
+if [ ! -r "${LAPACK_SRC_DIR}/CMakeLists.txt" ]; then
+    mkdir -p netlib
+    ( cd netlib ; tar xzpf ${LAPACK_TGZ} )
+    LAPACK_SRC_DIR=$(cd netlib/l* ; pwd)
+fi
+
+mkdir -p build
+cmake_flags=(
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+    -DCMAKE_C_COMPILER=${CC}
+    -DCMAKE_Fortran_COMPILER=${FC}
+    -DCMAKE_RULE_MESSAGES=off
+    -DBUILD_DEPRECATED=on
+    -DBUILD_TESTING=off
+)
+( cd build ; cmake ${cmake_flags[*]} ${LAPACK_SRC_DIR} )
+( cd build ; make -j )
+
+cp build/lib/liblapack.a ${LIBLAPACK_ADAPT_A}
+
+# get symbols defined both in klapack and netlib lapack
+nm -g ${LIBLAPACK_ADAPT_A} | grep 'T ' | grep -oP '\K\w+(?=_$)' | sort | uniq > netlib.sym
+nm -g ${LIBKLAPACK_A} | grep 'T ' | grep -oP '\K\w+(?=_$)' | sort | uniq > klapack.sym
+comm -12 klapack.sym netlib.sym > comm.sym
+
+# update symbols name of ${LIBLAPACK_ADAPT_A}
+while read sym; do
+    (
+        if ! nm ${LIBLAPACK_ADAPT_A} | grep -qe " T ${sym}_\$"; then
+            continue
+        fi
+        ar x ${LIBLAPACK_ADAPT_A} ${sym}.f.o
+        mv ${sym}.f.o ${sym}_netlib.f.o
+
+        objcopy --redefine-sym ${sym}_=${sym}_netlib_ ${sym}_netlib.f.o
+    ) &
+done < comm.sym
+wait
+ar d ${LIBLAPACK_ADAPT_A} $(sed -ne 's/$/.f.o/p' comm.sym)
+ar d ${LIBLAPACK_ADAPT_A} xerbla.f.o
+ar ru ${LIBLAPACK_ADAPT_A} *_netlib.f.o
+rm *_netlib.f.o
+
+${FC} -o ${LIBKLAPACK_FULL_SO} -shared -fPIC -Wl,--whole-archive ${LIBKLAPACK_A} ${LIBLAPACK_ADAPT_A} -Wl,--no-whole-archive ${LIBKSERVICE_A} -L${LIBKBLAS_DIR} -lkblas -fopenmp -lpthread -lm
+```
+
+</details>
+
+After `libklapack_full.so` generated, you may need to add the directory of both `libkblas.so` and `libklapack_full.so` to the environmental variable `LD_LIBRARY_PATH`, to let the crate rstsr-kml-ffi know where to find lapack functions.

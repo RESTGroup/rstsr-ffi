@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-openblas-ffi"
-version = "0.4.4"
+version = "0.4.5"
 description = "OpenBLAS FFI bindings"
 readme = "readme.md"
 

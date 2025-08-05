@@ -38,6 +38,11 @@ opt-level = 0
 debug = false
 ```
 
+If you encountered some functions not found when using dynamic linking, especially functions like `exp`, `log` that should be in libm.so, then you may need to explicitly link libm.so in `build.rs` by this way:
+```rust
+println!("cargo:rustc-link-arg=-Wl,--no-as-needed,-lm");
+```
+
 ## Cargo features
 
 Default features:
@@ -66,6 +71,10 @@ Optional features:
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
 
 ## Changelog
+
+- v0.1.5
+
+    - **Enhancements**: Updated panic information.
 
 - v0.1.4
 
