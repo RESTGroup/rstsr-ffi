@@ -49,7 +49,7 @@ pub(crate) mod get_lib_candidates {
         candidates
     }
 
-    pub(crate) fn panic_no_lib_found<S: Debug>(candidates: &[S]) -> ! {
+    pub(crate) fn panic_no_lib_found<S: Debug>(candidates: &[S], err_msg: &str) -> ! {
         panic!(
             r#"
 This happens in crate `{CRATE_NAME}`.
@@ -63,6 +63,9 @@ Please check
 - if `LD_LIBRARY_PATH` (linux) or `DYLD_LIBRARY_PATH` (macOS) or `PATH` (Windows) environment variable is set correctly (any path that's visible to linker).
 - this crate does not use things like `LD_PRELOAD` or `DYLD_INSERT_LIBRARIES` to load the library.
 - this crate does not support static linking of libraries when dynamic-loading.
+
+Error message(s):
+{err_msg}
 "#
         )
     }
