@@ -38,6 +38,11 @@ opt-level = 0
 debug = false
 ```
 
+If you encountered some functions not found when using dynamic linking, especially functions like `exp`, `log` that should be in libm.so, then you may need to explicitly link libm.so in `build.rs` by this way:
+```rust
+println!("cargo:rustc-link-arg=-Wl,--no-as-needed,-lm");
+```
+
 ## Cargo features
 
 Default features:
