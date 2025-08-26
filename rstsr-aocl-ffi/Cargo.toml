@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-aocl-ffi"
-version = "0.1.1"
+version = "0.2.0"
 description = "Intel AMD Optimizing CPU Libraries FFI bindings"
 readme = "readme.md"
 
@@ -17,7 +17,7 @@ half = { workspace = true }
 num = { workspace = true }
 
 [features]
-default = ["blis", "lapack", "dynamic_loading"]
+default = ["blis", "lapack"]
 
 ilp64 = ["rstsr-cblas-base/ilp64"]
 lp64_as_int = ["rstsr-cblas-base/lp64_as_int"]

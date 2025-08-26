@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-blis-ffi"
-version = "0.1.3"
+version = "0.2.0"
 description = "BLIS and FLAME FFI bindings"
 readme = "readme.md"
 
@@ -17,7 +17,7 @@ half = { workspace = true }
 num = { workspace = true }
 
 [features]
-default = ["lapack", "dynamic_loading", "x86_64"]
+default = ["lapack", "x86_64"]
 
 ilp64 = ["rstsr-cblas-base/ilp64"]
 lp64_as_int = ["rstsr-cblas-base/lp64_as_int"]

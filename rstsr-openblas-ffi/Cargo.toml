@@ -1,6 +1,6 @@
 [package]
 name = "rstsr-openblas-ffi"
-version = "0.4.5"
+version = "0.5.0"
 description = "OpenBLAS FFI bindings"
 readme = "readme.md"
 
@@ -15,7 +15,7 @@ rstsr-cblas-base = { workspace = true }
 libloading = { workspace = true, optional = true }
 
 [features]
-default = ["blas", "cblas", "lapack", "dynamic_loading"]
+default = ["blas", "cblas", "lapack"]
 
 ilp64 = ["rstsr-cblas-base/ilp64"]
 lp64_as_int = ["rstsr-cblas-base/lp64_as_int"]
