@@ -20,7 +20,7 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 
 Motivation of this repository, is that we want some of the following features:
 
-- **Dynamic loading support**. We support either usual FFI (requires library linking) or dynamic loading (load library in runtime) by switching crate feature `dynamic_loading`. Dynamic loading scheme is the default.
+- **Dynamic loading support**. We support either usual FFI (requires library linking) or dynamic loading (load library in runtime) by switching crate feature `dynamic_loading`. Dynamic loading scheme is not the default, and should be enabled manually.
 - **Preprocessor directives support**. This is especially for `ILP64`, where integers can be `int`, `int32_t` or `int64_t`, which will also affect signature in FFI bindings.
 - **Utilities from BLAS distributions**. For example, To use BLAS with proper threading, we may need to use utilities that is written from BLAS distributions, instead of reference (netlib) BLAS.
 - **Additional BLAS extensions**. Many current BLAS implementations have some useful BLAS extensions (such as batched gemm, complex gemm3m, half-precision gemm, i/omatcopy, etc.). Some of these extensions may be essential (more than non-negligible) to efficiency (such as application in machine learning). However, it is difficult (or not very proper) to declare these BLAS extensions in one crate.
