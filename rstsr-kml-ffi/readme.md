@@ -13,9 +13,9 @@ This crate is not official bindgen project. It is originally intended to serve r
 
 ## Dynamic loading
 
-This crate supports dynamic loading by default.
+This crate supports dynamic loading.
 
-If you do not want to use dynamic loading, please disable default cargo features (`--no-default-features` when cargo build).
+If you want to use dynamic loading, please enable cargo feature `dynamic_loading` when cargo build.
 
 The dynamic loading will try to find proper library when your program initializes.
 - This crate will automatically detect proper libraries, if these libraries are in environmental path `LD_LIBRARY_PATH` (Linux) `DYLD_LIBRARY_PATH` (Mac OS), `PATH` (Windows).
@@ -35,13 +35,13 @@ debug = false
 
 Default features:
 
-- `dynamic_loading`: Supports dynamic loading.
 - `blas`: Inclulde BLAS bindgens.
 - `kblas`: Include KML CBLAS bindgens.
 - `lapack`: Include LAPACK bindgens.
 
 Optional features:
 
+- `dynamic_loading`: Supports dynamic loading.
 - `ilp64`: Use `int64_t` for dimension specification, or lapack error code types if this feature specified. Otherwise, use `int32_t`.
     - Please note that in module `blas`, error code is returned by `c_int`; in module `cblas`, KML utility functions use `c_int` for input or output.
 - `lapacke`: Include LAPACKE bindgens.
@@ -153,3 +153,9 @@ ${FC} -o ${LIBKLAPACK_FULL_SO} -shared -fPIC -Wl,--whole-archive ${LIBKLAPACK_A}
 </details>
 
 After `libklapack_full.so` generated, you may need to add the directory of both `libkblas.so` and `libklapack_full.so` to the environmental variable `LD_LIBRARY_PATH`, to let the crate rstsr-kml-ffi know where to find lapack functions.
+
+## Changelog
+
+- v0.2.0
+
+    - **API Breaking**: Now cargo feature `dynamic_loading` is not default.
