@@ -92,6 +92,7 @@ pub use dyload_struct::*;
 /* #endregion */
 
 #[test]
+#[cfg(feature = "dynamic_loading")]
 fn playground() {
     // test libraries loaded
     let time = std::time::Instant::now();
