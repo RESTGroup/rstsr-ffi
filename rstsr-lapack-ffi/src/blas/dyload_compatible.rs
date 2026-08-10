@@ -2097,7 +2097,7 @@ pub unsafe fn cdotc_(
     arg3: *const blas_int,
     arg4: *const c_void,
     arg5: *const blas_int,
-) -> c_void {
+) {
     dyload_lib().cdotc_.unwrap()(arg1, arg2, arg3, arg4, arg5)
 }
 
@@ -2107,7 +2107,7 @@ pub unsafe fn cdotu_(
     arg3: *const blas_int,
     arg4: *const c_void,
     arg5: *const blas_int,
-) -> c_void {
+) {
     dyload_lib().cdotu_.unwrap()(arg1, arg2, arg3, arg4, arg5)
 }
 
@@ -2137,7 +2137,7 @@ pub unsafe fn zdotc_(
     arg3: *const blas_int,
     arg4: *const c_void,
     arg5: *const blas_int,
-) -> c_void {
+) {
     dyload_lib().zdotc_.unwrap()(arg1, arg2, arg3, arg4, arg5)
 }
 
@@ -2147,7 +2147,7 @@ pub unsafe fn zdotu_(
     arg3: *const blas_int,
     arg4: *const c_void,
     arg5: *const blas_int,
-) -> c_void {
+) {
     dyload_lib().zdotu_.unwrap()(arg1, arg2, arg3, arg4, arg5)
 }
 

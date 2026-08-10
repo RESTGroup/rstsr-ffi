@@ -1548,14 +1548,14 @@ unsafe extern "C" {
         arg3: *const blas_int,
         arg4: *const c_void,
         arg5: *const blas_int,
-    ) -> c_void;
+    );
     pub fn cdotu_(
         arg1: *const blas_int,
         arg2: *const c_void,
         arg3: *const blas_int,
         arg4: *const c_void,
         arg5: *const blas_int,
-    ) -> c_void;
+    );
     pub fn icamax_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> blas_int;
     pub fn scnrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32;
     pub fn scasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f32;
@@ -1566,14 +1566,14 @@ unsafe extern "C" {
         arg3: *const blas_int,
         arg4: *const c_void,
         arg5: *const blas_int,
-    ) -> c_void;
+    );
     pub fn zdotu_(
         arg1: *const blas_int,
         arg2: *const c_void,
         arg3: *const blas_int,
         arg4: *const c_void,
         arg5: *const blas_int,
-    ) -> c_void;
+    );
     pub fn dznrm2_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64;
     pub fn dzasum_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> f64;
     pub fn izamax_(arg1: *const blas_int, arg2: *const c_void, arg3: *const blas_int) -> blas_int;
