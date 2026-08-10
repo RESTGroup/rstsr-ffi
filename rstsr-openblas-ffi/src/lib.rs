@@ -46,6 +46,15 @@ pub(crate) mod get_lib_candidates {
             format!("{DLL_PREFIX}openblas-{int_name}{DLL_SUFFIX}"),
             format!("{DLL_PREFIX}openblas{DLL_SUFFIX}"),
         ]);
+        // versioned SONAME - macOS conda/homebrew and Linux distros often ship
+        // only the versioned file (`libopenblas.0.dylib` / `libopenblas.so.0`)
+        // with no unversioned symlink; without this candidate the loader
+        // cannot find the library even when DYLD/LD_LIBRARY_PATH is set.
+        if cfg!(target_os = "macos") {
+            candidates.push(format!("{DLL_PREFIX}openblas.0{DLL_SUFFIX}"));
+        } else if cfg!(target_os = "linux") {
+            candidates.push(format!("{DLL_PREFIX}openblas{DLL_SUFFIX}.0"));
+        }
         candidates
     }
 
