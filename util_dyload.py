@@ -9,6 +9,8 @@ This package handles
 - creating FFI-compatible functions for dynamic loading.
 """
 
+import re
+
 from tree_sitter import Language, Parser
 import tree_sitter_rust
 
@@ -48,8 +50,25 @@ def dyload_fn_split(node):
     return result
 
 
+# Return-type tokens that bindgen (or the `sub_to_func` post-processing in some
+# generators) may emit for C functions returning `void`. In Rust, `c_void` must
+# not be used as a return type (clippy::c_void_returns): the correct
+# representation of C `void` is the unit type `()` (omitting the return type).
+# This pattern only matches bare `-> c_void` return types; pointer parameter
+# types such as `*mut c_void` / `*const c_void` and pointer returns like
+# `-> *mut c_void` are not affected.
+_CVOID_RETURN = re.compile(r"\s*->\s*c_void\b")
+
+
+def _strip_cvoid_returns(token):
+    return _CVOID_RETURN.sub("", token)
+
+
 def dyload_main(token, token_extra=None):
     # 1. obtain all stuffs for usual ffi use cases
+    token = _strip_cvoid_returns(token)
+    if token_extra is not None:
+        token_extra = _strip_cvoid_returns(token_extra)
     parsed, node_extern = dyload_parse_file(token)
     token_ffi_base = dyload_remove_extern(parsed, node_extern)
 

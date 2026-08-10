@@ -1899,7 +1899,7 @@ pub struct DyLoadLib {
             arg3: *const blas_int,
             arg4: *const c_void,
             arg5: *const blas_int,
-        ) -> c_void,
+        ),
     >,
     pub cdotu_: Option<
         unsafe extern "C" fn(
@@ -1908,7 +1908,7 @@ pub struct DyLoadLib {
             arg3: *const blas_int,
             arg4: *const c_void,
             arg5: *const blas_int,
-        ) -> c_void,
+        ),
     >,
     pub icamax_: Option<
         unsafe extern "C" fn(
@@ -1939,7 +1939,7 @@ pub struct DyLoadLib {
             arg3: *const blas_int,
             arg4: *const c_void,
             arg5: *const blas_int,
-        ) -> c_void,
+        ),
     >,
     pub zdotu_: Option<
         unsafe extern "C" fn(
@@ -1948,7 +1948,7 @@ pub struct DyLoadLib {
             arg3: *const blas_int,
             arg4: *const c_void,
             arg5: *const blas_int,
-        ) -> c_void,
+        ),
     >,
     pub dznrm2_: Option<
         unsafe extern "C" fn(
