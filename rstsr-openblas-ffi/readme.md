@@ -68,6 +68,7 @@ Optional features:
 
     - **Enhancements**: Updated vendored headers to OpenBLAS v0.3.34. New CBLAS functions: `openblas_set_xerbla` (with `openblas_xerbla_handler` typedef), `cblas_[sdcz]gemm_batch_strided`, `cblas_bgemv`, `cblas_bgemm`, `cblas_sbgemm_batch_strided`, `cblas_shgemm`. New BLAS functions: `bscal_`, `bgemv_`, `shgemv_`, `shgemm_`, `bgemm_`. New type `hfloat16` (resolved as `u16` by the generation toolchain).
     - **API Breaking**: `cblas_[sdcz]geadd` gained `CTRANS_A` and `CTRANS_C` arguments, and BLAS `[sdcz]geadd_` gained two trailing `transa`/`transc` character pointers, following the upstream OpenBLAS 0.3.34 GEADD signature change.
+    - **Bugfix**: Fixed `quad_precision` build failure. The generator now injects `core::ffi::c_ulong` in the `xdouble` struct instead of `::core::os::raw::c_ulong`, which no longer resolves on current rustc.
 
 - v0.5.0
 

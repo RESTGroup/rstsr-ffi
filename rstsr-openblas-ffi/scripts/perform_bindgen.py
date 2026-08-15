@@ -113,7 +113,7 @@ token = """
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct xdouble {
-    pub x: [::core::os::raw::c_ulong; 2usize],
+    pub x: [::core::ffi::c_ulong; 2usize],
 }
 #[cfg(all(feature = "ex_precision", not(feature = "quad_precision")))]
 #[repr(C)]
