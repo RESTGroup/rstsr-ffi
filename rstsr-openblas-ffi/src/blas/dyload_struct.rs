@@ -57,6 +57,14 @@ pub struct DyLoadLib {
             arg5: *mut blas_int,
         ) -> xdouble,
     >,
+    pub bscal_: Option<
+        unsafe extern "C" fn(
+            arg1: *mut blas_int,
+            arg2: *mut bfloat16,
+            arg3: *mut bfloat16,
+            arg4: *mut blas_int,
+        ),
+    >,
     pub sbdot_: Option<
         unsafe extern "C" fn(
             arg1: *mut blas_int,
@@ -971,6 +979,21 @@ pub struct DyLoadLib {
             arg9: *mut blas_int,
         ),
     >,
+    pub bgemv_: Option<
+        unsafe extern "C" fn(
+            arg1: *mut c_char,
+            arg2: *mut blas_int,
+            arg3: *mut blas_int,
+            arg4: *mut bfloat16,
+            arg5: *mut bfloat16,
+            arg6: *mut blas_int,
+            arg7: *mut bfloat16,
+            arg8: *mut blas_int,
+            arg9: *mut bfloat16,
+            arg10: *mut bfloat16,
+            arg11: *mut blas_int,
+        ),
+    >,
     pub sbgemv_: Option<
         unsafe extern "C" fn(
             arg1: *mut c_char,
@@ -980,6 +1003,21 @@ pub struct DyLoadLib {
             arg5: *mut bfloat16,
             arg6: *mut blas_int,
             arg7: *mut bfloat16,
+            arg8: *mut blas_int,
+            arg9: *mut f32,
+            arg10: *mut f32,
+            arg11: *mut blas_int,
+        ),
+    >,
+    pub shgemv_: Option<
+        unsafe extern "C" fn(
+            arg1: *mut c_char,
+            arg2: *mut blas_int,
+            arg3: *mut blas_int,
+            arg4: *mut f32,
+            arg5: *mut hfloat16,
+            arg6: *mut blas_int,
+            arg7: *mut hfloat16,
             arg8: *mut blas_int,
             arg9: *mut f32,
             arg10: *mut f32,
@@ -2436,6 +2474,40 @@ pub struct DyLoadLib {
             arg9: *mut xdouble,
             arg10: *mut xdouble,
             arg11: *mut blas_int,
+        ),
+    >,
+    pub shgemm_: Option<
+        unsafe extern "C" fn(
+            arg1: *mut c_char,
+            arg2: *mut c_char,
+            arg3: *mut blas_int,
+            arg4: *mut blas_int,
+            arg5: *mut blas_int,
+            arg6: *mut f32,
+            arg7: *mut hfloat16,
+            arg8: *mut blas_int,
+            arg9: *mut hfloat16,
+            arg10: *mut blas_int,
+            arg11: *mut f32,
+            arg12: *mut f32,
+            arg13: *mut blas_int,
+        ),
+    >,
+    pub bgemm_: Option<
+        unsafe extern "C" fn(
+            arg1: *mut c_char,
+            arg2: *mut c_char,
+            arg3: *mut blas_int,
+            arg4: *mut blas_int,
+            arg5: *mut blas_int,
+            arg6: *mut bfloat16,
+            arg7: *mut bfloat16,
+            arg8: *mut blas_int,
+            arg9: *mut bfloat16,
+            arg10: *mut blas_int,
+            arg11: *mut bfloat16,
+            arg12: *mut bfloat16,
+            arg13: *mut blas_int,
         ),
     >,
     pub sbgemm_: Option<
@@ -4733,6 +4805,8 @@ pub struct DyLoadLib {
             arg6: *mut f32,
             arg7: *mut f32,
             arg8: *mut blas_int,
+            arg9: *mut c_char,
+            arg10: *mut c_char,
         ),
     >,
     pub dgeadd_: Option<
@@ -4745,6 +4819,8 @@ pub struct DyLoadLib {
             arg6: *mut f64,
             arg7: *mut f64,
             arg8: *mut blas_int,
+            arg9: *mut c_char,
+            arg10: *mut c_char,
         ),
     >,
     pub cgeadd_: Option<
@@ -4757,6 +4833,8 @@ pub struct DyLoadLib {
             arg6: *mut f32,
             arg7: *mut f32,
             arg8: *mut blas_int,
+            arg9: *mut c_char,
+            arg10: *mut c_char,
         ),
     >,
     pub zgeadd_: Option<
@@ -4769,6 +4847,8 @@ pub struct DyLoadLib {
             arg6: *mut f64,
             arg7: *mut f64,
             arg8: *mut blas_int,
+            arg9: *mut c_char,
+            arg10: *mut c_char,
         ),
     >,
 }

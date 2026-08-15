@@ -66,6 +66,15 @@ pub unsafe fn qdot_(
     dyload_lib().qdot_.unwrap()(arg1, arg2, arg3, arg4, arg5)
 }
 
+pub unsafe fn bscal_(
+    arg1: *mut blas_int,
+    arg2: *mut bfloat16,
+    arg3: *mut bfloat16,
+    arg4: *mut blas_int,
+) {
+    dyload_lib().bscal_.unwrap()(arg1, arg2, arg3, arg4)
+}
+
 pub unsafe fn sbdot_(
     arg1: *mut blas_int,
     arg2: *mut bfloat16,
@@ -995,6 +1004,22 @@ pub unsafe fn xgerc_(
     dyload_lib().xgerc_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
 }
 
+pub unsafe fn bgemv_(
+    arg1: *mut c_char,
+    arg2: *mut blas_int,
+    arg3: *mut blas_int,
+    arg4: *mut bfloat16,
+    arg5: *mut bfloat16,
+    arg6: *mut blas_int,
+    arg7: *mut bfloat16,
+    arg8: *mut blas_int,
+    arg9: *mut bfloat16,
+    arg10: *mut bfloat16,
+    arg11: *mut blas_int,
+) {
+    dyload_lib().bgemv_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+}
+
 pub unsafe fn sbgemv_(
     arg1: *mut c_char,
     arg2: *mut blas_int,
@@ -1009,6 +1034,24 @@ pub unsafe fn sbgemv_(
     arg11: *mut blas_int,
 ) {
     dyload_lib().sbgemv_.unwrap()(
+        arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
+    )
+}
+
+pub unsafe fn shgemv_(
+    arg1: *mut c_char,
+    arg2: *mut blas_int,
+    arg3: *mut blas_int,
+    arg4: *mut f32,
+    arg5: *mut hfloat16,
+    arg6: *mut blas_int,
+    arg7: *mut hfloat16,
+    arg8: *mut blas_int,
+    arg9: *mut f32,
+    arg10: *mut f32,
+    arg11: *mut blas_int,
+) {
+    dyload_lib().shgemv_.unwrap()(
         arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
     )
 }
@@ -2590,6 +2633,46 @@ pub unsafe fn xhbmv_(
     arg11: *mut blas_int,
 ) {
     dyload_lib().xhbmv_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+}
+
+pub unsafe fn shgemm_(
+    arg1: *mut c_char,
+    arg2: *mut c_char,
+    arg3: *mut blas_int,
+    arg4: *mut blas_int,
+    arg5: *mut blas_int,
+    arg6: *mut f32,
+    arg7: *mut hfloat16,
+    arg8: *mut blas_int,
+    arg9: *mut hfloat16,
+    arg10: *mut blas_int,
+    arg11: *mut f32,
+    arg12: *mut f32,
+    arg13: *mut blas_int,
+) {
+    dyload_lib().shgemm_.unwrap()(
+        arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13,
+    )
+}
+
+pub unsafe fn bgemm_(
+    arg1: *mut c_char,
+    arg2: *mut c_char,
+    arg3: *mut blas_int,
+    arg4: *mut blas_int,
+    arg5: *mut blas_int,
+    arg6: *mut bfloat16,
+    arg7: *mut bfloat16,
+    arg8: *mut blas_int,
+    arg9: *mut bfloat16,
+    arg10: *mut blas_int,
+    arg11: *mut bfloat16,
+    arg12: *mut bfloat16,
+    arg13: *mut blas_int,
+) {
+    dyload_lib().bgemm_.unwrap()(
+        arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13,
+    )
 }
 
 pub unsafe fn sbgemm_(
@@ -5202,8 +5285,10 @@ pub unsafe fn sgeadd_(
     arg6: *mut f32,
     arg7: *mut f32,
     arg8: *mut blas_int,
+    arg9: *mut c_char,
+    arg10: *mut c_char,
 ) {
-    dyload_lib().sgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    dyload_lib().sgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
 }
 
 pub unsafe fn dgeadd_(
@@ -5215,8 +5300,10 @@ pub unsafe fn dgeadd_(
     arg6: *mut f64,
     arg7: *mut f64,
     arg8: *mut blas_int,
+    arg9: *mut c_char,
+    arg10: *mut c_char,
 ) {
-    dyload_lib().dgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    dyload_lib().dgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
 }
 
 pub unsafe fn cgeadd_(
@@ -5228,8 +5315,10 @@ pub unsafe fn cgeadd_(
     arg6: *mut f32,
     arg7: *mut f32,
     arg8: *mut blas_int,
+    arg9: *mut c_char,
+    arg10: *mut c_char,
 ) {
-    dyload_lib().cgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    dyload_lib().cgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
 }
 
 pub unsafe fn zgeadd_(
@@ -5241,6 +5330,8 @@ pub unsafe fn zgeadd_(
     arg6: *mut f64,
     arg7: *mut f64,
     arg8: *mut blas_int,
+    arg9: *mut c_char,
+    arg10: *mut c_char,
 ) {
-    dyload_lib().zgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+    dyload_lib().zgeadd_.unwrap()(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
 }

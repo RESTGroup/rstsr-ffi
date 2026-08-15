@@ -29,6 +29,7 @@ impl DyLoadLib {
                 b"openblas_set_threads_callback_function\0",
             )
             .map(|sym| *sym),
+            openblas_set_xerbla: get_symbol(&libs, b"openblas_set_xerbla\0").map(|sym| *sym),
             openblas_get_parallel: get_symbol(&libs, b"openblas_get_parallel\0").map(|sym| *sym),
             cblas_sdsdot: get_symbol(&libs, b"cblas_sdsdot\0").map(|sym| *sym),
             cblas_dsdot: get_symbol(&libs, b"cblas_dsdot\0").map(|sym| *sym),
@@ -233,14 +234,27 @@ impl DyLoadLib {
             cblas_dgemm_batch: get_symbol(&libs, b"cblas_dgemm_batch\0").map(|sym| *sym),
             cblas_cgemm_batch: get_symbol(&libs, b"cblas_cgemm_batch\0").map(|sym| *sym),
             cblas_zgemm_batch: get_symbol(&libs, b"cblas_zgemm_batch\0").map(|sym| *sym),
+            cblas_sgemm_batch_strided: get_symbol(&libs, b"cblas_sgemm_batch_strided\0")
+                .map(|sym| *sym),
+            cblas_dgemm_batch_strided: get_symbol(&libs, b"cblas_dgemm_batch_strided\0")
+                .map(|sym| *sym),
+            cblas_cgemm_batch_strided: get_symbol(&libs, b"cblas_cgemm_batch_strided\0")
+                .map(|sym| *sym),
+            cblas_zgemm_batch_strided: get_symbol(&libs, b"cblas_zgemm_batch_strided\0")
+                .map(|sym| *sym),
             cblas_sbstobf16: get_symbol(&libs, b"cblas_sbstobf16\0").map(|sym| *sym),
             cblas_sbdtobf16: get_symbol(&libs, b"cblas_sbdtobf16\0").map(|sym| *sym),
             cblas_sbf16tos: get_symbol(&libs, b"cblas_sbf16tos\0").map(|sym| *sym),
             cblas_dbf16tod: get_symbol(&libs, b"cblas_dbf16tod\0").map(|sym| *sym),
+            cblas_bgemv: get_symbol(&libs, b"cblas_bgemv\0").map(|sym| *sym),
             cblas_sbdot: get_symbol(&libs, b"cblas_sbdot\0").map(|sym| *sym),
             cblas_sbgemv: get_symbol(&libs, b"cblas_sbgemv\0").map(|sym| *sym),
+            cblas_bgemm: get_symbol(&libs, b"cblas_bgemm\0").map(|sym| *sym),
             cblas_sbgemm: get_symbol(&libs, b"cblas_sbgemm\0").map(|sym| *sym),
             cblas_sbgemm_batch: get_symbol(&libs, b"cblas_sbgemm_batch\0").map(|sym| *sym),
+            cblas_sbgemm_batch_strided: get_symbol(&libs, b"cblas_sbgemm_batch_strided\0")
+                .map(|sym| *sym),
+            cblas_shgemm: get_symbol(&libs, b"cblas_shgemm\0").map(|sym| *sym),
             omp_set_num_threads: get_symbol(&libs, b"omp_set_num_threads\0").map(|sym| *sym),
             omp_get_max_threads: get_symbol(&libs, b"omp_get_max_threads\0").map(|sym| *sym),
         };

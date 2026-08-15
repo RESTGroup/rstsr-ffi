@@ -13,6 +13,7 @@ unsafe extern "C" {
     pub fn openblas_get_config() -> *mut c_char;
     pub fn openblas_get_corename() -> *mut c_char;
     pub fn openblas_set_threads_callback_function(callback: openblas_threads_callback);
+    pub fn openblas_set_xerbla(handler: openblas_xerbla_handler) -> openblas_xerbla_handler;
     pub fn openblas_get_parallel() -> c_int;
     pub fn cblas_sdsdot(
         n: blas_int,
@@ -1705,6 +1706,8 @@ unsafe extern "C" {
     );
     pub fn cblas_sgeadd(
         CORDER: CBLAS_ORDER,
+        CTRANS_A: CBLAS_TRANSPOSE,
+        CTRANS_C: CBLAS_TRANSPOSE,
         crows: blas_int,
         ccols: blas_int,
         calpha: f32,
@@ -1716,6 +1719,8 @@ unsafe extern "C" {
     );
     pub fn cblas_dgeadd(
         CORDER: CBLAS_ORDER,
+        CTRANS_A: CBLAS_TRANSPOSE,
+        CTRANS_C: CBLAS_TRANSPOSE,
         crows: blas_int,
         ccols: blas_int,
         calpha: f64,
@@ -1727,6 +1732,8 @@ unsafe extern "C" {
     );
     pub fn cblas_cgeadd(
         CORDER: CBLAS_ORDER,
+        CTRANS_A: CBLAS_TRANSPOSE,
+        CTRANS_C: CBLAS_TRANSPOSE,
         crows: blas_int,
         ccols: blas_int,
         calpha: *const f32,
@@ -1738,6 +1745,8 @@ unsafe extern "C" {
     );
     pub fn cblas_zgeadd(
         CORDER: CBLAS_ORDER,
+        CTRANS_A: CBLAS_TRANSPOSE,
+        CTRANS_C: CBLAS_TRANSPOSE,
         crows: blas_int,
         ccols: blas_int,
         calpha: *const f64,
@@ -1819,6 +1828,86 @@ unsafe extern "C" {
         group_count: blas_int,
         group_size: *const blas_int,
     );
+    pub fn cblas_sgemm_batch_strided(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: f32,
+        A: *const f32,
+        lda: blas_int,
+        stridea: blas_int,
+        B: *const f32,
+        ldb: blas_int,
+        strideb: blas_int,
+        beta: f32,
+        C: *mut f32,
+        ldc: blas_int,
+        stridec: blas_int,
+        group_size: blas_int,
+    );
+    pub fn cblas_dgemm_batch_strided(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: f64,
+        A: *const f64,
+        lda: blas_int,
+        stridea: blas_int,
+        B: *const f64,
+        ldb: blas_int,
+        strideb: blas_int,
+        beta: f64,
+        C: *mut f64,
+        ldc: blas_int,
+        stridec: blas_int,
+        group_size: blas_int,
+    );
+    pub fn cblas_cgemm_batch_strided(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: *const c_void,
+        A: *const c_void,
+        lda: blas_int,
+        stridea: blas_int,
+        B: *const c_void,
+        ldb: blas_int,
+        strideb: blas_int,
+        beta: *const c_void,
+        C: *mut c_void,
+        ldc: blas_int,
+        stridec: blas_int,
+        group_size: blas_int,
+    );
+    pub fn cblas_zgemm_batch_strided(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: *const c_void,
+        A: *const c_void,
+        lda: blas_int,
+        stridea: blas_int,
+        B: *const c_void,
+        ldb: blas_int,
+        strideb: blas_int,
+        beta: *const c_void,
+        C: *mut c_void,
+        ldc: blas_int,
+        stridec: blas_int,
+        group_size: blas_int,
+    );
     #[doc = " BFLOAT16 and INT8 extensions"]
     pub fn cblas_sbstobf16(
         n: blas_int,
@@ -1848,6 +1937,20 @@ unsafe extern "C" {
         out: *mut f64,
         incout: blas_int,
     );
+    pub fn cblas_bgemv(
+        order: CBLAS_ORDER,
+        trans: CBLAS_TRANSPOSE,
+        m: blas_int,
+        n: blas_int,
+        alpha: bfloat16,
+        a: *const bfloat16,
+        lda: blas_int,
+        x: *const bfloat16,
+        incx: blas_int,
+        beta: bfloat16,
+        y: *mut bfloat16,
+        incy: blas_int,
+    );
     pub fn cblas_sbdot(
         n: blas_int,
         x: *const bfloat16,
@@ -1868,6 +1971,22 @@ unsafe extern "C" {
         beta: f32,
         y: *mut f32,
         incy: blas_int,
+    );
+    pub fn cblas_bgemm(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: bfloat16,
+        A: *const bfloat16,
+        lda: blas_int,
+        B: *const bfloat16,
+        ldb: blas_int,
+        beta: bfloat16,
+        C: *mut bfloat16,
+        ldc: blas_int,
     );
     pub fn cblas_sbgemm(
         Order: CBLAS_ORDER,
@@ -1902,6 +2021,43 @@ unsafe extern "C" {
         ldc_array: *const blas_int,
         group_count: blas_int,
         group_size: *const blas_int,
+    );
+    pub fn cblas_sbgemm_batch_strided(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: f32,
+        A: *const bfloat16,
+        lda: blas_int,
+        stridea: blas_int,
+        B: *const bfloat16,
+        ldb: blas_int,
+        strideb: blas_int,
+        beta: f32,
+        C: *mut f32,
+        ldc: blas_int,
+        stridec: blas_int,
+        group_size: blas_int,
+    );
+    #[doc = " FLOAT16 extensions"]
+    pub fn cblas_shgemm(
+        Order: CBLAS_ORDER,
+        TransA: CBLAS_TRANSPOSE,
+        TransB: CBLAS_TRANSPOSE,
+        M: blas_int,
+        N: blas_int,
+        K: blas_int,
+        alpha: f32,
+        A: *const hfloat16,
+        lda: blas_int,
+        B: *const hfloat16,
+        ldb: blas_int,
+        beta: f32,
+        C: *mut f32,
+        ldc: blas_int,
     );
 }
 unsafe extern "C" {

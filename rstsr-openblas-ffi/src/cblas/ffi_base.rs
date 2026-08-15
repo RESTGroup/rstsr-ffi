@@ -13,6 +13,7 @@ pub const OPENBLAS_SEQUENTIAL: u32 = 0;
 pub const OPENBLAS_THREAD: u32 = 1;
 pub const OPENBLAS_OPENMP: u32 = 2;
 pub type bfloat16 = u16;
+pub type hfloat16 = u16;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -38,3 +39,5 @@ pub type openblas_threads_callback = Option<
         dojob_data: c_int,
     ),
 >;
+pub type openblas_xerbla_handler =
+    Option<extern "C" fn(name: *const c_char, info: *const blas_int, name_length: usize)>;

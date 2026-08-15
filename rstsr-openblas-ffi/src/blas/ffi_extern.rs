@@ -44,6 +44,12 @@ unsafe extern "C" {
         arg4: *mut xdouble,
         arg5: *mut blas_int,
     ) -> xdouble;
+    pub fn bscal_(
+        arg1: *mut blas_int,
+        arg2: *mut bfloat16,
+        arg3: *mut bfloat16,
+        arg4: *mut blas_int,
+    );
     pub fn sbdot_(
         arg1: *mut blas_int,
         arg2: *mut bfloat16,
@@ -542,6 +548,19 @@ unsafe extern "C" {
         arg8: *mut xdouble,
         arg9: *mut blas_int,
     );
+    pub fn bgemv_(
+        arg1: *mut c_char,
+        arg2: *mut blas_int,
+        arg3: *mut blas_int,
+        arg4: *mut bfloat16,
+        arg5: *mut bfloat16,
+        arg6: *mut blas_int,
+        arg7: *mut bfloat16,
+        arg8: *mut blas_int,
+        arg9: *mut bfloat16,
+        arg10: *mut bfloat16,
+        arg11: *mut blas_int,
+    );
     pub fn sbgemv_(
         arg1: *mut c_char,
         arg2: *mut blas_int,
@@ -550,6 +569,19 @@ unsafe extern "C" {
         arg5: *mut bfloat16,
         arg6: *mut blas_int,
         arg7: *mut bfloat16,
+        arg8: *mut blas_int,
+        arg9: *mut f32,
+        arg10: *mut f32,
+        arg11: *mut blas_int,
+    );
+    pub fn shgemv_(
+        arg1: *mut c_char,
+        arg2: *mut blas_int,
+        arg3: *mut blas_int,
+        arg4: *mut f32,
+        arg5: *mut hfloat16,
+        arg6: *mut blas_int,
+        arg7: *mut hfloat16,
         arg8: *mut blas_int,
         arg9: *mut f32,
         arg10: *mut f32,
@@ -1776,6 +1808,36 @@ unsafe extern "C" {
         arg9: *mut xdouble,
         arg10: *mut xdouble,
         arg11: *mut blas_int,
+    );
+    pub fn shgemm_(
+        arg1: *mut c_char,
+        arg2: *mut c_char,
+        arg3: *mut blas_int,
+        arg4: *mut blas_int,
+        arg5: *mut blas_int,
+        arg6: *mut f32,
+        arg7: *mut hfloat16,
+        arg8: *mut blas_int,
+        arg9: *mut hfloat16,
+        arg10: *mut blas_int,
+        arg11: *mut f32,
+        arg12: *mut f32,
+        arg13: *mut blas_int,
+    );
+    pub fn bgemm_(
+        arg1: *mut c_char,
+        arg2: *mut c_char,
+        arg3: *mut blas_int,
+        arg4: *mut blas_int,
+        arg5: *mut blas_int,
+        arg6: *mut bfloat16,
+        arg7: *mut bfloat16,
+        arg8: *mut blas_int,
+        arg9: *mut bfloat16,
+        arg10: *mut blas_int,
+        arg11: *mut bfloat16,
+        arg12: *mut bfloat16,
+        arg13: *mut blas_int,
     );
     pub fn sbgemm_(
         arg1: *mut c_char,
@@ -3723,6 +3785,8 @@ unsafe extern "C" {
         arg6: *mut f32,
         arg7: *mut f32,
         arg8: *mut blas_int,
+        arg9: *mut c_char,
+        arg10: *mut c_char,
     );
     pub fn dgeadd_(
         arg1: *mut blas_int,
@@ -3733,6 +3797,8 @@ unsafe extern "C" {
         arg6: *mut f64,
         arg7: *mut f64,
         arg8: *mut blas_int,
+        arg9: *mut c_char,
+        arg10: *mut c_char,
     );
     pub fn cgeadd_(
         arg1: *mut blas_int,
@@ -3743,6 +3809,8 @@ unsafe extern "C" {
         arg6: *mut f32,
         arg7: *mut f32,
         arg8: *mut blas_int,
+        arg9: *mut c_char,
+        arg10: *mut c_char,
     );
     pub fn zgeadd_(
         arg1: *mut blas_int,
@@ -3753,5 +3821,7 @@ unsafe extern "C" {
         arg6: *mut f64,
         arg7: *mut f64,
         arg8: *mut blas_int,
+        arg9: *mut c_char,
+        arg10: *mut c_char,
     );
 }
