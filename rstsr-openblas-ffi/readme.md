@@ -2,7 +2,7 @@
 
 This crate contains OpenBLAS FFI bindings.
 
-Current FFI version is [OpenBLAS v0.3.30](https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.30). If you are using an older version of OpenBLAS, this crate should still work if you do not explicitly call the function that only occurs in higher version of OpenBLAS.
+Current FFI version is [OpenBLAS v0.3.34](https://github.com/OpenMathLib/OpenBLAS/releases/tag/v0.3.34). If you are using an older version of OpenBLAS, this crate should still work if you do not explicitly call the function that only occurs in higher version of OpenBLAS.
 
 OpenBLAS (C/Fortran/ASM) source code is available on [github](https://github.com/OpenMathLib/OpenBLAS).
 
@@ -63,6 +63,11 @@ Optional features:
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
 
 ## Changelog
+
+- unreleased
+
+    - **Enhancements**: Updated vendored headers to OpenBLAS v0.3.34. New CBLAS functions: `openblas_set_xerbla` (with `openblas_xerbla_handler` typedef), `cblas_[sdcz]gemm_batch_strided`, `cblas_bgemv`, `cblas_bgemm`, `cblas_sbgemm_batch_strided`, `cblas_shgemm`. New BLAS functions: `bscal_`, `bgemv_`, `shgemv_`, `shgemm_`, `bgemm_`. New type `hfloat16` (resolved as `u16` by the generation toolchain).
+    - **API Breaking**: `cblas_[sdcz]geadd` gained `CTRANS_A` and `CTRANS_C` arguments, and BLAS `[sdcz]geadd_` gained two trailing `transa`/`transc` character pointers, following the upstream OpenBLAS 0.3.34 GEADD signature change.
 
 - v0.5.0
 
