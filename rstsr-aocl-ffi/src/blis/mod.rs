@@ -10,7 +10,8 @@
 
 pub const MOD_NAME: &str = module_path!();
 pub const LIB_NAME: &str = "AOCL_BLIS"; // for code, e.g. "MKL"
-pub const LIB_NAME_SHOW: &str = "AOCL Multi-threaded BLIS"; // for display, e.g. "oneMKL"
+pub const LIB_NAME_SHOW: &str = "AOCL Multi-threaded BLIS"; // for display, e.g.
+                                                            // "oneMKL"
 pub const LIB_NAME_LINK: &str = "blis-mt"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]

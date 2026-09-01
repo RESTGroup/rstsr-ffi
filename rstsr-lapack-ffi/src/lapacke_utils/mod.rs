@@ -6,7 +6,8 @@
 
 pub const MOD_NAME: &str = module_path!();
 pub const LIB_NAME: &str = "LAPACKE"; // for code, e.g. "MKL"
-pub const LIB_NAME_SHOW: &str = "LAPACKE utilities"; // for display, e.g. "oneMKL"
+pub const LIB_NAME_SHOW: &str = "LAPACKE utilities"; // for display, e.g.
+                                                     // "oneMKL"
 pub const LIB_NAME_LINK: &str = "lapacke"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]

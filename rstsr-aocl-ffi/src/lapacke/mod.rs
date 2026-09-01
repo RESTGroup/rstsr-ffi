@@ -6,7 +6,8 @@
 
 const MOD_NAME: &str = module_path!();
 const LIB_NAME: &str = "AOCL_FLAME"; // for code, e.g. "MKL"
-const LIB_NAME_SHOW: &str = "AOCL FLAME (lapacke)"; // for display, e.g. "oneMKL"
+const LIB_NAME_SHOW: &str = "AOCL FLAME (lapacke)"; // for display, e.g.
+                                                    // "oneMKL"
 const LIB_NAME_LINK: &str = "flame"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]

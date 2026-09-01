@@ -10,7 +10,8 @@
 
 pub const MOD_NAME: &str = module_path!();
 pub const LIB_NAME: &str = "KML_KBLAS"; // for code, e.g. "MKL"
-pub const LIB_NAME_SHOW: &str = "KML KBLAS (CBLAS within)"; // for display, e.g. "oneMKL"
+pub const LIB_NAME_SHOW: &str = "KML KBLAS (CBLAS within)"; // for display, e.g.
+                                                            // "oneMKL"
 pub const LIB_NAME_LINK: &str = "klapack_full"; // for linking, e.g. "mkl_rt"
 
 #[cfg(feature = "dynamic_loading")]
