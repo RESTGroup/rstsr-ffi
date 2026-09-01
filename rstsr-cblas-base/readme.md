@@ -18,3 +18,9 @@ Both cargo features are not enabled by default.
 | LP64 | No | No | `i32` |
 | LP64 | No | Yes | `core::ffi::c_int` |
 | ILP64 | Yes | Ignored | `i64` |
+
+## Changelog
+
+- v0.1.2 -- 2026-09-01
+
+    - Fix: Declare `#![no_std]` for embedded targets (RESTGroup/rstsr-ffi#13).
