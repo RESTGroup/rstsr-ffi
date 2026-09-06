@@ -50,8 +50,10 @@ Cargo.lock
 
 # >>> Code Agent <<< #
 
-# Agent of RSTSR will be maintained in repository `RESTGroup/rstsr-agents`, and you can symlink
-# the related directory/files here.
+# Shared agent workflow (instructions entry, skills, rules) is maintained in repository
+# `RESTGroup/rstsr-agents`; symlink it into place - see its README.md, or simply run
+# `rstsr-agents/skills/agent-setup/scripts/link.sh` (skill `agent-setup`) in this
+# directory. The symlinks below are local-only, not git-tracked.
 
 # Agent directory
 .claude
@@ -67,10 +69,11 @@ Cargo.lock
 .continue/
 .roo/
 
-# Catch-all for local-only files (e.g. *.local.toml, *.local.md)
+# Catch-all for local-only files (e.g. *.local.toml, *.local.md, settings.local.json);
+# see the "Local configuration" section of rstsr-agents/README.md
 *.local*
 
-# CLAUDE.md or AGENTS.md at root directory
-# Developer should customize their own file, and `.claude.rstsr/CLAUDE.md` serves as template
+# CLAUDE.md or AGENTS.md at root directory (normally symlinks into rstsr-agents;
+# replace them with your own file to customize)
 /CLAUDE.md
 /AGENTS.md
