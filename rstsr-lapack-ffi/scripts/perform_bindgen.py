@@ -21,8 +21,10 @@ path_cwd = os.path.abspath(os.getcwd())
 
 # Users may change the following fields for their needs.
 
-# Source code of Netlib Lapack
-path_repo = f"{os.getenv('HOME')}/Git-Others/lapack"
+# Source code of Netlib Lapack.
+# The checkout location is per-developer; override it with the
+# `RSTSR_LAPACK_REPO` environment variable if not at the default path.
+path_repo = os.getenv("RSTSR_LAPACK_REPO", f"{os.getenv('HOME')}/Git-Others/lapack")
 
 # Path for storing useful header files
 path_header = f"{path_cwd}/../header"
