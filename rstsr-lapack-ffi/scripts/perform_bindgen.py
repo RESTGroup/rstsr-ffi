@@ -2,7 +2,7 @@
 
 # This python file can also be opened by Jupyter notebook with jupytext extension.
 
-# User must change `path_repo` to the local path of Netlib LAPACK repository.
+# The upstream checkout path is read from `RSTSR_LAPACK_REPO` (see skill `update-ffi-blas`).
 
 import subprocess
 import os
@@ -14,6 +14,26 @@ import tree_sitter_rust
 import sys
 sys.path.append("../..")
 import util_dyload
+
+
+def replace_required(token, old, new):
+    """Text patch that must fire; a silent no-op means upstream changed format."""
+    assert old in token, f"patch target missing: {old!r}"
+    return token.replace(old, new)
+
+
+def sub_required(pattern, repl, token):
+    """Regex patch that must fire; a silent no-op means upstream changed format."""
+    token, n = re.subn(pattern, repl, token)
+    assert n > 0, f"patch pattern matched nothing: {pattern!r}"
+    return token
+
+
+def assert_absent(pattern, token, what):
+    """Post-condition for a removal patch: the target must be gone."""
+    match = re.search(pattern, token)
+    assert match is None, f"{what} still present after post-processing: {match.group(0)!r}"
+
 
 path_cwd = os.path.abspath(os.getcwd())
 
@@ -88,10 +108,10 @@ with open("cblas_f77.h", "r") as fin:
 # change file cblas_f77_parse.h
 # This only works when F77_INT is not defined
 
-token = token.replace("#define F77_INT int32_t", "typedef int32_t F77_INT;")
+token = sub_required(r"#define\s+F77_INT\s+int32_t\b", "typedef int32_t F77_INT;", token)
 
 # In C binding, fortran strlen end is probably not required
-token = token.replace("#define BLAS_FORTRAN_STRLEN_END", "")
+token = sub_required(r"#define\s+BLAS_FORTRAN_STRLEN_END\b", "", token)
 
 # +
 # write file cblas_f77_parse.h
@@ -119,8 +139,9 @@ with open("blas.rs", "r") as f:
 # +
 # change F77_INT to blas_int
 
-token = token.replace("F77_INT", "blas_int")
+token = replace_required(token, "F77_INT", "blas_int")
 token = token.replace("pub type blas_int = i32;", "")
+assert_absent(r"pub type\s+(blas_int|F77_INT)\s*=", token, "local blas_int type alias")
 
 # +
 # remove somehow redundant code
@@ -216,7 +237,7 @@ with open("cblas.h", "r") as fin:
 # change file cblas_parse.h
 # This only works when CBLAS_INT is not defined
 
-token = token.replace("#define CBLAS_INT int32_t", "typedef int32_t CBLAS_INT;")
+token = sub_required(r"#define\s+CBLAS_INT\s+int32_t\b", "typedef int32_t CBLAS_INT;", token)
 
 # +
 # write file cblas_parse.h
@@ -250,8 +271,9 @@ token = "\n".join([i for i in token.split("\n") if "CBLAS_IFMT" not in i])
 # +
 # change CBLAS_INT to blas_int
 
-token = token.replace("CBLAS_INT", "blas_int")
+token = replace_required(token, "CBLAS_INT", "blas_int")
 token = token.replace("pub type blas_int = i32;", "")
+assert_absent(r"pub type\s+(blas_int|CBLAS_INT)\s*=", token, "local blas_int type alias")
 
 # +
 # remove CBLAS enums
@@ -261,6 +283,11 @@ token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
 token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+assert_absent(
+    r"pub (enum|struct|type)\s+CBLAS_(LAYOUT|TRANSPOSE|UPLO|DIAG|SIDE|ORDER)\b",
+    token,
+    "local CBLAS enum definition",
+)
 
 # +
 # remove somehow redundant code
@@ -295,10 +322,10 @@ with open("lapack.h", "r") as fin:
     token += fin.read()
 
 # +
-token = token.replace("#define lapack_int        int32_t", "typedef int32_t lapack_int;")
+token = sub_required(r"#define\s+lapack_int\s+int32_t\b", "typedef int32_t lapack_int;", token)
 
 # In C binding, fortran strlen end is probably not required
-token = token.replace("#define LAPACK_FORTRAN_STRLEN_END", "")
+token = sub_required(r"#define\s+LAPACK_FORTRAN_STRLEN_END\b", "", token)
 # -
 
 with open("lapack_parse.h", "w") as fout:
@@ -321,9 +348,10 @@ with open("lapack.rs", "r") as f:
     token = f.read()
 
 token = token.replace("pub type lapack_int = i32;", "")
+assert_absent(r"pub type\s+lapack_int\s*=", token, "local lapack_int type alias")
 
 # +
-# remove CBLAS_IFMT, which seems not useful?
+# remove LAPACK_IFMT, which seems not useful?
 
 token = "\n".join([i for i in token.split("\n") if "LAPACK_IFMT" not in i])
 
@@ -359,7 +387,7 @@ token = ""
 with open("lapacke.h", "r") as fin:
     token += fin.read()
 
-token = token.replace('#include "lapack.h"', '#include "lapack_parse.h"')
+token = replace_required(token, '#include "lapack.h"', '#include "lapack_parse.h"')
 
 with open("lapacke_parse.h", "w") as fout:
     fout.write(token)
@@ -382,8 +410,11 @@ with open("lapacke.rs", "r") as f:
     token = f.read()
 
 token = token.replace("pub type lapack_int = i32;", "")
-token = token.replace("MAJOR: u32", "MAJOR: c_int")
-token = token.replace("ERROR: i32", "ERROR: lapack_int")
+assert_absent(r"pub type\s+lapack_int\s*=", token, "local lapack_int type alias")
+
+# retype the LAPACKE constants: layout is c_int; error codes follow lapack_int
+token = replace_required(token, "MAJOR: u32", "MAJOR: c_int")
+token = replace_required(token, "ERROR: i32", "ERROR: lapack_int")
 
 # +
 # remove somehow redundant code
@@ -417,7 +448,7 @@ token = ""
 with open("lapacke_utils.h", "r") as fin:
     token += fin.read()
 
-token = token.replace('#include "lapacke.h"', '#include "lapacke_parse.h"')
+token = replace_required(token, '#include "lapacke.h"', '#include "lapacke_parse.h"')
 
 with open("lapacke_utils_parse.h", "w") as fout:
     fout.write(token)
@@ -440,6 +471,7 @@ with open("lapacke_utils.rs", "r") as f:
     token = f.read()
 
 token = token.replace("pub type lapack_int = i32;", "")
+assert_absent(r"pub type\s+lapack_int\s*=", token, "local lapack_int type alias")
 
 # +
 # remove somehow redundant code
