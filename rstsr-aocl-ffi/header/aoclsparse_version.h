@@ -31,7 +31,7 @@
 
 /* clang-format off */
 #define AOCLSPARSE_VERSION_MAJOR     5
-#define AOCLSPARSE_VERSION_MINOR     1
+#define AOCLSPARSE_VERSION_MINOR     3
 #define AOCLSPARSE_VERSION_PATCH     0
 /* clang-format on */
 

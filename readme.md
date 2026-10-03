@@ -13,7 +13,7 @@ This project is originally intended to serve rust tensor toolkit [RSTSR](https:/
 | rstsr-openblas-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-openblas-ffi.svg)](https://crates.io/crates/rstsr-openblas-ffi) | [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS/) (Goto -> Zhang -> Community) | v0.3.34 |
 | rstsr-mkl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-mkl-ffi.svg)](https://crates.io/crates/rstsr-mkl-ffi) | [Intel oneAPI MKL](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html) (Math Kernel Library) | 2026.1 |
 | rstsr-blis-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-blis-ffi.svg)](https://crates.io/crates/rstsr-blis-ffi) | [BLIS](https://github.com/flame/blis), [FLAME](https://github.com/flame/libflame) (Univ Texas, SHPC group) | v2.0 |
-| rstsr-aocl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-aocl-ffi.svg)](https://crates.io/crates/rstsr-aocl-ffi) | [AOCL](https://www.amd.com/en/developer/aocl.html) (AMD Optimizing CPU Libraries) | v5.1 |
+| rstsr-aocl-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-aocl-ffi.svg)](https://crates.io/crates/rstsr-aocl-ffi) | [AOCL](https://www.amd.com/en/developer/aocl.html) (AMD Optimizing CPU Libraries) | v5.3 |
 | rstsr-kml-ffi | [![Crate](https://img.shields.io/crates/v/rstsr-kml-ffi.svg)](https://crates.io/crates/rstsr-kml-ffi) | [KML](https://www.hikunpeng.com/zh/developer/boostkit/library/detail?subtab=%E6%95%B0%E5%AD%A6%E5%BA%93) (Huawei Kunpeng Math Library) | v24.0.0 |
 
 ## Motivation

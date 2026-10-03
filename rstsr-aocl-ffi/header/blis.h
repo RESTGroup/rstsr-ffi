@@ -33,6 +33,7 @@ extern "C" {
 
 
 // Enabled sub-configurations (config_list)
+#define BLIS_CONFIG_ZEN6
 #define BLIS_CONFIG_ZEN5
 #define BLIS_CONFIG_ZEN4
 #define BLIS_CONFIG_ZEN3
@@ -42,6 +43,7 @@ extern "C" {
 
 
 // Enabled kernel sets (kernel_list)
+#define BLIS_KERNELS_ZEN6
 #define BLIS_KERNELS_ZEN5
 #define BLIS_KERNELS_ZEN4
 #define BLIS_KERNELS_SKX
@@ -169,9 +171,33 @@ extern "C" {
 #endif
 
 #if 1
+#define BLIS_ENABLE_MNK1_MATRIX
+#else
+#define BLIS_DISABLE_MNK1_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_TINY_MATRIX
+#else
+#define BLIS_DISABLE_TINY_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX
+#else
+#define BLIS_DISABLE_SMALL_MATRIX
+#endif
+
+#if 1
 #define BLIS_ENABLE_SUP_HANDLING
 #else
 #define BLIS_DISABLE_SUP_HANDLING
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX_TRSM
+#else
+#define BLIS_DISABLE_SMALL_MATRIX_TRSM
 #endif
 
 #if 0
@@ -218,6 +244,16 @@ extern "C" {
 #define __blis_arch_type_name "BLIS_ARCH_TYPE"
 #define __blis_model_type_name "BLIS_MODEL_TYPE"
 
+#if 0
+#define AOCL_DTL_TRACE_ENABLE 1
+#endif
+
+#if 0
+#define AOCL_DTL_LOG_ENABLE 1
+#endif
+
+#define AOCL_DTL_TRACE_LEVEL_NUMBER AOCL_DTL_LEVEL_TRACE_5
+
 #endif
 // end bli_config.h
 
@@ -249,7 +285,7 @@ extern "C" {
 // accordingly.
 #if   defined(__ICC) || defined(__INTEL_COMPILER)
   #define BLIS_ICC
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   #define BLIS_CLANG
 #elif defined(__GNUC__)
   #define BLIS_GCC
@@ -300,13 +336,15 @@ extern "C" {
   #define VC_EXTRALEAN
 #include <windows.h> // skipped
 
-  #if !defined(__clang__) && !defined(__GNUC__)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+  #if !defined(__clang__) && !defined(__GNUC__) && !defined(__INTEL_LLVM_COMPILER) && !defined(__INTEL_COMPILER)
     // Undefine attribute specifiers in Windows.
     #define __attribute__(x)
 
     // Undefine restrict.
     #define restrict
   #endif
+  #endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -330,7 +368,6 @@ extern "C" {
 #ifndef BLIS_LANG_DEFS_H
 #define BLIS_LANG_DEFS_H
 
-
 // -- Undefine restrict for C++ and C89/90 --
 
 #ifdef __cplusplus
@@ -347,6 +384,23 @@ extern "C" {
   #endif
 #endif
 
+// -- BLIS Thread Local Storage Keyword --
+
+// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
+// There is a small risk here as __GNUC__ can also be defined by some other
+// compiler (other than ICC and CLANG which we know define it) that
+// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
+// But the possibility of someone using such non-main-stream compiler
+// for building BLIS is low.
+#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__) || defined(__INTEL_LLVM_COMPILER)
+  #define BLIS_THREAD_LOCAL __thread
+#elif defined(_MSC_VER) && _MSC_VER >= 1310
+  #define BLIS_THREAD_LOCAL __declspec(thread)
+#else
+  #define BLIS_THREAD_LOCAL
+#endif
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // -- Define typeof() operator if using non-GNU compiler --
 
@@ -357,22 +411,6 @@ extern "C" {
   #define typeof __typeof__
   #endif
 #endif
-
-
-// -- BLIS Thread Local Storage Keyword --
-
-// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
-// There is a small risk here as __GNUC__ can also be defined by some other
-// compiler (other than ICC and CLANG which we know define it) that
-// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
-// But the possibility of someone using such non-main-stream compiler
-// for building BLIS is low.
-#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__)
-  #define BLIS_THREAD_LOCAL __thread
-#else
-  #define BLIS_THREAD_LOCAL
-#endif
-
 
 // -- BLIS constructor/destructor function attribute --
 
@@ -387,7 +425,7 @@ extern "C" {
   // ICC defines __GNUC__ but doesn't support this
   #define BLIS_ATTRIB_CTOR
   #define BLIS_ATTRIB_DTOR
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   // CLANG supports __attribute__, but its documentation doesn't
   // mention support for constructor/destructor. Compiling with
   // clang and testing shows that it does support.
@@ -401,6 +439,7 @@ extern "C" {
   #define BLIS_ATTRIB_DTOR
 #endif
 
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 // end bli_lang_defs.h
@@ -640,13 +679,35 @@ extern "C" {
 
 
 #ifdef BLIS_OS_WINDOWS
-  #define BLIS_TLS_TYPE __declspec(thread)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+    #define BLIS_TLS_TYPE __declspec(thread)
+  #else
+    #define BLIS_TLS_TYPE
+  #endif
 #else
   #define BLIS_TLS_TYPE __thread
 #endif
 
 #endif
 
+// -- CODE PATH ENABLEMENT --------------------------------------------------
+#ifdef BLIS_ENABLE_MNK1_MATRIX
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_TINY_MATRIX
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_SMALL_MATRIX
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...)
+#endif
 // end bli_config_macro_defs.h
 
 
@@ -1224,6 +1285,13 @@ typedef enum
 
 #define BLIS_NUM_LEVEL1F_KERS 5
 
+typedef enum
+{
+	BLIS_GEMV_KER = 0,
+	BLIS_TRSV_KER
+} l2kr_t;
+
+#define BLIS_NUM_LEVEL2_KERS 2
 
 typedef enum
 {
@@ -1518,6 +1586,7 @@ typedef enum
 	BLIS_ARCH_PENRYN,
 
 	// AMD
+	BLIS_ARCH_ZEN6,
 	BLIS_ARCH_ZEN5,
 	BLIS_ARCH_ZEN4,
 	BLIS_ARCH_ZEN3,
@@ -1559,6 +1628,10 @@ typedef enum
 
 	// Default model
 	BLIS_MODEL_DEFAULT,
+
+	// AMD Zen6
+	BLIS_MODEL_VENICE,
+	BLIS_MODEL_VENICE_DENSE,
 
 	// AMD Zen5
 	BLIS_MODEL_TURIN,
@@ -1833,7 +1906,9 @@ BLIS_EXPORT_BLIS int bli_pthread_barrier_wait
 typedef struct
 {
     void* ukr_fp;            // Generic function pointer for tiny(SUP) kernels
+    void* pack_fp;           // Generic function pointer for packing kernels
     bool stor_pref;          // Storage preference of the kernel
+    bool enable_pack;        // Enabling/Disabling packing of the load matrix
     dim_t MR;                // Blocking dimension MR
     dim_t NR;                // Blocking dimension NR
 } gemmtiny_ukr_info_t;
@@ -2327,11 +2402,21 @@ typedef struct cntx_s
 
 
 // -- Runtime type --
+#define BLIS_ALIGN 64
 
+#if defined(_WIN32)
+   #if defined(__clang__)
+       #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+   #else
+       #define BLIS_ATTRIB_ALIGN
+   #endif
+#else
+   #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+#endif
 // NOTE: The order of these fields must be kept consistent with the definition
 // of the BLIS_RNTM_INITIALIZER macro in bli_rntm.h.
 
-typedef struct __attribute__((aligned(64))) rntm_s
+typedef struct BLIS_ATTRIB_ALIGN rntm_s
 {
 	// "External" fields: these may be queried by the end-user.
 	bool      auto_factor;
@@ -2525,6 +2610,9 @@ typedef enum
 
 #define PASTECH3_(ch1,ch2,ch3,op)  ch1 ## ch2 ## ch3 ## op
 #define PASTECH3(ch1,ch2,ch3,op)   PASTECH3_(ch1,ch2,ch3,op)
+
+#define PASTECH4_(ch1,ch2,ch3,ch4,op)  ch1 ## ch2 ## ch3 ## ch4 ## op
+#define PASTECH4(ch1,ch2,ch3,ch4,op)   PASTECH4_(ch1,ch2,ch3,ch4,op)
 
 #define MKSTR(s1)                  #s1
 #define STRINGIFY_INT( s )         MKSTR( s )
@@ -2877,6 +2965,10 @@ GENTFUNC( dcomplex, z, blasname, blisname )
 #define INSERT_GENTFUNC_BLAS_C( blasname, blisname ) \
 \
 GENTFUNC( scomplex, c, blasname, blisname )
+
+#define INSERT_GENTFUNC_BLAS_S( blasname, blisname ) \
+\
+GENTFUNC( float,    s, blasname, blisname )
 
 // -- Basic one-operand macro with real domain only --
 
@@ -8507,6 +8599,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #ifndef BLIS_AXPBYRIS_H
 #define BLIS_AXPBYRIS_H
 
+#ifdef BLIS_IS_BUILDING_LIBRARY
+
 // axpbyris
 
 #define bli_rxaxpbyris( ar, ai, xr, xi, br, bi, yr, yi ) \
@@ -8559,6 +8653,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #define bli_caxpbyris    bli_ccccaxpbyris
 #define bli_zaxpbyris    bli_zzzzaxpbyris
 
+#endif // BLIS_IS_BUILDING_LIBRARY
+
 #endif
 
 // end bli_axpbyris.h
@@ -8567,6 +8663,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 
 #ifndef BLIS_AXPBYJRIS_H
 #define BLIS_AXPBYJRIS_H
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // axpbyjris
 
@@ -8619,6 +8717,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #define bli_daxpbyjris    bli_ddddaxpbyjris
 #define bli_caxpbyjris    bli_ccccaxpbyjris
 #define bli_zaxpbyjris    bli_zzzzaxpbyjris
+
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -9887,6 +9987,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #ifndef BLIS_XPBYRIS_H
 #define BLIS_XPBYRIS_H
 
+#ifdef BLIS_IS_BUILDING_LIBRARY
+
 // xpbyris
 
 #define bli_rxxpbyris( xr, xi, br, bi, yr, yi ) \
@@ -10010,6 +10112,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #define bli_cxpbyris    bli_cccxpbyris
 #define bli_zxpbyris    bli_zzzxpbyris
 
+#endif // BLIS_IS_BUILDING_LIBRARY
+
 #endif
 
 // end bli_xpbyris.h
@@ -10018,6 +10122,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 
 #ifndef BLIS_XPBYJRIS_H
 #define BLIS_XPBYJRIS_H
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // xpbyjris
 
@@ -10141,6 +10247,8 @@ BLIS_INLINE void bli_obj_reflect_about_diag( obj_t* obj )
 #define bli_dxpbyjris    bli_dddxpbyjris
 #define bli_cxpbyjris    bli_cccxpbyjris
 #define bli_zxpbyjris    bli_zzzxpbyjris
+
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -14078,6 +14186,8 @@ BLIS_INLINE void bli_zscal2ris_mxn
 #ifndef BLIS_XPBYS_H
 #define BLIS_XPBYS_H
 
+#ifdef BLIS_IS_BUILDING_LIBRARY
+
 // xpbys
 
 // Notes:
@@ -14229,6 +14339,8 @@ BLIS_INLINE void bli_zscal2ris_mxn
 #define bli_cxpbys( x, b, y )  bli_cccxpbys( x, b, y )
 #define bli_zxpbys( x, b, y )  bli_zzzxpbys( x, b, y )
 
+
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -15652,6 +15764,8 @@ INSERT_GENTFUNC_BASIC0( scal2s_mxn )
 #ifndef BLIS_XPBYS_MXN_H
 #define BLIS_XPBYS_MXN_H
 
+#ifdef BLIS_IS_BUILDING_LIBRARY
+
 // xpbys_mxn
 
 // Notes:
@@ -16260,6 +16374,8 @@ BLIS_INLINE void bli_zxpbys_mxn( const dim_t m, const dim_t n, dcomplex* restric
 }
 
 
+#endif // BLIS_IS_BUILDING_LIBRARY
+
 #endif
 // end bli_xpbys_mxn.h
 // begin bli_xpbys_mxn_uplo.h
@@ -16267,6 +16383,8 @@ BLIS_INLINE void bli_zxpbys_mxn( const dim_t m, const dim_t n, dcomplex* restric
 
 #ifndef BLIS_XPBYS_MXN_UPLO_H
 #define BLIS_XPBYS_MXN_UPLO_H
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // xpbys_mxn_u
 
@@ -16529,6 +16647,8 @@ BLIS_INLINE void bli_zxpbys_mxn( const dim_t m, const dim_t n, dcomplex* restric
 {\
 	bli_zzzxpbys_mxn_l( diagoff, m, n, x, rs_x, cs_x, beta, y, rs_y, cs_y ); \
 }
+
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 // end bli_xpbys_mxn_uplo.h
@@ -18822,7 +18942,7 @@ BLIS_INLINE void bli_zset1ms_mxn
 
   #define bli_prefetch( addr, rw, loc )
 
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
 
   // clang
 
@@ -19355,6 +19475,23 @@ BLIS_INLINE void bli_zset1ms_mxn
 #define ztrsm_blis_impl_  ztrsm_blis_impl
 #define lsame_blis_impl_  lsame_blis_impl
 
+#define cimatcopy_blis_impl_    cimatcopy_blis_impl
+#define comatadd_blis_impl_     comatadd_blis_impl
+#define comatcopy2_blis_impl_   comatcopy2_blis_impl
+#define comatcopy_blis_impl_    comatcopy_blis_impl
+#define dimatcopy_blis_impl_    dimatcopy_blis_impl
+#define domatadd_blis_impl_     domatadd_blis_impl
+#define domatcopy2_blis_impl_   domatcopy2_blis_impl
+#define domatcopy_blis_impl_    domatcopy_blis_impl
+#define simatcopy_blis_impl_    simatcopy_blis_impl
+#define somatadd_blis_impl_     somatadd_blis_impl
+#define somatcopy2_blis_impl_   somatcopy2_blis_impl
+#define somatcopy_blis_impl_    somatcopy_blis_impl
+#define zimatcopy_blis_impl_    zimatcopy_blis_impl
+#define zomatadd_blis_impl_     zomatadd_blis_impl
+#define zomatcopy2_blis_impl_   zomatcopy2_blis_impl
+#define zomatcopy_blis_impl_    zomatcopy_blis_impl
+
 #endif // BLIS_ENABLE_BLAS
 #endif // BLIS_ENABLE_NO_UNDERSCORE_API
 
@@ -19560,6 +19697,23 @@ BLIS_INLINE void bli_zset1ms_mxn
 #define ztrsm_blis_impl                     ZTRSM_BLIS_IMPL
 #define ztrsv_blis_impl                     ZTRSV_BLIS_IMPL
 
+#define cimatcopy_blis_impl                 CIMATCOPY_BLIS_IMPL
+#define comatadd_blis_impl                  COMATADD_BLIS_IMPL
+#define comatcopy2_blis_impl                COMATCOPY2_BLIS_IMPL
+#define comatcopy_blis_impl                 COMATCOPY_BLIS_IMPL
+#define dimatcopy_blis_impl                 DIMATCOPY_BLIS_IMPL
+#define domatadd_blis_impl                  DOMATADD_BLIS_IMPL
+#define domatcopy2_blis_impl                DOMATCOPY2_BLIS_IMPL
+#define domatcopy_blis_impl                 DOMATCOPY_BLIS_IMPL
+#define simatcopy_blis_impl                 SIMATCOPY_BLIS_IMPL
+#define somatadd_blis_impl                  SOMATADD_BLIS_IMPL
+#define somatcopy2_blis_impl                SOMATCOPY2_BLIS_IMPL
+#define somatcopy_blis_impl                 SOMATCOPY_BLIS_IMPL
+#define zimatcopy_blis_impl                 ZIMATCOPY_BLIS_IMPL
+#define zomatadd_blis_impl                  ZOMATADD_BLIS_IMPL
+#define zomatcopy2_blis_impl                ZOMATCOPY2_BLIS_IMPL
+#define zomatcopy_blis_impl                 ZOMATCOPY_BLIS_IMPL
+
 #endif // BLIS_ENABLE_BLAS
 #endif // BLIS_ENABLE_UPPERCASE_API
 
@@ -19600,7 +19754,7 @@ BLIS_INLINE void bli_zset1ms_mxn
     //#define PRAGMA_SIMD  GEN_PRAGMA(simd)
     #define PRAGMA_SIMD  PRAGMA_OMP_SIMD
 
-  #elif defined(__clang__)
+  #elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
 
     // clang/llvm.
     #define PRAGMA_SIMD  PRAGMA_OMP_SIMD
@@ -19696,8 +19850,6 @@ typedef struct thrcomm_s thrcomm_t;
 
 // Define thrcomm_t for situations when OpenMP multithreading is enabled.
 #ifdef BLIS_ENABLE_OPENMP
-
-#include <omp.h> // skipped
 
 // Define thrcomm_t for tree barriers and non-tree barriers.
 #ifdef BLIS_TREE_BARRIER
@@ -20773,16 +20925,19 @@ BLIS_EXPORT_BLIS dim_t bli_thread_get_jr_nt( void );
 BLIS_EXPORT_BLIS dim_t bli_thread_get_ir_nt( void );
 BLIS_EXPORT_BLIS dim_t bli_thread_get_num_threads( void );
 
-BLIS_EXPORT_BLIS bool bli_thread_get_is_parallel( void ); 
+BLIS_EXPORT_BLIS bool bli_thread_get_is_parallel( void );
 
 BLIS_EXPORT_BLIS void  bli_thread_set_ways( dim_t jc, dim_t pc, dim_t ic, dim_t jr, dim_t ir );
 BLIS_EXPORT_BLIS void  bli_thread_set_num_threads( dim_t value );
+BLIS_EXPORT_BLIS void  bli_thread_set_num_threads_local( dim_t value );
 
 BLIS_EXPORT_BLIS void  bli_thread_init_rntm_from_env( rntm_t* rntm );
 
 BLIS_EXPORT_BLIS void  bli_thread_init_rntm_from_global_rntm( rntm_t* rntm );
 
 BLIS_EXPORT_BLIS void  bli_thread_update_rntm_from_env( rntm_t* rntm );
+
+BLIS_EXPORT_BLIS void bli_thread_reset();
 
 // -----------------------------------------------------------------------------
 
@@ -21717,6 +21872,9 @@ CNTX_INIT_PROTS( penryn )
 #endif
 
 // -- AMD64 architectures --
+#ifdef BLIS_CONFIG_ZEN6
+CNTX_INIT_PROTS( zen6 )
+#endif
 #ifdef BLIS_CONFIG_ZEN5
 CNTX_INIT_PROTS( zen5 )
 #endif
@@ -21820,12 +21978,22 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_CONFIG_ZEN_H
 
 
-#define zgemm_tiny_zen_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-  ( 0 ) \
+
+
+#define THRESH_GEMM_c_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+
+#define THRESH_GEMM_z_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 8192 ) ) // Make sure that all the matrices fit in the L1 cache
+                                                                               // Currently, tiny path is only enabled in the single threaded mode
 
 
 #define ZEN_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
@@ -21837,34 +22005,166 @@ CNTX_INIT_PROTS( generic )
 #ifndef BLIS_CONFIG_ZEN4_H
 #define BLIS_CONFIG_ZEN4_H
 
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+// We support only when transa is 'N'
+#define IS_TINY_NOT_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( bli_is_notrans( transa ) && ( m <= 72 ) && ( n <= 96 ) && ( k < 12 ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+// We support only when transa is 'N'
+#define IS_TINY_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( bli_is_notrans( transa ) && ( m <= 96 ) && ( n <= 96 ) && ( k <= 96 ) && \
+      ( ( ( m * k ) <= 144 ) || ( ( n * k ) <= 144 ) || ( ( m * n ) <= 144 ) ) && \
+      ( ( m * n * k ) <= 7200 ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 396 ) && \
+        ( ( ( n <= 312 ) && ( k <= 24 ) ) || \
+          ( ( n <= 396 ) && ( k <= 12 ) ) || \
+          ( ( n <= 136 ) && ( k <= 32 ) ) || \
+          ( ( m <= 52 ) && ( n <= 396 ) && ( k <= 396 ) ) || \
+          ( ( n <= 8 ) && ( k <= 396 ) ) || \
+          ( ( n <= 16 ) && ( k <= 148 ) ) || \
+          ( ( n <= 48 ) && ( k <= 68 ) ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( m <= 396 ) && \
+          ( ( ( n <= 256 ) && ( k <= 32 ) ) || \
+            ( ( n <= 396 ) && ( k <= 16 ) ) ) ) || \
+        ( ( m <= 72 ) && ( n <= 396 ) && ( k <= 32 ) ) || \
+        ( ( n <= 32 ) && \
+          ( ( ( m <= 192 ) && ( k <= 396 ) ) || ( ( m <= 396 ) && ( k <= 96 ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( ( n <= 12 ) && \
+          ( ( ( m <= 36 ) && ( k <= 396 ) ) || \
+            ( ( m <= 48 ) && ( k <= 232 ) ) || \
+            ( ( m <= 288 ) && ( n <= 8 ) && ( k <= 44 ) ) ) ) || \
+        ( ( n <= 20 ) && \
+          ( ( ( m <= 144 ) && ( k <= 24 ) ) || \
+            ( ( m <= 28 ) && ( k <= 396 ) ) ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( n <= 16 ) && \
+          ( ( ( m <= 192 ) && ( k <= 32 ) ) || \
+            ( ( m <= 72 ) && ( k <= 144 ) ) ) ) || \
+        ( ( m <= 288 ) && ( n <= 40 ) && ( k <= 24 ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN4-AVX2
+#define THRESH_GEMM_c_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN4-AVX512
+#define THRESH_GEMM_c_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel )
+
 // Thresholds for ZGEMM Tiny code-paths
 // This is specific to the micro-architecture
 // The macros take the input dimensions and the transpose values for the GEMM API
 // and define a condition that checks for entry based on these parameters
-#define zgemm_tiny_zen4_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-   \
-  ( ( !is_parallel ) && \
-     \
-    ( ( bli_is_notrans( transa ) && ( m < 60 ) && ( n >= 4 ) && ( n < 200 ) && ( k < 68 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 16 ) ) ) ) || \
-   \
-  ( ( is_parallel ) && ( ( m * n * k ) < 12500 ) )
 
-#define zgemm_tiny_zen4_thresh_avx512( transa, transb, m, n, k, is_parallel ) \
-   \
-  ( ( !is_parallel ) && \
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+   ( ( !is_parallel ) && \
+                                  \
+                                                                                         \
+                     \
+	 \
+	                         \
+	                                  \
+	                           \
+	                                                    \
+              \
+                                                         \
+    ( ( bli_is_notrans( transa ) && ( m < 60 ) && ( n >= 4 ) && ( n < 200 ) && ( k < 68 ) && (m % 2 == 0) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 16 ) && (m % 2 == 0) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
      \
-    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && \
-        ( ( m * k ) < 1500 ) && ( ( n * k ) < 1500 ) && ( ( m * n ) < 1500 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( ( m <= 6 ) && ( n <= 80 ) && ( k <= 64 ) ) || \
+        ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 16 ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( m <= 6 ) && ( n <= 40 ) && ( k <= 72 ) ) || ( ( m <= 12 ) && ( n <= 24 ) && ( k <= 44 ) ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+                                                   \
+                                                                                                          \
+                                    \
+     \
+                                                                                     \
+                                                                                                          \
+          \
+                               \
+    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( ( ( m <= 16 ) && ( n <= 16 ) && ( k <= 24 ) ) ) || \
+     \
+      ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 16 ) && ( ( ( m <= 32 ) && ( k <= 80 ) ) || ( ( m <= 80 ) && ( k <= 20 ) ) ) ) || \
+          ( ( k <= 8 ) && ( m <= 40 ) && ( n <= 40 ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && ( ( ( m <= 40 ) && ( k <= 40 ) ) || ( ( m <= 96 ) && ( k <= 12 ) ) || ( ( m <= 16 ) && ( k <= 96 ) ) ) ) || \
+          ( ( k <= 8 ) && ( m <= 40 ) && ( n <= 40 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN4-AVX2
+#define THRESH_GEMM_z_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
    \
-  ( ( is_parallel ) && ( ( m * n * k ) < 15000 ) )
+  IS_TINY_NOT_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN4-AVX512
+#define THRESH_GEMM_z_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 8192 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 8192, 262144 ) ) \
+  )
 
 
 #define ZEN4_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen4_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN4_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
-    else if ( PASTECH3( ch, gemm_tiny, _zen4_thresh, _avx512 )( transa, transb, m, n, k, is_parallel ) ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN4_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
@@ -21876,38 +22176,282 @@ CNTX_INIT_PROTS( generic )
 #ifndef BLIS_CONFIG_ZEN5_H
 #define BLIS_CONFIG_ZEN5_H
 
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+      ( ( ( k <= 48 ) && ( m <= 396 ) && ( n <= 396 ) ) || \
+        ( ( k <= 288 ) && \
+          ( ( ( m <= 360 ) && ( n <= 32 ) ) || \
+            ( ( m <= 76 ) && ( n <= 224 ) ) ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 48 ) && \
+            ( ( ( m <= 368 ) && ( k <= 120 ) ) || \
+              ( ( m <= 396 ) && ( k <= 92 ) ) || \
+              ( ( m <= 192 ) && ( k <= 396 ) ) ) ) || \
+          ( ( n <= 396 ) && \
+            ( ( ( m <= 144 ) && ( k <= 48 ) ) || \
+              ( ( m <= 72 ) && ( k <= 192 ) ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 8 ) && \
+            ( ( ( m <= 396 ) && ( k <= 32 ) ) || \
+              ( ( m <= 48 ) && ( k <= 120 ) ) ) ) || \
+          ( ( m <= 96 ) && ( n <= 28 ) && ( k <= 16 ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && \
+            ( ( ( m <= 208 ) && ( k <= 24 ) ) || \
+              ( ( m <= 396 ) && ( k <= 8 ) ) ) ) || \
+          ( ( m <= 72 ) && ( n <= 8 ) && ( k <= 200 ) ) || \
+          ( ( m <= 24 ) && ( n <= 100 ) && ( k <= 16 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN5-AVX2
+#define THRESH_GEMM_c_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN5-AVX512
+#define THRESH_GEMM_c_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel )
+
 // Thresholds for ZGEMM Tiny code-paths
 // This is specific to the micro-architecture
 // The macros take the input dimensions and the transpose values for the GEMM API
 // and define a condition that checks for entry based on these parameters
-#define zgemm_tiny_zen5_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-   \
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
   ( ( !is_parallel ) && \
      \
     ( ( bli_is_notrans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
-   \
-  ( ( is_parallel ) && ( ( m * n * k ) < 5000 ) && ( k >= 16 ) )
+      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
 
-#define zgemm_tiny_zen5_thresh_avx512( transa, transb, m, n, k, is_parallel ) \
-   \
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 8 ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( m <= 4 ) && ( n >= 12 ) && ( n <= 200 ) && ( k <= 4 ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
   ( ( !is_parallel ) && \
      \
     ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 16000 ) ) || \
+        ( ( n <= 16 ) && ( ( m * k ) <= 13000 ) ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 7000 ) ) || \
+          ( ( n <= 16 ) && ( ( m * k ) <= 6000 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN5-AVX2
+#define THRESH_GEMM_z_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
    \
-  ( ( is_parallel ) && ( ( m * n * k ) < 10000 ) && ( k >= 16 ) )
+  IS_TINY_NOT_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN5-AVX512
+#define THRESH_GEMM_z_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 12288 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 12288, 262144  ) ) \
+  )
 
 
 #define ZEN5_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen5_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN5_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
-    else if ( PASTECH3( ch, gemm_tiny, _zen5_thresh, _avx512 )( transa, transb, m, n, k, is_parallel ) ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN5_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
 #endif
 // end bli_config_zen5.h
+// begin bli_config_zen6.h
+
+
+#ifndef BLIS_CONFIG_ZEN6_H
+#define BLIS_CONFIG_ZEN6_H
+
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+      ( ( ( k <= 48 ) && ( m <= 396 ) && ( n <= 396 ) ) || \
+        ( ( k <= 288 ) && \
+          ( ( ( m <= 360 ) && ( n <= 32 ) ) || \
+            ( ( m <= 76 ) && ( n <= 224 ) ) ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 48 ) && \
+            ( ( ( m <= 368 ) && ( k <= 120 ) ) || \
+              ( ( m <= 396 ) && ( k <= 92 ) ) || \
+              ( ( m <= 192 ) && ( k <= 396 ) ) ) ) || \
+          ( ( n <= 396 ) && \
+            ( ( ( m <= 144 ) && ( k <= 48 ) ) || \
+              ( ( m <= 72 ) && ( k <= 192 ) ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 8 ) && \
+            ( ( ( m <= 396 ) && ( k <= 32 ) ) || \
+              ( ( m <= 48 ) && ( k <= 120 ) ) ) ) || \
+          ( ( m <= 96 ) && ( n <= 28 ) && ( k <= 16 ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && \
+            ( ( ( m <= 208 ) && ( k <= 24 ) ) || \
+              ( ( m <= 396 ) && ( k <= 8 ) ) ) ) || \
+          ( ( m <= 72 ) && ( n <= 8 ) && ( k <= 200 ) ) || \
+          ( ( m <= 24 ) && ( n <= 100 ) && ( k <= 16 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN6-AVX2
+#define THRESH_GEMM_c_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN6-AVX512
+#define THRESH_GEMM_c_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel )
+
+// Thresholds for ZGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 8 ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( m <= 4 ) && ( n >= 12 ) && ( n <= 200 ) && ( k <= 4 ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 16000 ) ) || \
+        ( ( n <= 16 ) && ( ( m * k ) <= 13000 ) ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 7000 ) ) || \
+          ( ( n <= 16 ) && ( ( m * k ) <= 6000 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN6-AVX2
+#define THRESH_GEMM_z_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN6-AVX512
+#define THRESH_GEMM_z_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 12288 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 12288, 262144  ) ) \
+  )
+
+
+#define ZEN6_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN6_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
+      LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN6_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
+      LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
+    break;
+
+#endif
+// end bli_config_zen6.h
 
 // By default, it is effective to parallelize the outer loops.
 // Setting these macros to 1 will force JR and IR inner loops
@@ -21915,16 +22459,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 // When running HPL with pure MPI without DGEMM threading (Single-threaded
 // BLIS), defining this macro as 1 yields better performance.
@@ -21962,12 +22500,179 @@ CNTX_INIT_PROTS( generic )
 
 // -- AMD64 architectures --
 
+#ifdef BLIS_FAMILY_ZEN6
+// begin bli_family_zen6.h
+
+
+#ifndef BLI_FAMILY_ZEN6_H
+#define BLI_FAMILY_ZEN6_H
+
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN6
+
+// begin bli_config_zen6.h
+
+
+#ifndef BLIS_CONFIG_ZEN6_H
+#define BLIS_CONFIG_ZEN6_H
+
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+      ( ( ( k <= 48 ) && ( m <= 396 ) && ( n <= 396 ) ) || \
+        ( ( k <= 288 ) && \
+          ( ( ( m <= 360 ) && ( n <= 32 ) ) || \
+            ( ( m <= 76 ) && ( n <= 224 ) ) ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 48 ) && \
+            ( ( ( m <= 368 ) && ( k <= 120 ) ) || \
+              ( ( m <= 396 ) && ( k <= 92 ) ) || \
+              ( ( m <= 192 ) && ( k <= 396 ) ) ) ) || \
+          ( ( n <= 396 ) && \
+            ( ( ( m <= 144 ) && ( k <= 48 ) ) || \
+              ( ( m <= 72 ) && ( k <= 192 ) ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 8 ) && \
+            ( ( ( m <= 396 ) && ( k <= 32 ) ) || \
+              ( ( m <= 48 ) && ( k <= 120 ) ) ) ) || \
+          ( ( m <= 96 ) && ( n <= 28 ) && ( k <= 16 ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && \
+            ( ( ( m <= 208 ) && ( k <= 24 ) ) || \
+              ( ( m <= 396 ) && ( k <= 8 ) ) ) ) || \
+          ( ( m <= 72 ) && ( n <= 8 ) && ( k <= 200 ) ) || \
+          ( ( m <= 24 ) && ( n <= 100 ) && ( k <= 16 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN6-AVX2
+#define THRESH_GEMM_c_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN6_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN6-AVX512
+#define THRESH_GEMM_c_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN6_AVX512( transa, transb, m, n, k, is_parallel )
+
+// Thresholds for ZGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 8 ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( m <= 4 ) && ( n >= 12 ) && ( n <= 200 ) && ( k <= 4 ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 16000 ) ) || \
+        ( ( n <= 16 ) && ( ( m * k ) <= 13000 ) ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 7000 ) ) || \
+          ( ( n <= 16 ) && ( ( m * k ) <= 6000 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN6-AVX2
+#define THRESH_GEMM_z_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN6_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN6-AVX512
+#define THRESH_GEMM_z_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN6_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN6_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN6_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 12288 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 12288, 262144  ) ) \
+  )
+
+
+#define ZEN6_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN6_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
+      LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN6_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
+      LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
+    break;
+
+#endif
+// end bli_config_zen6.h
+
+// By default, it is effective to parallelize the outer loops.
+// Setting these macros to 1 will force JR and IR inner loops
+// to be not parallelized.
+#define BLIS_THREAD_MAX_IR      1
+#define BLIS_THREAD_MAX_JR      1
+
+// This will select the threshold below which small matrix code will be called.
+#define BLIS_SMALL_MATRIX_THRES        700
+#define BLIS_SMALL_M_RECT_MATRIX_THRES 160
+#define BLIS_SMALL_K_RECT_MATRIX_THRES 128
+
+#endif
+// end bli_family_zen6.h
+#endif
 #ifdef BLIS_FAMILY_ZEN5
 // begin bli_family_zen5.h
 
 
-#ifndef BLI_FAMILY_ZEN5_
-#define BLI_FAMILY_ZEN5_
+#ifndef BLIS_FAMILY_ZEN5_H
+#define BLIS_FAMILY_ZEN5_H
+
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN5
 
 // begin bli_config_zen5.h
 
@@ -21975,33 +22680,136 @@ CNTX_INIT_PROTS( generic )
 #ifndef BLIS_CONFIG_ZEN5_H
 #define BLIS_CONFIG_ZEN5_H
 
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+      ( ( ( k <= 48 ) && ( m <= 396 ) && ( n <= 396 ) ) || \
+        ( ( k <= 288 ) && \
+          ( ( ( m <= 360 ) && ( n <= 32 ) ) || \
+            ( ( m <= 76 ) && ( n <= 224 ) ) ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 48 ) && \
+            ( ( ( m <= 368 ) && ( k <= 120 ) ) || \
+              ( ( m <= 396 ) && ( k <= 92 ) ) || \
+              ( ( m <= 192 ) && ( k <= 396 ) ) ) ) || \
+          ( ( n <= 396 ) && \
+            ( ( ( m <= 144 ) && ( k <= 48 ) ) || \
+              ( ( m <= 72 ) && ( k <= 192 ) ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 8 ) && \
+            ( ( ( m <= 396 ) && ( k <= 32 ) ) || \
+              ( ( m <= 48 ) && ( k <= 120 ) ) ) ) || \
+          ( ( m <= 96 ) && ( n <= 28 ) && ( k <= 16 ) ) ) ) ) || \
+      ( ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && \
+            ( ( ( m <= 208 ) && ( k <= 24 ) ) || \
+              ( ( m <= 396 ) && ( k <= 8 ) ) ) ) || \
+          ( ( m <= 72 ) && ( n <= 8 ) && ( k <= 200 ) ) || \
+          ( ( m <= 24 ) && ( n <= 100 ) && ( k <= 16 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN5-AVX2
+#define THRESH_GEMM_c_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN5_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN5-AVX512
+#define THRESH_GEMM_c_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN5_AVX512( transa, transb, m, n, k, is_parallel )
+
 // Thresholds for ZGEMM Tiny code-paths
 // This is specific to the micro-architecture
 // The macros take the input dimensions and the transpose values for the GEMM API
 // and define a condition that checks for entry based on these parameters
-#define zgemm_tiny_zen5_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-   \
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
   ( ( !is_parallel ) && \
      \
     ( ( bli_is_notrans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
-   \
-  ( ( is_parallel ) && ( ( m * n * k ) < 5000 ) && ( k >= 16 ) )
+      ( bli_is_trans( transa ) && ( m < 8 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
 
-#define zgemm_tiny_zen5_thresh_avx512( transa, transb, m, n, k, is_parallel ) \
-   \
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 8 ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( m <= 4 ) && ( n >= 12 ) && ( n <= 200 ) && ( k <= 4 ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
   ( ( !is_parallel ) && \
      \
     ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 16000 ) ) || \
+        ( ( n <= 16 ) && ( ( m * k ) <= 13000 ) ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( m <= 200 ) && ( k <= 200 ) && ( ( ( n <= 16 ) && ( ( m * k ) <= 7000 ) ) || \
+          ( ( n <= 16 ) && ( ( m * k ) <= 6000 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN5-AVX2
+#define THRESH_GEMM_z_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
    \
-  ( ( is_parallel ) && ( ( m * n * k ) < 10000 ) && ( k >= 16 ) )
+  IS_TINY_NOT_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN5_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN5-AVX512
+#define THRESH_GEMM_z_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN5_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN5_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN5_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 12288 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 12288, 262144  ) ) \
+  )
 
 
 #define ZEN5_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen5_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN5_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
-    else if ( PASTECH3( ch, gemm_tiny, _zen5_thresh, _avx512 )( transa, transb, m, n, k, is_parallel ) ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN5_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
@@ -22014,16 +22822,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 #endif
 // end bli_family_zen5.h
@@ -22032,8 +22834,10 @@ CNTX_INIT_PROTS( generic )
 // begin bli_family_zen4.h
 
 
-#ifndef BLI_FAMILY_ZEN4_
-#define BLI_FAMILY_ZEN4_
+#ifndef BLIS_FAMILY_ZEN4_H
+#define BLIS_FAMILY_ZEN4_H
+
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN4
 
 // begin bli_config_zen4.h
 
@@ -22041,34 +22845,166 @@ CNTX_INIT_PROTS( generic )
 #ifndef BLIS_CONFIG_ZEN4_H
 #define BLIS_CONFIG_ZEN4_H
 
+
+
+
+
+// Thresholds for CGEMM Tiny code-paths
+// This is specific to the micro-architecture
+// The macros take the input dimensions and the transpose values for the GEMM API
+// and define a condition that checks for entry based on these parameters
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX2 ISA
+// We support only when transa is 'N'
+#define IS_TINY_NOT_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( bli_is_notrans( transa ) && ( m <= 72 ) && ( n <= 96 ) && ( k < 12 ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX2 ISA
+// We support only when transa is 'N'
+#define IS_TINY_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( bli_is_notrans( transa ) && ( m <= 96 ) && ( n <= 96 ) && ( k <= 96 ) && \
+      ( ( ( m * k ) <= 144 ) || ( ( n * k ) <= 144 ) || ( ( m * n ) <= 144 ) ) && \
+      ( ( m * n * k ) <= 7200 ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( m <= 396 ) && \
+        ( ( ( n <= 312 ) && ( k <= 24 ) ) || \
+          ( ( n <= 396 ) && ( k <= 12 ) ) || \
+          ( ( n <= 136 ) && ( k <= 32 ) ) || \
+          ( ( m <= 52 ) && ( n <= 396 ) && ( k <= 396 ) ) || \
+          ( ( n <= 8 ) && ( k <= 396 ) ) || \
+          ( ( n <= 16 ) && ( k <= 148 ) ) || \
+          ( ( n <= 48 ) && ( k <= 68 ) ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( m <= 396 ) && \
+          ( ( ( n <= 256 ) && ( k <= 32 ) ) || \
+            ( ( n <= 396 ) && ( k <= 16 ) ) ) ) || \
+        ( ( m <= 72 ) && ( n <= 396 ) && ( k <= 32 ) ) || \
+        ( ( n <= 32 ) && \
+          ( ( ( m <= 192 ) && ( k <= 396 ) ) || ( ( m <= 396 ) && ( k <= 96 ) ) ) ) ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on CGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( ( n <= 12 ) && \
+          ( ( ( m <= 36 ) && ( k <= 396 ) ) || \
+            ( ( m <= 48 ) && ( k <= 232 ) ) || \
+            ( ( m <= 288 ) && ( n <= 8 ) && ( k <= 44 ) ) ) ) || \
+        ( ( n <= 20 ) && \
+          ( ( ( m <= 144 ) && ( k <= 24 ) ) || \
+            ( ( m <= 28 ) && ( k <= 396 ) ) ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( n <= 16 ) && \
+          ( ( ( m <= 192 ) && ( k <= 32 ) ) || \
+            ( ( m <= 72 ) && ( k <= 144 ) ) ) ) || \
+        ( ( m <= 288 ) && ( n <= 40 ) && ( k <= 24 ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN4-AVX2
+#define THRESH_GEMM_c_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN4_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-CGEMM-ZEN4-AVX512
+#define THRESH_GEMM_c_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_c_ZEN4_AVX512( transa, transb, m, n, k, is_parallel )
+
 // Thresholds for ZGEMM Tiny code-paths
 // This is specific to the micro-architecture
 // The macros take the input dimensions and the transpose values for the GEMM API
 // and define a condition that checks for entry based on these parameters
-#define zgemm_tiny_zen4_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-   \
-  ( ( !is_parallel ) && \
-     \
-    ( ( bli_is_notrans( transa ) && ( m < 60 ) && ( n >= 4 ) && ( n < 200 ) && ( k < 68 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 16 ) ) ) ) || \
-   \
-  ( ( is_parallel ) && ( ( m * n * k ) < 12500 ) )
 
-#define zgemm_tiny_zen4_thresh_avx512( transa, transb, m, n, k, is_parallel ) \
-   \
-  ( ( !is_parallel ) && \
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+   ( ( !is_parallel ) && \
+                                  \
+                                                                                         \
+                     \
+	 \
+	                         \
+	                                  \
+	                           \
+	                                                    \
+              \
+                                                         \
+    ( ( bli_is_notrans( transa ) && ( m < 60 ) && ( n >= 4 ) && ( n < 200 ) && ( k < 68 ) && (m % 2 == 0) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 16 ) && (m % 2 == 0) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX2 ISA
+#define IS_TINY_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
      \
-    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && \
-        ( ( m * k ) < 1500 ) && ( ( n * k ) < 1500 ) && ( ( m * n ) < 1500 ) ) || \
-      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) ) || \
+    ( ( bli_is_notrans( transa ) && \
+      ( ( ( m <= 6 ) && ( n <= 80 ) && ( k <= 64 ) ) || \
+        ( ( m <= 4 ) && ( n <= 200 ) && ( k <= 16 ) ) ) ) || \
+      ( bli_is_trans( transa ) && \
+      ( ( ( m <= 6 ) && ( n <= 40 ) && ( k <= 72 ) ) || ( ( m <= 12 ) && ( n <= 24 ) && ( k <= 44 ) ) ) ) ) )
+
+// Macro for checking if the request is for a single-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_NOT_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && \
+                                                   \
+                                                                                                          \
+                                    \
+     \
+                                                                                     \
+                                                                                                          \
+          \
+                               \
+    ( ( bli_is_notrans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) ) || \
+      ( bli_is_trans( transa ) && ( m < 200 ) && ( n < 200 ) && ( k < 200 ) && ( k >= 8 ) ) ) )
+
+// Macro for checking if the request is for a multi-threaded operation on ZGEMM, for the AVX512 ISA
+#define IS_TINY_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) \
+  ( ( is_parallel ) && \
+     \
+    ( ( ( ( m <= 16 ) && ( n <= 16 ) && ( k <= 24 ) ) ) || \
+     \
+      ( ( bli_is_notrans( transa ) && \
+        ( ( ( n <= 16 ) && ( ( ( m <= 32 ) && ( k <= 80 ) ) || ( ( m <= 80 ) && ( k <= 20 ) ) ) ) || \
+          ( ( k <= 8 ) && ( m <= 40 ) && ( n <= 40 ) ) ) ) || \
+        ( bli_is_trans( transa ) && \
+        ( ( ( n <= 16 ) && ( ( ( m <= 40 ) && ( k <= 40 ) ) || ( ( m <= 96 ) && ( k <= 12 ) ) || ( ( m <= 16 ) && ( k <= 96 ) ) ) ) || \
+          ( ( k <= 8 ) && ( m <= 40 ) && ( n <= 40 ) ) ) ) ) ) )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN4-AVX2
+#define THRESH_GEMM_z_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
    \
-  ( ( is_parallel ) && ( ( m * n * k ) < 15000 ) )
+  IS_TINY_NOT_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN4_AVX2( transa, transb, m, n, k, is_parallel )
+
+// Main macro to check entry to Tiny-ZGEMM-ZEN4-AVX512
+#define THRESH_GEMM_z_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+   \
+  IS_TINY_NOT_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel ) || \
+   \
+  IS_TINY_PARALLEL_z_ZEN4_AVX512( transa, transb, m, n, k, is_parallel )
+
+#define THRESH_GEMM_s_TINY_ZEN4_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN4_AVX512( stor_id, transa, transb, m, n, k, is_parallel ) \
+  ( !( is_parallel ) &&  \
+   ( ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 8192 ) || \
+  bli_is_sgemm_tiny_zen( (stor_id) , (transa) , (transb) , (m) , (n) , (k) , (is_parallel), 64, 16, 8192, 262144 ) ) \
+  )
 
 
 #define ZEN4_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen4_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN4_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
-    else if ( PASTECH3( ch, gemm_tiny, _zen4_thresh, _avx512 )( transa, transb, m, n, k, is_parallel ) ) \
+    else if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN4_AVX512 )( stor_id, transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
@@ -22081,16 +23017,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 #endif
 // end bli_family_zen4.h
@@ -22099,8 +23029,10 @@ CNTX_INIT_PROTS( generic )
 // begin bli_family_zen3.h
 
 
-#ifndef BLI_FAMILY_ZEN3_
-#define BLI_FAMILY_ZEN3_
+#ifndef BLIS_FAMILY_ZEN3_H
+#define BLIS_FAMILY_ZEN3_H
+
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN3
 
 // By default, it is effective to parallelize the outer loops.
 // Setting these macros to 1 will force JR and IR inner loops
@@ -22108,16 +23040,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 #endif
 // end bli_family_zen3.h
@@ -22126,8 +23052,10 @@ CNTX_INIT_PROTS( generic )
 // begin bli_family_zen2.h
 
 
-#ifndef BLI_FAMILY_ZEN2_
-#define BLI_FAMILY_ZEN2_
+#ifndef BLIS_FAMILY_ZEN2_H
+#define BLIS_FAMILY_ZEN2_H
+
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN2
 
 // By default, it is effective to parallelize the outer loops.
 // Setting these macros to 1 will force JR and IR inner loops
@@ -22135,16 +23063,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 // When running HPL with pure MPI without DGEMM threading (Single-threaded
 // BLIS), defining this macro as 1 yields better performance.
@@ -22160,6 +23082,8 @@ CNTX_INIT_PROTS( generic )
 #ifndef BLIS_FAMILY_ZEN_H
 #define BLIS_FAMILY_ZEN_H
 
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_ZEN
+
 // begin bli_config_zen.h
 
 
@@ -22167,12 +23091,22 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_CONFIG_ZEN_H
 
 
-#define zgemm_tiny_zen_thresh_avx2( transa, transb, m, n, k, is_parallel ) \
-  ( 0 ) \
+
+
+#define THRESH_GEMM_c_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+
+#define THRESH_GEMM_z_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( 0 )
+
+#define THRESH_GEMM_s_TINY_ZEN_AVX2( transa, transb, m, n, k, is_parallel ) \
+  ( ( !is_parallel ) && ( ( ( (m) + (k) ) *  (n)  + ( (m) * (k) ) ) < 8192 ) ) // Make sure that all the matrices fit in the L1 cache
+                                                                               // Currently, tiny path is only enabled in the single threaded mode
 
 
 #define ZEN_UKR_SELECTOR( ch, transa, transb, m, n, k, stor_id, ukr_support, gemmtiny_ukr_info, is_parallel ) \
-    if ( PASTECH3( ch, gemm_tiny, _zen_thresh, _avx2 )( transa, transb, m, n, k, is_parallel ) ) \
+    if ( PASTECH2( THRESH_GEMM_, ch, _TINY_ZEN_AVX2 )( transa, transb, m, n, k, is_parallel ) ) \
       LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
     break;
 
@@ -22185,16 +23119,10 @@ CNTX_INIT_PROTS( generic )
 #define BLIS_THREAD_MAX_IR      1
 #define BLIS_THREAD_MAX_JR      1
 
-#define BLIS_ENABLE_SMALL_MATRIX
-#define BLIS_ENABLE_SMALL_MATRIX_TRSM
-
 // This will select the threshold below which small matrix code will be called.
 #define BLIS_SMALL_MATRIX_THRES        700
 #define BLIS_SMALL_M_RECT_MATRIX_THRES 160
 #define BLIS_SMALL_K_RECT_MATRIX_THRES 128
-
-#define BLIS_SMALL_MATRIX_A_THRES_M_SYRK 96
-#define BLIS_SMALL_MATRIX_A_THRES_N_SYRK 128
 
 #endif
 // end bli_family_zen.h
@@ -22274,8 +23202,7 @@ CNTX_INIT_PROTS( generic )
 //#ifndef BLIS_FAMILY_H
 //#define BLIS_FAMILY_H
 
-
-
+#define BLIS_FAMILY_TO_ARCH_VALUE BLIS_ARCH_GENERIC
 
 //#endif
 
@@ -22632,19 +23559,25 @@ GEMMSUP_KER_PROT( double,   d, gemmsup_rd_haswell_asm_1x8n )
 #endif
 
 // -- AMD64 architectures --
+//#ifdef BLIS_KERNELS_ZEN6
+//#include "bli_kernels_zen6.h"
+//#endif
 #ifdef BLIS_KERNELS_ZEN5
 // begin bli_kernels_zen5.h
 
 
+// DCOPYV kernel
+COPYV_KER_PROT( double,   d, copyv_zen5_asm )
+
 // Dgemm sup RV kernels
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x8m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x7m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x6m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x5m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x4m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x3m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x2m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen5_asm_24x1m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x8m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x7m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x6m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x5m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x4m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x3m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x2m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen5_asm_24x1m)
 
 // threshold functions
 bool bli_cntx_gemmsup_thresh_is_met_zen5
@@ -22663,7 +23596,7 @@ void bli_dynamic_blkszs_zen5
       num_t dt
     );
 
-err_t bli_trsm_small_ZEN5
+err_t bli_trsm_small_zen5
       (
         side_t side,
         obj_t  *alpha,
@@ -22674,18 +23607,18 @@ err_t bli_trsm_small_ZEN5
         bool   is_parallel
       );
 
-TRSMSMALL_KER_PROT( d, trsm_small_XAltB_XAuB_ZEN5 )
-TRSMSMALL_KER_PROT( d, trsm_small_XAutB_XAlB_ZEN5 )
-TRSMSMALL_KER_PROT( d, trsm_small_AltXB_AuXB_ZEN5 )
-TRSMSMALL_KER_PROT( d, trsm_small_AutXB_AlXB_ZEN5 )
+TRSMSMALL_KER_PROT( d, trsm_small_zen5_int_XAltB_XAuB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen5_int_XAutB_XAlB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen5_int_AltXB_AuXB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen5_int_AutXB_AlXB )
 
-TRSMSMALL_KER_PROT( z, trsm_small_XAltB_XAuB_ZEN5 )
-TRSMSMALL_KER_PROT( z, trsm_small_XAutB_XAlB_ZEN5 )
-TRSMSMALL_KER_PROT( z, trsm_small_AltXB_AuXB_ZEN5 )
-TRSMSMALL_KER_PROT( z, trsm_small_AutXB_AlXB_ZEN5 )
+TRSMSMALL_KER_PROT( z, trsm_small_zen5_int_XAltB_XAuB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen5_int_XAutB_XAlB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen5_int_AltXB_AuXB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen5_int_AutXB_AlXB )
 
 #ifdef BLIS_ENABLE_OPENMP
-err_t bli_trsm_small_mt_ZEN5
+err_t bli_trsm_small_zen5_mt
       (
         side_t side,
         obj_t  *alpha,
@@ -22703,14 +23636,14 @@ err_t bli_trsm_small_mt_ZEN5
 
 
 // Including the header for tiny gemm kernel signatures
-// begin bli_gemm_tiny_avx512.h
+// begin bli_gemm_tiny_zen4.h
 
 
 // Macro to access the appropriate static array(that contains the kernel list),
 // based on the datatype
-#define TINY_GEMM_AVX512(ch) ch ## gemmtiny_ukr_avx512
+#define TINY_GEMM_AVX512(ch) ch ## gemmtiny_ukr_zen4
 
-// Function macro signatures for bli_?gemmtiny_avx512_ukr_info functions
+// Function macro signatures for bli_?gemmtiny_ukr_zen4_info functions
 // These are used to acquire the kernel info at framework level
 #undef  GENTFUNC
 #define GENTFUNC( ftype, ch, tfuncname ) \
@@ -22720,139 +23653,159 @@ err_t PASTEMAC( ch, tfuncname ) \
         gemmtiny_ukr_info_t *fp_info \
       ); \
 
-GENTFUNC( dcomplex, z, gemmtiny_avx512_ukr_info )
+GENTFUNC( scomplex, c, gemmtiny_ukr_zen4_info )
+GENTFUNC( dcomplex, z, gemmtiny_ukr_zen4_info )
+GENTFUNC(    float, s, gemmtiny_ukr_zen4_info )
 
 
 
 #define LOOKUP_AVX512_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
 { \
    \
-  ukr_support = PASTEMAC(ch, gemmtiny_avx512_ukr_info)( stor_id, &gemmtiny_ukr_info ); \
+  ukr_support = PASTEMAC(ch, gemmtiny_ukr_zen4_info)( stor_id, &gemmtiny_ukr_info ); \
 }
-// end bli_gemm_tiny_avx512.h
+// end bli_gemm_tiny_zen4.h
 
 // -- level-1v --
 
 // addv (intrinsics)
-ADDV_KER_PROT( double,   d, addv_zen_int_avx512 )
+ADDV_KER_PROT( double,   d, addv_zen4_int )
 
 // amaxv (intrinsics)
-AMAXV_KER_PROT( float,    s, amaxv_zen_int_avx512 )
-BLIS_EXPORT_BLIS AMAXV_KER_PROT( double,   d, amaxv_zen_int_avx512 )
+AMAXV_KER_PROT( float,    s, amaxv_zen4_int )
+BLIS_EXPORT_BLIS AMAXV_KER_PROT( double,   d, amaxv_zen4_int )
 
 // scalv (AVX512 intrinsics)
-SCALV_KER_PROT( float,     s, scalv_zen_int_avx512 )
-BLIS_EXPORT_BLIS SCALV_KER_PROT( double,    d, scalv_zen_int_avx512 )
-SCALV_KER_PROT( scomplex,  c, scalv_zen_int_avx512 )
-SCALV_KER_PROT( dcomplex,  z, scalv_zen_int_avx512 )
-SCALV_KER_PROT( dcomplex,  z, dscalv_zen_int_avx512) // ZDSCAL kernel
+SCALV_KER_PROT( float,     s, scalv_zen4_int )
+BLIS_EXPORT_BLIS SCALV_KER_PROT( double,    d, scalv_zen4_int )
+SCALV_KER_PROT( scomplex,  c, scalv_zen4_int )
+SCALV_KER_PROT( dcomplex,  z, scalv_zen4_int )
+SCALV_KER_PROT( dcomplex,  z, dscalv_zen4_int) // ZDSCAL kernel
 
 // setv (intrinsics)
-SETV_KER_PROT(float,    s, setv_zen_int_avx512)
-SETV_KER_PROT(double,   d, setv_zen_int_avx512)
-SETV_KER_PROT(dcomplex, z, setv_zen_int_avx512)
+SETV_KER_PROT(float,    s, setv_zen4_int)
+SETV_KER_PROT(double,   d, setv_zen4_int)
+SETV_KER_PROT(dcomplex, z, setv_zen4_int)
 
 // dotv (intrinsics)
-DOTV_KER_PROT( float,    s, dotv_zen_int_avx512 )
-DOTV_KER_PROT( double,   d, dotv_zen_int_avx512 )
-DOTV_KER_PROT( dcomplex, z, dotv_zen_int_avx512 )
-DOTV_KER_PROT( dcomplex, z, dotv_zen4_asm_avx512 )
+DOTV_KER_PROT( float,    s, dotv_zen4_int )
+DOTV_KER_PROT( double,   d, dotv_zen4_int )
+DOTV_KER_PROT( dcomplex, z, dotv_zen4_int )
+DOTV_KER_PROT( dcomplex, z, dotv_zen4_asm )
 
 // axpyv (intrinsics)
-AXPYV_KER_PROT( float,    s, axpyv_zen_int_avx512 )
-BLIS_EXPORT_BLIS AXPYV_KER_PROT( double,   d, axpyv_zen_int_avx512 )
-AXPYV_KER_PROT( dcomplex, z, axpyv_zen_int_avx512 )
+AXPYV_KER_PROT( float,    s, axpyv_zen4_int )
+BLIS_EXPORT_BLIS AXPYV_KER_PROT( double,   d, axpyv_zen4_int )
+AXPYV_KER_PROT( dcomplex, z, axpyv_zen4_int )
 
 // axpbyv ( intrinsics )
-AXPBYV_KER_PROT( double, d, axpbyv_zen_int_avx512 );
+AXPBYV_KER_PROT( double, d, axpbyv_zen4_int );
 
 // axpyf (intrinsics)
-AXPYF_KER_PROT( dcomplex, z, axpyf_zen_int_2_avx512 )
-AXPYF_KER_PROT( dcomplex, z, axpyf_zen_int_4_avx512 )
-AXPYF_KER_PROT( dcomplex, z, axpyf_zen_int_8_avx512 )
+AXPYF_KER_PROT( dcomplex, z, axpyf_zen4_int_2 )
+AXPYF_KER_PROT( dcomplex, z, axpyf_zen4_int_4 )
+AXPYF_KER_PROT( dcomplex, z, axpyf_zen4_int_8 )
 
 // axpyf (intrinsics)
-AXPYF_KER_PROT( double,   d, axpyf_zen_int_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int2_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int4_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int6_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int8_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int12_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int16_avx512 )
-AXPYF_KER_PROT( double,   d, axpyf_zen_int32_avx512 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_2 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_4 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_6 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_8 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_12 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_16 )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_32 )
 #ifdef BLIS_ENABLE_OPENMP
-AXPYF_KER_PROT( double,   d, axpyf_zen_int32_avx512_mt )
+AXPYF_KER_PROT( double,   d, axpyf_zen4_int_32_mt )
 #endif
 
 // dotxf (intrinsics)
-DOTXF_KER_PROT( double,   d, dotxf_zen_int_avx512 )
+DOTXF_KER_PROT( double,   d, dotxf_zen4_int )
 
 // copyv (intrinsics)
-// COPYV_KER_PROT( float,    s, copyv_zen_int_avx512 )
-// COPYV_KER_PROT( double,   d, copyv_zen_int_avx512 )
-// COPYV_KER_PROT( dcomplex, z, copyv_zen_int_avx512 )
+// COPYV_KER_PROT( float,    s, copyv_zen4_int )
+// COPYV_KER_PROT( double,   d, copyv_zen4_int )
+// COPYV_KER_PROT( dcomplex, z, copyv_zen4_int )
 
 // copyv (asm)
-COPYV_KER_PROT( float,    s, copyv_zen4_asm_avx512 )
-COPYV_KER_PROT( double,   d, copyv_zen4_asm_avx512 )
-COPYV_KER_PROT( dcomplex, z, copyv_zen4_asm_avx512 )
+COPYV_KER_PROT( float,    s, copyv_zen4_asm )
+COPYV_KER_PROT( double,   d, copyv_zen4_asm )
+COPYV_KER_PROT( double,   d, copyv_zen4_asm_biway )
+COPYV_KER_PROT( dcomplex, z, copyv_zen4_asm )
 
 // scal2v (intrinsics)
-SCAL2V_KER_PROT(double,   d, scal2v_zen_int_avx512)
+SCAL2V_KER_PROT(double,   d, scal2v_zen4_int)
 
 // dotxv (intrinsics)
-DOTXV_KER_PROT( dcomplex, z, dotxv_zen_int_avx512 )
+DOTXV_KER_PROT( dcomplex, z, dotxv_zen4_int )
 
 // dotxf (intrinsics)
-DOTXF_KER_PROT( dcomplex, z, dotxf_zen_int_8_avx512 )
-DOTXF_KER_PROT( dcomplex, z, dotxf_zen_int_4_avx512 )
-DOTXF_KER_PROT( dcomplex, z, dotxf_zen_int_2_avx512 )
+DOTXF_KER_PROT( dcomplex, z, dotxf_zen4_int_8 )
+DOTXF_KER_PROT( dcomplex, z, dotxf_zen4_int_4 )
+DOTXF_KER_PROT( dcomplex, z, dotxf_zen4_int_2 )
 
 // gemv (intrinsics)
 // dgemv_n kernels for handling op(A) = 'n', i.e., transa = 'n' cases.
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx8_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx7_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx6_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx5_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx4_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx3_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx2_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16mx1_avx512 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx8 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx7 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx6 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx5 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx4 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx3 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx2 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16mx1 )
 
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_32x8n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16x8n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_8x8n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_m_leftx8n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_32x4n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16x4n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_8x4n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_m_leftx4n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_32x3n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16x3n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_8x3n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_m_leftx3n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_32x2n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16x2n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_8x2n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_m_leftx2n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_32x1n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_16x1n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_8x1n_avx512 )
-GEMV_KER_PROT( double,  d, gemv_n_zen_int_m_leftx1n_avx512 )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_32x8n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16x8n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_8x8n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_m_leftx8n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_32x4n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16x4n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_8x4n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_m_leftx4n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_32x3n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16x3n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_8x3n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_m_leftx3n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_32x2n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16x2n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_8x2n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_m_leftx2n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_32x1n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_16x1n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_8x1n )
+GEMV_KER_PROT( double,  d, gemv_n_zen4_int_m_leftx1n )
 
 // dgemv_t kernels for handling op(A) = 't', i.e., transa = 't' cases.
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx8_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx7_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx6_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx5_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx4_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx3_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx2_avx512 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx1_avx512 )
+// export gemv kernel so that it can be directly called avoiding blis overhead.
+BLIS_EXPORT void bli_dgemv_t_zen4_int
+     (
+       conj_t conja,
+       conj_t conjx,
+       dim_t m,
+       dim_t n,
+       double* restrict alpha,
+       double* restrict a,
+       inc_t rs,
+       inc_t cs,
+       double* restrict x,
+       inc_t incx,
+       double* restrict beta,
+       double* restrict y,
+       inc_t incy,
+       cntx_t* restrict cntx
+      );
 
-GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_l_zen_asm_16x14)
-GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_u_zen_asm_16x14)
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x7m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x6m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x5m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x4m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x3m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x2m )
+GEMV_KER_PROT( double,  d, gemv_t_zen4_int_32x1m )
+
+GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_l_zen4_asm_16x14)
+GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_u_zen4_asm_16x14)
 GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_l_zen4_asm_8x24)
 GEMMTRSM_UKR_PROT( double,   d, gemmtrsm_u_zen4_asm_8x24)
 GEMMTRSM_UKR_PROT( dcomplex, z, gemmtrsm_l_zen4_asm_4x12)
@@ -22864,17 +23817,21 @@ PACKM_KER_PROT( double,   d, packm_zen4_asm_8xk )
 PACKM_KER_PROT( double,   d, packm_zen4_asm_24xk )
 PACKM_KER_PROT( double,   d, packm_zen4_asm_32xk )
 PACKM_KER_PROT( double,   d, packm_32xk_zen4_ref )
+PACKM_KER_PROT( scomplex, c, packm_zen4_asm_24xk )
+PACKM_KER_PROT( scomplex, c, packm_zen4_asm_4xk )
 PACKM_KER_PROT( dcomplex, z, packm_zen4_asm_12xk )
 PACKM_KER_PROT( dcomplex, z, packm_zen4_asm_4xk )
 
 // native dgemm kernel
-GEMM_UKR_PROT( double,   d, gemm_avx512_asm_8x24 )
+GEMM_UKR_PROT( double,   d, gemm_zen4_asm_8x24 )
 GEMM_UKR_PROT( double,   d, gemm_zen4_asm_32x6 )
 GEMM_UKR_PROT( dcomplex, z, gemm_zen4_asm_12x4 )
 GEMM_UKR_PROT( dcomplex, z, gemm_zen4_asm_4x12 )
+GEMM_UKR_PROT( scomplex, c, gemm_zen4_asm_24x4 )
+GEMM_UKR_PROT( scomplex, c, gemm_zen4_asm_4x24 )
 
 // dgemm native macro kernel
-void bli_dgemm_avx512_asm_8x24_macro_kernel
+void bli_dgemm_zen4_asm_8x24_macro_kernel
 (
     dim_t   n,
     dim_t   m,
@@ -22888,142 +23845,180 @@ void bli_dgemm_avx512_asm_8x24_macro_kernel
 
 
 //sgemm rv sup
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_6x64m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_6x48m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_6x32m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_6x16m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_4x64m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_4x48m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_4x32m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_4x16m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_2x64m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_2x48m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_2x32m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_2x16m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_1x64m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_1x48m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_1x32m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_1x16m_avx512 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x64m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x48m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x32m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x16m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x16 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x16 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x16 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x16m_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x16_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x16_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x16_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x8m_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x8_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x8_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x8_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x4m_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x4_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x4_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x4_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x4_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x4_mask )
 
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_6x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_5x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_4x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_3x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_2x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_1x64n_avx512 )
 
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_5x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_5x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_5x16_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_3x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_3x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen_asm_3x16_avx512 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_6x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_4x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_2x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_1x64n )
+
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x16 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x16 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x16_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_5x8_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x16_mask )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rv_zen4_asm_3x8_mask )
+
 
 // sgemm rd sup
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_6x64m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_6x48m_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_6x32m_avx512 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_6x64m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_6x48m )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_6x32m )
 
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_3x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_2x64n_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_6x64n_avx512 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_3x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_2x64n )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_6x64n )
 
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_5x64_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_4x64_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_3x64_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_2x64_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_1x64_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_5x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_4x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_3x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_2x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_1x48_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_5x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_4x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_3x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_2x32_avx512 )
-GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen_asm_1x32_avx512 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_5x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_4x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_3x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_2x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_1x64 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_5x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_4x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_3x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_2x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_1x48 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_5x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_4x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_3x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_2x32 )
+GEMMSUP_KER_PROT( float,   s, gemmsup_rd_zen4_asm_1x32 )
 
-TRSMSMALL_PROT(trsm_small_AVX512)
-TRSMSMALL_KER_PROT( d, trsm_small_AutXB_AlXB_AVX512 )
-TRSMSMALL_KER_PROT( d, trsm_small_XAltB_XAuB_AVX512 )
-TRSMSMALL_KER_PROT( d, trsm_small_XAutB_XAlB_AVX512 )
-TRSMSMALL_KER_PROT( d, trsm_small_AltXB_AuXB_AVX512 )
-TRSMSMALL_KER_PROT( z, trsm_small_AutXB_AlXB_AVX512 )
-TRSMSMALL_KER_PROT( z, trsm_small_XAltB_XAuB_AVX512 )
-TRSMSMALL_KER_PROT( z, trsm_small_XAutB_XAlB_AVX512 )
-TRSMSMALL_KER_PROT( z, trsm_small_AltXB_AuXB_AVX512 )
+TRSMSMALL_PROT(trsm_small_zen4)
+TRSMSMALL_KER_PROT( d, trsm_small_zen4_int_AutXB_AlXB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen4_int_XAltB_XAuB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen4_int_XAutB_XAlB )
+TRSMSMALL_KER_PROT( d, trsm_small_zen4_int_AltXB_AuXB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen4_int_AutXB_AlXB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen4_int_XAltB_XAuB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen4_int_XAutB_XAlB )
+TRSMSMALL_KER_PROT( z, trsm_small_zen4_int_AltXB_AuXB )
 
 #ifdef BLIS_ENABLE_OPENMP
-TRSMSMALL_PROT(trsm_small_mt_AVX512)
+TRSMSMALL_PROT(trsm_small_zen4_mt)
 #endif
 
 // Dgemm sup RV kernels
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x7m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x6m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x5m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x4m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x3m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x2m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x1m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x7m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x6m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x5m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x4m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x3m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x2m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x1m)
 
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x7m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x6m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x5m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x4m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x3m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x2m_new)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x1m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x7m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x6m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x5m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x4m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x3m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x2m_new)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x1m_new)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x8)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x8)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x8m)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x8m_lower)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x8m_upper)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x8)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x8)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x8m)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x8m_lower)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x8m_upper)
 
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_lower_0)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_lower_1)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_lower_2)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_upper_0)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_upper_1)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x8m_upper_2)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_lower_0)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_lower_1)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_lower_2)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_upper_0)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_upper_1)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x8m_upper_2)
 
 GEMMSUP_KER_PROT( dcomplex,  z, gemmsup_rv_zen4_asm_4x4m)
 GEMMSUP_KER_PROT( dcomplex,  z, gemmsup_rv_zen4_asm_4x4m_lower)
 GEMMSUP_KER_PROT( dcomplex,  z, gemmsup_rv_zen4_asm_4x4m_upper)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x7)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x7)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x7)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x7)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x7)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x7)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x6)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x6)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x6)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x6)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x6)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x6)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x5)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x5)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x5)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x5)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x5)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x5)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x4)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x4)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x4)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x4)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x4)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x4)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x3)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x3)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x3)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x3)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x3)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x3)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x2)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x2)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x2)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x2)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x2)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x2)
 
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_24x1)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_16x1)
-GEMMSUP_KER_PROT( double,  d, gemmsup_rv_zen4_asm_8x1)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_24x1)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_16x1)
+GEMMSUP_KER_PROT( double,  d, gemmsup_cv_zen4_asm_8x1)
+
+// Cgemm sup CV kernels
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_24x4m )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_24x3m )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_24x2m )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_24x1m )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_16x4 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_16x3 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_16x2 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_16x1 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_8x4 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_8x3 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_8x2 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_8x1 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_fx4 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_fx3 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_fx2 )
+GEMMSUP_KER_PROT( scomplex,   c, gemmsup_cv_zen4_asm_fx1 )
 
 // Zgemm sup CV kernels
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_12x4m )
@@ -23035,6 +24030,11 @@ GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_8x4 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_8x3 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_8x2 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_8x1 )
+
+GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_fx4 )
+GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_fx3 )
+GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_fx2 )
+GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_fx1 )
 
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_4x4 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cv_zen4_asm_4x3 )
@@ -23059,7 +24059,7 @@ GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cd_zen4_asm_4x2 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cd_zen4_asm_2x4 )
 GEMMSUP_KER_PROT( dcomplex,   z, gemmsup_cd_zen4_asm_2x2 )
 
-err_t bli_dgemm_24x8_avx512_k1_nn
+err_t bli_dgemm_zen4_int_24x8_k1_nn
     (
       dim_t m,
       dim_t n,
@@ -23071,7 +24071,7 @@ err_t bli_dgemm_24x8_avx512_k1_nn
       double* c, const inc_t ldc
      );
 
-err_t bli_dgemm_tiny_24x8
+err_t bli_dgemm_tiny_zen4_24x8
      (
         conj_t              conja,
         conj_t              conjb,
@@ -23087,7 +24087,7 @@ err_t bli_dgemm_tiny_24x8
         double*    c, const inc_t rs_c0, const inc_t cs_c0
      );
 
-void bli_dnorm2fv_unb_var1_avx512
+void bli_dnorm2fv_zen4_int_unb_var1
      (
        dim_t    n,
        double*   x, inc_t incx,
@@ -23095,7 +24095,20 @@ void bli_dnorm2fv_unb_var1_avx512
        cntx_t*  cntx
      );
 
-err_t bli_zgemm_16x4_avx512_k1_nn
+void bli_cgemm_zen4_int_32x4_k1_nn
+(
+    dim_t  m,
+    dim_t  n,
+    dim_t  k,
+    scomplex*    alpha,
+    scomplex*    a, const inc_t lda,
+    scomplex*    b, const inc_t ldb,
+    scomplex*    beta,
+    scomplex*    c, const inc_t ldc
+);
+
+
+err_t bli_zgemm_zen4_int_16x4_k1_nn
 (
     dim_t  m,
     dim_t  n,
@@ -23127,7 +24140,105 @@ void bli_dynamic_blkszs_zen4
 // function for resetting zmm registers after L3 apis
 void bli_zero_zmm();
 
-void bli_dgemv_n_avx512
+void bli_dgemv_n_zen4_int_32x8_st
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+void bli_dgemv_n_zen4_int
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+BLIS_EXPORT void bli_dgemv_n_zen4_int_40x2_st
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+void bli_dgemv_n_zen4_int_40x2_mt
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+void bli_dgemv_m_zen4_int_40x8_st
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+void bli_dgemv_m_zen4_int_40x8_mt_Ndiv
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+     void bli_dgemv_m_zen4_int_40x8_mt_Mdiv
+     (
+       trans_t transa,
+       conj_t  conjx,
+       dim_t   m,
+       dim_t   n,
+       double* alpha,
+       double* a, inc_t rs_a, inc_t cs_a,
+       double* x, inc_t incx,
+       double* beta,
+       double* y, inc_t incy,
+       cntx_t* cntx
+     );
+
+     void bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv
      (
        trans_t transa,
        conj_t  conjx,
@@ -23161,14 +24272,14 @@ AXPYF_KER_PROT( double,   d, axpyf_zen_int_5 )
 
 
 // Including the header for tiny gemm kernel signatures
-// begin bli_gemm_tiny_avx2.h
+// begin bli_gemm_tiny_zen.h
 
 
 // Macro to access the appropriate static array(that contains the kernel list),
 // based on the datatype
-#define TINY_GEMM_AVX2(ch) ch ## gemmtiny_ukr_avx2
+#define TINY_GEMM_AVX2(ch) ch ## gemmtiny_ukr_zen
 
-// Macro prototypes for bli_?gemmtiny_avx2_ukr_info functions
+// Macro prototypes for bli_?gemmtiny_ukr_zen_info functions
 // These are used to acquire the kernel info at framework level
 #undef  GENTFUNC
 #define GENTFUNC( ftype, ch, tfuncname ) \
@@ -23178,16 +24289,18 @@ err_t PASTEMAC( ch, tfuncname ) \
         gemmtiny_ukr_info_t *fp_info \
       ); \
 
-GENTFUNC( dcomplex, z, gemmtiny_avx2_ukr_info )
+GENTFUNC( scomplex, c, gemmtiny_ukr_zen_info )
+GENTFUNC( dcomplex, z, gemmtiny_ukr_zen_info )
+GENTFUNC(    float, s, gemmtiny_ukr_zen_info )
 
 
 
 #define LOOKUP_AVX2_UKR( ch, stor_id, ukr_support, gemmtiny_ukr_info ) \
 { \
    \
-  ukr_support = PASTEMAC(ch, gemmtiny_avx2_ukr_info)( stor_id, &gemmtiny_ukr_info ); \
+  ukr_support = PASTEMAC(ch, gemmtiny_ukr_zen_info)( stor_id, &gemmtiny_ukr_info ); \
 }
-// end bli_gemm_tiny_avx2.h
+// end bli_gemm_tiny_zen.h
 
 // -- level-1m --
 // Removed - reference packm kernels are used
@@ -23212,28 +24325,28 @@ AXPBYV_KER_PROT( scomplex, c, axpbyv_zen_int )
 AXPBYV_KER_PROT( dcomplex, z, axpbyv_zen_int )
 
 // axpbyv (intrinsics, unrolled x10)
-AXPBYV_KER_PROT( float,    s, axpbyv_zen_int10 )
-AXPBYV_KER_PROT( double,   d, axpbyv_zen_int10 )
+AXPBYV_KER_PROT( float,    s, axpbyv_zen_int_10 )
+AXPBYV_KER_PROT( double,   d, axpbyv_zen_int_10 )
 
 // axpyv (intrinsics)
 AXPYV_KER_PROT( float,    s, axpyv_zen_int )
 AXPYV_KER_PROT( double,   d, axpyv_zen_int )
 
 // axpyv (intrinsics unrolled x10)
-AXPYV_KER_PROT( float,    s, axpyv_zen_int10 )
-BLIS_EXPORT_BLIS AXPYV_KER_PROT( double,   d, axpyv_zen_int10 )
-AXPYV_KER_PROT( scomplex, c, axpyv_zen_int5 )
-AXPYV_KER_PROT( dcomplex, z, axpyv_zen_int5 )
+AXPYV_KER_PROT( float,    s, axpyv_zen_int_10 )
+BLIS_EXPORT_BLIS AXPYV_KER_PROT( double,   d, axpyv_zen_int_10 )
+AXPYV_KER_PROT( scomplex, c, axpyv_zen_int_5 )
+AXPYV_KER_PROT( dcomplex, z, axpyv_zen_int_5 )
 
 // dotv (intrinsics)
 DOTV_KER_PROT( float,    s, dotv_zen_int )
 DOTV_KER_PROT( double,   d, dotv_zen_int )
 
 // dotv (intrinsics, unrolled x10)
-DOTV_KER_PROT( float,    s, dotv_zen_int10 )
-DOTV_KER_PROT( double,   d, dotv_zen_int10 )
-DOTV_KER_PROT( scomplex,  c, dotv_zen_int5 )
-DOTV_KER_PROT( dcomplex,  z, dotv_zen_int5 )
+DOTV_KER_PROT( float,    s, dotv_zen_int_10 )
+DOTV_KER_PROT( double,   d, dotv_zen_int_10 )
+DOTV_KER_PROT( scomplex,  c, dotv_zen_int_5 )
+DOTV_KER_PROT( dcomplex,  z, dotv_zen_int_5 )
 
 // dotxv (intrinsics)
 DOTXV_KER_PROT( float,    s, dotxv_zen_int )
@@ -23248,13 +24361,13 @@ SCALV_KER_PROT( scomplex, c, scalv_zen_int )
 SCALV_KER_PROT( dcomplex, z, scalv_zen_int )
 
 // scalv (intrinsics unrolled x10)
-SCALV_KER_PROT( float,      s, scalv_zen_int10 )
-BLIS_EXPORT_BLIS SCALV_KER_PROT( double,     d, scalv_zen_int10 )
-SCALV_KER_PROT( dcomplex,   z, dscalv_zen_int10 )
+SCALV_KER_PROT( float,      s, scalv_zen_int_10 )
+BLIS_EXPORT_BLIS SCALV_KER_PROT( double,     d, scalv_zen_int_10 )
+SCALV_KER_PROT( dcomplex,   z, dscalv_zen_int_10 )
 
 // swapv (intrinsics)
-SWAPV_KER_PROT(float,   s, swapv_zen_int8 )
-BLIS_EXPORT_BLIS SWAPV_KER_PROT(double,  d, swapv_zen_int8 )
+SWAPV_KER_PROT(float,   s, swapv_zen_int_8 )
+BLIS_EXPORT_BLIS SWAPV_KER_PROT(double,  d, swapv_zen_int_8 )
 
 // copyv (intrinsics)
 COPYV_KER_PROT( float,      s, copyv_zen_int )
@@ -23313,14 +24426,14 @@ GEMV_KER_PROT( scomplex, c,  gemv_zen_int_4x4 )
 GEMV_KER_PROT( dcomplex, z,  gemv_zen_int_4x4 )
 
 // gemv (intrinsics)
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx7_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx6_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx5_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx4_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx3_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx2_avx2 )
-GEMV_KER_PROT( double,  d, gemv_t_zen_int_mx1_avx2 )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x7m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x6m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x5m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x4m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x3m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x2m )
+GEMV_KER_PROT( double,  d, gemv_t_zen_int_16x1m )
 
 // her (intrinsics)
 HER_KER_PROT( dcomplex, z,  her_zen_int_var1 )
@@ -23481,7 +24594,22 @@ err_t bli_dgemm_tiny
         double*    c, const inc_t rs_c0, const inc_t cs_c0
 );
 
-err_t bli_dgemm_tiny_6x8
+bool bli_is_sgemm_tiny_zen
+    (
+      stor3_t stor_id, 
+      trans_t transa, 
+      trans_t transb, 
+      dim_t m, 
+      dim_t n, 
+      dim_t k, 
+      bool is_parallel, 
+      dim_t NR, 
+      dim_t NUM_FLOATS_IN_CACHE_LINE, 
+      dim_t NUM_FLOATS_IN_L1, 
+      dim_t NUM_FLOATS_IN_L2
+    );
+
+err_t bli_dgemm_tiny_zen_6x8
      (
         conj_t              conja,
         conj_t              conjb,
@@ -23541,7 +24669,7 @@ err_t bli_zgemm_small_At
       cntl_t* cntl
     );
 
-err_t bli_dgemm_8x6_avx2_k1_nn
+err_t bli_dgemm_zen_int_8x6_k1_nn
     (
       dim_t m,
       dim_t n,
@@ -23553,7 +24681,7 @@ err_t bli_dgemm_8x6_avx2_k1_nn
       double* c, const inc_t ldc
      );
 
-err_t bli_zgemm_4x4_avx2_k1_nn
+err_t bli_zgemm_zen_int_4x4_k1_nn
     (
       dim_t m,
       dim_t n,
@@ -23565,7 +24693,7 @@ err_t bli_zgemm_4x4_avx2_k1_nn
       dcomplex* c, const inc_t ldc
      );
 
-err_t bli_trsm_small
+err_t bli_trsm_small_zen
      (
        side_t  side,
        obj_t*  alpha,
@@ -23577,7 +24705,7 @@ err_t bli_trsm_small
      );
 
 #ifdef BLIS_ENABLE_OPENMP
-err_t bli_trsm_small_mt
+err_t bli_trsm_small_zen_mt
      (
        side_t  side,
        obj_t*  alpha,
@@ -23630,7 +24758,7 @@ bool bli_cntx_trsm_small_thresh_is_met_zen
         dim_t n
     );
 
-void bli_snorm2fv_unb_var1_avx2
+void bli_snorm2fv_zen_int_unb_var1
      (
        dim_t    n,
        float*   x, inc_t incx,
@@ -23638,7 +24766,7 @@ void bli_snorm2fv_unb_var1_avx2
        cntx_t*  cntx
      );
 
-void bli_dnorm2fv_unb_var1_avx2
+void bli_dnorm2fv_zen_int_unb_var1
      (
        dim_t    n,
        double*   x, inc_t incx,
@@ -23646,7 +24774,7 @@ void bli_dnorm2fv_unb_var1_avx2
        cntx_t*  cntx
      );
 
-void bli_scnorm2fv_unb_var1_avx2
+void bli_scnorm2fv_zen_int_unb_var1
      (
        dim_t    n,
        scomplex*   x, inc_t incx,
@@ -23654,7 +24782,7 @@ void bli_scnorm2fv_unb_var1_avx2
        cntx_t*  cntx
      );
 
-void bli_dznorm2fv_unb_var1_avx2
+void bli_dznorm2fv_zen_int_unb_var1
      (
        dim_t    n,
        dcomplex*   x, inc_t incx,
@@ -23680,7 +24808,20 @@ void bli_dgemv_zen_ref
        cntx_t* restrict cntx
      );
 
-void bli_dgemv_n_avx2
+void bli_sgemv_zen_ref
+    (
+       trans_t          transa,
+       dim_t            m,
+       dim_t            b_n,
+       float* restrict alpha,
+       float* restrict a, inc_t inca, inc_t lda,
+       float* restrict x, inc_t incx,
+       float* restrict beta,
+       float* restrict y, inc_t incy,
+       cntx_t* restrict cntx
+     );
+
+void bli_dgemv_n_zen
      (
        trans_t transa,
        conj_t  conjx,
@@ -25613,6 +26754,17 @@ void bli_nthreads_l1f
        arch_t  arch_id,
        dim_t   n_elem,
        dim_t*  nt_ideal
+     );
+
+void bli_nthreads_l2
+     (
+       l2kr_t   ker_id,
+       num_t    data_type,
+       trans_t  variant,
+       arch_t   arch_id,
+       dim_t    m_elem,
+       dim_t    n_elem,
+       dim_t*   nt_ideal
      );
 
 // Runtime object type (defined in bli_type_defs.h)
@@ -27729,27 +28881,94 @@ BLIS_EXPORT_BLIS char* bli_info_get_trsm_impl_string( num_t dt );
 #ifndef BLIS_ARCH_H
 #define BLIS_ARCH_H
 
-BLIS_EXPORT_BLIS arch_t bli_arch_query_id( void );
 BLIS_EXPORT_BLIS bool bli_aocl_enable_instruction_query( void );
 
-void bli_arch_set_id_once( void );
-void bli_arch_set_id( void );
+BLIS_EXPORT_BLIS arch_t bli_arch_query_id( void );
 
-void bli_arch_check_id_once( void );
-void bli_arch_check_id( void );
+BLIS_EXPORT_BLIS model_t bli_model_query_id( void );
+BLIS_EXPORT_BLIS model_t bli_init_model_query_id( void );
 
 BLIS_EXPORT_BLIS char*  bli_arch_string( arch_t id );
+BLIS_EXPORT_BLIS char*  bli_model_string( model_t id );
+
+#if defined(BLIS_IS_BUILDING_LIBRARY) || defined(BLIS_CONFIGURETIME_CPUID)
+
+extern arch_t g_arch_id;
+extern model_t g_model_id;
+
+extern bli_pthread_once_t once_id_check;
+extern bli_pthread_once_t once_id_init;
+
+void bli_arch_set_id( void );
+void bli_arch_check_id( void );
 
 void bli_arch_set_logging( bool dolog );
 bool bli_arch_get_logging( void );
 void bli_arch_log( char*, ... );
 
-BLIS_EXPORT_BLIS model_t bli_model_query_id( void );
-BLIS_EXPORT_BLIS model_t bli_init_model_query_id( void );
+BLIS_INLINE arch_t bli_arch_query_id_internal( void )
+{
 
-BLIS_EXPORT_BLIS char*  bli_model_string( model_t id );
+#if defined BLIS_FAMILY_INTEL64      || \
+    defined BLIS_FAMILY_AMDZEN       || \
+    defined BLIS_FAMILY_AMD64_LEGACY || \
+    defined BLIS_FAMILY_X86_64       || \
+    defined BLIS_FAMILY_ARM64        || \
+    defined BLIS_FAMILY_ARM32
+
+	// For builds with multiple sub-configurations use the global value
+	// that will reflect dynamic dispatch, subject to any user override
+	// via environment variables.
+  #ifndef BLIS_CONFIGURETIME_CPUID
+	bli_pthread_once( &once_id_check, bli_arch_check_id );
+  #endif
+	// Simply return the id that was previously cached.
+	return g_arch_id;
+
+#else
+
+  #if defined BLIS_FAMILY_TO_ARCH_VALUE
+	// For single sub-configuration builds, get value from header file
+	arch_t l_arch_id = BLIS_FAMILY_TO_ARCH_VALUE;
+  #elif defined BLIS_CONFIGURETIME_CPUID
+	// For "auto" build, initialize BLIS_FAMILY_TO_ARCH_VALUE to
+	// generic as starting point for use in architecture detection.
+	// BLIS will then determine the correct architecture and get
+	// the correct BLIS_FAMILY_TO_ARCH_VALUE from the relevant
+	// sub-configuration header file.
+	arch_t l_arch_id = BLIS_ARCH_GENERIC;
+  #else
+	// No fallback if BLIS_FAMILY_TO_ARCH_VALUE is not set in
+	// the relevant config bli_family header file
+	#error "BLIS_FAMILY_TO_ARCH_VALUE not defined in relevant config bli_family header file"
+  #endif
+	return l_arch_id;
 
 #endif
+
+}
+
+BLIS_INLINE model_t bli_model_query_id_internal( void )
+{
+#ifndef BLIS_CONFIGURETIME_CPUID
+	bli_pthread_once( &once_id_check, bli_arch_check_id );
+#endif
+	// Simply return the model_id that was previously cached.
+	return g_model_id;
+}
+
+BLIS_INLINE model_t bli_init_model_query_id_internal( void )
+{
+#ifndef BLIS_CONFIGURETIME_CPUID
+	bli_pthread_once( &once_id_init, bli_arch_set_id );
+#endif
+	// Simply return the model_id that was previously cached.
+	return g_model_id;
+}
+
+#endif // BLIS_IS_BUILDING_LIBRARY
+
+#endif // BLIS_ARCH_H
 
 // end bli_arch.h
 // begin bli_cpuid.h
@@ -27792,9 +29011,9 @@ bool bli_cpuid_is_sandybridge( uint32_t family, uint32_t model, uint32_t feature
 bool bli_cpuid_is_penryn( uint32_t family, uint32_t model, uint32_t features );
 
 // AMD
+bool bli_cpuid_is_zen6( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_zen5( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_zen4( uint32_t family, uint32_t model, uint32_t features );
-bool bli_cpuid_is_avx512_fallback( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_zen3( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_zen2( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_zen( uint32_t family, uint32_t model, uint32_t features );
@@ -27803,6 +29022,7 @@ bool bli_cpuid_is_steamroller( uint32_t family, uint32_t model, uint32_t feature
 bool bli_cpuid_is_piledriver( uint32_t family, uint32_t model, uint32_t features );
 bool bli_cpuid_is_bulldozer( uint32_t family, uint32_t model, uint32_t features );
 
+model_t bli_cpuid_get_zen6_cpuid_model( uint32_t family, uint32_t model, uint32_t features );
 model_t bli_cpuid_get_zen5_cpuid_model( uint32_t family, uint32_t model, uint32_t features );
 model_t bli_cpuid_get_zen4_cpuid_model( uint32_t family, uint32_t model, uint32_t features );
 model_t bli_cpuid_get_zen3_cpuid_model( uint32_t family, uint32_t model, uint32_t features );
@@ -27818,9 +29038,10 @@ bool bli_cpuid_is_cortexa9( uint32_t model, uint32_t part, uint32_t features );
 
 uint32_t bli_cpuid_query( uint32_t* family, uint32_t* model, uint32_t* features );
 
-void bli_cpuid_check_datapath( uint32_t vendor, uint32_t features );
+void bli_cpuid_check_datapath( uint32_t vendor );
 
 void bli_cpuid_check_cache( uint32_t vendor );
+void bli_cpuid_query_id_once( void );
 
 // -----------------------------------------------------------------------------
 
@@ -27852,11 +29073,13 @@ bool bli_cpuid_is_avx2fma3_supported(void);
 bool bli_cpuid_is_avx512_supported(void);
 bool bli_cpuid_is_avx512vnni_supported(void);
 bool bli_cpuid_is_avx512bf16_supported(void);
+bool bli_cpuid_is_avx512fp16_supported(void);
 
 void bli_cpuid_check_avx2fma3_support( uint32_t family, uint32_t model, uint32_t features );
 void bli_cpuid_check_avx512_support( uint32_t family, uint32_t model, uint32_t features );
 void bli_cpuid_check_avx512vnni_support( uint32_t family, uint32_t model, uint32_t features );
 void bli_cpuid_check_avx512bf16_support( uint32_t family, uint32_t model, uint32_t features );
+void bli_cpuid_check_avx512fp16_support( uint32_t family, uint32_t model, uint32_t features );
 
 enum
 {
@@ -27866,30 +29089,28 @@ enum
 };
 enum
 {
-	FEATURE_SSE3 = 0x0001,
-	FEATURE_SSSE3 = 0x0002,
-	FEATURE_SSE41 = 0x0004,
-	FEATURE_SSE42 = 0x0008,
-	FEATURE_AVX = 0x0010,
-	FEATURE_AVX2 = 0x0020,
-	FEATURE_FMA3 = 0x0040,
-	FEATURE_FMA4 = 0x0080,
-	FEATURE_AVX512F = 0x0100,
-	FEATURE_AVX512DQ = 0x0200,
-	FEATURE_AVX512PF = 0x0400,
-	FEATURE_AVX512ER = 0x0800,
-	FEATURE_AVX512CD = 0x1000,
-	FEATURE_AVX512BW = 0x2000,
-	FEATURE_AVX512VL = 0x4000,
-	FEATURE_AVX512VNNI = 0x8000,
-	FEATURE_AVX512BF16 = 0x10000,
-	FEATURE_AVXVNNI = 0x20000,
-	FEATURE_AVX512VP2INTERSECT = 0x40000,
-	FEATURE_MOVDIRI = 0x80000,
-	FEATURE_MOVDIR64B = 0x100000,
-	FEATURE_DATAPATH_FP128 = 0x200000,
-	FEATURE_DATAPATH_FP256 = 0x400000,
-	FEATURE_DATAPATH_FP512 = 0x800000
+	FEATURE_SSE3               = 0x000001,
+	FEATURE_SSSE3              = 0x000002,
+	FEATURE_SSE41              = 0x000004,
+	FEATURE_SSE42              = 0x000008,
+	FEATURE_AVX                = 0x000010,
+	FEATURE_AVX2               = 0x000020,
+	FEATURE_FMA3               = 0x000040,
+	FEATURE_FMA4               = 0x000080,
+	FEATURE_AVX512F            = 0x000100,
+	FEATURE_AVX512DQ           = 0x000200,
+	FEATURE_AVX512PF           = 0x000400,
+	FEATURE_AVX512ER           = 0x000800,
+	FEATURE_AVX512CD           = 0x001000,
+	FEATURE_AVX512BW           = 0x002000,
+	FEATURE_AVX512VL           = 0x004000,
+	FEATURE_AVX512VNNI         = 0x008000,
+	FEATURE_AVX512BF16         = 0x010000,
+	FEATURE_AVXVNNI            = 0x020000,
+	FEATURE_AVX512VP2INTERSECT = 0x040000,
+	FEATURE_MOVDIRI            = 0x080000,
+	FEATURE_MOVDIR64B          = 0x100000,
+	FEATURE_AVX512FP16         = 0x200000
 };
 
 // To reduce confusion, include MOVU bit so enum values match those in
@@ -34853,7 +36074,29 @@ typedef void (*PASTECH3(ch,opname,_ker,tsuf)) \
 
 // INSERT_GENTDEF( gemv )
 // Currently only generating the function type for double datatype.
-GENTDEF( double, d, gemv, _ft )
+GENTDEF( double, d, gemv, _ft_conja )
+
+
+#undef  GENTDEF
+#define GENTDEF( ctype, ch, opname, tsuf ) \
+\
+typedef void (*PASTECH3(ch,opname,_ker,tsuf)) \
+     ( \
+       trans_t transa, \
+       conj_t  conjx, \
+       dim_t   m, \
+       dim_t   n, \
+       ctype*  alpha, \
+       ctype*  a, inc_t rs_a, inc_t cs_a, \
+       ctype*  x, inc_t incx, \
+       ctype*  beta, \
+       ctype*  y, inc_t incy, \
+       cntx_t* restrict cntx  \
+     );
+
+// INSERT_GENTDEF( gemv )
+// Currently only generating the function type for double datatype.
+GENTDEF( double, d, gemv, _ft_transa )
 // end bli_l2_ft_ker.h
 
 // Prototype object APIs (expert and non-expert).
@@ -37814,7 +39057,7 @@ BLIS_INLINE void bli_gemmsup_ref_var1n2m_opt_cases
 	}
 	else
 	{
-		if ( ( dt == BLIS_DOUBLE ) || ( dt == BLIS_DCOMPLEX ) )
+		if ( ( dt == BLIS_DOUBLE ) || ( dt == BLIS_DCOMPLEX ) || ( dt == BLIS_SCOMPLEX ) )
 		{
 			// The optimizations are only done for CRC and RRC storage schemes to avoid RD kernels.
 			// Optimizations for other storage schemes is yet to be done.
@@ -38434,7 +39677,10 @@ err_t PASTEMAC( ch, tfuncname ) \
       bool is_parallel \
     ); \
 
-GENTFUNC( dcomplex, z, gemm_tiny )// end bli_tiny_gemm.h
+GENTFUNC( scomplex, c, gemm_tiny )
+GENTFUNC( dcomplex, z, gemm_tiny )
+GENTFUNC(    float, s, gemm_tiny )
+// end bli_tiny_gemm.h
 
 // Mixed datatype support.
 #ifdef BLIS_ENABLE_GEMM_MD
@@ -39136,7 +40382,7 @@ void bli_trsm_front
      );
 
 #ifdef BLIS_ENABLE_SMALL_MATRIX
-err_t bli_trsm_small
+err_t bli_trsm_small_zen
      (
        side_t  side,
        obj_t*  alpha,
@@ -42839,6 +44085,14 @@ BLIS_EXPORT_BLIS void CGEMMT_( const f77_char* uploc,  const f77_char* transa,  
 
 
 
+BLIS_EXPORT_BLIS void CGEMMTR( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void cgemmtr( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void CGEMMTR_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+
+
 BLIS_EXPORT_BLIS void DAXPBY(const f77_int* n,  const double* alpha,  const double *x,  const f77_int* incx,  const double* beta,  double *y,  const f77_int* incy);
 
 BLIS_EXPORT_BLIS void daxpby(const f77_int* n,  const double* alpha,  const double *x,  const f77_int* incx,  const double* beta,  double *y,  const f77_int* incy);
@@ -42884,6 +44138,14 @@ BLIS_EXPORT_BLIS void DGEMMT( const f77_char* uploc,  const f77_char* transa,  c
 BLIS_EXPORT_BLIS void dgemmt( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
 
 BLIS_EXPORT_BLIS void DGEMMT_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void DGEMMTR( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void dgemmtr( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void DGEMMTR_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
 
 
 
@@ -42935,6 +44197,14 @@ BLIS_EXPORT_BLIS void SGEMMT_( const f77_char* uploc,  const f77_char* transa,  
 
 
 
+BLIS_EXPORT_BLIS void SGEMMTR( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void sgemmtr( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void SGEMMTR_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+
+
 BLIS_EXPORT_BLIS void ZAXPBY( const f77_int* n,  const dcomplex* alpha,  const dcomplex *x,  const f77_int* incx,  const dcomplex* beta,  dcomplex *y,  const f77_int* incy);
 
 BLIS_EXPORT_BLIS void zaxpby( const f77_int* n,  const dcomplex* alpha,  const dcomplex *x,  const f77_int* incx,  const dcomplex* beta,  dcomplex *y,  const f77_int* incy);
@@ -42966,7 +44236,14 @@ BLIS_EXPORT_BLIS void zgemmt( const f77_char* uploc,  const f77_char* transa,  c
 BLIS_EXPORT_BLIS void ZGEMMT_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
 
 
-//#ifdef BLIS_ENABLE_CBLAS
+
+BLIS_EXPORT_BLIS void ZGEMMTR( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void zgemmtr( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void ZGEMMTR_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+
 
 BLIS_EXPORT_BLIS void CIMATCOPY(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha, scomplex* aptr,  f77_int* lda,  f77_int* ldb);
 
@@ -42997,6 +44274,14 @@ BLIS_EXPORT_BLIS void COMATCOPY(f77_char* trans,  f77_int* rows,  f77_int* cols,
 BLIS_EXPORT_BLIS void comatcopy(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda,  scomplex* bptr,  f77_int* ldb);
 
 BLIS_EXPORT_BLIS void COMATCOPY_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda,  scomplex* bptr,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void DIMATCOPY( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void dimatcopy( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void DIMATCOPY_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
 
 
 
@@ -43085,8 +44370,6 @@ BLIS_EXPORT_BLIS void ZOMATCOPY(f77_char* trans,  f77_int* rows,  f77_int* cols,
 BLIS_EXPORT_BLIS void zomatcopy(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda,  dcomplex* bptr,  f77_int* ldb);
 
 BLIS_EXPORT_BLIS void ZOMATCOPY_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda,  dcomplex* bptr,  f77_int* ldb);
-
-//#endif // BLIS_ENABLE_CBLAS
 
 #endif
 #endif
@@ -44614,6 +45897,14 @@ BLIS_EXPORT_BLIS void CGEMMT_BLIS_IMPL_( const f77_char* uploc,  const f77_char*
 
 
 
+BLIS_EXPORT_BLIS void CGEMMTR_BLIS_IMPL( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void cgemmtr_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void CGEMMTR_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  scomplex* alpha,  const scomplex* a,  const f77_int* lda,  const scomplex* b,  const f77_int* ldb,  const scomplex* beta,  scomplex* c,  const f77_int* ldc);
+
+
+
 BLIS_EXPORT_BLIS void DAXPBY_BLIS_IMPL(const f77_int* n,  const double* alpha,  const double *x,  const f77_int* incx,  const double* beta,  double *y,  const f77_int* incy);
 
 BLIS_EXPORT_BLIS void daxpby_blis_impl_(const f77_int* n,  const double* alpha,  const double *x,  const f77_int* incx,  const double* beta,  double *y,  const f77_int* incy);
@@ -44659,6 +45950,14 @@ BLIS_EXPORT_BLIS void DGEMMT_BLIS_IMPL( const f77_char* uploc,  const f77_char* 
 BLIS_EXPORT_BLIS void dgemmt_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
 
 BLIS_EXPORT_BLIS void DGEMMT_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void DGEMMTR_BLIS_IMPL( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void dgemmtr_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void DGEMMTR_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  double* alpha,  const double* a,  const f77_int* lda,  const double* b,  const f77_int* ldb,  const double* beta,  double* c,  const f77_int* ldc);
 
 
 
@@ -44710,6 +46009,14 @@ BLIS_EXPORT_BLIS void SGEMMT_BLIS_IMPL_( const f77_char* uploc,  const f77_char*
 
 
 
+BLIS_EXPORT_BLIS void SGEMMTR_BLIS_IMPL( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void sgemmtr_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void SGEMMTR_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  float* alpha,  const float* a,  const f77_int* lda,  const float* b,  const f77_int* ldb,  const float* beta,  float* c,  const f77_int* ldc);
+
+
+
 BLIS_EXPORT_BLIS void ZAXPBY_BLIS_IMPL( const f77_int* n,  const dcomplex* alpha,  const dcomplex *x,  const f77_int* incx,  const dcomplex* beta,  dcomplex *y,  const f77_int* incy);
 
 BLIS_EXPORT_BLIS void zaxpby_blis_impl_( const f77_int* n,  const dcomplex* alpha,  const dcomplex *x,  const f77_int* incx,  const dcomplex* beta,  dcomplex *y,  const f77_int* incy);
@@ -44739,6 +46046,140 @@ BLIS_EXPORT_BLIS void ZGEMMT_BLIS_IMPL( const f77_char* uploc,  const f77_char* 
 BLIS_EXPORT_BLIS void zgemmt_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
 
 BLIS_EXPORT_BLIS void ZGEMMT_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+
+BLIS_EXPORT_BLIS void ZGEMMTR_BLIS_IMPL( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void zgemmtr_blis_impl_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+BLIS_EXPORT_BLIS void ZGEMMTR_BLIS_IMPL_( const f77_char* uploc,  const f77_char* transa,  const f77_char* transb,  const f77_int* n,  const f77_int* k,  const  dcomplex* alpha,  const dcomplex* a,  const f77_int* lda,  const dcomplex* b,  const f77_int* ldb,  const dcomplex* beta,  dcomplex* c,  const f77_int* ldc);
+
+
+BLIS_EXPORT_BLIS void CIMATCOPY_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha, scomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void cimatcopy_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha, scomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void CIMATCOPY_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha, scomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void COMATADD_BLIS_IMPL(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const scomplex* alpha,  const scomplex* A,  f77_int* lda, const scomplex* beta,  scomplex* B,  f77_int* ldb,  scomplex* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void comatadd_blis_impl_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const scomplex* alpha,  const scomplex* A,  f77_int* lda, const scomplex* beta,  scomplex* B,  f77_int* ldb,  scomplex* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void COMATADD_BLIS_IMPL_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const scomplex* alpha,  const scomplex* A,  f77_int* lda, const scomplex* beta,  scomplex* B,  f77_int* ldb,  scomplex* C,  f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void COMATCOPY2_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda, f77_int* stridea,  scomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void comatcopy2_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda, f77_int* stridea,  scomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void COMATCOPY2_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda, f77_int* stridea,  scomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+
+
+BLIS_EXPORT_BLIS void COMATCOPY_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda,  scomplex* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void comatcopy_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda,  scomplex* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void COMATCOPY_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const scomplex* alpha,  const scomplex* aptr,  f77_int* lda,  scomplex* bptr,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void DIMATCOPY_BLIS_IMPL( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void dimatcopy_blis_impl_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void DIMATCOPY_BLIS_IMPL_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha, double* aptr,  f77_int* lda,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void DOMATADD_BLIS_IMPL(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const double* alpha,  const double* A,  f77_int* lda,  const double* beta,  const double* B,  f77_int* ldb,  double* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void domatadd_blis_impl_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const double* alpha,  const double* A,  f77_int* lda,  const double* beta,  const double* B,  f77_int* ldb,  double* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void DOMATADD_BLIS_IMPL_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const double* alpha,  const double* A,  f77_int* lda,  const double* beta,  const double* B,  f77_int* ldb,  double* C,  f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void DOMATCOPY2_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda, f77_int* stridea,  double* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void domatcopy2_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda, f77_int* stridea,  double* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void DOMATCOPY2_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda, f77_int* stridea,  double* bptr,  f77_int* ldb, f77_int* strideb);
+
+
+
+BLIS_EXPORT_BLIS void DOMATCOPY_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda,  double* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void domatcopy_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda,  double* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void DOMATCOPY_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const double* alpha,  const double* aptr,  f77_int* lda,  double* bptr,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void SIMATCOPY_BLIS_IMPL( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha, float* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void simatcopy_blis_impl_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha, float* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void SIMATCOPY_BLIS_IMPL_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha, float* aptr,  f77_int* lda,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void SOMATADD_BLIS_IMPL( f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const float* alpha,  const float* A,  f77_int* lda,  const float* beta,  const float* B,  f77_int* ldb,  float* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void somatadd_blis_impl_( f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const float* alpha,  const float* A,  f77_int* lda,  const float* beta,  const float* B,  f77_int* ldb,  float* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void SOMATADD_BLIS_IMPL_( f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const float* alpha,  const float* A,  f77_int* lda,  const float* beta,  const float* B,  f77_int* ldb,  float* C,  f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void SOMATCOPY2_BLIS_IMPL( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda, f77_int* stridea,  float* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void somatcopy2_blis_impl_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda, f77_int* stridea,  float* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void SOMATCOPY2_BLIS_IMPL_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda, f77_int* stridea,  float* bptr,  f77_int* ldb, f77_int* strideb);
+
+
+
+BLIS_EXPORT_BLIS void SOMATCOPY_BLIS_IMPL( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda,  float* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void somatcopy_blis_impl_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda,  float* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void SOMATCOPY_BLIS_IMPL_( f77_char* trans,  f77_int* rows,  f77_int* cols,  const float* alpha,  const float* aptr,  f77_int* lda,  float* bptr,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void ZIMATCOPY_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha, dcomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void zimatcopy_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha, dcomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void ZIMATCOPY_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha, dcomplex* aptr,  f77_int* lda,  f77_int* ldb);
+
+
+
+BLIS_EXPORT_BLIS void ZOMATADD_BLIS_IMPL(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const dcomplex* alpha,  const dcomplex* A,  f77_int* lda, const dcomplex* beta,  dcomplex* B,  f77_int* ldb,  dcomplex* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void zomatadd_blis_impl_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const dcomplex* alpha,  const dcomplex* A,  f77_int* lda, const dcomplex* beta,  dcomplex* B,  f77_int* ldb,  dcomplex* C,  f77_int* ldc);
+
+BLIS_EXPORT_BLIS void ZOMATADD_BLIS_IMPL_(f77_char* transa, f77_char* transb,  f77_int* m,  f77_int* n,  const dcomplex* alpha,  const dcomplex* A,  f77_int* lda, const dcomplex* beta,  dcomplex* B,  f77_int* ldb,  dcomplex* C,  f77_int* ldc);
+
+
+
+BLIS_EXPORT_BLIS void ZOMATCOPY2_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda, f77_int* stridea,  dcomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void zomatcopy2_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda, f77_int* stridea,  dcomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+BLIS_EXPORT_BLIS void ZOMATCOPY2_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda, f77_int* stridea,  dcomplex* bptr,  f77_int* ldb, f77_int* strideb);
+
+
+
+BLIS_EXPORT_BLIS void ZOMATCOPY_BLIS_IMPL(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda,  dcomplex* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void zomatcopy_blis_impl_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda,  dcomplex* bptr,  f77_int* ldb);
+
+BLIS_EXPORT_BLIS void ZOMATCOPY_BLIS_IMPL_(f77_char* trans,  f77_int* rows,  f77_int* cols,  const dcomplex* alpha,  const dcomplex* aptr,  f77_int* lda,  dcomplex* bptr,  f77_int* ldb);
 
 #endif
 #endif
@@ -44863,6 +46304,7 @@ typedef struct
 	dim_t scale_factor_len;
 	dim_t zero_point_len;
 	AOCL_PARAMS_STORAGE_TYPES zp_stor_type;
+	AOCL_PARAMS_STORAGE_TYPES sf_stor_type;
 } aocl_post_op_sum; // Also use for scale.
 
 typedef struct
@@ -45201,6 +46643,7 @@ BLIS_EXPORT_ADDON void aocl_reorder_ ## LP_SFX \
      ) \
 
 AOCL_GEMM_REORDER(float,f32f32f32of32);
+AOCL_GEMM_REORDER(float,f32f32f32of32_reference);
 AOCL_GEMM_REORDER(int8_t,u8s8s32os32);
 AOCL_GEMM_REORDER(bfloat16,bf16bf16f32of32);
 AOCL_GEMM_REORDER(bfloat16,bf16bf16f32of32_reference);
@@ -45253,6 +46696,7 @@ BLIS_EXPORT_ADDON void aocl_unreorder_ ## LP_SFX \
 
 AOCL_GEMM_UNREORDER(bfloat16, bf16bf16f32of32);
 AOCL_GEMM_UNREORDER(bfloat16, bf16bf16f32of32_reference);
+AOCL_GEMM_UNREORDER(float, f32f32f32of32_reference);
 AOCL_GEMM_UNREORDER(int8_t, s8s8s32os32_reference);
 
 #define AOCL_GEMM_MATMUL(A_type,B_type,C_type,Sum_type,LP_SFX) \
@@ -45306,20 +46750,21 @@ BLIS_EXPORT_ADDON void aocl_batch_gemm_ ## LP_SFX \
        const char*     order, \
        const char*     transa, \
        const char*     transb, \
-       const dim_t     batch_size, \
        const dim_t*    m, \
        const dim_t*    n, \
        const dim_t*    k, \
        const Sum_type* alpha, \
        const A_type**  a, \
        const dim_t*    lda, \
-       const char*     mem_format_a, \
        const B_type**  b, \
        const dim_t*    ldb, \
-       const char*     mem_format_b, \
        const Sum_type* beta, \
        C_type**        c, \
        const dim_t*    ldc, \
+       const dim_t     group_count, \
+       const dim_t*    group_size, \
+       const char*     mem_format_a, \
+       const char*     mem_format_b, \
        aocl_post_op**  post_op_unparsed \
      ) \
 
@@ -46033,6 +47478,7 @@ typedef struct lpgemm_post_op_t
 	bool is_power_of_2;
 	uint64_t stor_type;
 	uint64_t zp_stor_type;
+	uint64_t sf_stor_type; //Introduced for sf store type
 	struct lpgemm_post_op_t* next;
 } lpgemm_post_op;
 
@@ -46209,6 +47655,7 @@ typedef struct lpgemm_post_op_t
 	bool is_power_of_2;
 	uint64_t stor_type;
 	uint64_t zp_stor_type;
+	uint64_t sf_stor_type; //Introduced for sf store type
 	struct lpgemm_post_op_t* next;
 } lpgemm_post_op;
 
@@ -46360,6 +47807,11 @@ typedef int16_t bfloat16;
 //#define DUMP_JIT_CODE
 #endif
 
+
+#if ( defined( BLIS_GCC ) && ( ( __GNUC__ >= 12 ) ) )
+    #define BLIS_GCC_12_ABOVE
+#endif
+
 typedef void (*lpgemm_m_fringe_f32_ker_ft)
     (
        const dim_t         k0,
@@ -46376,6 +47828,43 @@ typedef void (*lpgemm_m_fringe_f32_ker_ft)
        lpgemm_post_op*     post_ops_list,
        lpgemm_post_op_attr post_ops_attr
     );
+
+typedef void (*lpgemm_n_fringe_f32_ker_ft)
+     (
+       const dim_t         m0,
+       const dim_t         k0,
+       const float*        a,
+       const dim_t         rs_a,
+       const dim_t         cs_a,
+       const dim_t         ps_a,
+       const float*        b,
+       const dim_t         rs_b,
+       const dim_t         cs_b,
+       float*              c,
+       const dim_t         rs_c,
+       const float        alpha,
+       const float        beta,
+       lpgemm_post_op*     post_ops_list,
+       lpgemm_post_op_attr post_ops_attr
+     );
+
+typedef void (*lpgemm_mn_fringe_f32_mask_ker_ft)
+     (
+       const dim_t         k0,
+       const float*       a,
+       const dim_t         rs_a,
+       const dim_t         cs_a,
+       const float*       b,
+       const dim_t         rs_b,
+       const dim_t         cs_b,
+       float*             c,
+       const dim_t         rs_c,
+       const float        alpha,
+       const float        beta,
+       const dim_t         n0_rem,
+       lpgemm_post_op*     post_ops_list,
+       lpgemm_post_op_attr post_ops_attr
+     );
 
 #define LPGEMM_MAIN_KERN(A_type,B_type,C_type,LP_SFX) \
 void lpgemm_rowvar_ ## LP_SFX \
@@ -46402,7 +47891,18 @@ void lpgemm_rowvar_ ## LP_SFX \
 LPGEMM_MAIN_KERN(uint8_t,int8_t,int32_t,u8s8s32o32_6x64);
 LPGEMM_MAIN_KERN(bfloat16,bfloat16,float,bf16bf16f32of32_6x64);
 LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x16m);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x16m_np);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x16m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x8m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x4m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x2m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_6x1m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_256_6x64m);
 LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_6x64m);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_6x64m_np);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_6x64m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_6x48m_rd);
+LPGEMM_MAIN_KERN(float,float,float,f32f32f32of32_avx512_6x32m_rd);
 LPGEMM_MAIN_KERN(int8_t,int8_t,int32_t,s8s8s32os32_6x64);
 
 
@@ -46456,6 +47956,51 @@ void lpgemm_rowvar_ ## LP_SFX \
 
 LPGEMM_MAIN_KERN2(int8_t,int8_t,int32_t,s8s8s32os32_6x64m_sym_quant);
 
+#define LPGEMM_M_RD_FRINGE_KERN(A_type,B_type,C_type,LP_SFX) \
+void lpgemm_rowvar_ ## LP_SFX \
+     ( \
+       const dim_t         k0, \
+       const A_type*       a, \
+       const dim_t         rs_a, \
+       const dim_t         cs_a, \
+       const B_type*       b, \
+       const dim_t         rs_b, \
+       const dim_t         cs_b, \
+       C_type*             c, \
+       const dim_t         rs_c, \
+       const dim_t         cs_c, \
+       const C_type        alpha, \
+       const C_type        beta, \
+       lpgemm_post_op*     post_ops_list, \
+       lpgemm_post_op_attr post_ops_attr \
+     ) \
+
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x64_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x64_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x64_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x64_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x64_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x48_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x48_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x48_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x48_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x48_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x32_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x32_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x32_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x32_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x32_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_2x16_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_1x16_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_2x8_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_1x8_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_2x4_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_1x4_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_2x2_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_2x1_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_1x2_rd);
+LPGEMM_M_RD_FRINGE_KERN(float,float,float,f32f32f32of32_1x1_rd);
+
 #define LPGEMM_M_FRINGE_KERN(A_type,B_type,C_type,LP_SFX) \
 void lpgemm_rowvar_ ## LP_SFX \
      ( \
@@ -46501,6 +48046,11 @@ LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x32);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x32);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x32);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x32);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x16);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x16);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x16);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x16);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x16);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x16);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x16);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x16);
@@ -46526,6 +48076,58 @@ LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x1);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x1);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x1);
 LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x1);
+
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x64_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x64_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x64_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x64_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x64_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x48_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x48_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x48_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x48_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x48_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x32_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x32_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x32_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x32_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x32_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x16_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x8_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x8_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x8_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x8_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x8_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x4_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x4_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x4_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x4_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x4_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x2_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x2_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x2_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x2_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x2_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_5x1_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_4x1_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_3x1_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_2x1_np);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_1x1_np);
+
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_256_5x32);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_256_4x32);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_256_3x32);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_256_2x32);
+LPGEMM_M_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_256_1x32);
 
 LPGEMM_M_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_5x64);
 LPGEMM_M_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_4x64);
@@ -46569,7 +48171,7 @@ void lpgemm_rowvar_ ## LP_SFX \
        const B_type*       b, \
        const dim_t         rs_b, \
        const dim_t         cs_b, \
-       float*             c, \
+       float*              c, \
        const dim_t         rs_c, \
        const C_type        alpha, \
        const C_type        beta, \
@@ -46616,10 +48218,20 @@ LPGEMM_N_FRINGE_KERN(bfloat16,bfloat16,float,bf16bf16f32of32_6x48);
 
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x48m);
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x32m);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x16m);
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x8m);
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x4m);
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x2m);
 LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x1m);
+
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x48m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x32m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6x16m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x8m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x4m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x2m_np);
+LPGEMM_N_FRINGE_KERN(float,float,float,f32f32f32of32_6x1m_np);
+
 
 LPGEMM_N_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_6x16);
 LPGEMM_N_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_6x32);
@@ -46725,6 +48337,10 @@ LPGEMM_N_LT_NR0_FRINGE_KERN(uint8_t,int8_t,int32_t,u8s8s32o32_6xlt16);
 LPGEMM_N_LT_NR0_FRINGE_KERN(uint8_t,int8_t,int32_t,u8s8s32o32_12xlt16);
 
 LPGEMM_N_LT_NR0_FRINGE_KERN(bfloat16,bfloat16,float,bf16bf16f32of32_6xlt16);
+LPGEMM_N_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6xlt16m);
+LPGEMM_N_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_6xlt8m);
+LPGEMM_N_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_6xlt16m_np);
+LPGEMM_N_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_6xlt8m_np);
 
 LPGEMM_N_LT_NR0_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_6xlt16);
 
@@ -46927,6 +48543,32 @@ LPGEMM_MN_LT_NR0_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_3xlt16);
 LPGEMM_MN_LT_NR0_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_2xlt16);
 LPGEMM_MN_LT_NR0_FRINGE_KERN(int8_t,int8_t,int32_t,s8s8s32os32_1xlt16);
 
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5xlt16);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4xlt16);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3xlt16);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2xlt16);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1xlt16);
+
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_5xlt16_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_4xlt16_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_3xlt16_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_2xlt16_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_avx512_1xlt16_np);
+
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_5xlt8);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_4xlt8);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_3xlt8);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_2xlt8);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_1xlt8);
+
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_5xlt8_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_4xlt8_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_3xlt8_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_2xlt8_np);
+LPGEMM_MN_LT_NR0_FRINGE_KERN(float,float,float,f32f32f32of32_1xlt8_np);
+
+
+
 #define LPGEMM_MN_LT_NR0_FRINGE_KERN1(A_type,B_type,C_type,LP_SFX) \
 void lpgemm_rowvar_ ## LP_SFX \
      ( \
@@ -47006,9 +48648,41 @@ void lpgemv_m_one_ ## LP_SFX \
   ) \
 
 LPGEMV_M_EQ1_KERN(float, float, float,f32f32f32of32);
+LPGEMV_M_EQ1_KERN(float, float, float,f32f32f32of32_avx2);
+LPGEMV_M_EQ1_KERN(float, float, float,f32f32f32of32_avx512_256);
 LPGEMV_M_EQ1_KERN(bfloat16,bfloat16,float,bf16bf16f32of32);
 LPGEMV_M_EQ1_KERN(uint8_t,int8_t,int32_t,u8s8s32os32);
 LPGEMV_M_EQ1_KERN(int8_t,int8_t,int32_t,s8s8s32os32);
+
+
+#define LPGEMV_M_EQ1_KERN2(A_type,B_type,C_type,LP_SFX) \
+void lpgemv_m_one_ ## LP_SFX \
+( \
+	const dim_t           n0, \
+	const dim_t           k, \
+	const A_type          *a, \
+	const dim_t           rs_a, \
+	const dim_t           cs_a, \
+	const AOCL_MEMORY_TAG mtag_a, \
+	const B_type          *b, \
+	dim_t                 rs_b, \
+	const dim_t           cs_b, \
+	const AOCL_MEMORY_TAG mtag_b, \
+	float                 *c, \
+	const dim_t           rs_c, \
+	const dim_t           cs_c, \
+	const C_type          alpha, \
+	const C_type          beta, \
+	dim_t                 NR, \
+	const dim_t           KC, \
+	const dim_t           n_sub_updated, \
+	const dim_t           jc_cur_loop_rem, \
+    lpgemm_grp_post_op_attr  grp_post_ops_attr, \
+	lpgemm_post_op        *post_op, \
+	lpgemm_post_op_attr   *post_op_attr \
+  ) \
+
+LPGEMV_M_EQ1_KERN2(int8_t,int8_t,int32_t,s8s8s32os32_sym_quant);
 
 #define LPGEMV_N_EQ1_KERN(A_type,B_type,C_type,LP_SFX) \
 void lpgemv_n_one_ ## LP_SFX \
@@ -47035,9 +48709,39 @@ void lpgemv_n_one_ ## LP_SFX \
 ) \
 
 LPGEMV_N_EQ1_KERN(float, float, float,f32f32f32of32);
+LPGEMV_N_EQ1_KERN(float, float, float,f32f32f32of32_avx2);
+LPGEMV_N_EQ1_KERN(float, float, float,f32f32f32of32_avx512_256);
 LPGEMV_N_EQ1_KERN(bfloat16, bfloat16, float,bf16bf16f32of32);
 LPGEMV_N_EQ1_KERN(uint8_t,int8_t,int32_t,u8s8s32os32);
 LPGEMV_N_EQ1_KERN(int8_t,int8_t,int32_t,s8s8s32os32);
+
+
+#define LPGEMV_N_EQ1_KERN2(A_type,B_type,C_type,LP_SFX) \
+void lpgemv_n_one_ ## LP_SFX \
+( \
+	const dim_t           m0, \
+	const dim_t           k, \
+	const A_type          *a, \
+	const dim_t           rs_a, \
+	const dim_t           cs_a, \
+	const AOCL_MEMORY_TAG mtag_a, \
+	const B_type          *b, \
+	const dim_t           rs_b, \
+	const dim_t           cs_b, \
+	const AOCL_MEMORY_TAG mtag_b, \
+	float                 *c, \
+	const dim_t           rs_c, \
+	const dim_t           cs_c, \
+	const C_type          alpha, \
+	const C_type          beta, \
+	const dim_t           MR, \
+	const dim_t           KC, \
+    lpgemm_grp_post_op_attr  grp_post_ops_attr, \
+	lpgemm_post_op        *post_op, \
+	lpgemm_post_op_attr   *post_op_attr \
+) \
+
+LPGEMV_N_EQ1_KERN2(int8_t,int8_t,int32_t,s8s8s32os32_sym_quant);
 
 #endif //BLIS_LPGEMM_KERN_H
 // end lpgemm_kernels.h
@@ -47296,9 +49000,9 @@ void unpackb_nr64_bf16bf16f32of32
 void unpackb_nr64_bf16_f32
     (
       const bfloat16* b,
-      float*       unpack_b_buffer,
-      const dim_t	  NC,
-      const dim_t     KC,
+      float*          unpack_b_buffer,
+      const dim_t	    KC,
+      const dim_t     NC,
       dim_t           rs_b,
       dim_t           cs_b
     );
@@ -47313,6 +49017,23 @@ void cvt_bf16_f32(
     const dim_t      rs_p,
     const dim_t      cs_p
   );
+
+// Optimized GEMV conversion for true K=1 matrices with contiguous output
+void cvt_bf16_f32_gemv_row_major(
+    float*          cvt_buffer,
+    const bfloat16* a,
+    const dim_t     rs_a,
+    const dim_t     MC
+  );
+
+// Optimized GEMV unpacking for true N=1 reordered matrices (contiguous storage)
+void
+unpackb_nr64_bf16_f32_gemv(
+    const bfloat16* b,
+    float*          unpack_b_buffer,
+    const dim_t     KC
+  );
+
 
 #endif //BLIS_GEMM_BF16_PACKB
 // end lpgemm_pack_bf16.h
@@ -47504,6 +49225,18 @@ void packb_nr64_s8s8s32os32
 #define BLIS_GEMM_F32_PACKAB
 
 void packa_mr16_f32f32f32of32_col_major
+    (
+      float*	      pack_a_buffer,
+      const float*    a,
+      const dim_t     rs_a,
+      const dim_t     cs_a,
+      const dim_t     MC,
+      const dim_t     KC,
+      dim_t*          rs_p,
+      dim_t*          cs_p
+    );
+
+    void packa_mr8_f32f32f32of32_col_major
     (
       float*	      pack_a_buffer,
       const float*    a,
@@ -49668,6 +51401,7 @@ BLIS_EXPORT_BLAS void PASTEF77S(ch,blasname) \
      );
 
 INSERT_GENTPROT_BLAS( gemmt )
+INSERT_GENTPROT_BLAS( gemmtr )
 // end bla_gemmt.h
 // begin bla_gemm_compute.h
 
@@ -50620,6 +52354,14 @@ BLIS_EXPORT_BLAS void comatadd_ (f77_char* transa,f77_char* transb, f77_int* m, 
 BLIS_EXPORT_BLAS void zomatadd_ (f77_char* transa,f77_char* transb, f77_int* m, f77_int* n, const dcomplex* alpha, const dcomplex* A, f77_int* lda,const dcomplex* beta, dcomplex* B, f77_int* ldb, dcomplex* C, f77_int* ldc);
 
 #endif
+
+BLIS_EXPORT_BLAS void somatadd_blis_impl (f77_char* transa,f77_char* transb, f77_int* m, f77_int* n, const float* alpha, const float* A, f77_int* lda, const float* beta, const float* B, f77_int* ldb, float* C, f77_int* ldc);
+
+BLIS_EXPORT_BLAS void domatadd_blis_impl (f77_char* transa,f77_char* transb, f77_int* m, f77_int* n, const double* alpha, const double* A, f77_int* lda, const double* beta, const double* B, f77_int* ldb, double* C, f77_int* ldc);
+
+BLIS_EXPORT_BLAS void comatadd_blis_impl (f77_char* transa,f77_char* transb, f77_int* m, f77_int* n, const scomplex* alpha, const scomplex* A, f77_int* lda,const scomplex* beta, scomplex* B, f77_int* ldb, scomplex* C, f77_int* ldc);
+
+BLIS_EXPORT_BLAS void zomatadd_blis_impl (f77_char* transa,f77_char* transb, f77_int* m, f77_int* n, const dcomplex* alpha, const dcomplex* A, f77_int* lda,const dcomplex* beta, dcomplex* B, f77_int* ldb, dcomplex* C, f77_int* ldc);
 // end bla_omatadd.h
 // begin bla_omatcopy.h
 
@@ -50639,6 +52381,14 @@ BLIS_EXPORT_BLAS void comatcopy_ (f77_char* trans, f77_int* rows, f77_int* cols,
 BLIS_EXPORT_BLAS void zomatcopy_ (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha, const dcomplex* aptr, f77_int* lda, dcomplex* bptr, f77_int* ldb);
 
 #endif
+
+BLIS_EXPORT_BLAS void somatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const float* alpha, const float* aptr, f77_int* lda, float* bptr, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void domatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const double* alpha, const double* aptr, f77_int* lda, double* bptr, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void comatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const scomplex* alpha, const scomplex* aptr, f77_int* lda, scomplex* bptr, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void zomatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha, const dcomplex* aptr, f77_int* lda, dcomplex* bptr, f77_int* ldb);
 // end bla_omatcopy.h
 // begin bla_omatcopy2.h
 
@@ -50659,6 +52409,14 @@ BLIS_EXPORT_BLAS void comatcopy2_ (f77_char* trans, f77_int* rows, f77_int* cols
 BLIS_EXPORT_BLAS void zomatcopy2_ (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha, const dcomplex* aptr, f77_int* lda,f77_int* stridea, dcomplex* bptr, f77_int* ldb,f77_int* strideb);
 
 #endif
+
+BLIS_EXPORT_BLAS void somatcopy2_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const float* alpha, const float* aptr, f77_int* lda,f77_int* stridea, float* bptr, f77_int* ldb,f77_int* strideb);
+
+BLIS_EXPORT_BLAS void domatcopy2_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const double* alpha, const double* aptr, f77_int* lda,f77_int* stridea, double* bptr, f77_int* ldb,f77_int* strideb);
+
+BLIS_EXPORT_BLAS void comatcopy2_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const scomplex* alpha, const scomplex* aptr, f77_int* lda,f77_int* stridea, scomplex* bptr, f77_int* ldb,f77_int* strideb);
+
+BLIS_EXPORT_BLAS void zomatcopy2_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha, const dcomplex* aptr, f77_int* lda,f77_int* stridea, dcomplex* bptr, f77_int* ldb,f77_int* strideb);
 // end bla_omatcopy2.h
 // begin bla_imatcopy.h
 
@@ -50678,6 +52436,14 @@ BLIS_EXPORT_BLAS void cimatcopy_ (f77_char* trans, f77_int* rows, f77_int* cols,
 BLIS_EXPORT_BLAS void zimatcopy_ (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha,dcomplex* aptr, f77_int* lda, f77_int* ldb);
 
 #endif
+
+BLIS_EXPORT_BLAS void simatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const float* alpha,float* aptr, f77_int* lda, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void dimatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const double* alpha,double* aptr, f77_int* lda, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void cimatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const scomplex* alpha,scomplex* aptr, f77_int* lda, f77_int* ldb);
+
+BLIS_EXPORT_BLAS void zimatcopy_blis_impl (f77_char* trans, f77_int* rows, f77_int* cols, const dcomplex* alpha,dcomplex* aptr, f77_int* lda, f77_int* ldb);
 // end bla_imatcopy.h
 
 // -- Fortran-compatible APIs to BLIS functions --
@@ -50725,6 +52491,10 @@ BLIS_EXPORT_BLAS f77_int PASTEF770(bli_thread_get_num_threads)
      );
 
 BLIS_EXPORT_BLAS f77_int PASTEF770(bli_info_get_info_value)
+     (
+     );
+
+BLIS_EXPORT_BLAS void PASTEF770(bli_thread_reset)
      (
      );
 
@@ -50858,6 +52628,7 @@ INSERT_GENTPROT_BLAS( amin )
 
 
 // Enabled sub-configurations (config_list)
+#define BLIS_CONFIG_ZEN6
 #define BLIS_CONFIG_ZEN5
 #define BLIS_CONFIG_ZEN4
 #define BLIS_CONFIG_ZEN3
@@ -50867,6 +52638,7 @@ INSERT_GENTPROT_BLAS( amin )
 
 
 // Enabled kernel sets (kernel_list)
+#define BLIS_KERNELS_ZEN6
 #define BLIS_KERNELS_ZEN5
 #define BLIS_KERNELS_ZEN4
 #define BLIS_KERNELS_SKX
@@ -50994,9 +52766,33 @@ INSERT_GENTPROT_BLAS( amin )
 #endif
 
 #if 1
+#define BLIS_ENABLE_MNK1_MATRIX
+#else
+#define BLIS_DISABLE_MNK1_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_TINY_MATRIX
+#else
+#define BLIS_DISABLE_TINY_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX
+#else
+#define BLIS_DISABLE_SMALL_MATRIX
+#endif
+
+#if 1
 #define BLIS_ENABLE_SUP_HANDLING
 #else
 #define BLIS_DISABLE_SUP_HANDLING
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX_TRSM
+#else
+#define BLIS_DISABLE_SMALL_MATRIX_TRSM
 #endif
 
 #if 0
@@ -51043,6 +52839,16 @@ INSERT_GENTPROT_BLAS( amin )
 #define __blis_arch_type_name "BLIS_ARCH_TYPE"
 #define __blis_model_type_name "BLIS_MODEL_TYPE"
 
+#if 0
+#define AOCL_DTL_TRACE_ENABLE 1
+#endif
+
+#if 0
+#define AOCL_DTL_LOG_ENABLE 1
+#endif
+
+#define AOCL_DTL_TRACE_LEVEL_NUMBER AOCL_DTL_LEVEL_TRACE_5
+
 #endif
 // end bli_config.h
 
@@ -51074,7 +52880,7 @@ INSERT_GENTPROT_BLAS( amin )
 // accordingly.
 #if   defined(__ICC) || defined(__INTEL_COMPILER)
   #define BLIS_ICC
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   #define BLIS_CLANG
 #elif defined(__GNUC__)
   #define BLIS_GCC
@@ -51125,13 +52931,15 @@ INSERT_GENTPROT_BLAS( amin )
   #define VC_EXTRALEAN
 #include <windows.h> // skipped
 
-  #if !defined(__clang__) && !defined(__GNUC__)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+  #if !defined(__clang__) && !defined(__GNUC__) && !defined(__INTEL_LLVM_COMPILER) && !defined(__INTEL_COMPILER)
     // Undefine attribute specifiers in Windows.
     #define __attribute__(x)
 
     // Undefine restrict.
     #define restrict
   #endif
+  #endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -51155,7 +52963,6 @@ INSERT_GENTPROT_BLAS( amin )
 #ifndef BLIS_LANG_DEFS_H
 #define BLIS_LANG_DEFS_H
 
-
 // -- Undefine restrict for C++ and C89/90 --
 
 #ifdef __cplusplus
@@ -51172,6 +52979,23 @@ INSERT_GENTPROT_BLAS( amin )
   #endif
 #endif
 
+// -- BLIS Thread Local Storage Keyword --
+
+// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
+// There is a small risk here as __GNUC__ can also be defined by some other
+// compiler (other than ICC and CLANG which we know define it) that
+// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
+// But the possibility of someone using such non-main-stream compiler
+// for building BLIS is low.
+#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__) || defined(__INTEL_LLVM_COMPILER)
+  #define BLIS_THREAD_LOCAL __thread
+#elif defined(_MSC_VER) && _MSC_VER >= 1310
+  #define BLIS_THREAD_LOCAL __declspec(thread)
+#else
+  #define BLIS_THREAD_LOCAL
+#endif
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // -- Define typeof() operator if using non-GNU compiler --
 
@@ -51182,22 +53006,6 @@ INSERT_GENTPROT_BLAS( amin )
   #define typeof __typeof__
   #endif
 #endif
-
-
-// -- BLIS Thread Local Storage Keyword --
-
-// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
-// There is a small risk here as __GNUC__ can also be defined by some other
-// compiler (other than ICC and CLANG which we know define it) that
-// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
-// But the possibility of someone using such non-main-stream compiler
-// for building BLIS is low.
-#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__)
-  #define BLIS_THREAD_LOCAL __thread
-#else
-  #define BLIS_THREAD_LOCAL
-#endif
-
 
 // -- BLIS constructor/destructor function attribute --
 
@@ -51212,7 +53020,7 @@ INSERT_GENTPROT_BLAS( amin )
   // ICC defines __GNUC__ but doesn't support this
   #define BLIS_ATTRIB_CTOR
   #define BLIS_ATTRIB_DTOR
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   // CLANG supports __attribute__, but its documentation doesn't
   // mention support for constructor/destructor. Compiling with
   // clang and testing shows that it does support.
@@ -51226,6 +53034,7 @@ INSERT_GENTPROT_BLAS( amin )
   #define BLIS_ATTRIB_DTOR
 #endif
 
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 // end bli_lang_defs.h
@@ -51465,13 +53274,35 @@ INSERT_GENTPROT_BLAS( amin )
 
 
 #ifdef BLIS_OS_WINDOWS
-  #define BLIS_TLS_TYPE __declspec(thread)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+    #define BLIS_TLS_TYPE __declspec(thread)
+  #else
+    #define BLIS_TLS_TYPE
+  #endif
 #else
   #define BLIS_TLS_TYPE __thread
 #endif
 
 #endif
 
+// -- CODE PATH ENABLEMENT --------------------------------------------------
+#ifdef BLIS_ENABLE_MNK1_MATRIX
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_TINY_MATRIX
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_SMALL_MATRIX
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...)
+#endif
 // end bli_config_macro_defs.h
 
 
@@ -52049,6 +53880,13 @@ typedef enum
 
 #define BLIS_NUM_LEVEL1F_KERS 5
 
+typedef enum
+{
+	BLIS_GEMV_KER = 0,
+	BLIS_TRSV_KER
+} l2kr_t;
+
+#define BLIS_NUM_LEVEL2_KERS 2
 
 typedef enum
 {
@@ -52343,6 +54181,7 @@ typedef enum
 	BLIS_ARCH_PENRYN,
 
 	// AMD
+	BLIS_ARCH_ZEN6,
 	BLIS_ARCH_ZEN5,
 	BLIS_ARCH_ZEN4,
 	BLIS_ARCH_ZEN3,
@@ -52384,6 +54223,10 @@ typedef enum
 
 	// Default model
 	BLIS_MODEL_DEFAULT,
+
+	// AMD Zen6
+	BLIS_MODEL_VENICE,
+	BLIS_MODEL_VENICE_DENSE,
 
 	// AMD Zen5
 	BLIS_MODEL_TURIN,
@@ -52658,7 +54501,9 @@ BLIS_EXPORT_BLIS int bli_pthread_barrier_wait
 typedef struct
 {
     void* ukr_fp;            // Generic function pointer for tiny(SUP) kernels
+    void* pack_fp;           // Generic function pointer for packing kernels
     bool stor_pref;          // Storage preference of the kernel
+    bool enable_pack;        // Enabling/Disabling packing of the load matrix
     dim_t MR;                // Blocking dimension MR
     dim_t NR;                // Blocking dimension NR
 } gemmtiny_ukr_info_t;
@@ -53152,11 +54997,21 @@ typedef struct cntx_s
 
 
 // -- Runtime type --
+#define BLIS_ALIGN 64
 
+#if defined(_WIN32)
+   #if defined(__clang__)
+       #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+   #else
+       #define BLIS_ATTRIB_ALIGN
+   #endif
+#else
+   #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+#endif
 // NOTE: The order of these fields must be kept consistent with the definition
 // of the BLIS_RNTM_INITIALIZER macro in bli_rntm.h.
 
-typedef struct __attribute__((aligned(64))) rntm_s
+typedef struct BLIS_ATTRIB_ALIGN rntm_s
 {
 	// "External" fields: these may be queried by the end-user.
 	bool      auto_factor;
@@ -53729,6 +55584,11 @@ void BLIS_EXPORT_BLAS cblas_sgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
          f77_int N, f77_int K, float alpha, const float *A,
                  f77_int lda, const float *B, f77_int ldb,
                  float beta, float *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_sgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, float alpha, const float *A,
+                 f77_int lda, const float *B, f77_int ldb,
+                 float beta, float *C, f77_int ldc);
 
 void BLIS_EXPORT_BLAS cblas_dgemm(enum CBLAS_ORDER Order, enum CBLAS_TRANSPOSE TransA,
                  enum CBLAS_TRANSPOSE TransB, f77_int M, f77_int N,
@@ -53763,8 +55623,13 @@ void BLIS_EXPORT_BLAS cblas_dtrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_dgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, double alpha, const double *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, double alpha, const double *A,
+                 f77_int lda, const double *B, f77_int ldb,
+                 double beta, double *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_dgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, double alpha, const double *A,
                  f77_int lda, const double *B, f77_int ldb,
                  double beta, double *C, f77_int ldc);
 
@@ -53801,8 +55666,13 @@ void BLIS_EXPORT_BLAS cblas_ctrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_cgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, const void *alpha, const void *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
+                 f77_int lda, const void *B, f77_int ldb,
+                 const void *beta, void *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_cgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
                  f77_int lda, const void *B, f77_int ldb,
                  const void *beta, void *C, f77_int ldc);
 
@@ -53839,8 +55709,13 @@ void BLIS_EXPORT_BLAS cblas_ztrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_zgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, const void *alpha, const void *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
+                 f77_int lda, const void *B, f77_int ldb,
+                 const void *beta, void *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_zgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
                  f77_int lda, const void *B, f77_int ldb,
                  const void *beta, void *C, f77_int ldc);
 
@@ -53882,7 +55757,6 @@ void BLIS_EXPORT_BLAS cblas_xerbla(f77_int p, const char *rout, const char *form
 
 BLIS_EXPORT_BLAS float  cblas_scabs1( const void *z);
 BLIS_EXPORT_BLAS double  cblas_dcabs1( const void *z);
-
 
 
 
@@ -54014,33 +55888,34 @@ BLIS_EXPORT_BLIS void bli_sleep( unsigned int secs );
 // begin aocldtl.h
 
 
+
+
 #ifndef _AOCLDTL_H_
 #define _AOCLDTL_H_
 
 // begin aocldtlcf.h
 
 
+
+
 #ifndef _AOCLDTLCF_H_
 #define _AOCLDTLCF_H_
 
 
-#define AOCL_DTL_TRACE_ENABLE       0
-
-
-#define AOCL_DTL_DUMP_ENABLE        0
-
-
-#define AOCL_DTL_LOG_ENABLE         0
 
 
 
-#define AOCL_DTL_TRACE_LEVEL         AOCL_DTL_LEVEL_TRACE_5
+
+
+
+#define AOCL_DTL_TRACE_LEVEL         AOCL_DTL_TRACE_LEVEL_NUMBER
 
 
 #define AOCL_DTL_LEVEL_ALL          (15)
+#define AOCL_DTL_LEVEL_TRACE_10     (15)
 #define AOCL_DTL_LEVEL_TRACE_9      (14)
 #define AOCL_DTL_LEVEL_TRACE_8      (13)
-#define AOCL_DTL_LEVEL_TRACE_7      (12)     
+#define AOCL_DTL_LEVEL_TRACE_7      (12)      
 #define AOCL_DTL_LEVEL_TRACE_6      (11)
 #define AOCL_DTL_LEVEL_TRACE_5      (10)
 #define AOCL_DTL_LEVEL_TRACE_4      (9)
@@ -54085,6 +55960,7 @@ BLIS_EXPORT_BLIS void bli_sleep( unsigned int secs );
 // begin aocltpdef.h
 
 
+
 #ifndef AOCL_TYPEDEF_H_
 #define AOCL_TYPEDEF_H_
 
@@ -54107,7 +55983,6 @@ typedef unsigned short int      uint16;
 typedef unsigned int            uint32;
 typedef unsigned long           uint64;
 typedef uint8                   *STRING;
-typedef unsigned char           Bool;
 typedef char                    int8;
 typedef signed long int         int32;
 typedef short int               int16;
@@ -54125,10 +56000,14 @@ typedef pid_t                   AOCL_TID;
 // begin aoclflist.h
 
 
+
+
 #ifndef _AOCL_FLIST_H_
 #define _AOCL_FLIST_H_
 
+// skipped #include "blis.h" 
 // begin aocltpdef.h
+
 
 
 #ifndef AOCL_TYPEDEF_H_
@@ -54153,7 +56032,6 @@ typedef unsigned short int      uint16;
 typedef unsigned int            uint32;
 typedef unsigned long           uint64;
 typedef uint8                   *STRING;
-typedef unsigned char           Bool;
 typedef char                    int8;
 typedef signed long int         int32;
 typedef short int               int16;
@@ -54169,6 +56047,8 @@ typedef pid_t                   AOCL_TID;
 
 // end aocltpdef.h
 // begin aoclfal.h
+
+
 
 
 #ifndef _AOCL_FAL_H_
@@ -54221,7 +56101,7 @@ typedef struct AOCL_FLIST_Node_t
     struct AOCL_FLIST_Node_t *pNext;
 } AOCL_FLIST_Node;
 
-Bool AOCL_FLIST_IsEmpty(
+bool AOCL_FLIST_IsEmpty(
     AOCL_FLIST_Node *plist);
 
 AOCL_FLIST_Node * AOCL_FLIST_GetNode(
@@ -54251,10 +56131,13 @@ void AOCL_FLIST_CloseAll(
 // begin aoclos.h
 
 
+
+
 #ifndef _AOCL_OS_H_
 #define _AOCL_OS_H_
 
 // begin aocltpdef.h
+
 
 
 #ifndef AOCL_TYPEDEF_H_
@@ -54279,7 +56162,6 @@ typedef unsigned short int      uint16;
 typedef unsigned int            uint32;
 typedef unsigned long           uint64;
 typedef uint8                   *STRING;
-typedef unsigned char           Bool;
 typedef char                    int8;
 typedef signed long int         int32;
 typedef short int               int16;
@@ -54397,19 +56279,20 @@ void AOCL_DTL_start_perf_timer(void);
 uint64 AOCL_DTL_get_time_spent(void);
 
 
-extern Bool gbIsLoggingEnabled;
+extern BLIS_THREAD_LOCAL bool tlIsLoggingEnabled;
+extern bool                   gbIsLoggingEnabled;
 
 
 #define AOCL_DTL_Enable_Logs() \
      \
-    AOCL_DTL_INITIALIZE(AOCL_DTL_TRACE_LEVEL); \
-    gbIsLoggingEnabled = TRUE;
+    AOCL_DTL_INITIALIZE(); \
+    tlIsLoggingEnabled = TRUE;
 
 
 #define AOCL_DTL_Disable_Logs() \
      \
-    AOCL_DTL_INITIALIZE(AOCL_DTL_TRACE_LEVEL); \
-    gbIsLoggingEnabled = FALSE;
+    AOCL_DTL_INITIALIZE(); \
+    tlIsLoggingEnabled = FALSE;
 
 
 #define AOCL_DTL_START_PERF_TIMER() \
@@ -54421,11 +56304,11 @@ extern Bool gbIsLoggingEnabled;
 
 
 #ifdef AOCL_DTL_INITIALIZE_ENABLE
-#define AOCL_DTL_INITIALIZE(CURRENT_LOG_LEVEL) \
-    DTL_Initialize(CURRENT_LOG_LEVEL);
+#define AOCL_DTL_INITIALIZE() \
+    DTL_Initialize();
 #else
 
-#define AOCL_DTL_INITIALIZE(CURRENT_LOG_LEVEL)
+#define AOCL_DTL_INITIALIZE()
 #endif
 
 
@@ -54439,8 +56322,9 @@ extern Bool gbIsLoggingEnabled;
 
 #ifdef AOCL_DTL_INITIALIZE_ENABLE
 
-void DTL_Initialize(
-    uint32 ui32CurrentLogLevel);
+void DTL_Initialize(void);
+void DTL_Initialize_Global(void);
+void DTL_Initialize_TL(void);
 void DTL_Uninitialize(void);
 #endif
 
@@ -54475,13 +56359,19 @@ void DTL_DumpData(
 
 
 
+
+
 #ifndef __AOCLDTL_BLIS_H
 #define __AOCLDTL_BLIS_H
 
-// skipped #include "blis.h" 
-
 #if AOCL_DTL_LOG_ENABLE
 dim_t AOCL_get_requested_threads_count(void);
+
+void AOCL_DTL_log_num_threads(int8 loglevel,
+                              dim_t num_threads
+                             );
+
+// Level-3 Logging
 
 void AOCL_DTL_log_gemm_sizes(int8 loglevel,
                              char dt_type,
@@ -54504,27 +56394,6 @@ void AOCL_DTL_log_gemm_stats(int8 loglevel,
                              const f77_int m,
                              const f77_int n,
                              const f77_int k);
-
-void AOCL_DTL_log_trsm_stats(int8 loglevel,
-                             char dt_type,
-                             f77_char side,
-                             const f77_int m,
-                             const f77_int n);
-
-void AOCL_DTL_log_trsm_sizes(int8 loglevel,
-                             char dt,
-                             f77_char side,
-                             f77_char uploa,
-                             f77_char transa,
-                             f77_char diaga,
-                             const f77_int m,
-                             const f77_int n,
-                             const void* alpha,
-                             f77_int lda,
-                             f77_int ldb,
-                             const char* filename,
-                             const char* function_name,
-                             int line);
 
 void AOCL_DTL_log_gemmt_sizes(int8 loglevel,
                              char dt_type,
@@ -54562,21 +56431,6 @@ void AOCL_DTL_log_hemm_sizes(int8 loglevel,
                              const char* function_name,
                              int line);
 
-// Level-3 Logging
-void AOCL_DTL_log_herk_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char uploc,
-                              const f77_char transa,
-                              const f77_int  m,
-                              const f77_int  k,
-                              const void*   alpha,
-                              const f77_int lda,
-                              const void*  beta,
-                              const f77_int ldc,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
 void AOCL_DTL_log_her2k_sizes(int8 loglevel,
                               char dt_type,
                               const f77_char uploc,
@@ -54592,199 +56446,247 @@ void AOCL_DTL_log_her2k_sizes(int8 loglevel,
                               const char* function_name,
                               int line);
 
-void AOCL_DTL_log_symm_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char side,
-                              const f77_char uploa,
-                              const f77_int  m,
-                              const f77_int  n,
-                              const void*    alpha,
-                              const f77_int lda,
-                              const f77_int ldb,
-                              const void*    beta,
-                              const f77_int ldc,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
+void AOCL_DTL_log_herk_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploc,
+                             const f77_char transa,
+                             const f77_int  m,
+                             const f77_int  k,
+                             const void*   alpha,
+                             const f77_int lda,
+                             const void*  beta,
+                             const f77_int ldc,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_symm_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char side,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const f77_int  n,
+                             const void*    alpha,
+                             const f77_int lda,
+                             const f77_int ldb,
+                             const void*    beta,
+                             const f77_int ldc,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_syr2k_sizes(int8 loglevel,
+                             char   dt_type,
+                             const f77_char uploc,
+                             const f77_char transa,
+                             const f77_int  m,
+                             const f77_int  k,
+                             const void*    alpha,
+                             const f77_int  lda,
+                             const f77_int  ldb,
+                             const void*    beta,
+                             const f77_int  ldc,
+                             const char*    filename,
+                             const char*    function_name,
+                             int  line);
+
+void AOCL_DTL_log_syrk_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploc,
+                             const f77_char transa,
+                             const f77_int  m,
+                             const f77_int  k,
+                             const void*    alpha,
+                             const f77_int  lda,
+                             const void*    beta,
+                             const f77_int  ldc,
+                             const char*    filename,
+                             const char*    function_name,
+                             int line);
+
+void AOCL_DTL_log_trmm_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char side,
+                             const f77_char uploa,
+                             const f77_char transa,
+                             const f77_char diaga,
+                             const f77_int  m,
+                             const f77_int  n,
+                             const void*    alpha,
+                             const f77_int  lda,
+                             const f77_int  ldb,
+                             const char*    filename,
+                             const char*    function_name,
+                             int  line);
+
+void AOCL_DTL_log_trsm_sizes(int8 loglevel,
+                             char dt,
+                             f77_char side,
+                             f77_char uploa,
+                             f77_char transa,
+                             f77_char diaga,
+                             const f77_int m,
+                             const f77_int n,
+                             const void* alpha,
+                             f77_int lda,
+                             f77_int ldb,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_trsm_stats(int8 loglevel,
+                             char dt_type,
+                             f77_char side,
+                             const f77_int m,
+                             const f77_int n);
+
+
+// Level-3 Extension Logging
+
+void AOCL_DTL_log_gemm3m_sizes(int8 loglevel,
+                               char dt_type,
+                               const f77_char transa,
+                               const f77_char transb,
+                               const f77_int m,
+                               const f77_int n,
+                               const f77_int k,
+                               const void *alpha,
+                               const f77_int lda,
+                               const f77_int ldb,
+                               const void *beta,
+                               const f77_int ldc,
+                               const char *filename,
+                               const char *function_name,
+                               int line);
+
+void AOCL_DTL_log_gemm3m_stats(int8 loglevel,
+                               char dt_type,
+                               const f77_int m,
+                               const f77_int n,
+                               const f77_int k);
+
+void AOCL_DTL_log_gemm_batch_sizes(int8 loglevel,
+                                   char dt_type,
+                                   const f77_int group_count,
+                                   const char *filename,
+                                   const char *function_name,
+                                   int line);
+
+void AOCL_DTL_log_gemm_get_size_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char identifer,
+                             const f77_int m,
+                             const f77_int n,
+                             const f77_int k,
+                             const char *filename,
+                             const char *function_name,
+                             int line);
+
+void AOCL_DTL_log_gemm_pack_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char identifer,
+                             const f77_char trans,
+                             const f77_int m,
+                             const f77_int n,
+                             const f77_int k,
+                             const void *alpha,
+                             const f77_int pld,
+                             const char *filename,
+                             const char *function_name,
+                             int line);
+
+void AOCL_DTL_log_gemm_compute_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char transa,
+                             const f77_char transb,
+                             const f77_int m,
+                             const f77_int n,
+                             const f77_int k,
+                             const f77_int lda,
+                             const f77_int ldb,
+                             const void *beta,
+                             const f77_int ldc,
+                             const char *filename,
+                             const char *function_name,
+                             int line);
 
 // Level-2 Logging
 
-void AOCL_DTL_log_gemv_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char transa,
-                              const f77_int  m,
-                              const f77_int  n,
-                              const void*    alpha,
-                              const f77_int lda,
-                              const f77_int incx,
-                              const void*    beta,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_ger_sizes( int8 loglevel,
+void AOCL_DTL_log_gemv_sizes(int8 loglevel,
                              char dt_type,
-                             const f77_int m,
-                             const f77_int n,
+                             const f77_char transa,
+                             const f77_int  m,
+                             const f77_int  n,
+                             const void*    alpha,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const void*    beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_ger_sizes(int8 loglevel,
+                            char dt_type,
+                            const f77_int m,
+                            const f77_int n,
+                            const void* alpha,
+                            const f77_int incx,
+                            const f77_int incy,
+                            const f77_int lda,
+                            const char* filename,
+                            const char* function_name,
+                            int line
+                           );
+
+void AOCL_DTL_log_hemv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const void* alpha,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const void* beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_her2_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
                              const void* alpha,
                              const f77_int incx,
                              const f77_int incy,
                              const f77_int lda,
                              const char* filename,
                              const char* function_name,
-                             int line
-                           );
+                             int line);
 
-void AOCL_DTL_log_her_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char uploa,
-                              const f77_int  m,
-                              const void* alpha,
-                              const f77_int  incx,
-                              const f77_int lda,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_symv_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char uploa,
-                              const f77_int  m,
-                              const void*    alpha,
-                              const f77_int lda,
-                              const f77_int incx,
-                              const void*    beta,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_hemv_sizes ( int8 loglevel,
-                              char dt_type,
-                              const f77_char uploa,
-                              const f77_int  m,
-                              const void* alpha,
-                              const f77_int lda,
-                              const f77_int incx,
-                              const void* beta,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_her2_sizes ( int8 loglevel,
-                              char dt_type,
-                              const f77_char uploa,
-                              const f77_int  m,
-                              const void* alpha,
-                              const f77_int incx,
-                              const f77_int incy,
-                              const f77_int lda,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-// Level-1 Logging
-
-void AOCL_DTL_log_copy_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_int n,
-                              const f77_int incx,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_scal_sizes( int8 loglevel,
-                              char dt_type,
-                              const void* alpha,
-                              const f77_int  n,
-                              const f77_int  incx,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_swap_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_int  n,
-                              const f77_int  incx,
-                              const f77_int  incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_nrm2_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_int  n,
-                              const f77_int  incx,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_nrm2_stats(int8 loglevel,
-                             char dt_type,
-                             const f77_int n);
-
-void AOCL_DTL_log_amax_sizes ( int8 loglevel,
-                              char dt_type,
-                              const f77_int  n,
-                              const f77_int incx,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_asum_sizes ( int8 loglevel,
-                              char dt_type,
-                              const f77_int  n,
-                              const f77_int incx,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_axpby_sizes ( int8 loglevel,
-                               char dt_type,
-                               const f77_int  n,
-                               const void* alpha,
-                               const f77_int incx,
-                               const void* beta,
-                               const f77_int incy,
-                               const char* filename,
-                               const char* function_name,
-                               int line);
-
-void AOCL_DTL_log_axpy_sizes ( int8 loglevel,
-                              char dt_type,
-                              const f77_int  n,
-                              const void* alpha,
-                              const f77_int incx,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line);
-
-void AOCL_DTL_log_dotv_sizes( int8 loglevel,
-                              char dt_type,
-                              const f77_char conjx,
-                              const f77_int  n,
-                              const f77_int incx,
-                              const f77_int incy,
-                              const char* filename,
-                              const char* function_name,
-                              int line
-                              );
-
-//Level-2 logging
-void AOCL_DTL_log_syr_sizes(int8  loglevel,
+void AOCL_DTL_log_her_sizes(int8 loglevel,
                             char dt_type,
-                            const f77_char  uploa,
-                            const f77_int   m,
-                            const void*     alpha,
-                            const f77_int   incx,
-                            const f77_int   lda,
-                            const char*     filename,
-                            const char*     function_name,
+                            const f77_char uploa,
+                            const f77_int  m,
+                            const void* alpha,
+                            const f77_int  incx,
+                            const f77_int lda,
+                            const char* filename,
+                            const char* function_name,
                             int line);
+
+void AOCL_DTL_log_symv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const void*    alpha,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const void*    beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
 
 void AOCL_DTL_log_syr2_sizes(int8 loglevel,
                              char dt_type,
@@ -54797,6 +56699,17 @@ void AOCL_DTL_log_syr2_sizes(int8 loglevel,
                              const char*    filename,
                              const char*    function_name,
                              int  line);
+
+void AOCL_DTL_log_syr_sizes(int8 loglevel,
+                            char dt_type,
+                            const f77_char  uploa,
+                            const f77_int   m,
+                            const void*     alpha,
+                            const f77_int   incx,
+                            const f77_int   lda,
+                            const char*     filename,
+                            const char*     function_name,
+                            int line);
 
 void AOCL_DTL_log_trmv_sizes(int8 loglevel,
                              char dt_type,
@@ -54822,216 +56735,667 @@ void AOCL_DTL_log_trsv_sizes(int8 loglevel,
                              const char* function_name,
                              int line);
 
-// Level-3 Logging
-void AOCL_DTL_log_syrk_sizes(int8 loglevel,
+// Level-2 Banded Logging
+
+void AOCL_DTL_log_gbmv_sizes(int8 loglevel,
                              char dt_type,
-                             const f77_char uploc,
                              const f77_char transa,
                              const f77_int  m,
-                             const f77_int  k,
+                             const f77_int  n,
+                             const f77_int  kl,
+                             const f77_int  ku,
                              const void*    alpha,
-                             const f77_int  lda,
+                             const f77_int lda,
+                             const f77_int incx,
                              const void*    beta,
-                             const f77_int  ldc,
-                             const char*    filename,
-                             const char*    function_name,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
                              int line);
 
-void AOCL_DTL_log_syr2k_sizes(int8  loglevel,
-                             char   dt_type,
-                             const f77_char uploc,
-                             const f77_char transa,
+void AOCL_DTL_log_hbmv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const f77_int  k,
+                             const void* alpha,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const void* beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_sbmv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
                              const f77_int  m,
                              const f77_int  k,
                              const void*    alpha,
-                             const f77_int  lda,
-                             const f77_int  ldb,
+                             const f77_int lda,
+                             const f77_int incx,
                              const void*    beta,
-                             const f77_int  ldc,
-                             const char*    filename,
-                             const char*    function_name,
-                             int  line);
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
 
-void AOCL_DTL_log_trmm_sizes(int8 loglevel,
+void AOCL_DTL_log_tbmv_sizes(int8 loglevel,
                              char dt_type,
-                             const f77_char side,
                              const f77_char uploa,
                              const f77_char transa,
                              const f77_char diaga,
+                             const f77_int m,
+                             const f77_int k,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_tbsv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_char transa,
+                             const f77_char diaga,
+                             const f77_int m,
+                             const f77_int k,
+                             const f77_int lda,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+// Level-2 Packed Logging
+
+void AOCL_DTL_log_hpmv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
                              const f77_int  m,
-                             const f77_int  n,
+                             const void* alpha,
+                             const f77_int incx,
+                             const void* beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_hpr2_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const void* alpha,
+                             const f77_int incx,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_hpr_sizes(int8 loglevel,
+                            char dt_type,
+                            const f77_char uploa,
+                            const f77_int  m,
+                            const void* alpha,
+                            const f77_int  incx,
+                            const char* filename,
+                            const char* function_name,
+                            int line);
+
+void AOCL_DTL_log_spmv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
                              const void*    alpha,
-                             const f77_int  lda,
-                             const f77_int  ldb,
+                             const f77_int incx,
+                             const void*    beta,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_spr2_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_int  m,
+                             const void*    alpha,
+                             const f77_int  incx,
+                             const f77_int  incy,
                              const char*    filename,
                              const char*    function_name,
                              int  line);
 
+void AOCL_DTL_log_spr_sizes(int8 loglevel,
+                            char dt_type,
+                            const f77_char  uploa,
+                            const f77_int   m,
+                            const void*     alpha,
+                            const f77_int   incx,
+                            const char*     filename,
+                            const char*     function_name,
+                            int line);
+
+void AOCL_DTL_log_tpmv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_char transa,
+                             const f77_char diaga,
+                             const f77_int m,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_tpsv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char uploa,
+                             const f77_char transa,
+                             const f77_char diaga,
+                             const f77_int m,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+// Level-2 plane rotations and modified Givens transformation Logging
+
+void AOCL_DTL_log_rot_sizes(int8 loglevel,
+                            char dt_type,
+                            const f77_int m,
+                            const f77_int incx,
+                            const f77_int incy,
+                            const void* c,
+                            const void* s,
+                            const char* filename,
+                            const char* function_name,
+                            int line);
+
+void AOCL_DTL_log_rotg_sizes(int8 loglevel,
+                             char dt_type,
+                             const void* a,
+                             const void* b,
+                             const void* c,
+                             const void* s,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_rotm_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int m,
+                             const f77_int incx,
+                             const f77_int incy,
+                             const void* param1,
+                             const void* param2,
+                             const void* param3,
+                             const void* param4,
+                             const void* param5,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_rotmg_sizes(int8 loglevel,
+                              char dt_type,
+                              const void* dd1,
+                              const void* dd2,
+                              const void* dx1,
+                              const void* dy1,
+                              const char* filename,
+                              const char* function_name,
+                              int line);
+
+// Level-1 Logging
+
+void AOCL_DTL_log_amin_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_amax_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_asum_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const f77_int incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_axpby_sizes(int8 loglevel,
+                              char dt_type,
+                              const f77_int  n,
+                              const void* alpha,
+                              const f77_int incx,
+                              const void* beta,
+                              const f77_int incy,
+                              const char* filename,
+                              const char* function_name,
+                              int line);
+
+void AOCL_DTL_log_axpy_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const void* alpha,
+                             const f77_int incx,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_copy_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int n,
+                             const f77_int incx,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_dotv_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_char conjx,
+                             const f77_int  n,
+                             const f77_int incx,
+                             const f77_int incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line
+                             );
+
+void AOCL_DTL_log_nrm2_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const f77_int  incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_nrm2_stats(int8 loglevel,
+                             char dt_type,
+                             const f77_int n);
+
+
+void AOCL_DTL_log_scal_sizes(int8 loglevel,
+                             char dt_type,
+                             const void* alpha,
+                             const f77_int  n,
+                             const f77_int  incx,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+void AOCL_DTL_log_swap_sizes(int8 loglevel,
+                             char dt_type,
+                             const f77_int  n,
+                             const f77_int  incx,
+                             const f77_int  incy,
+                             const char* filename,
+                             const char* function_name,
+                             int line);
+
+// Matrix Copy and Transpose Logging
+
+void AOCL_DTL_log_matadd_sizes(int8 loglevel,
+                               char dt_type,
+                               const f77_char transa,
+                               const f77_char transb,
+                               const f77_int  m,
+                               const f77_int  n,
+                               const void*    alpha,
+                               const f77_int  lda,
+                               const void*    beta,
+                               const f77_int  ldb,
+                               const f77_int  ldc,
+                               const char* filename,
+                               const char* function_name,
+                               int line);
+
+void AOCL_DTL_log_matcopy_sizes(int8 loglevel,
+                                char dt_type,
+                                const f77_char trans,
+                                const f77_int  rows,
+                                const f77_int  cols,
+                                const void*    alpha,
+                                const f77_int  lda,
+                                const f77_int  ldb,
+                                const char* filename,
+                                const char* function_name,
+                                int line);
+
+void AOCL_DTL_log_matcopy2_sizes(int8 loglevel,
+                                 char dt_type,
+                                 const f77_char trans,
+                                 const f77_int  rows,
+                                 const f77_int  cols,
+                                 const void*    alpha,
+                                 const f77_int  lda,
+                                 const f77_int  stridea,
+                                 const f77_int  ldb,
+                                 const f77_int  strideb,
+                                 const char* filename,
+                                 const char* function_name,
+                                 int line);
+
+
+#define AOCL_DTL_LOG_NUM_THREADS(loglevel, num_threads) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_num_threads(loglevel, num_threads);
+
+// Level-3 Macros
 
 #define AOCL_DTL_LOG_GEMM_INPUTS(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc)    \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_gemm_sizes(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc, \
                                 __FILE__, __FUNCTION__, __LINE__);
 
 #define AOCL_DTL_LOG_GEMM_STATS(loglevel, dt_type, m, n, k)    \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_gemm_stats(loglevel, dt_type, m, n, k);
 
-#define AOCL_DTL_LOG_GEMMT_STATS(loglevel, dt_type, n, k)    \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_gemmt_stats(loglevel, dt_type, n, k);
-
-#define AOCL_DTL_LOG_TRSM_INPUTS(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb)     \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_trsm_sizes(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb, \
-                                __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_TRSM_STATS(loglevel, dt_type, side, m, n)    \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_trsm_stats(loglevel, dt_type, side, m, n);
-
 #define AOCL_DTL_LOG_GEMMT_INPUTS(loglevel, dt, uplo, transa, transb, n, k, alpha, lda, ldb, beta, ldc)  \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_gemmt_sizes(loglevel, dt, uplo, transa, transb, n, k, alpha, lda, ldb, beta, ldc, \
                                  __FILE__,__FUNCTION__,__LINE__);
 
+#define AOCL_DTL_LOG_GEMMT_STATS(loglevel, dt_type, n, k)    \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemmt_stats(loglevel, dt_type, n, k);
+
 #define AOCL_DTL_LOG_HEMM_INPUTS(loglevel, dt_type, side, uplo, m, n, alpha, lda, ldb, beta, ldc)  \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_hemm_sizes(loglevel, dt_type, side, uplo, m, n, alpha, lda, ldb, beta, ldc, \
                                 __FILE__, __FUNCTION__, __LINE__);
 
-// Level-3 Macros
-#define AOCL_DTL_LOG_HERK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_herk_sizes(loglevel, dt_type, transa, uploc, m, k, alpha, lda, beta, ldc, __FILE__,\
-                                __FUNCTION__, __LINE__);
-
 #define AOCL_DTL_LOG_HER2K_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc)\
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_her2k_sizes(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc, __FILE__,\
                                 __FUNCTION__, __LINE__);
 
+#define AOCL_DTL_LOG_HERK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_herk_sizes(loglevel, dt_type, transa, uploc, m, k, alpha, lda, beta, ldc, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
 #define AOCL_DTL_LOG_SYMM_INPUTS(loglevel, dt_type, side, uploa, m, n, alpha, lda, ldb, beta, ldc)\
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_symm_sizes(loglevel, dt_type, side, uploa, m, n, alpha, lda, ldb, beta, ldc, __FILE__,\
                                 __FUNCTION__, __LINE__);
 
-// Level-2 Macros
-#define AOCL_DTL_LOG_GEMV_INPUTS(loglevel, dt_type, transa, m, n, alp, lda, incx, beta, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_gemv_sizes(loglevel, dt_type, transa, m, n, alp, lda, incx, beta, incy, __FILE__,\
-                            __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_GER_INPUTS(loglevel, dt_type, m, n, alpha, incx, incy, lda) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_ger_sizes(loglevel, dt_type, m, n, alpha, incx, incy, lda, __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_HER_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda )\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_her_sizes(loglevel, dt_type, uploa, m, alpha, incx, lda,  __FILE__,__FUNCTION__,__LINE__);
-
-#define AOCL_DTL_LOG_SYMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy)\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_symv_sizes(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy, __FILE__,\
-                                __FUNCTION__, __LINE__);
-
-// Level-1 Macros
-#define AOCL_DTL_LOG_COPY_INPUTS(loglevel, dt_type, n, incx, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_copy_sizes(loglevel, dt_type, n, incx, incy, __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_SCAL_INPUTS(loglevel, dt_type, alpha, n, incx )\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_scal_sizes(loglevel, dt_type, alpha, n, incx,  __FILE__,__FUNCTION__,__LINE__);
-
-#define AOCL_DTL_LOG_SWAP_INPUTS(loglevel, dt_type, n, incx, incy)\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_swap_sizes(loglevel, dt_type, n, incx, incy,  __FILE__,__FUNCTION__,__LINE__);
-
-#define AOCL_DTL_LOG_NRM2_INPUTS(loglevel, dt_type, n, incx)\
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_nrm2_sizes(loglevel, dt_type, n, incx, __FILE__,__FUNCTION__,__LINE__);
-
-#define AOCL_DTL_LOG_NRM2_STATS(loglevel, dt_type, n)    \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_nrm2_stats(loglevel, dt_type, n);
-
-#define AOCL_DTL_LOG_HEMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_hemv_sizes(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy, \
-                            __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_HER2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_her2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, lda, \
-                            __FILE__, __FUNCTION__, __LINE__);
-
-// Level-1 Macros
-#define AOCL_DTL_LOG_AMAX_INPUTS(loglevel, dt_type, n, incx) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_amax_sizes(loglevel, dt_type, n, incx, __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_ASUM_INPUTS(loglevel, dt_type, n, incx) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_asum_sizes(loglevel, dt_type, n, incx, __FILE__, __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_AXPBY_INPUTS(loglevel, dt_type, n, alpha, incx, beta, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_axpby_sizes(loglevel, dt_type, n, alpha, incx, beta, incy, __FILE__,\
-                                __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_AXPY_INPUTS(loglevel, dt_type, n, alpha, incx, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_axpy_sizes(loglevel, dt_type, n, alpha, incx, incy, __FILE__,\
-                                __FUNCTION__, __LINE__);
-
-#define AOCL_DTL_LOG_DOTV_INPUTS(loglevel, dt_type, conjx, n, incx, incy) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_dotv_sizes(loglevel, dt_type, conjx, n, incx, incy, __FILE__, __FUNCTION__, __LINE__); \
-
-#define AOCL_DTL_LOG_SYR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_syr2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, lda, __FILE__,\
-                                __FUNCTION__,__LINE__);
-
 #define AOCL_DTL_LOG_SYR2K_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc) \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_syr2k_sizes(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta,\
                                 ldc, __FILE__, __FUNCTION__,__LINE__);
 
-#define AOCL_DTL_LOG_SYR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda) \
-    if (gbIsLoggingEnabled) \
-        AOCL_DTL_log_syr_sizes(loglevel, dt_type, uploa, m, alpha, incx, lda,\
-                                __FILE__,__FUNCTION__,__LINE__);
-
 #define AOCL_DTL_LOG_SYRK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc) \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_syrk_sizes(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc, __FILE__,\
                                 __FUNCTION__,__LINE__);
 
 #define AOCL_DTL_LOG_TRMM_INPUTS(loglevel, dt_type, side, uploa, transa, diaga, m, n, alpha, lda, ldb) \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_trmm_sizes(loglevel, dt_type, side, uploa, transa, diaga, m, n, alpha, lda, ldb, __FILE__,\
                                 __FUNCTION__,__LINE__);
 
+#define AOCL_DTL_LOG_TRSM_INPUTS(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb)     \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_trsm_sizes(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb, \
+                                __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_TRSM_STATS(loglevel, dt_type, side, m, n)    \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_trsm_stats(loglevel, dt_type, side, m, n);
+
+// Level-3 Extension Macros
+
+#define AOCL_DTL_LOG_GEMM3M_INPUTS(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc)    \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm3m_sizes(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc, \
+                                __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_GEMM3M_STATS(loglevel, dt_type, m, n, k)    \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm3m_stats(loglevel, dt_type, m, n, k);
+
+#define AOCL_DTL_LOG_GEMM_BATCH_INPUTS(loglevel, dt, group_count) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm_batch_sizes(loglevel, dt, group_count, \
+                                         __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_GEMM_GET_SIZE_INPUTS(loglevel, dt, identifier, m, n, k) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm_get_size_sizes(loglevel, dt, identifier, m, n, k, \
+                                         __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_GEMM_PACK_INPUTS(loglevel, dt, identifier, trans, m, n, k, alpha, pld) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm_pack_sizes(loglevel, dt, identifier, trans, m, n, k, alpha, pld, \
+                                     __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_GEMM_COMPUTE_INPUTS(loglevel, dt, transa, transb, m, n, k, lda, ldb, beta, ldc) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemm_compute_sizes(loglevel, dt, transa, transb, m, n, k, lda, ldb, beta, ldc, \
+                                        __FILE__, __FUNCTION__, __LINE__);
+
+// Level-2 Macros
+
+#define AOCL_DTL_LOG_GEMV_INPUTS(loglevel, dt_type, transa, m, n, alp, lda, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gemv_sizes(loglevel, dt_type, transa, m, n, alp, lda, incx, beta, incy, __FILE__,\
+                            __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_GER_INPUTS(loglevel, dt_type, m, n, alpha, incx, incy, lda) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_ger_sizes(loglevel, dt_type, m, n, alpha, incx, incy, lda, __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HEMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_hemv_sizes(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy, \
+                            __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HER2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_her2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, lda, \
+                            __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HER_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda )\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_her_sizes(loglevel, dt_type, uploa, m, alpha, incx, lda,  __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_SYMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_symv_sizes(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_SYR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_syr2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, lda, __FILE__,\
+                                __FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_SYR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_syr_sizes(loglevel, dt_type, uploa, m, alpha, incx, lda,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
 #define AOCL_DTL_LOG_TRMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx) \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_trmv_sizes(loglevel, dt_type, uploa, transa, diaga, m, lda, incx,\
                                 __FILE__,__FUNCTION__,__LINE__);
 
 #define AOCL_DTL_LOG_TRSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx ) \
-    if (gbIsLoggingEnabled) \
+    if (tlIsLoggingEnabled) \
         AOCL_DTL_log_trsv_sizes(loglevel, dt_type, uploa, transa, diaga, m, lda, incx,\
                                 __FILE__,__FUNCTION__,__LINE__);
-#else
+
+// Level-2 Banded Macros
+
+#define AOCL_DTL_LOG_GBMV_INPUTS(loglevel, dt_type, transa, m, n, kl, ku, alp, lda, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_gbmv_sizes(loglevel, dt_type, transa, m, n, kl, ku, alp, lda, incx, beta, incy, __FILE__,\
+                            __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HBMV_INPUTS(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_hbmv_sizes(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy, \
+                            __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_SBMV_INPUTS(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_sbmv_sizes(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_TBMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_tbmv_sizes(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_TBSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_tbsv_sizes(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
+// Level-2 Packed Macros
+
+#define AOCL_DTL_LOG_HPMV_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_hpmv_sizes(loglevel, dt_type, uploa, m, alpha, incx, beta, incy, \
+                            __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HPR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_hpr2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, \
+                            __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_HPR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx )\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_hpr_sizes(loglevel, dt_type, uploa, m, alpha, incx,  __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_SPMV_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, beta, incy)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_spmv_sizes(loglevel, dt_type, uploa, m, alpha, incx, beta, incy, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_SPR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_spr2_sizes(loglevel, dt_type, uploa, m, alpha, incx, incy, __FILE__,\
+                                __FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_SPR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_spr_sizes(loglevel, dt_type, uploa, m, alpha, incx,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_TPMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_tpmv_sizes(loglevel, dt_type, uploa, transa, diaga, m, incx,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_TPSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, incx ) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_tpsv_sizes(loglevel, dt_type, uploa, transa, diaga, m, incx,\
+                                __FILE__,__FUNCTION__,__LINE__);
+
+// Level-2 plane rotations and modified Givens transformation Macros
+
+#define AOCL_DTL_LOG_ROT_INPUTS(loglevel, dt_type, m, incx, incy, c, s) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_rot_sizes(loglevel, dt_type, m, incx, incy, c, s, \
+                               __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_ROTG_INPUTS(loglevel, dt_type, a, b, c, s) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_rotg_sizes(loglevel, dt_type, a, b, c, s, \
+                                __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_ROTM_INPUTS(loglevel, dt_type, m, incx, incy, param1, param2, param3, param4, param5) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_rotm_sizes(loglevel, dt_type, m, incx, incy, param1, param2, param3, param4, param5, \
+                                __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_ROTMG_INPUTS(loglevel, dt_type, dd1, dd2, dx1, dy1) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_rotmg_sizes(loglevel, dt_type, dd1, dd2, dx1, dy1, \
+                                 __FILE__,__FUNCTION__,__LINE__);
+
+// Level-1 Macros
+
+#define AOCL_DTL_LOG_AMIN_INPUTS(loglevel, dt_type, n, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_amin_sizes(loglevel, dt_type, n, incx, __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_AMAX_INPUTS(loglevel, dt_type, n, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_amax_sizes(loglevel, dt_type, n, incx, __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_ASUM_INPUTS(loglevel, dt_type, n, incx) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_asum_sizes(loglevel, dt_type, n, incx, __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_AXPBY_INPUTS(loglevel, dt_type, n, alpha, incx, beta, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_axpby_sizes(loglevel, dt_type, n, alpha, incx, beta, incy, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_AXPY_INPUTS(loglevel, dt_type, n, alpha, incx, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_axpy_sizes(loglevel, dt_type, n, alpha, incx, incy, __FILE__,\
+                                __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_COPY_INPUTS(loglevel, dt_type, n, incx, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_copy_sizes(loglevel, dt_type, n, incx, incy, __FILE__, __FUNCTION__, __LINE__);
+
+#define AOCL_DTL_LOG_DOTV_INPUTS(loglevel, dt_type, conjx, n, incx, incy) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_dotv_sizes(loglevel, dt_type, conjx, n, incx, incy, __FILE__, __FUNCTION__, __LINE__); \
+
+#define AOCL_DTL_LOG_NRM2_INPUTS(loglevel, dt_type, n, incx)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_nrm2_sizes(loglevel, dt_type, n, incx, __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_NRM2_STATS(loglevel, dt_type, n)    \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_nrm2_stats(loglevel, dt_type, n);
+
+#define AOCL_DTL_LOG_SCAL_INPUTS(loglevel, dt_type, alpha, n, incx )\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_scal_sizes(loglevel, dt_type, alpha, n, incx,  __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_SWAP_INPUTS(loglevel, dt_type, n, incx, incy)\
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_swap_sizes(loglevel, dt_type, n, incx, incy,  __FILE__,__FUNCTION__,__LINE__);
+
+// Matrix Copy and Transpose Macros
+
+#define AOCL_DTL_LOG_MATADD_INPUTS(loglevel, dt_type, transa, transb, m, n, alpha, lda, beta, ldb, ldc ) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_matadd_sizes(loglevel, dt_type, transa, transb, m, n, alpha, lda, beta, ldb, ldc,  __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_MATCOPY_INPUTS(loglevel, dt_type, trans, rows, cols, alpha, lda, ldb ) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_matcopy_sizes(loglevel, dt_type, trans, rows, cols, alpha, lda, ldb,  __FILE__,__FUNCTION__,__LINE__);
+
+#define AOCL_DTL_LOG_MATCOPY2_INPUTS(loglevel, dt_type, trans, rows, cols, alpha, lda, stridea, ldb, strideb ) \
+    if (tlIsLoggingEnabled) \
+        AOCL_DTL_log_matcopy2_sizes(loglevel, dt_type, trans, rows, cols, alpha, lda, stridea, ldb, strideb,  __FILE__,__FUNCTION__,__LINE__);
+
+#else // AOCL_DTL_LOG_ENABLE
+
+#define AOCL_DTL_LOG_NUM_THREADS(loglevel, num_threads)
+
+// Level-3 Macros
 
 #define AOCL_DTL_LOG_GEMM_INPUTS(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc)
 
 #define AOCL_DTL_LOG_GEMM_STATS(loglevel, dt_type, m, n, k)
-
-#define AOCL_DTL_LOG_TRSM_INPUTS(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb)
-
-#define AOCL_DTL_LOG_TRSM_STATS(loglevel, dt_type, side, m, n)
 
 #define AOCL_DTL_LOG_GEMMT_INPUTS(loglevel, dt, uplo, transa, transb, n, k, alpha, lda, ldb, beta, ldc)
 
@@ -55039,33 +57403,101 @@ void AOCL_DTL_log_trmm_sizes(int8 loglevel,
 
 #define AOCL_DTL_LOG_HEMM_INPUTS(loglevel, dt_type, side, uplo, m, n, alpha, lda, ldb, beta, ldc)
 
-#define AOCL_DTL_LOG_HERK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)
-
 #define AOCL_DTL_LOG_HER2K_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc)
 
+#define AOCL_DTL_LOG_HERK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)
+
 #define AOCL_DTL_LOG_SYMM_INPUTS(loglevel, dt_type, side, uploa, m, n, alpha, lda, ldb, beta, ldc)
+
+#define AOCL_DTL_LOG_SYR2K_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc)
+
+#define AOCL_DTL_LOG_SYRK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)
+
+#define AOCL_DTL_LOG_TRMM_INPUTS(loglevel, dt_type, side, uploa, transa, diaga, m, n, alpha, lda, ldb)
+
+#define AOCL_DTL_LOG_TRSM_INPUTS(loglevel, dt, side, uploa, transa, diaga, m, n, alpha, lda, ldb)
+
+#define AOCL_DTL_LOG_TRSM_STATS(loglevel, dt_type, side, m, n)
+
+// Level-3 Extension Macros
+
+#define AOCL_DTL_LOG_GEMM3M_INPUTS(loglevel, dt, transa, transb, m, n, k, alpha, lda, ldb, beta, ldc)
+
+#define AOCL_DTL_LOG_GEMM3M_STATS(loglevel, dt_type, m, n, k)
+
+#define AOCL_DTL_LOG_GEMM_BATCH_INPUTS(loglevel, dt, group_count)
+
+#define AOCL_DTL_LOG_GEMM_GET_SIZE_INPUTS(loglevel, dt, identifier, m, n, k)
+
+#define AOCL_DTL_LOG_GEMM_PACK_INPUTS(loglevel, dt, identifier, trans, m, n, k, alpha, pld)
+
+#define AOCL_DTL_LOG_GEMM_COMPUTE_INPUTS(loglevel, dt, transa, transb, m, n, k, lda, ldb, beta, ldc)
+
+// Level-2 Macros
 
 #define AOCL_DTL_LOG_GEMV_INPUTS(loglevel, dt_type, transa, m, n, alp, lda, incx, beta, incy)
 
 #define AOCL_DTL_LOG_GER_INPUTS(loglevel, dt_type, m, n, alpha, incx, incy, lda)
 
+#define AOCL_DTL_LOG_HEMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy)
+
+#define AOCL_DTL_LOG_HER2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda)
+
 #define AOCL_DTL_LOG_HER_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda )
 
 #define AOCL_DTL_LOG_SYMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy)
 
-#define AOCL_DTL_LOG_COPY_INPUTS(loglevel, dt_type, n, incx, incy)
+#define AOCL_DTL_LOG_SYR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda)
 
-#define AOCL_DTL_LOG_SCAL_INPUTS(loglevel, dt_type, alpha, n, incx )
+#define AOCL_DTL_LOG_SYR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda)
 
-#define AOCL_DTL_LOG_SWAP_INPUTS(loglevel, dt_type, n, incx, incy)
+#define AOCL_DTL_LOG_TRMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx)
 
-#define AOCL_DTL_LOG_NRM2_INPUTS(loglevel, dt_type, n, incx)
+#define AOCL_DTL_LOG_TRSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx )
 
-#define AOCL_DTL_LOG_NRM2_STATS(loglevel, dt_type, n)
+// Level-2 Banded Macros
 
-#define AOCL_DTL_LOG_HEMV_INPUTS(loglevel, dt_type, uploa, m, alpha, lda, incx, beta, incy)
+#define AOCL_DTL_LOG_GBMV_INPUTS(loglevel, dt_type, transa, m, n, kl, ku, alp, lda, incx, beta, incy)
 
-#define AOCL_DTL_LOG_HER2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda)
+#define AOCL_DTL_LOG_HBMV_INPUTS(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy)
+
+#define AOCL_DTL_LOG_SBMV_INPUTS(loglevel, dt_type, uploa, m, k, alpha, lda, incx, beta, incy)
+
+#define AOCL_DTL_LOG_TBMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx)
+
+#define AOCL_DTL_LOG_TBSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, k, lda, incx)
+
+// Level-2 Packed Macros
+
+#define AOCL_DTL_LOG_HPMV_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, beta, incy)
+
+#define AOCL_DTL_LOG_HPR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy)
+
+#define AOCL_DTL_LOG_HPR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx )
+
+#define AOCL_DTL_LOG_SPMV_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, beta, incy)
+
+#define AOCL_DTL_LOG_SPR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy)
+
+#define AOCL_DTL_LOG_SPR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx)
+
+#define AOCL_DTL_LOG_TPMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, incx)
+
+#define AOCL_DTL_LOG_TPSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, incx )
+
+// Level-2 plane rotations and modified Givens transformation Macros
+
+#define AOCL_DTL_LOG_ROT_INPUTS(loglevel, dt_type, m, incx, incy, c, s)
+
+#define AOCL_DTL_LOG_ROTG_INPUTS(loglevel, dt_type, a, b, c, s)
+
+#define AOCL_DTL_LOG_ROTM_INPUTS(loglevel, dt_type, m, incx, incy, param1, param2, param3, param4, param5) \
+
+#define AOCL_DTL_LOG_ROTMG_INPUTS(loglevel, dt_type, dd1, dd2, dx1, dy1)
+
+// Level-1 Macros
+
+#define AOCL_DTL_LOG_AMIN_INPUTS(loglevel, dt_type, n, incx)
 
 #define AOCL_DTL_LOG_AMAX_INPUTS(loglevel, dt_type, n, incx)
 
@@ -55075,26 +57507,29 @@ void AOCL_DTL_log_trmm_sizes(int8 loglevel,
 
 #define AOCL_DTL_LOG_AXPY_INPUTS(loglevel, dt_type, n, alpha, incx, incy)
 
+#define AOCL_DTL_LOG_COPY_INPUTS(loglevel, dt_type, n, incx, incy)
+
 #define AOCL_DTL_LOG_DOTV_INPUTS(loglevel, dt_type, conjx, n, incx, incy)
 
-#define AOCL_DTL_LOG_SYR2_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, incy, lda)
+#define AOCL_DTL_LOG_NRM2_INPUTS(loglevel, dt_type, n, incx)
 
-#define AOCL_DTL_LOG_SYR2K_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, ldb, beta, ldc)
+#define AOCL_DTL_LOG_NRM2_STATS(loglevel, dt_type, n)
 
-#define AOCL_DTL_LOG_SYR_INPUTS(loglevel, dt_type, uploa, m, alpha, incx, lda)
+#define AOCL_DTL_LOG_SCAL_INPUTS(loglevel, dt_type, alpha, n, incx )
 
-#define AOCL_DTL_LOG_SYRK_INPUTS(loglevel, dt_type, uploc, transa, m, k, alpha, lda, beta, ldc)
+#define AOCL_DTL_LOG_SWAP_INPUTS(loglevel, dt_type, n, incx, incy)
 
-#define AOCL_DTL_LOG_TRMM_INPUTS(loglevel, dt_type, side, uploa, transa, diaga, m, n, alpha, lda, ldb)
+// Matrix Copy and Transpose Macros
 
-#define AOCL_DTL_LOG_TRMV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx)
+#define AOCL_DTL_LOG_MATADD_INPUTS(loglevel, dt_type, transa, transb, m, n, alpha, lda, beta, ldb, ldc )
 
-#define AOCL_DTL_LOG_TRSV_INPUTS(loglevel, dt_type, uploa, transa, diaga, m, lda, incx )
+#define AOCL_DTL_LOG_MATCOPY_INPUTS(loglevel, dt_type, trans, rows, cols, alpha, lda, ldb )
 
-#endif
+#define AOCL_DTL_LOG_MATCOPY2_INPUTS(loglevel, dt_type, trans, rows, cols, alpha, lda, stridea, ldb, strideb )
 
+#endif // AOCL_DTL_LOG_ENABLE
 
-#endif
+#endif //ndef __AOCLDTL_BLIS_H
 // end aocldtl_blis.h
 
 // End extern "C" construct block.

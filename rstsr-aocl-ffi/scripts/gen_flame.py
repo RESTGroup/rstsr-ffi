@@ -16,6 +16,7 @@
 
 import subprocess
 import os
+import re
 import shutil
 from tree_sitter import Language, Parser
 import tree_sitter_rust
@@ -85,8 +86,10 @@ with open("flame.rs", "r") as f:
     token = f.read()
 
 token = token.replace("::core::ffi::", "").replace("::core::option::", "")
-token = token.replace("pub type integer = c_int;", "")
-token = token.replace("pub type uinteger = c_ulong;", "")
+# `integer`/`uinteger` must come from `crate::blis_types` (cfg-selected for ILP64);
+# match any target type - upstream changed `int` to `int32_t` in AOCL 5.3.
+token = re.sub(r"pub type (?:integer|uinteger) = [^;]+;", "", token)
+assert "pub type integer = " not in token and "pub type uinteger = " not in token
 token = """pub(crate) use crate::blis_types::*;\n\n""" + token
 
 files_split = util_dyload.dyload_main(token)
