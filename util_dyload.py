@@ -47,6 +47,21 @@ def dyload_fn_split(node):
             result[child.type] = child
     assert(result["identifier"] is not None)
     assert(result["parameters"] is not None)
+    # `cfg` attributes are carried into every generated piece, so a function can be
+    # gated by platform/feature consistently; other attributes stay in `ffi_extern` only.
+    # (tree-sitter puts outer attributes on foreign items as preceding sibling nodes;
+    # the child scan covers grammars that nest them.)
+    result["cfg_attributes"] = []
+    for child in node.children:
+        if child.type == "attribute_item":
+            result["cfg_attributes"].append(child.text.decode("utf8"))
+    sibling = node.prev_sibling
+    while sibling is not None and sibling.type == "attribute_item":
+        result["cfg_attributes"].insert(0, sibling.text.decode("utf8"))
+        sibling = sibling.prev_sibling
+    result["cfg_attributes"] = [
+        attr for attr in result["cfg_attributes"] if attr.startswith(("#[cfg(", "#[cfg_attr("))
+    ]
     return result
 
 
@@ -113,6 +128,12 @@ def dyload_main(token, token_extra=None):
                 dyload_lib().{identifier}.unwrap()({parameters_called})
             }}
         """.strip()
+
+        if dict_fn["cfg_attributes"]:
+            attributes_prefix = "\n".join(dict_fn["cfg_attributes"]) + "\n"
+            part_dyload_struct = attributes_prefix + part_dyload_struct
+            part_dyload_initializer = attributes_prefix + part_dyload_initializer
+            part_dyload_compatible = attributes_prefix + part_dyload_compatible
 
         token_dyload_struct += part_dyload_struct + "\n"
         token_dyload_initializer += part_dyload_initializer + "\n"

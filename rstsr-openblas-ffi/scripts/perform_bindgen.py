@@ -2,7 +2,8 @@
 
 # This python file can also be opened by Jupyter notebook with jupytext extension.
 
-# User must change `path_repo` to the local path of Netlib LAPACK repository.
+# The vendored headers in `../header` are the binding input; refresh them from the
+# OpenBLAS checkout at the target release tag before running (see skill `update-ffi-blas`).
 
 import subprocess
 import os
@@ -12,6 +13,26 @@ import re
 import sys
 sys.path.append("../..")
 import util_dyload
+
+
+def replace_required(token, old, new):
+    """Text patch that must fire; a silent no-op means upstream changed format."""
+    assert old in token, f"patch target missing: {old!r}"
+    return token.replace(old, new)
+
+
+def sub_required(pattern, repl, token):
+    """Regex patch that must fire; a silent no-op means upstream changed format."""
+    token, n = re.subn(pattern, repl, token)
+    assert n > 0, f"patch pattern matched nothing: {pattern!r}"
+    return token
+
+
+def assert_absent(pattern, token, what):
+    """Post-condition for a removal patch: the target must be gone."""
+    match = re.search(pattern, token)
+    assert match is None, f"{what} still present after post-processing: {match.group(0)!r}"
+
 
 path_cwd = os.path.abspath(os.getcwd())
 
@@ -51,7 +72,7 @@ with open("openblas_config_template.h", "r") as f:
 # +
 # use typedef for xdouble
 
-token = token.replace("#define xdouble double", "typedef double xdouble;")
+token = replace_required(token, "#define xdouble double", "typedef double xdouble;")
 token = "#define OPENBLAS_NEEDBUNDERSCORE\n" + token
 # -
 
@@ -96,13 +117,15 @@ with open("f77blas.rs", "r") as f:
 # +
 # rename blasint to blas_int
 
-token = token.replace("blasint", "blas_int")
+token = replace_required(token, "blasint", "blas_int")
 
 # +
 # remove cargo-feature related parts
 
-token = token.replace("pub type xdouble = f64;", "")
-token = token.replace("pub type blas_int = ::core::ffi::c_int;", "")
+token = replace_required(token, "pub type xdouble = f64;", "")
+assert_absent(r"pub type\s+xdouble\s*=", token, "local xdouble type alias")
+token = replace_required(token, "pub type blas_int = ::core::ffi::c_int;", "")
+assert_absent(r"pub type\s+(blas_int|F77_INT)\s*=", token, "local blas_int type alias")
 
 # +
 # add headers
@@ -166,7 +189,16 @@ for key, item in util_dyload.dyload_main(token).items():
 with open("cblas.h", "r") as f:
     token = f.read()
 
-token = token.replace("common.h", "common_parse.h")
+token = replace_required(token, '#include "common.h"', '#include "common_parse.h"')
+
+# Upstream declares the thread-affinity API under `#ifdef OPENBLAS_OS_LINUX`, and the
+# config template includes <sched.h> for cpu_set_t under the same macro. Define it so
+# the pair is bound, then gate the Rust items with #[cfg(target_os = "linux")] after
+# bindgen; generation therefore requires a Linux host. The define stays valueless:
+# a valued `#define` would leak into bindgen output as a `pub const` (upstream only
+# tests definedness).
+assert re.search(r"#ifdef\s+OPENBLAS_OS_LINUX\b", token), "OPENBLAS_OS_LINUX block not found in cblas.h"
+token = "#define OPENBLAS_OS_LINUX\n" + token
 
 with open("cblas_parse.h", "w") as f:
     f.write(token)
@@ -193,23 +225,46 @@ with open("cblas.rs", "r") as f:
 # +
 # rename blasint to blas_int
 
-token = token.replace("blasint", "blas_int")
+token = replace_required(token, "blasint", "blas_int")
+
+# the OPENBLAS_OS_LINUX define injected above is build configuration, not API
+assert_absent(r"OPENBLAS_OS_LINUX", token, "injected OPENBLAS_OS_LINUX macro leak")
 
 # +
 # remove cargo-feature related parts
 
-token = token.replace("pub type blas_int = ::core::ffi::c_int;", "")
+token = replace_required(token, "pub type blas_int = ::core::ffi::c_int;", "")
+assert_absent(r"pub type\s+(blas_int|CBLAS_INT)\s*=", token, "local blas_int type alias")
 
 # +
 # remove CBLAS enums
 
-token = token.replace("pub use self::CBLAS_ORDER as CBLAS_LAYOUT;", "")
-token = re.sub(r"\#\[repr[^=]*CBLAS_LAYOUT {[^#]*?}", "", token)
-token = re.sub(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
-token = re.sub(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
-token = re.sub(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
-token = re.sub(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
-token = re.sub(r"\#\[repr[^=]*CBLAS_ORDER {[^#]*?}", "", token)
+token = replace_required(token, "pub use self::CBLAS_ORDER as CBLAS_LAYOUT;", "")
+# bindgen names the layout enum CBLAS_ORDER (CBLAS_LAYOUT appears only as the alias
+# above), so each enum is matched by its own name.
+token = sub_required(r"\#\[repr[^=]*CBLAS_TRANSPOSE {[^#]*?}", "", token)
+token = sub_required(r"\#\[repr[^=]*CBLAS_UPLO {[^#]*?}", "", token)
+token = sub_required(r"\#\[repr[^=]*CBLAS_DIAG {[^#]*?}", "", token)
+token = sub_required(r"\#\[repr[^=]*CBLAS_SIDE {[^#]*?}", "", token)
+token = sub_required(r"\#\[repr[^=]*CBLAS_ORDER {[^#]*?}", "", token)
+assert_absent(
+    r"pub (enum|struct|type)\s+CBLAS_(LAYOUT|TRANSPOSE|UPLO|DIAG|SIDE|ORDER)\b",
+    token,
+    "local CBLAS enum definition",
+)
+assert_absent(r"CBLAS_LAYOUT\b", token, "CBLAS_LAYOUT alias")
+
+# Linux-only items: gate the affinity API and the sched.h types it uses.
+for pattern in [
+    r"pub fn openblas_setaffinity\b",
+    r"pub fn openblas_getaffinity\b",
+    r"pub struct cpu_set_t\b",
+    r"pub type __cpu_mask\b",
+]:
+    token, n = re.subn(
+        rf'(?m)^([ \t]*)({pattern})', r'\1#[cfg(target_os = "linux")]\n\1\2', token
+    )
+    assert n == 1, f"expected exactly one occurrence to gate, found {n}: {pattern!r}"
 
 # +
 # remove somehow redundant code
@@ -241,7 +296,6 @@ dir_relative = "cblas"
 shutil.rmtree(dir_relative, ignore_errors=True)
 os.makedirs(dir_relative)
 for key, item in util_dyload.dyload_main(token, token_extra).items():
-    # ffi_base should be handled manually, so copy to ffi_base_template.rs
     with open(f"{dir_relative}/{key}.rs", "w") as f:
         f.write(item)
 # -

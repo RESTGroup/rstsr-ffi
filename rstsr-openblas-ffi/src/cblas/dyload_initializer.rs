@@ -30,6 +30,10 @@ impl DyLoadLib {
             )
             .map(|sym| *sym),
             openblas_set_xerbla: get_symbol(&libs, b"openblas_set_xerbla\0").map(|sym| *sym),
+            #[cfg(target_os = "linux")]
+            openblas_setaffinity: get_symbol(&libs, b"openblas_setaffinity\0").map(|sym| *sym),
+            #[cfg(target_os = "linux")]
+            openblas_getaffinity: get_symbol(&libs, b"openblas_getaffinity\0").map(|sym| *sym),
             openblas_get_parallel: get_symbol(&libs, b"openblas_get_parallel\0").map(|sym| *sym),
             cblas_sdsdot: get_symbol(&libs, b"cblas_sdsdot\0").map(|sym| *sym),
             cblas_dsdot: get_symbol(&libs, b"cblas_dsdot\0").map(|sym| *sym),
