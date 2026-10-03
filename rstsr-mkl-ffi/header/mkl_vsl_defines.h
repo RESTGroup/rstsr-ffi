@@ -23,6 +23,18 @@
 #define __MKL_VSL_DEFINES_H__
 
 #ifdef __cplusplus
+#define MKL_DEPRECATED [[deprecated]]
+#else
+#ifdef __GNUC__
+#define MKL_DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#define MKL_DEPRECATED __declspec(deprecated)
+#else
+#define MKL_DEPRECATED
+#endif /* __GNUC__, _MSC_VER */
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
@@ -244,8 +256,13 @@ extern "C" {
 /*
 // CONV/CORR RELATED MACRO DEFINITIONS
 */
-#define VSL_CONV_MODE_AUTO        0
-#define VSL_CORR_MODE_AUTO        0
+
+#define VSL_CONV_MODE_AUTO_DEPRECATED        0
+#define VSL_CORR_MODE_AUTO_DEPRECATED        0
+
+MKL_DEPRECATED static const int VSL_CONV_MODE_AUTO = VSL_CONV_MODE_AUTO_DEPRECATED;
+MKL_DEPRECATED static const int VSL_CORR_MODE_AUTO = VSL_CORR_MODE_AUTO_DEPRECATED;
+
 #define VSL_CONV_MODE_DIRECT      1
 #define VSL_CORR_MODE_DIRECT      1
 #define VSL_CONV_MODE_FFT         2

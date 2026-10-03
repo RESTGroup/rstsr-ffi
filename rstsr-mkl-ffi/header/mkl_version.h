@@ -24,13 +24,13 @@
 #ifndef _MKL_VERSION_H_
 #define _MKL_VERSION_H_
 
-#define __INTEL_MKL_BUILD_DATE 20250620
+#define __INTEL_MKL_BUILD_DATE 20260612
 
-#define __INTEL_MKL__          2025
+#define __INTEL_MKL__          2026
 #define __INTEL_MKL_MINOR__    0
-#define __INTEL_MKL_UPDATE__   2
+#define __INTEL_MKL_UPDATE__   1
 #define __INTEL_MKL_PATCH__    0
 
-#define INTEL_MKL_VERSION      20250200
+#define INTEL_MKL_VERSION      20260100
 
 #endif

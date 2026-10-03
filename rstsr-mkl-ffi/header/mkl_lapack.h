@@ -3215,6 +3215,70 @@ void ztrevc3_( const char* side, const char* howmny, const MKL_INT* select,
                MKL_Complex16* work, const MKL_INT* lwork, double* rwork,
                const MKL_INT* lrwork, MKL_INT* info ) NOTHROW;
 
+void SGEQRF_BATCH_STRIDED( const MKL_INT* m, const MKL_INT* n, float* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           float* tau, const MKL_INT* stride_tau,
+                           float* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void sgeqrf_batch_strided( const MKL_INT* m, const MKL_INT* n, float* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           float* tau, const MKL_INT* stride_tau,
+                           float* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void sgeqrf_batch_strided_( const MKL_INT* m, const MKL_INT* n, float* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           float* tau, const MKL_INT* stride_tau,
+                           float* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+
+void DGEQRF_BATCH_STRIDED( const MKL_INT* m, const MKL_INT* n, double* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           double* tau, const MKL_INT* stride_tau,
+                           double* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void dgeqrf_batch_strided( const MKL_INT* m, const MKL_INT* n, double* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           double* tau, const MKL_INT* stride_tau,
+                           double* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void dgeqrf_batch_strided_( const MKL_INT* m, const MKL_INT* n, double* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           double* tau, const MKL_INT* stride_tau,
+                           double* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+
+void CGEQRF_BATCH_STRIDED( const MKL_INT* m, const MKL_INT* n, MKL_Complex8* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex8* tau, const MKL_INT* stride_tau,
+                           MKL_Complex8* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void cgeqrf_batch_strided( const MKL_INT* m, const MKL_INT* n, MKL_Complex8* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex8* tau, const MKL_INT* stride_tau,
+                           MKL_Complex8* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void cgeqrf_batch_strided_( const MKL_INT* m, const MKL_INT* n, MKL_Complex8* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex8* tau, const MKL_INT* stride_tau,
+                           MKL_Complex8* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+
+void ZGEQRF_BATCH_STRIDED( const MKL_INT* m, const MKL_INT* n, MKL_Complex16* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex16* tau, const MKL_INT* stride_tau,
+                           MKL_Complex16* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void zgeqrf_batch_strided( const MKL_INT* m, const MKL_INT* n, MKL_Complex16* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex16* tau, const MKL_INT* stride_tau,
+                           MKL_Complex16* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+void zgeqrf_batch_strided_( const MKL_INT* m, const MKL_INT* n, MKL_Complex16* a,
+                           const MKL_INT* lda, const MKL_INT* stride_a,
+                           MKL_Complex16* tau, const MKL_INT* stride_tau,
+                           MKL_Complex16* work, const MKL_INT* lwork,
+                           const MKL_INT* batch_size, MKL_INT* info ) NOTHROW;
+
 void SGETRF_BATCH_STRIDED( const MKL_INT* m, const MKL_INT* n, float* a,
                            const MKL_INT* lda, const MKL_INT* stride_a,
                            MKL_INT* ipiv, const MKL_INT* stride_ipiv,
@@ -31930,6 +31994,50 @@ void ztrevc3_64( const char* side, const char* howmny, const MKL_INT64* select,
               const MKL_INT64* ldvr, const MKL_INT64* mm, MKL_INT64* m,
               MKL_Complex16* work, const MKL_INT64* lwork, double* rwork,
               const MKL_INT64* lrwork, MKL_INT64* info ) NOTHROW;
+
+void SGEQRF_BATCH_STRIDED_64( const MKL_INT64* m, const MKL_INT64* n, float* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           float* tau, const MKL_INT64* stride_tau,
+                           float* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+void sgeqrf_batch_strided_64( const MKL_INT64* m, const MKL_INT64* n, float* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           float* tau, const MKL_INT64* stride_tau,
+                           float* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+
+void DGEQRF_BATCH_STRIDED_64( const MKL_INT64* m, const MKL_INT64* n, double* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           double* tau, const MKL_INT64* stride_tau,
+                           double* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+void dgeqrf_batch_strided_64( const MKL_INT64* m, const MKL_INT64* n, double* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           double* tau, const MKL_INT64* stride_tau,
+                           double* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+
+void CGEQRF_BATCH_STRIDED_64( const MKL_INT64* m, const MKL_INT64* n, MKL_Complex8* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           MKL_Complex8* tau, const MKL_INT64* stride_tau,
+                           MKL_Complex8* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+void cgeqrf_batch_strided_64( const MKL_INT64* m, const MKL_INT64* n, MKL_Complex8* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           MKL_Complex8* tau, const MKL_INT64* stride_tau,
+                           MKL_Complex8* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+
+void ZGEQRF_BATCH_STRIDED_64( const MKL_INT64* m, const MKL_INT64* n, MKL_Complex16* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           MKL_Complex16* tau, const MKL_INT64* stride_tau,
+                           MKL_Complex16* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
+void zgeqrf_batch_strided_64( const MKL_INT64* m, const MKL_INT64* n, MKL_Complex16* a,
+                           const MKL_INT64* lda, const MKL_INT64* stride_a,
+                           MKL_Complex16* tau, const MKL_INT64* stride_tau,
+                           MKL_Complex16* work, const MKL_INT64* lwork,
+                           const MKL_INT64* batch_size, MKL_INT64* info ) NOTHROW;
 
 void SGETRF_BATCH_STRIDED_64( const MKL_INT64* m, const MKL_INT64* n, float* a,
                            const MKL_INT64* lda, const MKL_INT64* stride_a,
