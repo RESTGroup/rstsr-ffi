@@ -18,6 +18,22 @@ pub struct DyLoadLib {
         Option<unsafe extern "C" fn(callback: openblas_threads_callback)>,
     pub openblas_set_xerbla:
         Option<unsafe extern "C" fn(handler: openblas_xerbla_handler) -> openblas_xerbla_handler>,
+    #[cfg(target_os = "linux")]
+    pub openblas_setaffinity: Option<
+        unsafe extern "C" fn(
+            thread_idx: c_int,
+            cpusetsize: usize,
+            cpu_set: *mut cpu_set_t,
+        ) -> c_int,
+    >,
+    #[cfg(target_os = "linux")]
+    pub openblas_getaffinity: Option<
+        unsafe extern "C" fn(
+            thread_idx: c_int,
+            cpusetsize: usize,
+            cpu_set: *mut cpu_set_t,
+        ) -> c_int,
+    >,
     pub openblas_get_parallel: Option<unsafe extern "C" fn() -> c_int>,
     pub cblas_sdsdot: Option<
         unsafe extern "C" fn(

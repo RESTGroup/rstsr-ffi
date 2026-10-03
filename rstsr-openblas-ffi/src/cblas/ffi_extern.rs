@@ -14,6 +14,18 @@ unsafe extern "C" {
     pub fn openblas_get_corename() -> *mut c_char;
     pub fn openblas_set_threads_callback_function(callback: openblas_threads_callback);
     pub fn openblas_set_xerbla(handler: openblas_xerbla_handler) -> openblas_xerbla_handler;
+    #[cfg(target_os = "linux")]
+    pub fn openblas_setaffinity(
+        thread_idx: c_int,
+        cpusetsize: usize,
+        cpu_set: *mut cpu_set_t,
+    ) -> c_int;
+    #[cfg(target_os = "linux")]
+    pub fn openblas_getaffinity(
+        thread_idx: c_int,
+        cpusetsize: usize,
+        cpu_set: *mut cpu_set_t,
+    ) -> c_int;
     pub fn openblas_get_parallel() -> c_int;
     pub fn cblas_sdsdot(
         n: blas_int,

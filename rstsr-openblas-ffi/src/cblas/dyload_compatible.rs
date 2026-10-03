@@ -43,6 +43,24 @@ pub unsafe fn openblas_set_xerbla(handler: openblas_xerbla_handler) -> openblas_
     dyload_lib().openblas_set_xerbla.unwrap()(handler)
 }
 
+#[cfg(target_os = "linux")]
+pub unsafe fn openblas_setaffinity(
+    thread_idx: c_int,
+    cpusetsize: usize,
+    cpu_set: *mut cpu_set_t,
+) -> c_int {
+    dyload_lib().openblas_setaffinity.unwrap()(thread_idx, cpusetsize, cpu_set)
+}
+
+#[cfg(target_os = "linux")]
+pub unsafe fn openblas_getaffinity(
+    thread_idx: c_int,
+    cpusetsize: usize,
+    cpu_set: *mut cpu_set_t,
+) -> c_int {
+    dyload_lib().openblas_getaffinity.unwrap()(thread_idx, cpusetsize, cpu_set)
+}
+
 pub unsafe fn openblas_get_parallel() -> c_int {
     dyload_lib().openblas_get_parallel.unwrap()()
 }
