@@ -467,9 +467,14 @@ pub struct DyLoadLib {
     pub bli_thread_set_ways:
         Option<unsafe extern "C" fn(jc: dim_t, pc: dim_t, ic: dim_t, jr: dim_t, ir: dim_t)>,
     pub bli_thread_set_num_threads: Option<unsafe extern "C" fn(value: dim_t)>,
+    pub bli_thread_set_num_threads_local: Option<unsafe extern "C" fn(value: dim_t)>,
     pub bli_thread_init_rntm_from_env: Option<unsafe extern "C" fn(rntm: *mut rntm_t)>,
     pub bli_thread_init_rntm_from_global_rntm: Option<unsafe extern "C" fn(rntm: *mut rntm_t)>,
     pub bli_thread_update_rntm_from_env: Option<unsafe extern "C" fn(rntm: *mut rntm_t)>,
+    pub bli_thread_reset: Option<unsafe extern "C" fn()>,
+    pub bli_cntx_init_zen6: Option<unsafe extern "C" fn(cntx: *mut cntx_t)>,
+    pub bli_cntx_init_zen6_ref: Option<unsafe extern "C" fn(cntx: *mut cntx_t)>,
+    pub bli_cntx_init_zen6_ind: Option<unsafe extern "C" fn(method: ind_t, cntx: *mut cntx_t)>,
     pub bli_cntx_init_zen5: Option<unsafe extern "C" fn(cntx: *mut cntx_t)>,
     pub bli_cntx_init_zen5_ref: Option<unsafe extern "C" fn(cntx: *mut cntx_t)>,
     pub bli_cntx_init_zen5_ind: Option<unsafe extern "C" fn(method: ind_t, cntx: *mut cntx_t)>,
@@ -5068,7 +5073,18 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x8m: Option<
+    pub bli_dcopyv_zen5_asm: Option<
+        unsafe extern "C" fn(
+            conjx: conj_t,
+            n: dim_t,
+            x: *mut f64,
+            incx: inc_t,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemmsup_cv_zen5_asm_24x8m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5090,7 +5106,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x7m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x7m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5112,7 +5128,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x6m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x6m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5134,7 +5150,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x5m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x5m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5156,7 +5172,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x4m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x4m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5178,7 +5194,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x3m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x3m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5200,7 +5216,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x2m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x2m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5222,7 +5238,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen5_asm_24x1m: Option<
+    pub bli_dgemmsup_cv_zen5_asm_24x1m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -5254,7 +5270,7 @@ pub struct DyLoadLib {
     >,
     pub bli_dynamic_blkszs_zen5:
         Option<unsafe extern "C" fn(n_threads: dim_t, cntx: *mut cntx_t, dt: num_t)>,
-    pub bli_trsm_small_ZEN5: Option<
+    pub bli_trsm_small_zen5: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -5265,7 +5281,7 @@ pub struct DyLoadLib {
             is_parallel: bool,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_XAltB_XAuB_ZEN5: Option<
+    pub bli_dtrsm_small_zen5_int_XAltB_XAuB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5274,7 +5290,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_XAutB_XAlB_ZEN5: Option<
+    pub bli_dtrsm_small_zen5_int_XAutB_XAlB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5283,7 +5299,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_AltXB_AuXB_ZEN5: Option<
+    pub bli_dtrsm_small_zen5_int_AltXB_AuXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5292,7 +5308,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_AutXB_AlXB_ZEN5: Option<
+    pub bli_dtrsm_small_zen5_int_AutXB_AlXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5301,7 +5317,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_XAltB_XAuB_ZEN5: Option<
+    pub bli_ztrsm_small_zen5_int_XAltB_XAuB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5310,7 +5326,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_XAutB_XAlB_ZEN5: Option<
+    pub bli_ztrsm_small_zen5_int_XAutB_XAlB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5319,7 +5335,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_AltXB_AuXB_ZEN5: Option<
+    pub bli_ztrsm_small_zen5_int_AltXB_AuXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5328,7 +5344,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_AutXB_AlXB_ZEN5: Option<
+    pub bli_ztrsm_small_zen5_int_AutXB_AlXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -5337,7 +5353,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_trsm_small_mt_ZEN5: Option<
+    pub bli_trsm_small_zen5_mt: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -5348,9 +5364,13 @@ pub struct DyLoadLib {
             is_parallel: bool,
         ) -> err_t,
     >,
-    pub bli_zgemmtiny_avx512_ukr_info:
+    pub bli_cgemmtiny_ukr_zen4_info:
         Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
-    pub bli_daddv_zen_int_avx512: Option<
+    pub bli_zgemmtiny_ukr_zen4_info:
+        Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
+    pub bli_sgemmtiny_ukr_zen4_info:
+        Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
+    pub bli_daddv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5361,7 +5381,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_samaxv_zen_int_avx512: Option<
+    pub bli_samaxv_zen4_int: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut f32,
@@ -5370,7 +5390,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_damaxv_zen_int_avx512: Option<
+    pub bli_damaxv_zen4_int: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut f64,
@@ -5379,7 +5399,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sscalv_zen_int_avx512: Option<
+    pub bli_sscalv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5389,7 +5409,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dscalv_zen_int_avx512: Option<
+    pub bli_dscalv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5399,7 +5419,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_cscalv_zen_int_avx512: Option<
+    pub bli_cscalv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5409,7 +5429,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zscalv_zen_int_avx512: Option<
+    pub bli_zscalv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5419,7 +5439,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdscalv_zen_int_avx512: Option<
+    pub bli_zdscalv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5429,7 +5449,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_ssetv_zen_int_avx512: Option<
+    pub bli_ssetv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5439,7 +5459,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dsetv_zen_int_avx512: Option<
+    pub bli_dsetv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5449,7 +5469,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zsetv_zen_int_avx512: Option<
+    pub bli_zsetv_zen4_int: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -5459,7 +5479,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sdotv_zen_int_avx512: Option<
+    pub bli_sdotv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -5472,7 +5492,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_ddotv_zen_int_avx512: Option<
+    pub bli_ddotv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -5485,7 +5505,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotv_zen_int_avx512: Option<
+    pub bli_zdotv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -5498,7 +5518,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotv_zen4_asm_avx512: Option<
+    pub bli_zdotv_zen4_asm: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -5511,7 +5531,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_saxpyv_zen_int_avx512: Option<
+    pub bli_saxpyv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5523,7 +5543,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyv_zen_int_avx512: Option<
+    pub bli_daxpyv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5535,7 +5555,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zaxpyv_zen_int_avx512: Option<
+    pub bli_zaxpyv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5547,7 +5567,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpbyv_zen_int_avx512: Option<
+    pub bli_daxpbyv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5560,7 +5580,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zaxpyf_zen_int_2_avx512: Option<
+    pub bli_zaxpyf_zen4_int_2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5577,7 +5597,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zaxpyf_zen_int_4_avx512: Option<
+    pub bli_zaxpyf_zen4_int_4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5594,7 +5614,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zaxpyf_zen_int_8_avx512: Option<
+    pub bli_zaxpyf_zen4_int_8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5611,7 +5631,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int_avx512: Option<
+    pub bli_daxpyf_zen4_int: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5628,7 +5648,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int2_avx512: Option<
+    pub bli_daxpyf_zen4_int_2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5645,7 +5665,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int4_avx512: Option<
+    pub bli_daxpyf_zen4_int_4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5662,7 +5682,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int6_avx512: Option<
+    pub bli_daxpyf_zen4_int_6: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5679,7 +5699,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int8_avx512: Option<
+    pub bli_daxpyf_zen4_int_8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5696,7 +5716,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int12_avx512: Option<
+    pub bli_daxpyf_zen4_int_12: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5713,7 +5733,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int16_avx512: Option<
+    pub bli_daxpyf_zen4_int_16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5730,7 +5750,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int32_avx512: Option<
+    pub bli_daxpyf_zen4_int_32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5747,7 +5767,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyf_zen_int32_avx512_mt: Option<
+    pub bli_daxpyf_zen4_int_32_mt: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5764,7 +5784,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_ddotxf_zen_int_avx512: Option<
+    pub bli_ddotxf_zen4_int: Option<
         unsafe extern "C" fn(
             conjat: conj_t,
             conjx: conj_t,
@@ -5782,7 +5802,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_scopyv_zen4_asm_avx512: Option<
+    pub bli_scopyv_zen4_asm: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5793,7 +5813,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dcopyv_zen4_asm_avx512: Option<
+    pub bli_dcopyv_zen4_asm: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5804,7 +5824,18 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zcopyv_zen4_asm_avx512: Option<
+    pub bli_dcopyv_zen4_asm_biway: Option<
+        unsafe extern "C" fn(
+            conjx: conj_t,
+            n: dim_t,
+            x: *mut f64,
+            incx: inc_t,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_zcopyv_zen4_asm: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5815,7 +5846,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dscal2v_zen_int_avx512: Option<
+    pub bli_dscal2v_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -5827,7 +5858,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotxv_zen_int_avx512: Option<
+    pub bli_zdotxv_zen4_int: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -5842,7 +5873,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotxf_zen_int_8_avx512: Option<
+    pub bli_zdotxf_zen4_int_8: Option<
         unsafe extern "C" fn(
             conjat: conj_t,
             conjx: conj_t,
@@ -5860,7 +5891,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotxf_zen_int_4_avx512: Option<
+    pub bli_zdotxf_zen4_int_4: Option<
         unsafe extern "C" fn(
             conjat: conj_t,
             conjx: conj_t,
@@ -5878,7 +5909,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotxf_zen_int_2_avx512: Option<
+    pub bli_zdotxf_zen4_int_2: Option<
         unsafe extern "C" fn(
             conjat: conj_t,
             conjx: conj_t,
@@ -5896,7 +5927,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx8_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5914,7 +5945,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx7_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx7: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5932,7 +5963,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx6_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx6: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5950,7 +5981,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx5_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx5: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5968,7 +5999,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx4_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -5986,7 +6017,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx3_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx3: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6004,7 +6035,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx2_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6022,7 +6053,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16mx1_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16mx1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6040,7 +6071,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_32x8n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x8n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6058,7 +6089,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16x8n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16x8n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6076,7 +6107,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_8x8n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_8x8n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6094,7 +6125,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_m_leftx8n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_m_leftx8n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6112,7 +6143,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_32x4n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x4n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6130,7 +6161,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16x4n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16x4n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6148,7 +6179,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_8x4n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_8x4n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6166,7 +6197,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_m_leftx4n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_m_leftx4n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6184,7 +6215,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_32x3n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x3n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6202,7 +6233,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16x3n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16x3n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6220,7 +6251,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_8x3n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_8x3n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6238,7 +6269,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_m_leftx3n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_m_leftx3n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6256,7 +6287,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_32x2n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x2n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6274,7 +6305,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16x2n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16x2n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6292,7 +6323,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_8x2n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_8x2n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6310,7 +6341,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_m_leftx2n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_m_leftx2n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6328,7 +6359,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_32x1n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x1n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6346,7 +6377,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_16x1n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_16x1n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6364,7 +6395,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_8x1n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_8x1n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6382,7 +6413,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_zen_int_m_leftx1n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_m_leftx1n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6400,7 +6431,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_avx512: Option<
+    pub bli_dgemv_t_zen4_int: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6418,7 +6449,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx8_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x7m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6436,7 +6467,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx7_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x6m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6454,7 +6485,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx6_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x5m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6472,7 +6503,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx5_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x4m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6490,7 +6521,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx4_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x3m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6508,7 +6539,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx3_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x2m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6526,7 +6557,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx2_avx512: Option<
+    pub bli_dgemv_t_zen4_int_32x1m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -6544,25 +6575,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx1_avx512: Option<
-        unsafe extern "C" fn(
-            conja: conj_t,
-            conjx: conj_t,
-            m: dim_t,
-            n: dim_t,
-            alpha: *mut f64,
-            a: *mut f64,
-            rs: inc_t,
-            cs: inc_t,
-            x: *mut f64,
-            incx: inc_t,
-            beta: *mut f64,
-            y: *mut f64,
-            incy: inc_t,
-            cntx: *mut cntx_t,
-        ),
-    >,
-    pub bli_dgemmtrsm_l_zen_asm_16x14: Option<
+    pub bli_dgemmtrsm_l_zen4_asm_16x14: Option<
         unsafe extern "C" fn(
             k: dim_t,
             alpha: *mut f64,
@@ -6577,7 +6590,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmtrsm_u_zen_asm_16x14: Option<
+    pub bli_dgemmtrsm_u_zen4_asm_16x14: Option<
         unsafe extern "C" fn(
             k: dim_t,
             alpha: *mut f64,
@@ -6732,6 +6745,38 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
+    pub bli_cpackm_zen4_asm_24xk: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            schema: pack_t,
+            cdim: dim_t,
+            n: dim_t,
+            n_max: dim_t,
+            kappa: *mut scomplex,
+            a: *mut scomplex,
+            inca: inc_t,
+            lda: inc_t,
+            p: *mut scomplex,
+            ldp: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cpackm_zen4_asm_4xk: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            schema: pack_t,
+            cdim: dim_t,
+            n: dim_t,
+            n_max: dim_t,
+            kappa: *mut scomplex,
+            a: *mut scomplex,
+            inca: inc_t,
+            lda: inc_t,
+            p: *mut scomplex,
+            ldp: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
     pub bli_zpackm_zen4_asm_12xk: Option<
         unsafe extern "C" fn(
             conja: conj_t,
@@ -6764,7 +6809,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemm_avx512_asm_8x24: Option<
+    pub bli_dgemm_zen4_asm_8x24: Option<
         unsafe extern "C" fn(
             k: dim_t,
             alpha: *mut f64,
@@ -6820,7 +6865,35 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemm_avx512_asm_8x24_macro_kernel: Option<
+    pub bli_cgemm_zen4_asm_24x4: Option<
+        unsafe extern "C" fn(
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            b: *mut scomplex,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemm_zen4_asm_4x24: Option<
+        unsafe extern "C" fn(
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            b: *mut scomplex,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemm_zen4_asm_8x24_macro_kernel: Option<
         unsafe extern "C" fn(
             n: dim_t,
             m: dim_t,
@@ -6832,7 +6905,7 @@ pub struct DyLoadLib {
             beta: *mut f64,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_6x64m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x64m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6854,7 +6927,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_6x48m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x48m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6876,7 +6949,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_6x32m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x32m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6898,7 +6971,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_6x16m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x16m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6920,7 +6993,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_4x64m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x64: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6942,7 +7015,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_4x48m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x48: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6964,7 +7037,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_4x32m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -6986,7 +7059,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_4x16m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7008,7 +7081,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_2x64m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x64: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7030,7 +7103,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_2x48m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x48: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7052,7 +7125,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_2x32m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7074,7 +7147,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_2x16m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7096,7 +7169,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_1x64m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x64: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7118,7 +7191,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_1x48m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x48: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7140,7 +7213,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_1x32m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7162,7 +7235,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_1x16m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7184,7 +7257,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_6x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x16m_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7206,7 +7279,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_5x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x16_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7228,7 +7301,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_4x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x16_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7250,7 +7323,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_3x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x16_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7272,7 +7345,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_2x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x8m_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7294,7 +7367,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_1x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x8_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7316,7 +7389,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_5x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x8_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7338,7 +7411,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_5x32_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x8_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7360,7 +7433,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_5x16_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x4m_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7382,7 +7455,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_3x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x4_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7404,7 +7477,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_3x32_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x4_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7426,7 +7499,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rv_zen_asm_3x16_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x4_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7448,7 +7521,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_6x64m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x4_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7470,7 +7543,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_6x48m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x4_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7492,7 +7565,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_6x32m_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_6x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7514,7 +7587,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_3x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7536,7 +7609,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_2x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_4x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7558,7 +7631,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_6x64n_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7580,7 +7653,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_5x64_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_2x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7602,7 +7675,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_4x64_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_1x64n: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7624,7 +7697,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_3x64_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x48: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7646,7 +7719,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_2x64_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7668,7 +7741,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_1x64_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7690,7 +7763,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_5x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x48: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7712,7 +7785,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_4x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x32: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7734,7 +7807,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_3x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x16: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7756,7 +7829,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_2x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x16_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7778,7 +7851,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_1x48_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_5x8_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7800,7 +7873,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_5x32_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x16_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7822,7 +7895,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_4x32_avx512: Option<
+    pub bli_sgemmsup_rv_zen4_asm_3x8_mask: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7844,7 +7917,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_3x32_avx512: Option<
+    pub bli_sgemmsup_rd_zen4_asm_6x64m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7866,7 +7939,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_2x32_avx512: Option<
+    pub bli_sgemmsup_rd_zen4_asm_6x48m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7888,7 +7961,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sgemmsup_rd_zen_asm_1x32_avx512: Option<
+    pub bli_sgemmsup_rd_zen4_asm_6x32m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -7910,7 +7983,403 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_trsm_small_AVX512: Option<
+    pub bli_sgemmsup_rd_zen4_asm_3x64n: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_2x64n: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_6x64n: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_5x64: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_4x64: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_3x64: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_2x64: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_1x64: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_5x48: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_4x48: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_3x48: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_2x48: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_1x48: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_5x32: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_4x32: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_3x32: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_2x32: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_sgemmsup_rd_zen4_asm_1x32: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut f32,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut f32,
+            c: *mut f32,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_trsm_small_zen4: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -7921,7 +8390,7 @@ pub struct DyLoadLib {
             is_parallel: bool,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_AutXB_AlXB_AVX512: Option<
+    pub bli_dtrsm_small_zen4_int_AutXB_AlXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7930,7 +8399,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_XAltB_XAuB_AVX512: Option<
+    pub bli_dtrsm_small_zen4_int_XAltB_XAuB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7939,7 +8408,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_XAutB_XAlB_AVX512: Option<
+    pub bli_dtrsm_small_zen4_int_XAutB_XAlB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7948,7 +8417,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dtrsm_small_AltXB_AuXB_AVX512: Option<
+    pub bli_dtrsm_small_zen4_int_AltXB_AuXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7957,7 +8426,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_AutXB_AlXB_AVX512: Option<
+    pub bli_ztrsm_small_zen4_int_AutXB_AlXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7966,7 +8435,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_XAltB_XAuB_AVX512: Option<
+    pub bli_ztrsm_small_zen4_int_XAltB_XAuB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7975,7 +8444,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_XAutB_XAlB_AVX512: Option<
+    pub bli_ztrsm_small_zen4_int_XAutB_XAlB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7984,7 +8453,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_ztrsm_small_AltXB_AuXB_AVX512: Option<
+    pub bli_ztrsm_small_zen4_int_AltXB_AuXB: Option<
         unsafe extern "C" fn(
             AlphaObj: *mut obj_t,
             a: *mut obj_t,
@@ -7993,7 +8462,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_trsm_small_mt_AVX512: Option<
+    pub bli_trsm_small_zen4_mt: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -8004,7 +8473,7 @@ pub struct DyLoadLib {
             is_parallel: bool,
         ) -> err_t,
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8026,7 +8495,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x7m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x7m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8048,7 +8517,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x6m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x6m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8070,7 +8539,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x5m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x5m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8092,7 +8561,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x4m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x4m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8114,7 +8583,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x3m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x3m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8136,7 +8605,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x2m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x2m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8158,7 +8627,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x1m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x1m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8180,7 +8649,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8202,7 +8671,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x7m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x7m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8224,7 +8693,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x6m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x6m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8246,7 +8715,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x5m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x5m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8268,7 +8737,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x4m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x4m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8290,7 +8759,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x3m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x3m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8312,7 +8781,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x2m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x2m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8334,7 +8803,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x1m_new: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x1m_new: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8356,7 +8825,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8378,7 +8847,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x8: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8400,7 +8869,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x8: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8422,7 +8891,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x8m: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x8m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8444,7 +8913,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x8m_lower: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x8m_lower: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8466,7 +8935,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x8m_upper: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x8m_upper: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8488,7 +8957,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_lower_0: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_lower_0: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8510,7 +8979,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_lower_1: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_lower_1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8532,7 +9001,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_lower_2: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_lower_2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8554,7 +9023,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_upper_0: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_upper_0: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8576,7 +9045,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_upper_1: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_upper_1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8598,7 +9067,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x8m_upper_2: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x8m_upper_2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8686,7 +9155,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x7: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x7: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8708,7 +9177,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x7: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x7: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8730,7 +9199,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x7: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x7: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8752,7 +9221,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x6: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x6: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8774,7 +9243,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x6: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x6: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8796,7 +9265,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x6: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x6: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8818,7 +9287,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x5: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x5: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8840,7 +9309,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x5: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x5: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8862,7 +9331,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x5: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x5: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8884,7 +9353,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x4: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8906,7 +9375,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x4: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8928,7 +9397,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x4: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x4: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8950,7 +9419,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x3: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x3: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8972,7 +9441,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x3: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x3: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -8994,7 +9463,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x3: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x3: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9016,7 +9485,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x2: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9038,7 +9507,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x2: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9060,7 +9529,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x2: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x2: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9082,7 +9551,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_24x1: Option<
+    pub bli_dgemmsup_cv_zen4_asm_24x1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9104,7 +9573,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_16x1: Option<
+    pub bli_dgemmsup_cv_zen4_asm_16x1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9126,7 +9595,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemmsup_rv_zen4_asm_8x1: Option<
+    pub bli_dgemmsup_cv_zen4_asm_8x1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9142,6 +9611,358 @@ pub struct DyLoadLib {
             cs_b: inc_t,
             beta: *mut f64,
             c: *mut f64,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_24x4m: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_24x3m: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_24x2m: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_24x1m: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_16x4: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_16x3: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_16x2: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_16x1: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_8x4: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_8x3: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_8x2: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_8x1: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_fx4: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_fx3: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_fx2: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_cgemmsup_cv_zen4_asm_fx1: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut scomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
             rs_c: inc_t,
             cs_c: inc_t,
             data: *mut auxinfo_t,
@@ -9303,6 +10124,94 @@ pub struct DyLoadLib {
         ),
     >,
     pub bli_zgemmsup_cv_zen4_asm_8x1: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut dcomplex,
+            a: *mut dcomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut dcomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut dcomplex,
+            c: *mut dcomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_zgemmsup_cv_zen4_asm_fx4: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut dcomplex,
+            a: *mut dcomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut dcomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut dcomplex,
+            c: *mut dcomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_zgemmsup_cv_zen4_asm_fx3: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut dcomplex,
+            a: *mut dcomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut dcomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut dcomplex,
+            c: *mut dcomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_zgemmsup_cv_zen4_asm_fx2: Option<
+        unsafe extern "C" fn(
+            conja: conj_t,
+            conjb: conj_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut dcomplex,
+            a: *mut dcomplex,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            b: *mut dcomplex,
+            rs_b: inc_t,
+            cs_b: inc_t,
+            beta: *mut dcomplex,
+            c: *mut dcomplex,
+            rs_c: inc_t,
+            cs_c: inc_t,
+            data: *mut auxinfo_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_zgemmsup_cv_zen4_asm_fx1: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9676,7 +10585,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemm_24x8_avx512_k1_nn: Option<
+    pub bli_dgemm_zen4_int_24x8_k1_nn: Option<
         unsafe extern "C" fn(
             m: dim_t,
             n: dim_t,
@@ -9691,7 +10600,7 @@ pub struct DyLoadLib {
             ldc: inc_t,
         ) -> err_t,
     >,
-    pub bli_dgemm_tiny_24x8: Option<
+    pub bli_dgemm_tiny_zen4_24x8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -9713,10 +10622,25 @@ pub struct DyLoadLib {
             cs_c0: inc_t,
         ) -> err_t,
     >,
-    pub bli_dnorm2fv_unb_var1_avx512: Option<
+    pub bli_dnorm2fv_zen4_int_unb_var1: Option<
         unsafe extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, norm: *mut f64, cntx: *mut cntx_t),
     >,
-    pub bli_zgemm_16x4_avx512_k1_nn: Option<
+    pub bli_cgemm_zen4_int_32x4_k1_nn: Option<
+        unsafe extern "C" fn(
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            alpha: *mut scomplex,
+            a: *mut scomplex,
+            lda: inc_t,
+            b: *mut scomplex,
+            ldb: inc_t,
+            beta: *mut scomplex,
+            c: *mut scomplex,
+            ldc: inc_t,
+        ),
+    >,
+    pub bli_zgemm_zen4_int_16x4_k1_nn: Option<
         unsafe extern "C" fn(
             m: dim_t,
             n: dim_t,
@@ -9742,7 +10666,133 @@ pub struct DyLoadLib {
     pub bli_dynamic_blkszs_zen4:
         Option<unsafe extern "C" fn(n_threads: dim_t, cntx: *mut cntx_t, dt: num_t)>,
     pub bli_zero_zmm: Option<unsafe extern "C" fn()>,
-    pub bli_dgemv_n_avx512: Option<
+    pub bli_dgemv_n_zen4_int_32x8_st: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_n_zen4_int: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_n_zen4_int_40x2_st: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_n_zen4_int_40x2_mt: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_m_zen4_int_40x8_st: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_m_zen4_int_40x8_mt_Ndiv: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_m_zen4_int_40x8_mt_Mdiv: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            conjx: conj_t,
+            m: dim_t,
+            n: dim_t,
+            alpha: *mut f64,
+            a: *mut f64,
+            rs_a: inc_t,
+            cs_a: inc_t,
+            x: *mut f64,
+            incx: inc_t,
+            beta: *mut f64,
+            y: *mut f64,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv: Option<
         unsafe extern "C" fn(
             transa: trans_t,
             conjx: conj_t,
@@ -9794,7 +10844,11 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zgemmtiny_avx2_ukr_info:
+    pub bli_cgemmtiny_ukr_zen_info:
+        Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
+    pub bli_zgemmtiny_ukr_zen_info:
+        Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
+    pub bli_sgemmtiny_ukr_zen_info:
         Option<unsafe extern "C" fn(stor_id: stor3_t, fp_info: *mut gemmtiny_ukr_info_t) -> err_t>,
     pub bli_saddv_zen_int: Option<
         unsafe extern "C" fn(
@@ -9910,7 +10964,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_saxpbyv_zen_int10: Option<
+    pub bli_saxpbyv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -9923,7 +10977,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpbyv_zen_int10: Option<
+    pub bli_daxpbyv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -9960,7 +11014,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_saxpyv_zen_int10: Option<
+    pub bli_saxpyv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -9972,7 +11026,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_daxpyv_zen_int10: Option<
+    pub bli_daxpyv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -9984,7 +11038,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_caxpyv_zen_int5: Option<
+    pub bli_caxpyv_zen_int_5: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -9996,7 +11050,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zaxpyv_zen_int5: Option<
+    pub bli_zaxpyv_zen_int_5: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             n: dim_t,
@@ -10034,7 +11088,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sdotv_zen_int10: Option<
+    pub bli_sdotv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -10047,7 +11101,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_ddotv_zen_int10: Option<
+    pub bli_ddotv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -10060,7 +11114,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_cdotv_zen_int5: Option<
+    pub bli_cdotv_zen_int_5: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -10073,7 +11127,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdotv_zen_int5: Option<
+    pub bli_zdotv_zen_int_5: Option<
         unsafe extern "C" fn(
             conjx: conj_t,
             conjy: conj_t,
@@ -10186,7 +11240,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sscalv_zen_int10: Option<
+    pub bli_sscalv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -10196,7 +11250,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dscalv_zen_int10: Option<
+    pub bli_dscalv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -10206,7 +11260,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_zdscalv_zen_int10: Option<
+    pub bli_zdscalv_zen_int_10: Option<
         unsafe extern "C" fn(
             conjalpha: conj_t,
             n: dim_t,
@@ -10216,7 +11270,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_sswapv_zen_int8: Option<
+    pub bli_sswapv_zen_int_8: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut f32,
@@ -10226,7 +11280,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dswapv_zen_int8: Option<
+    pub bli_dswapv_zen_int_8: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut f64,
@@ -10787,7 +11841,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_avx2: Option<
+    pub bli_dgemv_t_zen_int: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10805,7 +11859,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx7_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x7m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10823,7 +11877,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx6_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x6m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10841,7 +11895,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx5_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x5m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10859,7 +11913,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx4_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x4m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10877,7 +11931,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx3_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x3m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10895,7 +11949,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx2_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x2m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -10913,7 +11967,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_t_zen_int_mx1_avx2: Option<
+    pub bli_dgemv_t_zen_int_16x1m: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjx: conj_t,
@@ -13445,7 +14499,22 @@ pub struct DyLoadLib {
             cs_c0: inc_t,
         ) -> err_t,
     >,
-    pub bli_dgemm_tiny_6x8: Option<
+    pub bli_is_sgemm_tiny_zen: Option<
+        unsafe extern "C" fn(
+            stor_id: stor3_t,
+            transa: trans_t,
+            transb: trans_t,
+            m: dim_t,
+            n: dim_t,
+            k: dim_t,
+            is_parallel: bool,
+            NR: dim_t,
+            NUM_FLOATS_IN_CACHE_LINE: dim_t,
+            NUM_FLOATS_IN_L1: dim_t,
+            NUM_FLOATS_IN_L2: dim_t,
+        ) -> bool,
+    >,
+    pub bli_dgemm_tiny_zen_6x8: Option<
         unsafe extern "C" fn(
             conja: conj_t,
             conjb: conj_t,
@@ -13511,7 +14580,7 @@ pub struct DyLoadLib {
             cntl: *mut cntl_t,
         ) -> err_t,
     >,
-    pub bli_dgemm_8x6_avx2_k1_nn: Option<
+    pub bli_dgemm_zen_int_8x6_k1_nn: Option<
         unsafe extern "C" fn(
             m: dim_t,
             n: dim_t,
@@ -13526,7 +14595,7 @@ pub struct DyLoadLib {
             ldc: inc_t,
         ) -> err_t,
     >,
-    pub bli_zgemm_4x4_avx2_k1_nn: Option<
+    pub bli_zgemm_zen_int_4x4_k1_nn: Option<
         unsafe extern "C" fn(
             m: dim_t,
             n: dim_t,
@@ -13541,7 +14610,7 @@ pub struct DyLoadLib {
             ldc: inc_t,
         ) -> err_t,
     >,
-    pub bli_trsm_small: Option<
+    pub bli_trsm_small_zen: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -13552,7 +14621,7 @@ pub struct DyLoadLib {
             is_parallel: bool,
         ) -> err_t,
     >,
-    pub bli_trsm_small_mt: Option<
+    pub bli_trsm_small_zen_mt: Option<
         unsafe extern "C" fn(
             side: side_t,
             alpha: *mut obj_t,
@@ -13600,13 +14669,13 @@ pub struct DyLoadLib {
     >,
     pub bli_cntx_trsm_small_thresh_is_met_zen:
         Option<unsafe extern "C" fn(a: *mut obj_t, m: dim_t, n: dim_t) -> bool>,
-    pub bli_snorm2fv_unb_var1_avx2: Option<
+    pub bli_snorm2fv_zen_int_unb_var1: Option<
         unsafe extern "C" fn(n: dim_t, x: *mut f32, incx: inc_t, norm: *mut f32, cntx: *mut cntx_t),
     >,
-    pub bli_dnorm2fv_unb_var1_avx2: Option<
+    pub bli_dnorm2fv_zen_int_unb_var1: Option<
         unsafe extern "C" fn(n: dim_t, x: *mut f64, incx: inc_t, norm: *mut f64, cntx: *mut cntx_t),
     >,
-    pub bli_scnorm2fv_unb_var1_avx2: Option<
+    pub bli_scnorm2fv_zen_int_unb_var1: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut scomplex,
@@ -13615,7 +14684,7 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dznorm2fv_unb_var1_avx2: Option<
+    pub bli_dznorm2fv_zen_int_unb_var1: Option<
         unsafe extern "C" fn(
             n: dim_t,
             x: *mut dcomplex,
@@ -13685,7 +14754,24 @@ pub struct DyLoadLib {
             cntx: *mut cntx_t,
         ),
     >,
-    pub bli_dgemv_n_avx2: Option<
+    pub bli_sgemv_zen_ref: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            m: dim_t,
+            b_n: dim_t,
+            alpha: *mut f32,
+            a: *mut f32,
+            inca: inc_t,
+            lda: inc_t,
+            x: *mut f32,
+            incx: inc_t,
+            beta: *mut f32,
+            y: *mut f32,
+            incy: inc_t,
+            cntx: *mut cntx_t,
+        ),
+    >,
+    pub bli_dgemv_n_zen: Option<
         unsafe extern "C" fn(
             transa: trans_t,
             conjx: conj_t,
@@ -14007,6 +15093,17 @@ pub struct DyLoadLib {
             data_type_a: num_t,
             data_type_b: num_t,
             arch_id: arch_t,
+            n_elem: dim_t,
+            nt_ideal: *mut dim_t,
+        ),
+    >,
+    pub bli_nthreads_l2: Option<
+        unsafe extern "C" fn(
+            ker_id: l2kr_t,
+            data_type: num_t,
+            variant: trans_t,
+            arch_id: arch_t,
+            m_elem: dim_t,
             n_elem: dim_t,
             nt_ideal: *mut dim_t,
         ),
@@ -14576,18 +15673,11 @@ pub struct DyLoadLib {
     pub bli_info_get_trmm_impl_string: Option<unsafe extern "C" fn(dt: num_t) -> *mut c_char>,
     pub bli_info_get_trmm3_impl_string: Option<unsafe extern "C" fn(dt: num_t) -> *mut c_char>,
     pub bli_info_get_trsm_impl_string: Option<unsafe extern "C" fn(dt: num_t) -> *mut c_char>,
-    pub bli_arch_query_id: Option<unsafe extern "C" fn() -> arch_t>,
     pub bli_aocl_enable_instruction_query: Option<unsafe extern "C" fn() -> bool>,
-    pub bli_arch_set_id_once: Option<unsafe extern "C" fn()>,
-    pub bli_arch_set_id: Option<unsafe extern "C" fn()>,
-    pub bli_arch_check_id_once: Option<unsafe extern "C" fn()>,
-    pub bli_arch_check_id: Option<unsafe extern "C" fn()>,
-    pub bli_arch_string: Option<unsafe extern "C" fn(id: arch_t) -> *mut c_char>,
-    pub bli_arch_set_logging: Option<unsafe extern "C" fn(dolog: bool)>,
-    pub bli_arch_get_logging: Option<unsafe extern "C" fn() -> bool>,
-    pub bli_arch_log: Option<unsafe extern "C" fn(arg1: *mut c_char)>,
+    pub bli_arch_query_id: Option<unsafe extern "C" fn() -> arch_t>,
     pub bli_model_query_id: Option<unsafe extern "C" fn() -> model_t>,
     pub bli_init_model_query_id: Option<unsafe extern "C" fn() -> model_t>,
+    pub bli_arch_string: Option<unsafe extern "C" fn(id: arch_t) -> *mut c_char>,
     pub bli_model_string: Option<unsafe extern "C" fn(id: model_t) -> *mut c_char>,
     pub bli_cpuid_query_id: Option<unsafe extern "C" fn() -> arch_t>,
     pub bli_cpuid_query_model_id: Option<unsafe extern "C" fn(id: arch_t) -> model_t>,
@@ -14606,11 +15696,11 @@ pub struct DyLoadLib {
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
     pub bli_cpuid_is_penryn:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
+    pub bli_cpuid_is_zen6:
+        Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
     pub bli_cpuid_is_zen5:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
     pub bli_cpuid_is_zen4:
-        Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
-    pub bli_cpuid_is_avx512_fallback:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
     pub bli_cpuid_is_zen3:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
@@ -14626,6 +15716,8 @@ pub struct DyLoadLib {
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
     pub bli_cpuid_is_bulldozer:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> bool>,
+    pub bli_cpuid_get_zen6_cpuid_model:
+        Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> model_t>,
     pub bli_cpuid_get_zen5_cpuid_model:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32) -> model_t>,
     pub bli_cpuid_get_zen4_cpuid_model:
@@ -14648,14 +15740,16 @@ pub struct DyLoadLib {
         Option<unsafe extern "C" fn(model: u32, part: u32, features: u32) -> bool>,
     pub bli_cpuid_query:
         Option<unsafe extern "C" fn(family: *mut u32, model: *mut u32, features: *mut u32) -> u32>,
-    pub bli_cpuid_check_datapath: Option<unsafe extern "C" fn(vendor: u32, features: u32)>,
+    pub bli_cpuid_check_datapath: Option<unsafe extern "C" fn(vendor: u32)>,
     pub bli_cpuid_check_cache: Option<unsafe extern "C" fn(vendor: u32)>,
+    pub bli_cpuid_query_id_once: Option<unsafe extern "C" fn()>,
     pub get_cpu_name: Option<unsafe extern "C" fn(cpu_name: *mut c_char)>,
     pub vpu_count: Option<unsafe extern "C" fn() -> c_int>,
     pub bli_cpuid_is_avx2fma3_supported: Option<unsafe extern "C" fn() -> bool>,
     pub bli_cpuid_is_avx512_supported: Option<unsafe extern "C" fn() -> bool>,
     pub bli_cpuid_is_avx512vnni_supported: Option<unsafe extern "C" fn() -> bool>,
     pub bli_cpuid_is_avx512bf16_supported: Option<unsafe extern "C" fn() -> bool>,
+    pub bli_cpuid_is_avx512fp16_supported: Option<unsafe extern "C" fn() -> bool>,
     pub bli_cpuid_check_avx2fma3_support:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32)>,
     pub bli_cpuid_check_avx512_support:
@@ -14663,6 +15757,8 @@ pub struct DyLoadLib {
     pub bli_cpuid_check_avx512vnni_support:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32)>,
     pub bli_cpuid_check_avx512bf16_support:
+        Option<unsafe extern "C" fn(family: u32, model: u32, features: u32)>,
+    pub bli_cpuid_check_avx512fp16_support:
         Option<unsafe extern "C" fn(family: u32, model: u32, features: u32)>,
     pub bli_string_mkupper: Option<unsafe extern "C" fn(s: *mut c_char)>,
     pub bli_setijm:
@@ -32402,6 +33498,27 @@ pub struct DyLoadLib {
             thread: *mut thrinfo_t,
         ),
     >,
+    pub bli_cgemm_tiny: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            transb: trans_t,
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            rs_a0: inc_t,
+            cs_a0: inc_t,
+            b: *const scomplex,
+            rs_b0: inc_t,
+            cs_b0: inc_t,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            rs_c0: inc_t,
+            cs_c0: inc_t,
+            is_parallel: bool,
+        ) -> err_t,
+    >,
     pub bli_zgemm_tiny: Option<
         unsafe extern "C" fn(
             transa: trans_t,
@@ -32418,6 +33535,27 @@ pub struct DyLoadLib {
             cs_b0: inc_t,
             beta: *const dcomplex,
             c: *mut dcomplex,
+            rs_c0: inc_t,
+            cs_c0: inc_t,
+            is_parallel: bool,
+        ) -> err_t,
+    >,
+    pub bli_sgemm_tiny: Option<
+        unsafe extern "C" fn(
+            transa: trans_t,
+            transb: trans_t,
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            alpha: *const f32,
+            a: *const f32,
+            rs_a0: inc_t,
+            cs_a0: inc_t,
+            b: *const f32,
+            rs_b0: inc_t,
+            cs_b0: inc_t,
+            beta: *const f32,
+            c: *mut f32,
             rs_c0: inc_t,
             cs_c0: inc_t,
             is_parallel: bool,
@@ -43737,6 +44875,57 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub CGEMMTR: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub cgemmtr: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub CGEMMTR_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
     pub DAXPBY: Option<
         unsafe extern "C" fn(
             n: *const f77_int,
@@ -43973,6 +45162,57 @@ pub struct DyLoadLib {
         ),
     >,
     pub DGEMMT_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub DGEMMTR: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub dgemmtr: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub DGEMMTR_: Option<
         unsafe extern "C" fn(
             uploc: *const f77_char,
             transa: *const f77_char,
@@ -44241,6 +45481,57 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub SGEMMTR: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub sgemmtr: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub SGEMMTR_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
     pub ZAXPBY: Option<
         unsafe extern "C" fn(
             n: *const f77_int,
@@ -44433,6 +45724,57 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub ZGEMMTR: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub zgemmtr: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub ZGEMMTR_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
     pub CIMATCOPY: Option<
         unsafe extern "C" fn(
             trans: *mut f77_char,
@@ -44589,6 +45931,39 @@ pub struct DyLoadLib {
             aptr: *const scomplex,
             lda: *mut f77_int,
             bptr: *mut scomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DIMATCOPY: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub dimatcopy: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DIMATCOPY_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
             ldb: *mut f77_int,
         ),
     >,
@@ -51033,6 +52408,57 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub CGEMMTR_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub cgemmtr_blis_impl_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub CGEMMTR_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
     pub DAXPBY_BLIS_IMPL: Option<
         unsafe extern "C" fn(
             n: *const f77_int,
@@ -51269,6 +52695,57 @@ pub struct DyLoadLib {
         ),
     >,
     pub DGEMMT_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub DGEMMTR_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub dgemmtr_blis_impl_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub DGEMMTR_BLIS_IMPL_: Option<
         unsafe extern "C" fn(
             uploc: *const f77_char,
             transa: *const f77_char,
@@ -51537,6 +53014,57 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub SGEMMTR_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub sgemmtr_blis_impl_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub SGEMMTR_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
     pub ZAXPBY_BLIS_IMPL: Option<
         unsafe extern "C" fn(
             n: *const f77_int,
@@ -51729,6 +53257,693 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub ZGEMMTR_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub zgemmtr_blis_impl_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub ZGEMMTR_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub CIMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *mut scomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub cimatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *mut scomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub CIMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *mut scomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub COMATADD_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const scomplex,
+            A: *const scomplex,
+            lda: *mut f77_int,
+            beta: *const scomplex,
+            B: *mut scomplex,
+            ldb: *mut f77_int,
+            C: *mut scomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub comatadd_blis_impl_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const scomplex,
+            A: *const scomplex,
+            lda: *mut f77_int,
+            beta: *const scomplex,
+            B: *mut scomplex,
+            ldb: *mut f77_int,
+            C: *mut scomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub COMATADD_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const scomplex,
+            A: *const scomplex,
+            lda: *mut f77_int,
+            beta: *const scomplex,
+            B: *mut scomplex,
+            ldb: *mut f77_int,
+            C: *mut scomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub COMATCOPY2_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub comatcopy2_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub COMATCOPY2_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub COMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub comatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub COMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DIMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub dimatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DIMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DOMATADD_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f64,
+            A: *const f64,
+            lda: *mut f77_int,
+            beta: *const f64,
+            B: *const f64,
+            ldb: *mut f77_int,
+            C: *mut f64,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub domatadd_blis_impl_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f64,
+            A: *const f64,
+            lda: *mut f77_int,
+            beta: *const f64,
+            B: *const f64,
+            ldb: *mut f77_int,
+            C: *mut f64,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub DOMATADD_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f64,
+            A: *const f64,
+            lda: *mut f77_int,
+            beta: *const f64,
+            B: *const f64,
+            ldb: *mut f77_int,
+            C: *mut f64,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub DOMATCOPY2_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub domatcopy2_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub DOMATCOPY2_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub DOMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub domatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub DOMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub SIMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *mut f32,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub simatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *mut f32,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub SIMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *mut f32,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub SOMATADD_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f32,
+            A: *const f32,
+            lda: *mut f77_int,
+            beta: *const f32,
+            B: *const f32,
+            ldb: *mut f77_int,
+            C: *mut f32,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub somatadd_blis_impl_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f32,
+            A: *const f32,
+            lda: *mut f77_int,
+            beta: *const f32,
+            B: *const f32,
+            ldb: *mut f77_int,
+            C: *mut f32,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub SOMATADD_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f32,
+            A: *const f32,
+            lda: *mut f77_int,
+            beta: *const f32,
+            B: *const f32,
+            ldb: *mut f77_int,
+            C: *mut f32,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub SOMATCOPY2_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub somatcopy2_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub SOMATCOPY2_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub SOMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub somatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub SOMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub ZIMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *mut dcomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub zimatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *mut dcomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub ZIMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *mut dcomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub ZOMATADD_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const dcomplex,
+            A: *const dcomplex,
+            lda: *mut f77_int,
+            beta: *const dcomplex,
+            B: *mut dcomplex,
+            ldb: *mut f77_int,
+            C: *mut dcomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub zomatadd_blis_impl_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const dcomplex,
+            A: *const dcomplex,
+            lda: *mut f77_int,
+            beta: *const dcomplex,
+            B: *mut dcomplex,
+            ldb: *mut f77_int,
+            C: *mut dcomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub ZOMATADD_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const dcomplex,
+            A: *const dcomplex,
+            lda: *mut f77_int,
+            beta: *const dcomplex,
+            B: *mut dcomplex,
+            ldb: *mut f77_int,
+            C: *mut dcomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub ZOMATCOPY2_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub zomatcopy2_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub ZOMATCOPY2_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub ZOMATCOPY_BLIS_IMPL: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub zomatcopy_blis_impl_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub ZOMATCOPY_BLIS_IMPL_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
     pub AOCL_BLIS_set_progress: Option<unsafe extern "C" fn(func: AOCL_progress_callback)>,
     pub aocl_get_reorder_buf_size_f32f32f32of32: Option<
         unsafe extern "C" fn(
@@ -51795,6 +54010,18 @@ pub struct DyLoadLib {
         ) -> siz_t,
     >,
     pub aocl_reorder_f32f32f32of32: Option<
+        unsafe extern "C" fn(
+            order: c_char,
+            trans: c_char,
+            mat_type: c_char,
+            input_buf_addr: *const f32,
+            reorder_buf_addr: *mut f32,
+            k: dim_t,
+            n: dim_t,
+            ldb: dim_t,
+        ),
+    >,
+    pub aocl_reorder_f32f32f32of32_reference: Option<
         unsafe extern "C" fn(
             order: c_char,
             trans: c_char,
@@ -51920,6 +54147,17 @@ pub struct DyLoadLib {
             mat_type: c_char,
             reorder_buf_addr: *const bfloat16,
             output_buf_addr: *mut bfloat16,
+            k: dim_t,
+            n: dim_t,
+            ldb: dim_t,
+        ),
+    >,
+    pub aocl_unreorder_f32f32f32of32_reference: Option<
+        unsafe extern "C" fn(
+            order: c_char,
+            mat_type: c_char,
+            reorder_buf_addr: *const f32,
+            output_buf_addr: *mut f32,
             k: dim_t,
             n: dim_t,
             ldb: dim_t,
@@ -52298,20 +54536,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const f32,
             a: *mut *const bfloat16,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const bfloat16,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const f32,
             c: *mut *mut f32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52320,20 +54559,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const f32,
             a: *mut *const bfloat16,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const bfloat16,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const f32,
             c: *mut *mut bfloat16,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52342,20 +54582,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const f32,
             a: *mut *const bfloat16,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const f32,
             c: *mut *mut f32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52364,20 +54605,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const f32,
             a: *mut *const bfloat16,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const f32,
             c: *mut *mut bfloat16,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52386,20 +54628,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const f32,
             a: *mut *const f32,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const f32,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const f32,
             c: *mut *mut f32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52408,20 +54651,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const u8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut i32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52430,20 +54674,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const u8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut i8,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52452,20 +54697,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const u8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut f32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52474,20 +54720,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const u8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut bfloat16,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52496,20 +54743,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const u8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut u8,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52518,20 +54766,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const i8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut i32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52540,20 +54789,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const i8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut i8,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52562,20 +54812,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const i8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut f32,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52584,20 +54835,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const i8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut bfloat16,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52606,20 +54858,21 @@ pub struct DyLoadLib {
             order: *const c_char,
             transa: *const c_char,
             transb: *const c_char,
-            batch_size: dim_t,
             m: *const dim_t,
             n: *const dim_t,
             k: *const dim_t,
             alpha: *const i32,
             a: *mut *const i8,
             lda: *const dim_t,
-            mem_format_a: *const c_char,
             b: *mut *const i8,
             ldb: *const dim_t,
-            mem_format_b: *const c_char,
             beta: *const i32,
             c: *mut *mut u8,
             ldc: *const dim_t,
+            group_count: dim_t,
+            group_size: *const dim_t,
+            mem_format_a: *const c_char,
+            mem_format_b: *const c_char,
             post_op_unparsed: *mut *mut aocl_post_op,
         ),
     >,
@@ -52859,7 +55112,238 @@ pub struct DyLoadLib {
             post_ops_attr: lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemm_rowvar_f32f32f32of32_6x16m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x16m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x8m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x4m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x2m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x1m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_6x64m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemm_rowvar_f32f32f32of32_avx512_6x64m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x64m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x64m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x48m_rd: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            n0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x32m_rd: Option<
         unsafe extern "C" fn(
             m0: dim_t,
             n0: dim_t,
@@ -52941,6 +55425,456 @@ pub struct DyLoadLib {
             alpha: i32,
             beta: i32,
             grp_post_ops_attr: lpgemm_grp_post_op_attr,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x64_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x64_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x64_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x64_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x64_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x48_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x48_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x48_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x48_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x48_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x32_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x32_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x32_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x32_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x32_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x16_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x16_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x8_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x8_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x4_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x4_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x2_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x1_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x2_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x1_rd: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
             post_ops_list: *mut lpgemm_post_op,
             post_ops_attr: lpgemm_post_op_attr,
         ),
@@ -53370,6 +56304,91 @@ pub struct DyLoadLib {
             post_ops_attr: lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemm_rowvar_f32f32f32of32_5x16: Option<
         unsafe extern "C" fn(
             k0: dim_t,
@@ -53779,6 +56798,856 @@ pub struct DyLoadLib {
         ),
     >,
     pub lpgemm_rowvar_f32f32f32of32_1x1: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x64_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x64_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x64_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x64_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x64_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x48_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x48_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x48_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x48_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x48_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x32_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x32_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x32_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x32_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x32_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5x8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4x8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3x8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5x4_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4x4_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3x4_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x4_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x4_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5x2_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4x2_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3x2_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x2_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x2_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5x1_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4x1_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3x1_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2x1_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1x1_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_5x32: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_4x32: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_3x32: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_2x32: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_256_1x32: Option<
         unsafe extern "C" fn(
             k0: dim_t,
             a: *const f32,
@@ -54250,6 +58119,25 @@ pub struct DyLoadLib {
             post_ops_attr: lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x16m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemm_rowvar_f32f32f32of32_6x8m: Option<
         unsafe extern "C" fn(
             m0: dim_t,
@@ -54308,6 +58196,139 @@ pub struct DyLoadLib {
         ),
     >,
     pub lpgemm_rowvar_f32f32f32of32_6x1m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x48m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x32m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6x16m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x8m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x4m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x2m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6x1m_np: Option<
         unsafe extern "C" fn(
             m0: dim_t,
             k0: dim_t,
@@ -54573,6 +58594,86 @@ pub struct DyLoadLib {
             cs_a: dim_t,
             ps_a: dim_t,
             b: *const bfloat16,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6xlt8m: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_6xlt8m_np: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            ps_a: dim_t,
+            b: *const f32,
             rs_b: dim_t,
             cs_b: dim_t,
             c: *mut f32,
@@ -56200,6 +60301,366 @@ pub struct DyLoadLib {
             post_ops_attr: lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5xlt16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4xlt16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3xlt16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2xlt16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1xlt16: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_5xlt16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_4xlt16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_3xlt16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_2xlt16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_avx512_1xlt16_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5xlt8: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4xlt8: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3xlt8: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2xlt8: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1xlt8: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_5xlt8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_4xlt8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_3xlt8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_2xlt8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemm_rowvar_f32f32f32of32_1xlt8_np: Option<
+        unsafe extern "C" fn(
+            k0: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            c: *mut f32,
+            rs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            n0_rem: dim_t,
+            post_ops_list: *mut lpgemm_post_op,
+            post_ops_attr: lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemm_rowvar_bf16s4f32of32_5xlt16: Option<
         unsafe extern "C" fn(
             k0: dim_t,
@@ -56415,6 +60876,56 @@ pub struct DyLoadLib {
             post_op_attr: *mut lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemv_m_one_f32f32f32of32_avx2: Option<
+        unsafe extern "C" fn(
+            n0: dim_t,
+            k: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            NR: dim_t,
+            KC: dim_t,
+            n_sub_updated: dim_t,
+            jc_cur_loop_rem: dim_t,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemv_m_one_f32f32f32of32_avx512_256: Option<
+        unsafe extern "C" fn(
+            n0: dim_t,
+            k: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            NR: dim_t,
+            KC: dim_t,
+            n_sub_updated: dim_t,
+            jc_cur_loop_rem: dim_t,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemv_m_one_bf16bf16f32of32: Option<
         unsafe extern "C" fn(
             n0: dim_t,
@@ -56490,7 +61001,79 @@ pub struct DyLoadLib {
             post_op_attr: *mut lpgemm_post_op_attr,
         ),
     >,
+    pub lpgemv_m_one_s8s8s32os32_sym_quant: Option<
+        unsafe extern "C" fn(
+            n0: dim_t,
+            k: dim_t,
+            a: *const i8,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const i8,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: i32,
+            beta: i32,
+            NR: dim_t,
+            KC: dim_t,
+            n_sub_updated: dim_t,
+            jc_cur_loop_rem: dim_t,
+            grp_post_ops_attr: lpgemm_grp_post_op_attr,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
     pub lpgemv_n_one_f32f32f32of32: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            MR: dim_t,
+            KC: dim_t,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemv_n_one_f32f32f32of32_avx2: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k: dim_t,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const f32,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: f32,
+            beta: f32,
+            MR: dim_t,
+            KC: dim_t,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemv_n_one_f32f32f32of32_avx512_256: Option<
         unsafe extern "C" fn(
             m0: dim_t,
             k: dim_t,
@@ -56578,6 +61161,30 @@ pub struct DyLoadLib {
             beta: i32,
             MR: dim_t,
             KC: dim_t,
+            post_op: *mut lpgemm_post_op,
+            post_op_attr: *mut lpgemm_post_op_attr,
+        ),
+    >,
+    pub lpgemv_n_one_s8s8s32os32_sym_quant: Option<
+        unsafe extern "C" fn(
+            m0: dim_t,
+            k: dim_t,
+            a: *const i8,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            mtag_a: AOCL_MEMORY_TAG,
+            b: *const i8,
+            rs_b: dim_t,
+            cs_b: dim_t,
+            mtag_b: AOCL_MEMORY_TAG,
+            c: *mut f32,
+            rs_c: dim_t,
+            cs_c: dim_t,
+            alpha: i32,
+            beta: i32,
+            MR: dim_t,
+            KC: dim_t,
+            grp_post_ops_attr: lpgemm_grp_post_op_attr,
             post_op: *mut lpgemm_post_op,
             post_op_attr: *mut lpgemm_post_op_attr,
         ),
@@ -56827,8 +61434,8 @@ pub struct DyLoadLib {
         unsafe extern "C" fn(
             b: *const bfloat16,
             unpack_b_buffer: *mut f32,
-            NC: dim_t,
             KC: dim_t,
+            NC: dim_t,
             rs_b: dim_t,
             cs_b: dim_t,
         ),
@@ -56845,6 +61452,11 @@ pub struct DyLoadLib {
             cs_p: dim_t,
         ),
     >,
+    pub cvt_bf16_f32_gemv_row_major: Option<
+        unsafe extern "C" fn(cvt_buffer: *mut f32, a: *const bfloat16, rs_a: dim_t, MC: dim_t),
+    >,
+    pub unpackb_nr64_bf16_f32_gemv:
+        Option<unsafe extern "C" fn(b: *const bfloat16, unpack_b_buffer: *mut f32, KC: dim_t)>,
     pub packa_u8s8s32os32: Option<
         unsafe extern "C" fn(
             pack_a_buffer_u8s8s32o32: *mut u8,
@@ -56906,6 +61518,18 @@ pub struct DyLoadLib {
         ),
     >,
     pub packa_mr16_f32f32f32of32_col_major: Option<
+        unsafe extern "C" fn(
+            pack_a_buffer: *mut f32,
+            a: *const f32,
+            rs_a: dim_t,
+            cs_a: dim_t,
+            MC: dim_t,
+            KC: dim_t,
+            rs_p: *mut dim_t,
+            cs_p: *mut dim_t,
+        ),
+    >,
+    pub packa_mr8_f32f32f32of32_col_major: Option<
         unsafe extern "C" fn(
             pack_a_buffer: *mut f32,
             a: *const f32,
@@ -61040,6 +65664,142 @@ pub struct DyLoadLib {
             ldc: *const f77_int,
         ),
     >,
+    pub sgemmtr_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub sgemmtr_blis_impl: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f32,
+            a: *const f32,
+            lda: *const f77_int,
+            b: *const f32,
+            ldb: *const f77_int,
+            beta: *const f32,
+            c: *mut f32,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub dgemmtr_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub dgemmtr_blis_impl: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const f64,
+            a: *const f64,
+            lda: *const f77_int,
+            b: *const f64,
+            ldb: *const f77_int,
+            beta: *const f64,
+            c: *mut f64,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub cgemmtr_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub cgemmtr_blis_impl: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const scomplex,
+            a: *const scomplex,
+            lda: *const f77_int,
+            b: *const scomplex,
+            ldb: *const f77_int,
+            beta: *const scomplex,
+            c: *mut scomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub zgemmtr_: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
+    pub zgemmtr_blis_impl: Option<
+        unsafe extern "C" fn(
+            uploc: *const f77_char,
+            transa: *const f77_char,
+            transb: *const f77_char,
+            n: *const f77_int,
+            k: *const f77_int,
+            alpha: *const dcomplex,
+            a: *const dcomplex,
+            lda: *const f77_int,
+            b: *const dcomplex,
+            ldb: *const f77_int,
+            beta: *const dcomplex,
+            c: *mut dcomplex,
+            ldc: *const f77_int,
+        ),
+    >,
     pub sgemm_compute_: Option<
         unsafe extern "C" fn(
             transa: *const f77_char,
@@ -61478,6 +66238,70 @@ pub struct DyLoadLib {
             ldc: *mut f77_int,
         ),
     >,
+    pub somatadd_blis_impl: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f32,
+            A: *const f32,
+            lda: *mut f77_int,
+            beta: *const f32,
+            B: *const f32,
+            ldb: *mut f77_int,
+            C: *mut f32,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub domatadd_blis_impl: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const f64,
+            A: *const f64,
+            lda: *mut f77_int,
+            beta: *const f64,
+            B: *const f64,
+            ldb: *mut f77_int,
+            C: *mut f64,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub comatadd_blis_impl: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const scomplex,
+            A: *const scomplex,
+            lda: *mut f77_int,
+            beta: *const scomplex,
+            B: *mut scomplex,
+            ldb: *mut f77_int,
+            C: *mut scomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
+    pub zomatadd_blis_impl: Option<
+        unsafe extern "C" fn(
+            transa: *mut f77_char,
+            transb: *mut f77_char,
+            m: *mut f77_int,
+            n: *mut f77_int,
+            alpha: *const dcomplex,
+            A: *const dcomplex,
+            lda: *mut f77_int,
+            beta: *const dcomplex,
+            B: *mut dcomplex,
+            ldb: *mut f77_int,
+            C: *mut dcomplex,
+            ldc: *mut f77_int,
+        ),
+    >,
     pub somatcopy_: Option<
         unsafe extern "C" fn(
             trans: *mut f77_char,
@@ -61515,6 +66339,54 @@ pub struct DyLoadLib {
         ),
     >,
     pub zomatcopy_: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub somatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub domatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub comatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub zomatcopy_blis_impl: Option<
         unsafe extern "C" fn(
             trans: *mut f77_char,
             rows: *mut f77_int,
@@ -61582,6 +66454,62 @@ pub struct DyLoadLib {
             strideb: *mut f77_int,
         ),
     >,
+    pub somatcopy2_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *const f32,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f32,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub domatcopy2_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *const f64,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut f64,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub comatcopy2_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *const scomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut scomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
+    pub zomatcopy2_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *const dcomplex,
+            lda: *mut f77_int,
+            stridea: *mut f77_int,
+            bptr: *mut dcomplex,
+            ldb: *mut f77_int,
+            strideb: *mut f77_int,
+        ),
+    >,
     pub simatcopy_: Option<
         unsafe extern "C" fn(
             trans: *mut f77_char,
@@ -61626,6 +66554,50 @@ pub struct DyLoadLib {
             ldb: *mut f77_int,
         ),
     >,
+    pub simatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f32,
+            aptr: *mut f32,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub dimatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const f64,
+            aptr: *mut f64,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub cimatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const scomplex,
+            aptr: *mut scomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
+    pub zimatcopy_blis_impl: Option<
+        unsafe extern "C" fn(
+            trans: *mut f77_char,
+            rows: *mut f77_int,
+            cols: *mut f77_int,
+            alpha: *const dcomplex,
+            aptr: *mut dcomplex,
+            lda: *mut f77_int,
+            ldb: *mut f77_int,
+        ),
+    >,
     pub bli_thread_set_ways_: Option<
         unsafe extern "C" fn(
             jc: *const f77_int,
@@ -61643,6 +66615,7 @@ pub struct DyLoadLib {
     pub bli_thread_get_ir_nt_: Option<unsafe extern "C" fn() -> f77_int>,
     pub bli_thread_get_num_threads_: Option<unsafe extern "C" fn() -> f77_int>,
     pub bli_info_get_info_value_: Option<unsafe extern "C" fn() -> f77_int>,
+    pub bli_thread_reset_: Option<unsafe extern "C" fn()>,
     pub scabs1_: Option<unsafe extern "C" fn(z: *mut bla_scomplex) -> bla_real>,
     pub dcabs1_: Option<unsafe extern "C" fn(z: *mut bla_dcomplex) -> bla_double>,
     pub scabs1_blis_impl: Option<unsafe extern "C" fn(z: *mut bla_scomplex) -> bla_real>,
@@ -63101,6 +68074,24 @@ pub struct DyLoadLib {
             ldc: f77_int,
         ),
     >,
+    pub cblas_sgemmtr: Option<
+        unsafe extern "C" fn(
+            Order: CBLAS_ORDER,
+            Uplo: CBLAS_UPLO,
+            TransA: CBLAS_TRANSPOSE,
+            TransB: CBLAS_TRANSPOSE,
+            N: f77_int,
+            K: f77_int,
+            alpha: f32,
+            A: *const f32,
+            lda: f77_int,
+            B: *const f32,
+            ldb: f77_int,
+            beta: f32,
+            C: *mut f32,
+            ldc: f77_int,
+        ),
+    >,
     pub cblas_dgemm: Option<
         unsafe extern "C" fn(
             Order: CBLAS_ORDER,
@@ -63201,6 +68192,24 @@ pub struct DyLoadLib {
         ),
     >,
     pub cblas_dgemmt: Option<
+        unsafe extern "C" fn(
+            Order: CBLAS_ORDER,
+            Uplo: CBLAS_UPLO,
+            TransA: CBLAS_TRANSPOSE,
+            TransB: CBLAS_TRANSPOSE,
+            N: f77_int,
+            K: f77_int,
+            alpha: f64,
+            A: *const f64,
+            lda: f77_int,
+            B: *const f64,
+            ldb: f77_int,
+            beta: f64,
+            C: *mut f64,
+            ldc: f77_int,
+        ),
+    >,
+    pub cblas_dgemmtr: Option<
         unsafe extern "C" fn(
             Order: CBLAS_ORDER,
             Uplo: CBLAS_UPLO,
@@ -63335,6 +68344,24 @@ pub struct DyLoadLib {
             ldc: f77_int,
         ),
     >,
+    pub cblas_cgemmtr: Option<
+        unsafe extern "C" fn(
+            Order: CBLAS_ORDER,
+            Uplo: CBLAS_UPLO,
+            TransA: CBLAS_TRANSPOSE,
+            TransB: CBLAS_TRANSPOSE,
+            N: f77_int,
+            K: f77_int,
+            alpha: *const c_void,
+            A: *const c_void,
+            lda: f77_int,
+            B: *const c_void,
+            ldb: f77_int,
+            beta: *const c_void,
+            C: *mut c_void,
+            ldc: f77_int,
+        ),
+    >,
     pub cblas_zgemm: Option<
         unsafe extern "C" fn(
             Order: CBLAS_ORDER,
@@ -63435,6 +68462,24 @@ pub struct DyLoadLib {
         ),
     >,
     pub cblas_zgemmt: Option<
+        unsafe extern "C" fn(
+            Order: CBLAS_ORDER,
+            Uplo: CBLAS_UPLO,
+            TransA: CBLAS_TRANSPOSE,
+            TransB: CBLAS_TRANSPOSE,
+            N: f77_int,
+            K: f77_int,
+            alpha: *const c_void,
+            A: *const c_void,
+            lda: f77_int,
+            B: *const c_void,
+            ldb: f77_int,
+            beta: *const c_void,
+            C: *mut c_void,
+            ldc: f77_int,
+        ),
+    >,
+    pub cblas_zgemmtr: Option<
         unsafe extern "C" fn(
             Order: CBLAS_ORDER,
             Uplo: CBLAS_UPLO,
@@ -63777,7 +68822,7 @@ pub struct DyLoadLib {
             fpFilePointer: *mut FILE,
         ) -> int32,
     >,
-    pub AOCL_FLIST_IsEmpty: Option<unsafe extern "C" fn(plist: *mut AOCL_FLIST_Node) -> Bool>,
+    pub AOCL_FLIST_IsEmpty: Option<unsafe extern "C" fn(plist: *mut AOCL_FLIST_Node) -> bool>,
     pub AOCL_FLIST_GetNode: Option<
         unsafe extern "C" fn(plist: *mut AOCL_FLIST_Node, tid: AOCL_TID) -> *mut AOCL_FLIST_Node,
     >,

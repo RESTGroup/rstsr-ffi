@@ -164,6 +164,11 @@ impl DyLoadLib {
             bli_thread_set_ways: get_symbol(&libs, b"bli_thread_set_ways\0").map(|sym| *sym),
             bli_thread_set_num_threads: get_symbol(&libs, b"bli_thread_set_num_threads\0")
                 .map(|sym| *sym),
+            bli_thread_set_num_threads_local: get_symbol(
+                &libs,
+                b"bli_thread_set_num_threads_local\0",
+            )
+            .map(|sym| *sym),
             bli_thread_init_rntm_from_env: get_symbol(&libs, b"bli_thread_init_rntm_from_env\0")
                 .map(|sym| *sym),
             bli_thread_init_rntm_from_global_rntm: get_symbol(
@@ -176,6 +181,10 @@ impl DyLoadLib {
                 b"bli_thread_update_rntm_from_env\0",
             )
             .map(|sym| *sym),
+            bli_thread_reset: get_symbol(&libs, b"bli_thread_reset\0").map(|sym| *sym),
+            bli_cntx_init_zen6: get_symbol(&libs, b"bli_cntx_init_zen6\0").map(|sym| *sym),
+            bli_cntx_init_zen6_ref: get_symbol(&libs, b"bli_cntx_init_zen6_ref\0").map(|sym| *sym),
+            bli_cntx_init_zen6_ind: get_symbol(&libs, b"bli_cntx_init_zen6_ind\0").map(|sym| *sym),
             bli_cntx_init_zen5: get_symbol(&libs, b"bli_cntx_init_zen5\0").map(|sym| *sym),
             bli_cntx_init_zen5_ref: get_symbol(&libs, b"bli_cntx_init_zen5_ref\0").map(|sym| *sym),
             bli_cntx_init_zen5_ind: get_symbol(&libs, b"bli_cntx_init_zen5_ind\0").map(|sym| *sym),
@@ -1180,21 +1189,22 @@ impl DyLoadLib {
                 b"bli_dgemmsup_rd_haswell_asm_1x8n\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x8m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x8m\0")
+            bli_dcopyv_zen5_asm: get_symbol(&libs, b"bli_dcopyv_zen5_asm\0").map(|sym| *sym),
+            bli_dgemmsup_cv_zen5_asm_24x8m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x8m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x7m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x7m\0")
+            bli_dgemmsup_cv_zen5_asm_24x7m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x7m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x6m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x6m\0")
+            bli_dgemmsup_cv_zen5_asm_24x6m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x6m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x5m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x5m\0")
+            bli_dgemmsup_cv_zen5_asm_24x5m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x5m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x4m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x4m\0")
+            bli_dgemmsup_cv_zen5_asm_24x4m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x4m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x3m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x3m\0")
+            bli_dgemmsup_cv_zen5_asm_24x3m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x3m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x2m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x2m\0")
+            bli_dgemmsup_cv_zen5_asm_24x2m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x2m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen5_asm_24x1m: get_symbol(&libs, b"bli_dgemmsup_rv_zen5_asm_24x1m\0")
+            bli_dgemmsup_cv_zen5_asm_24x1m: get_symbol(&libs, b"bli_dgemmsup_cv_zen5_asm_24x1m\0")
                 .map(|sym| *sym),
             bli_cntx_gemmsup_thresh_is_met_zen5: get_symbol(
                 &libs,
@@ -1203,291 +1213,171 @@ impl DyLoadLib {
             .map(|sym| *sym),
             bli_dynamic_blkszs_zen5: get_symbol(&libs, b"bli_dynamic_blkszs_zen5\0")
                 .map(|sym| *sym),
-            bli_trsm_small_ZEN5: get_symbol(&libs, b"bli_trsm_small_ZEN5\0").map(|sym| *sym),
-            bli_dtrsm_small_XAltB_XAuB_ZEN5: get_symbol(
+            bli_trsm_small_zen5: get_symbol(&libs, b"bli_trsm_small_zen5\0").map(|sym| *sym),
+            bli_dtrsm_small_zen5_int_XAltB_XAuB: get_symbol(
                 &libs,
-                b"bli_dtrsm_small_XAltB_XAuB_ZEN5\0",
+                b"bli_dtrsm_small_zen5_int_XAltB_XAuB\0",
             )
             .map(|sym| *sym),
-            bli_dtrsm_small_XAutB_XAlB_ZEN5: get_symbol(
+            bli_dtrsm_small_zen5_int_XAutB_XAlB: get_symbol(
                 &libs,
-                b"bli_dtrsm_small_XAutB_XAlB_ZEN5\0",
+                b"bli_dtrsm_small_zen5_int_XAutB_XAlB\0",
             )
             .map(|sym| *sym),
-            bli_dtrsm_small_AltXB_AuXB_ZEN5: get_symbol(
+            bli_dtrsm_small_zen5_int_AltXB_AuXB: get_symbol(
                 &libs,
-                b"bli_dtrsm_small_AltXB_AuXB_ZEN5\0",
+                b"bli_dtrsm_small_zen5_int_AltXB_AuXB\0",
             )
             .map(|sym| *sym),
-            bli_dtrsm_small_AutXB_AlXB_ZEN5: get_symbol(
+            bli_dtrsm_small_zen5_int_AutXB_AlXB: get_symbol(
                 &libs,
-                b"bli_dtrsm_small_AutXB_AlXB_ZEN5\0",
+                b"bli_dtrsm_small_zen5_int_AutXB_AlXB\0",
             )
             .map(|sym| *sym),
-            bli_ztrsm_small_XAltB_XAuB_ZEN5: get_symbol(
+            bli_ztrsm_small_zen5_int_XAltB_XAuB: get_symbol(
                 &libs,
-                b"bli_ztrsm_small_XAltB_XAuB_ZEN5\0",
+                b"bli_ztrsm_small_zen5_int_XAltB_XAuB\0",
             )
             .map(|sym| *sym),
-            bli_ztrsm_small_XAutB_XAlB_ZEN5: get_symbol(
+            bli_ztrsm_small_zen5_int_XAutB_XAlB: get_symbol(
                 &libs,
-                b"bli_ztrsm_small_XAutB_XAlB_ZEN5\0",
+                b"bli_ztrsm_small_zen5_int_XAutB_XAlB\0",
             )
             .map(|sym| *sym),
-            bli_ztrsm_small_AltXB_AuXB_ZEN5: get_symbol(
+            bli_ztrsm_small_zen5_int_AltXB_AuXB: get_symbol(
                 &libs,
-                b"bli_ztrsm_small_AltXB_AuXB_ZEN5\0",
+                b"bli_ztrsm_small_zen5_int_AltXB_AuXB\0",
             )
             .map(|sym| *sym),
-            bli_ztrsm_small_AutXB_AlXB_ZEN5: get_symbol(
+            bli_ztrsm_small_zen5_int_AutXB_AlXB: get_symbol(
                 &libs,
-                b"bli_ztrsm_small_AutXB_AlXB_ZEN5\0",
+                b"bli_ztrsm_small_zen5_int_AutXB_AlXB\0",
             )
             .map(|sym| *sym),
-            bli_trsm_small_mt_ZEN5: get_symbol(&libs, b"bli_trsm_small_mt_ZEN5\0").map(|sym| *sym),
-            bli_zgemmtiny_avx512_ukr_info: get_symbol(&libs, b"bli_zgemmtiny_avx512_ukr_info\0")
+            bli_trsm_small_zen5_mt: get_symbol(&libs, b"bli_trsm_small_zen5_mt\0").map(|sym| *sym),
+            bli_cgemmtiny_ukr_zen4_info: get_symbol(&libs, b"bli_cgemmtiny_ukr_zen4_info\0")
                 .map(|sym| *sym),
-            bli_daddv_zen_int_avx512: get_symbol(&libs, b"bli_daddv_zen_int_avx512\0")
+            bli_zgemmtiny_ukr_zen4_info: get_symbol(&libs, b"bli_zgemmtiny_ukr_zen4_info\0")
                 .map(|sym| *sym),
-            bli_samaxv_zen_int_avx512: get_symbol(&libs, b"bli_samaxv_zen_int_avx512\0")
+            bli_sgemmtiny_ukr_zen4_info: get_symbol(&libs, b"bli_sgemmtiny_ukr_zen4_info\0")
                 .map(|sym| *sym),
-            bli_damaxv_zen_int_avx512: get_symbol(&libs, b"bli_damaxv_zen_int_avx512\0")
+            bli_daddv_zen4_int: get_symbol(&libs, b"bli_daddv_zen4_int\0").map(|sym| *sym),
+            bli_samaxv_zen4_int: get_symbol(&libs, b"bli_samaxv_zen4_int\0").map(|sym| *sym),
+            bli_damaxv_zen4_int: get_symbol(&libs, b"bli_damaxv_zen4_int\0").map(|sym| *sym),
+            bli_sscalv_zen4_int: get_symbol(&libs, b"bli_sscalv_zen4_int\0").map(|sym| *sym),
+            bli_dscalv_zen4_int: get_symbol(&libs, b"bli_dscalv_zen4_int\0").map(|sym| *sym),
+            bli_cscalv_zen4_int: get_symbol(&libs, b"bli_cscalv_zen4_int\0").map(|sym| *sym),
+            bli_zscalv_zen4_int: get_symbol(&libs, b"bli_zscalv_zen4_int\0").map(|sym| *sym),
+            bli_zdscalv_zen4_int: get_symbol(&libs, b"bli_zdscalv_zen4_int\0").map(|sym| *sym),
+            bli_ssetv_zen4_int: get_symbol(&libs, b"bli_ssetv_zen4_int\0").map(|sym| *sym),
+            bli_dsetv_zen4_int: get_symbol(&libs, b"bli_dsetv_zen4_int\0").map(|sym| *sym),
+            bli_zsetv_zen4_int: get_symbol(&libs, b"bli_zsetv_zen4_int\0").map(|sym| *sym),
+            bli_sdotv_zen4_int: get_symbol(&libs, b"bli_sdotv_zen4_int\0").map(|sym| *sym),
+            bli_ddotv_zen4_int: get_symbol(&libs, b"bli_ddotv_zen4_int\0").map(|sym| *sym),
+            bli_zdotv_zen4_int: get_symbol(&libs, b"bli_zdotv_zen4_int\0").map(|sym| *sym),
+            bli_zdotv_zen4_asm: get_symbol(&libs, b"bli_zdotv_zen4_asm\0").map(|sym| *sym),
+            bli_saxpyv_zen4_int: get_symbol(&libs, b"bli_saxpyv_zen4_int\0").map(|sym| *sym),
+            bli_daxpyv_zen4_int: get_symbol(&libs, b"bli_daxpyv_zen4_int\0").map(|sym| *sym),
+            bli_zaxpyv_zen4_int: get_symbol(&libs, b"bli_zaxpyv_zen4_int\0").map(|sym| *sym),
+            bli_daxpbyv_zen4_int: get_symbol(&libs, b"bli_daxpbyv_zen4_int\0").map(|sym| *sym),
+            bli_zaxpyf_zen4_int_2: get_symbol(&libs, b"bli_zaxpyf_zen4_int_2\0").map(|sym| *sym),
+            bli_zaxpyf_zen4_int_4: get_symbol(&libs, b"bli_zaxpyf_zen4_int_4\0").map(|sym| *sym),
+            bli_zaxpyf_zen4_int_8: get_symbol(&libs, b"bli_zaxpyf_zen4_int_8\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int: get_symbol(&libs, b"bli_daxpyf_zen4_int\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_2: get_symbol(&libs, b"bli_daxpyf_zen4_int_2\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_4: get_symbol(&libs, b"bli_daxpyf_zen4_int_4\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_6: get_symbol(&libs, b"bli_daxpyf_zen4_int_6\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_8: get_symbol(&libs, b"bli_daxpyf_zen4_int_8\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_12: get_symbol(&libs, b"bli_daxpyf_zen4_int_12\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_16: get_symbol(&libs, b"bli_daxpyf_zen4_int_16\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_32: get_symbol(&libs, b"bli_daxpyf_zen4_int_32\0").map(|sym| *sym),
+            bli_daxpyf_zen4_int_32_mt: get_symbol(&libs, b"bli_daxpyf_zen4_int_32_mt\0")
                 .map(|sym| *sym),
-            bli_sscalv_zen_int_avx512: get_symbol(&libs, b"bli_sscalv_zen_int_avx512\0")
+            bli_ddotxf_zen4_int: get_symbol(&libs, b"bli_ddotxf_zen4_int\0").map(|sym| *sym),
+            bli_scopyv_zen4_asm: get_symbol(&libs, b"bli_scopyv_zen4_asm\0").map(|sym| *sym),
+            bli_dcopyv_zen4_asm: get_symbol(&libs, b"bli_dcopyv_zen4_asm\0").map(|sym| *sym),
+            bli_dcopyv_zen4_asm_biway: get_symbol(&libs, b"bli_dcopyv_zen4_asm_biway\0")
                 .map(|sym| *sym),
-            bli_dscalv_zen_int_avx512: get_symbol(&libs, b"bli_dscalv_zen_int_avx512\0")
+            bli_zcopyv_zen4_asm: get_symbol(&libs, b"bli_zcopyv_zen4_asm\0").map(|sym| *sym),
+            bli_dscal2v_zen4_int: get_symbol(&libs, b"bli_dscal2v_zen4_int\0").map(|sym| *sym),
+            bli_zdotxv_zen4_int: get_symbol(&libs, b"bli_zdotxv_zen4_int\0").map(|sym| *sym),
+            bli_zdotxf_zen4_int_8: get_symbol(&libs, b"bli_zdotxf_zen4_int_8\0").map(|sym| *sym),
+            bli_zdotxf_zen4_int_4: get_symbol(&libs, b"bli_zdotxf_zen4_int_4\0").map(|sym| *sym),
+            bli_zdotxf_zen4_int_2: get_symbol(&libs, b"bli_zdotxf_zen4_int_2\0").map(|sym| *sym),
+            bli_dgemv_n_zen4_int_16mx8: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx8\0")
                 .map(|sym| *sym),
-            bli_cscalv_zen_int_avx512: get_symbol(&libs, b"bli_cscalv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx7: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx7\0")
                 .map(|sym| *sym),
-            bli_zscalv_zen_int_avx512: get_symbol(&libs, b"bli_zscalv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx6: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx6\0")
                 .map(|sym| *sym),
-            bli_zdscalv_zen_int_avx512: get_symbol(&libs, b"bli_zdscalv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx5: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx5\0")
                 .map(|sym| *sym),
-            bli_ssetv_zen_int_avx512: get_symbol(&libs, b"bli_ssetv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx4: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx4\0")
                 .map(|sym| *sym),
-            bli_dsetv_zen_int_avx512: get_symbol(&libs, b"bli_dsetv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx3: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx3\0")
                 .map(|sym| *sym),
-            bli_zsetv_zen_int_avx512: get_symbol(&libs, b"bli_zsetv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx2: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx2\0")
                 .map(|sym| *sym),
-            bli_sdotv_zen_int_avx512: get_symbol(&libs, b"bli_sdotv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16mx1: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16mx1\0")
                 .map(|sym| *sym),
-            bli_ddotv_zen_int_avx512: get_symbol(&libs, b"bli_ddotv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_32x8n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x8n\0")
                 .map(|sym| *sym),
-            bli_zdotv_zen_int_avx512: get_symbol(&libs, b"bli_zdotv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16x8n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16x8n\0")
                 .map(|sym| *sym),
-            bli_zdotv_zen4_asm_avx512: get_symbol(&libs, b"bli_zdotv_zen4_asm_avx512\0")
+            bli_dgemv_n_zen4_int_8x8n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_8x8n\0")
                 .map(|sym| *sym),
-            bli_saxpyv_zen_int_avx512: get_symbol(&libs, b"bli_saxpyv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_m_leftx8n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_m_leftx8n\0")
                 .map(|sym| *sym),
-            bli_daxpyv_zen_int_avx512: get_symbol(&libs, b"bli_daxpyv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_32x4n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x4n\0")
                 .map(|sym| *sym),
-            bli_zaxpyv_zen_int_avx512: get_symbol(&libs, b"bli_zaxpyv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_16x4n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16x4n\0")
                 .map(|sym| *sym),
-            bli_daxpbyv_zen_int_avx512: get_symbol(&libs, b"bli_daxpbyv_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_8x4n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_8x4n\0")
                 .map(|sym| *sym),
-            bli_zaxpyf_zen_int_2_avx512: get_symbol(&libs, b"bli_zaxpyf_zen_int_2_avx512\0")
+            bli_dgemv_n_zen4_int_m_leftx4n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_m_leftx4n\0")
                 .map(|sym| *sym),
-            bli_zaxpyf_zen_int_4_avx512: get_symbol(&libs, b"bli_zaxpyf_zen_int_4_avx512\0")
+            bli_dgemv_n_zen4_int_32x3n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x3n\0")
                 .map(|sym| *sym),
-            bli_zaxpyf_zen_int_8_avx512: get_symbol(&libs, b"bli_zaxpyf_zen_int_8_avx512\0")
+            bli_dgemv_n_zen4_int_16x3n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16x3n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_8x3n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_8x3n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int2_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int2_avx512\0")
+            bli_dgemv_n_zen4_int_m_leftx3n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_m_leftx3n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int4_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int4_avx512\0")
+            bli_dgemv_n_zen4_int_32x2n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x2n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int6_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int6_avx512\0")
+            bli_dgemv_n_zen4_int_16x2n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16x2n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int8_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int8_avx512\0")
+            bli_dgemv_n_zen4_int_8x2n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_8x2n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int12_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int12_avx512\0")
+            bli_dgemv_n_zen4_int_m_leftx2n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_m_leftx2n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int16_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int16_avx512\0")
+            bli_dgemv_n_zen4_int_32x1n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x1n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int32_avx512: get_symbol(&libs, b"bli_daxpyf_zen_int32_avx512\0")
+            bli_dgemv_n_zen4_int_16x1n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_16x1n\0")
                 .map(|sym| *sym),
-            bli_daxpyf_zen_int32_avx512_mt: get_symbol(&libs, b"bli_daxpyf_zen_int32_avx512_mt\0")
+            bli_dgemv_n_zen4_int_8x1n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_8x1n\0")
                 .map(|sym| *sym),
-            bli_ddotxf_zen_int_avx512: get_symbol(&libs, b"bli_ddotxf_zen_int_avx512\0")
+            bli_dgemv_n_zen4_int_m_leftx1n: get_symbol(&libs, b"bli_dgemv_n_zen4_int_m_leftx1n\0")
                 .map(|sym| *sym),
-            bli_scopyv_zen4_asm_avx512: get_symbol(&libs, b"bli_scopyv_zen4_asm_avx512\0")
+            bli_dgemv_t_zen4_int: get_symbol(&libs, b"bli_dgemv_t_zen4_int\0").map(|sym| *sym),
+            bli_dgemv_t_zen4_int_32x7m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x7m\0")
                 .map(|sym| *sym),
-            bli_dcopyv_zen4_asm_avx512: get_symbol(&libs, b"bli_dcopyv_zen4_asm_avx512\0")
+            bli_dgemv_t_zen4_int_32x6m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x6m\0")
                 .map(|sym| *sym),
-            bli_zcopyv_zen4_asm_avx512: get_symbol(&libs, b"bli_zcopyv_zen4_asm_avx512\0")
+            bli_dgemv_t_zen4_int_32x5m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x5m\0")
                 .map(|sym| *sym),
-            bli_dscal2v_zen_int_avx512: get_symbol(&libs, b"bli_dscal2v_zen_int_avx512\0")
+            bli_dgemv_t_zen4_int_32x4m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x4m\0")
                 .map(|sym| *sym),
-            bli_zdotxv_zen_int_avx512: get_symbol(&libs, b"bli_zdotxv_zen_int_avx512\0")
+            bli_dgemv_t_zen4_int_32x3m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x3m\0")
                 .map(|sym| *sym),
-            bli_zdotxf_zen_int_8_avx512: get_symbol(&libs, b"bli_zdotxf_zen_int_8_avx512\0")
+            bli_dgemv_t_zen4_int_32x2m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x2m\0")
                 .map(|sym| *sym),
-            bli_zdotxf_zen_int_4_avx512: get_symbol(&libs, b"bli_zdotxf_zen_int_4_avx512\0")
+            bli_dgemv_t_zen4_int_32x1m: get_symbol(&libs, b"bli_dgemv_t_zen4_int_32x1m\0")
                 .map(|sym| *sym),
-            bli_zdotxf_zen_int_2_avx512: get_symbol(&libs, b"bli_zdotxf_zen_int_2_avx512\0")
+            bli_dgemmtrsm_l_zen4_asm_16x14: get_symbol(&libs, b"bli_dgemmtrsm_l_zen4_asm_16x14\0")
                 .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx8_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx8_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx7_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx7_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx6_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx6_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx5_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx5_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx4_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx4_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx3_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx3_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx2_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx2_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16mx1_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16mx1_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_32x8n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_32x8n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16x8n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16x8n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_8x8n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_8x8n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_m_leftx8n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_m_leftx8n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_32x4n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_32x4n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16x4n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16x4n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_8x4n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_8x4n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_m_leftx4n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_m_leftx4n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_32x3n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_32x3n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16x3n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16x3n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_8x3n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_8x3n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_m_leftx3n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_m_leftx3n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_32x2n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_32x2n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16x2n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16x2n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_8x2n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_8x2n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_m_leftx2n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_m_leftx2n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_32x1n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_32x1n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_16x1n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_16x1n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_8x1n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_8x1n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_n_zen_int_m_leftx1n_avx512: get_symbol(
-                &libs,
-                b"bli_dgemv_n_zen_int_m_leftx1n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemv_t_zen_int_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx8_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx8_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx7_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx7_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx6_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx6_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx5_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx5_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx4_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx4_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx3_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx3_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx2_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx2_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx1_avx512: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx1_avx512\0")
-                .map(|sym| *sym),
-            bli_dgemmtrsm_l_zen_asm_16x14: get_symbol(&libs, b"bli_dgemmtrsm_l_zen_asm_16x14\0")
-                .map(|sym| *sym),
-            bli_dgemmtrsm_u_zen_asm_16x14: get_symbol(&libs, b"bli_dgemmtrsm_u_zen_asm_16x14\0")
+            bli_dgemmtrsm_u_zen4_asm_16x14: get_symbol(&libs, b"bli_dgemmtrsm_u_zen4_asm_16x14\0")
                 .map(|sym| *sym),
             bli_dgemmtrsm_l_zen4_asm_8x24: get_symbol(&libs, b"bli_dgemmtrsm_l_zen4_asm_8x24\0")
                 .map(|sym| *sym),
@@ -1507,11 +1397,15 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             bli_dpackm_32xk_zen4_ref: get_symbol(&libs, b"bli_dpackm_32xk_zen4_ref\0")
                 .map(|sym| *sym),
+            bli_cpackm_zen4_asm_24xk: get_symbol(&libs, b"bli_cpackm_zen4_asm_24xk\0")
+                .map(|sym| *sym),
+            bli_cpackm_zen4_asm_4xk: get_symbol(&libs, b"bli_cpackm_zen4_asm_4xk\0")
+                .map(|sym| *sym),
             bli_zpackm_zen4_asm_12xk: get_symbol(&libs, b"bli_zpackm_zen4_asm_12xk\0")
                 .map(|sym| *sym),
             bli_zpackm_zen4_asm_4xk: get_symbol(&libs, b"bli_zpackm_zen4_asm_4xk\0")
                 .map(|sym| *sym),
-            bli_dgemm_avx512_asm_8x24: get_symbol(&libs, b"bli_dgemm_avx512_asm_8x24\0")
+            bli_dgemm_zen4_asm_8x24: get_symbol(&libs, b"bli_dgemm_zen4_asm_8x24\0")
                 .map(|sym| *sym),
             bli_dgemm_zen4_asm_32x6: get_symbol(&libs, b"bli_dgemm_zen4_asm_32x6\0")
                 .map(|sym| *sym),
@@ -1519,401 +1413,347 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             bli_zgemm_zen4_asm_4x12: get_symbol(&libs, b"bli_zgemm_zen4_asm_4x12\0")
                 .map(|sym| *sym),
-            bli_dgemm_avx512_asm_8x24_macro_kernel: get_symbol(
-                &libs,
-                b"bli_dgemm_avx512_asm_8x24_macro_kernel\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_6x64m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_6x64m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_6x48m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_6x48m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_6x32m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_6x32m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_6x16m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_6x16m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_4x64m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_4x64m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_4x48m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_4x48m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_4x32m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_4x32m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_4x16m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_4x16m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_2x64m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_2x64m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_2x48m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_2x48m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_2x32m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_2x32m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_2x16m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_2x16m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_1x64m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_1x64m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_1x48m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_1x48m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_1x32m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_1x32m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_1x16m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_1x16m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_6x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_6x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_5x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_5x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_4x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_4x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_3x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_3x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_2x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_2x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_1x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_1x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_5x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_5x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_5x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_5x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_5x16_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_5x16_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_3x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_3x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_3x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_3x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rv_zen_asm_3x16_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rv_zen_asm_3x16_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_6x64m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_6x64m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_6x48m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_6x48m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_6x32m_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_6x32m_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_3x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_3x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_2x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_2x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_6x64n_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_6x64n_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_5x64_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_5x64_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_4x64_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_4x64_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_3x64_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_3x64_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_2x64_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_2x64_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_1x64_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_1x64_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_5x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_5x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_4x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_4x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_3x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_3x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_2x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_2x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_1x48_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_1x48_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_5x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_5x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_4x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_4x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_3x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_3x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_2x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_2x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_sgemmsup_rd_zen_asm_1x32_avx512: get_symbol(
-                &libs,
-                b"bli_sgemmsup_rd_zen_asm_1x32_avx512\0",
-            )
-            .map(|sym| *sym),
-            bli_trsm_small_AVX512: get_symbol(&libs, b"bli_trsm_small_AVX512\0").map(|sym| *sym),
-            bli_dtrsm_small_AutXB_AlXB_AVX512: get_symbol(
-                &libs,
-                b"bli_dtrsm_small_AutXB_AlXB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_dtrsm_small_XAltB_XAuB_AVX512: get_symbol(
-                &libs,
-                b"bli_dtrsm_small_XAltB_XAuB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_dtrsm_small_XAutB_XAlB_AVX512: get_symbol(
-                &libs,
-                b"bli_dtrsm_small_XAutB_XAlB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_dtrsm_small_AltXB_AuXB_AVX512: get_symbol(
-                &libs,
-                b"bli_dtrsm_small_AltXB_AuXB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_ztrsm_small_AutXB_AlXB_AVX512: get_symbol(
-                &libs,
-                b"bli_ztrsm_small_AutXB_AlXB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_ztrsm_small_XAltB_XAuB_AVX512: get_symbol(
-                &libs,
-                b"bli_ztrsm_small_XAltB_XAuB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_ztrsm_small_XAutB_XAlB_AVX512: get_symbol(
-                &libs,
-                b"bli_ztrsm_small_XAutB_XAlB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_ztrsm_small_AltXB_AuXB_AVX512: get_symbol(
-                &libs,
-                b"bli_ztrsm_small_AltXB_AuXB_AVX512\0",
-            )
-            .map(|sym| *sym),
-            bli_trsm_small_mt_AVX512: get_symbol(&libs, b"bli_trsm_small_mt_AVX512\0")
+            bli_cgemm_zen4_asm_24x4: get_symbol(&libs, b"bli_cgemm_zen4_asm_24x4\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x8m\0")
+            bli_cgemm_zen4_asm_4x24: get_symbol(&libs, b"bli_cgemm_zen4_asm_4x24\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x7m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x7m\0")
+            bli_dgemm_zen4_asm_8x24_macro_kernel: get_symbol(
+                &libs,
+                b"bli_dgemm_zen4_asm_8x24_macro_kernel\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_6x64m: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_6x64m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x6m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x6m\0")
+            bli_sgemmsup_rv_zen4_asm_6x48m: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_6x48m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x5m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x5m\0")
+            bli_sgemmsup_rv_zen4_asm_6x32m: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_6x32m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x4m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x4m\0")
+            bli_sgemmsup_rv_zen4_asm_6x16m: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_6x16m\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x3m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x3m\0")
+            bli_sgemmsup_rv_zen4_asm_4x64: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_4x64\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x2m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x2m\0")
+            bli_sgemmsup_rv_zen4_asm_4x48: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_4x48\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x1m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x1m\0")
+            bli_sgemmsup_rv_zen4_asm_4x32: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_4x32\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x7m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x7m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x6m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x6m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x5m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x5m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x4m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x4m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x3m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x3m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x2m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x2m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x1m_new: get_symbol(
-                &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x1m_new\0",
-            )
-            .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x8\0")
+            bli_sgemmsup_rv_zen4_asm_4x16: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_4x16\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x8: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x8\0")
+            bli_sgemmsup_rv_zen4_asm_2x64: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_2x64\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x8: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x8\0")
+            bli_sgemmsup_rv_zen4_asm_2x48: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_2x48\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x8m: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x8m\0")
+            bli_sgemmsup_rv_zen4_asm_2x32: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_2x32\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x8m_lower: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_2x16: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_2x16\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x64: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_1x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x48: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_1x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x32: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_1x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x16: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_1x16\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_6x16m_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_8x8m_lower\0",
+                b"bli_sgemmsup_rv_zen4_asm_6x16m_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x8m_upper: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_4x16_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_8x8m_upper\0",
+                b"bli_sgemmsup_rv_zen4_asm_4x16_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_lower_0: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_2x16_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_lower_0\0",
+                b"bli_sgemmsup_rv_zen4_asm_2x16_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_lower_1: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_1x16_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_lower_1\0",
+                b"bli_sgemmsup_rv_zen4_asm_1x16_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_lower_2: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_6x8m_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_lower_2\0",
+                b"bli_sgemmsup_rv_zen4_asm_6x8m_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_upper_0: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_4x8_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_upper_0\0",
+                b"bli_sgemmsup_rv_zen4_asm_4x8_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_upper_1: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_2x8_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_upper_1\0",
+                b"bli_sgemmsup_rv_zen4_asm_2x8_mask\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x8m_upper_2: get_symbol(
+            bli_sgemmsup_rv_zen4_asm_1x8_mask: get_symbol(
                 &libs,
-                b"bli_dgemmsup_rv_zen4_asm_24x8m_upper_2\0",
+                b"bli_sgemmsup_rv_zen4_asm_1x8_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_6x4m_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_6x4m_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x4_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_5x4_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_4x4_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_4x4_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x4_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_3x4_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_2x4_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_2x4_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x4_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_1x4_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_6x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_6x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_5x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_4x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_4x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_3x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_2x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_2x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_1x64n: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_1x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x48: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_5x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x32: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_5x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x16: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_5x16\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x48: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_3x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x32: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_3x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x16: get_symbol(&libs, b"bli_sgemmsup_rv_zen4_asm_3x16\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x16_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_5x16_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_5x8_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_5x8_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x16_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_3x16_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rv_zen4_asm_3x8_mask: get_symbol(
+                &libs,
+                b"bli_sgemmsup_rv_zen4_asm_3x8_mask\0",
+            )
+            .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_6x64m: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_6x64m\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_6x48m: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_6x48m\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_6x32m: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_6x32m\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_3x64n: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_3x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_2x64n: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_2x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_6x64n: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_6x64n\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_5x64: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_5x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_4x64: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_4x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_3x64: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_3x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_2x64: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_2x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_1x64: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_1x64\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_5x48: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_5x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_4x48: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_4x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_3x48: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_3x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_2x48: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_2x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_1x48: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_1x48\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_5x32: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_5x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_4x32: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_4x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_3x32: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_3x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_2x32: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_2x32\0")
+                .map(|sym| *sym),
+            bli_sgemmsup_rd_zen4_asm_1x32: get_symbol(&libs, b"bli_sgemmsup_rd_zen4_asm_1x32\0")
+                .map(|sym| *sym),
+            bli_trsm_small_zen4: get_symbol(&libs, b"bli_trsm_small_zen4\0").map(|sym| *sym),
+            bli_dtrsm_small_zen4_int_AutXB_AlXB: get_symbol(
+                &libs,
+                b"bli_dtrsm_small_zen4_int_AutXB_AlXB\0",
+            )
+            .map(|sym| *sym),
+            bli_dtrsm_small_zen4_int_XAltB_XAuB: get_symbol(
+                &libs,
+                b"bli_dtrsm_small_zen4_int_XAltB_XAuB\0",
+            )
+            .map(|sym| *sym),
+            bli_dtrsm_small_zen4_int_XAutB_XAlB: get_symbol(
+                &libs,
+                b"bli_dtrsm_small_zen4_int_XAutB_XAlB\0",
+            )
+            .map(|sym| *sym),
+            bli_dtrsm_small_zen4_int_AltXB_AuXB: get_symbol(
+                &libs,
+                b"bli_dtrsm_small_zen4_int_AltXB_AuXB\0",
+            )
+            .map(|sym| *sym),
+            bli_ztrsm_small_zen4_int_AutXB_AlXB: get_symbol(
+                &libs,
+                b"bli_ztrsm_small_zen4_int_AutXB_AlXB\0",
+            )
+            .map(|sym| *sym),
+            bli_ztrsm_small_zen4_int_XAltB_XAuB: get_symbol(
+                &libs,
+                b"bli_ztrsm_small_zen4_int_XAltB_XAuB\0",
+            )
+            .map(|sym| *sym),
+            bli_ztrsm_small_zen4_int_XAutB_XAlB: get_symbol(
+                &libs,
+                b"bli_ztrsm_small_zen4_int_XAutB_XAlB\0",
+            )
+            .map(|sym| *sym),
+            bli_ztrsm_small_zen4_int_AltXB_AuXB: get_symbol(
+                &libs,
+                b"bli_ztrsm_small_zen4_int_AltXB_AuXB\0",
+            )
+            .map(|sym| *sym),
+            bli_trsm_small_zen4_mt: get_symbol(&libs, b"bli_trsm_small_zen4_mt\0").map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x8m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x7m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x7m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x6m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x6m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x5m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x5m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x4m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x4m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x3m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x3m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x2m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x2m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x1m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x1m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x7m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x7m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x6m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x6m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x5m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x5m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x4m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x4m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x3m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x3m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x2m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x2m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x1m_new: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x1m_new\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x8\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_16x8: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x8\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_8x8: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x8\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_8x8m: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x8m\0")
+                .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_8x8m_lower: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_8x8m_lower\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_8x8m_upper: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_8x8m_upper\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_lower_0: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_lower_0\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_lower_1: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_lower_1\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_lower_2: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_lower_2\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_upper_0: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_upper_0\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_upper_1: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_upper_1\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemmsup_cv_zen4_asm_24x8m_upper_2: get_symbol(
+                &libs,
+                b"bli_dgemmsup_cv_zen4_asm_24x8m_upper_2\0",
             )
             .map(|sym| *sym),
             bli_zgemmsup_rv_zen4_asm_4x4m: get_symbol(&libs, b"bli_zgemmsup_rv_zen4_asm_4x4m\0")
@@ -1928,47 +1768,79 @@ impl DyLoadLib {
                 b"bli_zgemmsup_rv_zen4_asm_4x4m_upper\0",
             )
             .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x7: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x7\0")
+            bli_dgemmsup_cv_zen4_asm_24x7: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x7\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x7: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x7\0")
+            bli_dgemmsup_cv_zen4_asm_16x7: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x7\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x7: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x7\0")
+            bli_dgemmsup_cv_zen4_asm_8x7: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x7\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x6: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x6\0")
+            bli_dgemmsup_cv_zen4_asm_24x6: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x6\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x6: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x6\0")
+            bli_dgemmsup_cv_zen4_asm_16x6: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x6\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x6: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x6\0")
+            bli_dgemmsup_cv_zen4_asm_8x6: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x6\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x5: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x5\0")
+            bli_dgemmsup_cv_zen4_asm_24x5: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x5\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x5: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x5\0")
+            bli_dgemmsup_cv_zen4_asm_16x5: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x5\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x5: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x5\0")
+            bli_dgemmsup_cv_zen4_asm_8x5: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x5\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x4: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x4\0")
+            bli_dgemmsup_cv_zen4_asm_24x4: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x4\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x4: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x4\0")
+            bli_dgemmsup_cv_zen4_asm_16x4: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x4\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x4: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x4\0")
+            bli_dgemmsup_cv_zen4_asm_8x4: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x4\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x3: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x3\0")
+            bli_dgemmsup_cv_zen4_asm_24x3: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x3\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x3: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x3\0")
+            bli_dgemmsup_cv_zen4_asm_16x3: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x3\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x3: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x3\0")
+            bli_dgemmsup_cv_zen4_asm_8x3: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x3\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x2: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x2\0")
+            bli_dgemmsup_cv_zen4_asm_24x2: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x2\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x2: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x2\0")
+            bli_dgemmsup_cv_zen4_asm_16x2: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x2\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x2: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x2\0")
+            bli_dgemmsup_cv_zen4_asm_8x2: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x2\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_24x1: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_24x1\0")
+            bli_dgemmsup_cv_zen4_asm_24x1: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_24x1\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_16x1: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_16x1\0")
+            bli_dgemmsup_cv_zen4_asm_16x1: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_16x1\0")
                 .map(|sym| *sym),
-            bli_dgemmsup_rv_zen4_asm_8x1: get_symbol(&libs, b"bli_dgemmsup_rv_zen4_asm_8x1\0")
+            bli_dgemmsup_cv_zen4_asm_8x1: get_symbol(&libs, b"bli_dgemmsup_cv_zen4_asm_8x1\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_24x4m: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_24x4m\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_24x3m: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_24x3m\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_24x2m: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_24x2m\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_24x1m: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_24x1m\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_16x4: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_16x4\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_16x3: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_16x3\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_16x2: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_16x2\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_16x1: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_16x1\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_8x4: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_8x4\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_8x3: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_8x3\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_8x2: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_8x2\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_8x1: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_8x1\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_fx4: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_fx4\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_fx3: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_fx3\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_fx2: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_fx2\0")
+                .map(|sym| *sym),
+            bli_cgemmsup_cv_zen4_asm_fx1: get_symbol(&libs, b"bli_cgemmsup_cv_zen4_asm_fx1\0")
                 .map(|sym| *sym),
             bli_zgemmsup_cv_zen4_asm_12x4m: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_12x4m\0")
                 .map(|sym| *sym),
@@ -1985,6 +1857,14 @@ impl DyLoadLib {
             bli_zgemmsup_cv_zen4_asm_8x2: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_8x2\0")
                 .map(|sym| *sym),
             bli_zgemmsup_cv_zen4_asm_8x1: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_8x1\0")
+                .map(|sym| *sym),
+            bli_zgemmsup_cv_zen4_asm_fx4: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_fx4\0")
+                .map(|sym| *sym),
+            bli_zgemmsup_cv_zen4_asm_fx3: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_fx3\0")
+                .map(|sym| *sym),
+            bli_zgemmsup_cv_zen4_asm_fx2: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_fx2\0")
+                .map(|sym| *sym),
+            bli_zgemmsup_cv_zen4_asm_fx1: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_fx1\0")
                 .map(|sym| *sym),
             bli_zgemmsup_cv_zen4_asm_4x4: get_symbol(&libs, b"bli_zgemmsup_cv_zen4_asm_4x4\0")
                 .map(|sym| *sym),
@@ -2018,12 +1898,15 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             bli_zgemmsup_cd_zen4_asm_2x2: get_symbol(&libs, b"bli_zgemmsup_cd_zen4_asm_2x2\0")
                 .map(|sym| *sym),
-            bli_dgemm_24x8_avx512_k1_nn: get_symbol(&libs, b"bli_dgemm_24x8_avx512_k1_nn\0")
+            bli_dgemm_zen4_int_24x8_k1_nn: get_symbol(&libs, b"bli_dgemm_zen4_int_24x8_k1_nn\0")
                 .map(|sym| *sym),
-            bli_dgemm_tiny_24x8: get_symbol(&libs, b"bli_dgemm_tiny_24x8\0").map(|sym| *sym),
-            bli_dnorm2fv_unb_var1_avx512: get_symbol(&libs, b"bli_dnorm2fv_unb_var1_avx512\0")
+            bli_dgemm_tiny_zen4_24x8: get_symbol(&libs, b"bli_dgemm_tiny_zen4_24x8\0")
                 .map(|sym| *sym),
-            bli_zgemm_16x4_avx512_k1_nn: get_symbol(&libs, b"bli_zgemm_16x4_avx512_k1_nn\0")
+            bli_dnorm2fv_zen4_int_unb_var1: get_symbol(&libs, b"bli_dnorm2fv_zen4_int_unb_var1\0")
+                .map(|sym| *sym),
+            bli_cgemm_zen4_int_32x4_k1_nn: get_symbol(&libs, b"bli_cgemm_zen4_int_32x4_k1_nn\0")
+                .map(|sym| *sym),
+            bli_zgemm_zen4_int_16x4_k1_nn: get_symbol(&libs, b"bli_zgemm_zen4_int_16x4_k1_nn\0")
                 .map(|sym| *sym),
             bli_cntx_gemmsup_thresh_is_met_zen4: get_symbol(
                 &libs,
@@ -2033,10 +1916,37 @@ impl DyLoadLib {
             bli_dynamic_blkszs_zen4: get_symbol(&libs, b"bli_dynamic_blkszs_zen4\0")
                 .map(|sym| *sym),
             bli_zero_zmm: get_symbol(&libs, b"bli_zero_zmm\0").map(|sym| *sym),
-            bli_dgemv_n_avx512: get_symbol(&libs, b"bli_dgemv_n_avx512\0").map(|sym| *sym),
+            bli_dgemv_n_zen4_int_32x8_st: get_symbol(&libs, b"bli_dgemv_n_zen4_int_32x8_st\0")
+                .map(|sym| *sym),
+            bli_dgemv_n_zen4_int: get_symbol(&libs, b"bli_dgemv_n_zen4_int\0").map(|sym| *sym),
+            bli_dgemv_n_zen4_int_40x2_st: get_symbol(&libs, b"bli_dgemv_n_zen4_int_40x2_st\0")
+                .map(|sym| *sym),
+            bli_dgemv_n_zen4_int_40x2_mt: get_symbol(&libs, b"bli_dgemv_n_zen4_int_40x2_mt\0")
+                .map(|sym| *sym),
+            bli_dgemv_m_zen4_int_40x8_st: get_symbol(&libs, b"bli_dgemv_m_zen4_int_40x8_st\0")
+                .map(|sym| *sym),
+            bli_dgemv_m_zen4_int_40x8_mt_Ndiv: get_symbol(
+                &libs,
+                b"bli_dgemv_m_zen4_int_40x8_mt_Ndiv\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemv_m_zen4_int_40x8_mt_Mdiv: get_symbol(
+                &libs,
+                b"bli_dgemv_m_zen4_int_40x8_mt_Mdiv\0",
+            )
+            .map(|sym| *sym),
+            bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv: get_symbol(
+                &libs,
+                b"bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv\0",
+            )
+            .map(|sym| *sym),
             bli_saxpyf_zen_int_5: get_symbol(&libs, b"bli_saxpyf_zen_int_5\0").map(|sym| *sym),
             bli_daxpyf_zen_int_5: get_symbol(&libs, b"bli_daxpyf_zen_int_5\0").map(|sym| *sym),
-            bli_zgemmtiny_avx2_ukr_info: get_symbol(&libs, b"bli_zgemmtiny_avx2_ukr_info\0")
+            bli_cgemmtiny_ukr_zen_info: get_symbol(&libs, b"bli_cgemmtiny_ukr_zen_info\0")
+                .map(|sym| *sym),
+            bli_zgemmtiny_ukr_zen_info: get_symbol(&libs, b"bli_zgemmtiny_ukr_zen_info\0")
+                .map(|sym| *sym),
+            bli_sgemmtiny_ukr_zen_info: get_symbol(&libs, b"bli_sgemmtiny_ukr_zen_info\0")
                 .map(|sym| *sym),
             bli_saddv_zen_int: get_symbol(&libs, b"bli_saddv_zen_int\0").map(|sym| *sym),
             bli_daddv_zen_int: get_symbol(&libs, b"bli_daddv_zen_int\0").map(|sym| *sym),
@@ -2048,20 +1958,20 @@ impl DyLoadLib {
             bli_daxpbyv_zen_int: get_symbol(&libs, b"bli_daxpbyv_zen_int\0").map(|sym| *sym),
             bli_caxpbyv_zen_int: get_symbol(&libs, b"bli_caxpbyv_zen_int\0").map(|sym| *sym),
             bli_zaxpbyv_zen_int: get_symbol(&libs, b"bli_zaxpbyv_zen_int\0").map(|sym| *sym),
-            bli_saxpbyv_zen_int10: get_symbol(&libs, b"bli_saxpbyv_zen_int10\0").map(|sym| *sym),
-            bli_daxpbyv_zen_int10: get_symbol(&libs, b"bli_daxpbyv_zen_int10\0").map(|sym| *sym),
+            bli_saxpbyv_zen_int_10: get_symbol(&libs, b"bli_saxpbyv_zen_int_10\0").map(|sym| *sym),
+            bli_daxpbyv_zen_int_10: get_symbol(&libs, b"bli_daxpbyv_zen_int_10\0").map(|sym| *sym),
             bli_saxpyv_zen_int: get_symbol(&libs, b"bli_saxpyv_zen_int\0").map(|sym| *sym),
             bli_daxpyv_zen_int: get_symbol(&libs, b"bli_daxpyv_zen_int\0").map(|sym| *sym),
-            bli_saxpyv_zen_int10: get_symbol(&libs, b"bli_saxpyv_zen_int10\0").map(|sym| *sym),
-            bli_daxpyv_zen_int10: get_symbol(&libs, b"bli_daxpyv_zen_int10\0").map(|sym| *sym),
-            bli_caxpyv_zen_int5: get_symbol(&libs, b"bli_caxpyv_zen_int5\0").map(|sym| *sym),
-            bli_zaxpyv_zen_int5: get_symbol(&libs, b"bli_zaxpyv_zen_int5\0").map(|sym| *sym),
+            bli_saxpyv_zen_int_10: get_symbol(&libs, b"bli_saxpyv_zen_int_10\0").map(|sym| *sym),
+            bli_daxpyv_zen_int_10: get_symbol(&libs, b"bli_daxpyv_zen_int_10\0").map(|sym| *sym),
+            bli_caxpyv_zen_int_5: get_symbol(&libs, b"bli_caxpyv_zen_int_5\0").map(|sym| *sym),
+            bli_zaxpyv_zen_int_5: get_symbol(&libs, b"bli_zaxpyv_zen_int_5\0").map(|sym| *sym),
             bli_sdotv_zen_int: get_symbol(&libs, b"bli_sdotv_zen_int\0").map(|sym| *sym),
             bli_ddotv_zen_int: get_symbol(&libs, b"bli_ddotv_zen_int\0").map(|sym| *sym),
-            bli_sdotv_zen_int10: get_symbol(&libs, b"bli_sdotv_zen_int10\0").map(|sym| *sym),
-            bli_ddotv_zen_int10: get_symbol(&libs, b"bli_ddotv_zen_int10\0").map(|sym| *sym),
-            bli_cdotv_zen_int5: get_symbol(&libs, b"bli_cdotv_zen_int5\0").map(|sym| *sym),
-            bli_zdotv_zen_int5: get_symbol(&libs, b"bli_zdotv_zen_int5\0").map(|sym| *sym),
+            bli_sdotv_zen_int_10: get_symbol(&libs, b"bli_sdotv_zen_int_10\0").map(|sym| *sym),
+            bli_ddotv_zen_int_10: get_symbol(&libs, b"bli_ddotv_zen_int_10\0").map(|sym| *sym),
+            bli_cdotv_zen_int_5: get_symbol(&libs, b"bli_cdotv_zen_int_5\0").map(|sym| *sym),
+            bli_zdotv_zen_int_5: get_symbol(&libs, b"bli_zdotv_zen_int_5\0").map(|sym| *sym),
             bli_sdotxv_zen_int: get_symbol(&libs, b"bli_sdotxv_zen_int\0").map(|sym| *sym),
             bli_ddotxv_zen_int: get_symbol(&libs, b"bli_ddotxv_zen_int\0").map(|sym| *sym),
             bli_zdotxv_zen_int: get_symbol(&libs, b"bli_zdotxv_zen_int\0").map(|sym| *sym),
@@ -2070,11 +1980,11 @@ impl DyLoadLib {
             bli_dscalv_zen_int: get_symbol(&libs, b"bli_dscalv_zen_int\0").map(|sym| *sym),
             bli_cscalv_zen_int: get_symbol(&libs, b"bli_cscalv_zen_int\0").map(|sym| *sym),
             bli_zscalv_zen_int: get_symbol(&libs, b"bli_zscalv_zen_int\0").map(|sym| *sym),
-            bli_sscalv_zen_int10: get_symbol(&libs, b"bli_sscalv_zen_int10\0").map(|sym| *sym),
-            bli_dscalv_zen_int10: get_symbol(&libs, b"bli_dscalv_zen_int10\0").map(|sym| *sym),
-            bli_zdscalv_zen_int10: get_symbol(&libs, b"bli_zdscalv_zen_int10\0").map(|sym| *sym),
-            bli_sswapv_zen_int8: get_symbol(&libs, b"bli_sswapv_zen_int8\0").map(|sym| *sym),
-            bli_dswapv_zen_int8: get_symbol(&libs, b"bli_dswapv_zen_int8\0").map(|sym| *sym),
+            bli_sscalv_zen_int_10: get_symbol(&libs, b"bli_sscalv_zen_int_10\0").map(|sym| *sym),
+            bli_dscalv_zen_int_10: get_symbol(&libs, b"bli_dscalv_zen_int_10\0").map(|sym| *sym),
+            bli_zdscalv_zen_int_10: get_symbol(&libs, b"bli_zdscalv_zen_int_10\0").map(|sym| *sym),
+            bli_sswapv_zen_int_8: get_symbol(&libs, b"bli_sswapv_zen_int_8\0").map(|sym| *sym),
+            bli_dswapv_zen_int_8: get_symbol(&libs, b"bli_dswapv_zen_int_8\0").map(|sym| *sym),
             bli_scopyv_zen_int: get_symbol(&libs, b"bli_scopyv_zen_int\0").map(|sym| *sym),
             bli_dcopyv_zen_int: get_symbol(&libs, b"bli_dcopyv_zen_int\0").map(|sym| *sym),
             bli_ccopyv_zen_int: get_symbol(&libs, b"bli_ccopyv_zen_int\0").map(|sym| *sym),
@@ -2115,21 +2025,20 @@ impl DyLoadLib {
             bli_dgemv_zen_ref_c: get_symbol(&libs, b"bli_dgemv_zen_ref_c\0").map(|sym| *sym),
             bli_cgemv_zen_int_4x4: get_symbol(&libs, b"bli_cgemv_zen_int_4x4\0").map(|sym| *sym),
             bli_zgemv_zen_int_4x4: get_symbol(&libs, b"bli_zgemv_zen_int_4x4\0").map(|sym| *sym),
-            bli_dgemv_t_zen_int_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_avx2\0")
+            bli_dgemv_t_zen_int: get_symbol(&libs, b"bli_dgemv_t_zen_int\0").map(|sym| *sym),
+            bli_dgemv_t_zen_int_16x7m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x7m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx7_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx7_avx2\0")
+            bli_dgemv_t_zen_int_16x6m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x6m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx6_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx6_avx2\0")
+            bli_dgemv_t_zen_int_16x5m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x5m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx5_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx5_avx2\0")
+            bli_dgemv_t_zen_int_16x4m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x4m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx4_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx4_avx2\0")
+            bli_dgemv_t_zen_int_16x3m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x3m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx3_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx3_avx2\0")
+            bli_dgemv_t_zen_int_16x2m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x2m\0")
                 .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx2_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx2_avx2\0")
-                .map(|sym| *sym),
-            bli_dgemv_t_zen_int_mx1_avx2: get_symbol(&libs, b"bli_dgemv_t_zen_int_mx1_avx2\0")
+            bli_dgemv_t_zen_int_16x1m: get_symbol(&libs, b"bli_dgemv_t_zen_int_16x1m\0")
                 .map(|sym| *sym),
             bli_zher_zen_int_var1: get_symbol(&libs, b"bli_zher_zen_int_var1\0").map(|sym| *sym),
             bli_zher_zen_int_var2: get_symbol(&libs, b"bli_zher_zen_int_var2\0").map(|sym| *sym),
@@ -2421,17 +2330,18 @@ impl DyLoadLib {
             bli_zgemmsup_rv_zen_asm_3x1: get_symbol(&libs, b"bli_zgemmsup_rv_zen_asm_3x1\0")
                 .map(|sym| *sym),
             bli_dgemm_tiny: get_symbol(&libs, b"bli_dgemm_tiny\0").map(|sym| *sym),
-            bli_dgemm_tiny_6x8: get_symbol(&libs, b"bli_dgemm_tiny_6x8\0").map(|sym| *sym),
+            bli_is_sgemm_tiny_zen: get_symbol(&libs, b"bli_is_sgemm_tiny_zen\0").map(|sym| *sym),
+            bli_dgemm_tiny_zen_6x8: get_symbol(&libs, b"bli_dgemm_tiny_zen_6x8\0").map(|sym| *sym),
             bli_dgemm_small: get_symbol(&libs, b"bli_dgemm_small\0").map(|sym| *sym),
             bli_dgemm_small_At: get_symbol(&libs, b"bli_dgemm_small_At\0").map(|sym| *sym),
             bli_zgemm_small: get_symbol(&libs, b"bli_zgemm_small\0").map(|sym| *sym),
             bli_zgemm_small_At: get_symbol(&libs, b"bli_zgemm_small_At\0").map(|sym| *sym),
-            bli_dgemm_8x6_avx2_k1_nn: get_symbol(&libs, b"bli_dgemm_8x6_avx2_k1_nn\0")
+            bli_dgemm_zen_int_8x6_k1_nn: get_symbol(&libs, b"bli_dgemm_zen_int_8x6_k1_nn\0")
                 .map(|sym| *sym),
-            bli_zgemm_4x4_avx2_k1_nn: get_symbol(&libs, b"bli_zgemm_4x4_avx2_k1_nn\0")
+            bli_zgemm_zen_int_4x4_k1_nn: get_symbol(&libs, b"bli_zgemm_zen_int_4x4_k1_nn\0")
                 .map(|sym| *sym),
-            bli_trsm_small: get_symbol(&libs, b"bli_trsm_small\0").map(|sym| *sym),
-            bli_trsm_small_mt: get_symbol(&libs, b"bli_trsm_small_mt\0").map(|sym| *sym),
+            bli_trsm_small_zen: get_symbol(&libs, b"bli_trsm_small_zen\0").map(|sym| *sym),
+            bli_trsm_small_zen_mt: get_symbol(&libs, b"bli_trsm_small_zen_mt\0").map(|sym| *sym),
             bli_multi_sgemv_4x2: get_symbol(&libs, b"bli_multi_sgemv_4x2\0").map(|sym| *sym),
             bli_cntx_gemmtsup_thresh_is_met_zen: get_symbol(
                 &libs,
@@ -2448,13 +2358,13 @@ impl DyLoadLib {
                 b"bli_cntx_trsm_small_thresh_is_met_zen\0",
             )
             .map(|sym| *sym),
-            bli_snorm2fv_unb_var1_avx2: get_symbol(&libs, b"bli_snorm2fv_unb_var1_avx2\0")
+            bli_snorm2fv_zen_int_unb_var1: get_symbol(&libs, b"bli_snorm2fv_zen_int_unb_var1\0")
                 .map(|sym| *sym),
-            bli_dnorm2fv_unb_var1_avx2: get_symbol(&libs, b"bli_dnorm2fv_unb_var1_avx2\0")
+            bli_dnorm2fv_zen_int_unb_var1: get_symbol(&libs, b"bli_dnorm2fv_zen_int_unb_var1\0")
                 .map(|sym| *sym),
-            bli_scnorm2fv_unb_var1_avx2: get_symbol(&libs, b"bli_scnorm2fv_unb_var1_avx2\0")
+            bli_scnorm2fv_zen_int_unb_var1: get_symbol(&libs, b"bli_scnorm2fv_zen_int_unb_var1\0")
                 .map(|sym| *sym),
-            bli_dznorm2fv_unb_var1_avx2: get_symbol(&libs, b"bli_dznorm2fv_unb_var1_avx2\0")
+            bli_dznorm2fv_zen_int_unb_var1: get_symbol(&libs, b"bli_dznorm2fv_zen_int_unb_var1\0")
                 .map(|sym| *sym),
             bli_zgemm_zen_asm_2x6: get_symbol(&libs, b"bli_zgemm_zen_asm_2x6\0").map(|sym| *sym),
             bli_zgemmtrsm_l_zen_asm_2x6: get_symbol(&libs, b"bli_zgemmtrsm_l_zen_asm_2x6\0")
@@ -2462,7 +2372,8 @@ impl DyLoadLib {
             bli_zgemmtrsm_u_zen_asm_2x6: get_symbol(&libs, b"bli_zgemmtrsm_u_zen_asm_2x6\0")
                 .map(|sym| *sym),
             bli_dgemv_zen_ref: get_symbol(&libs, b"bli_dgemv_zen_ref\0").map(|sym| *sym),
-            bli_dgemv_n_avx2: get_symbol(&libs, b"bli_dgemv_n_avx2\0").map(|sym| *sym),
+            bli_sgemv_zen_ref: get_symbol(&libs, b"bli_sgemv_zen_ref\0").map(|sym| *sym),
+            bli_dgemv_n_zen: get_symbol(&libs, b"bli_dgemv_n_zen\0").map(|sym| *sym),
             bli_init: get_symbol(&libs, b"bli_init\0").map(|sym| *sym),
             bli_finalize: get_symbol(&libs, b"bli_finalize\0").map(|sym| *sym),
             bli_init_auto: get_symbol(&libs, b"bli_init_auto\0").map(|sym| *sym),
@@ -2632,6 +2543,7 @@ impl DyLoadLib {
             aocl_znormfv_dynamic: get_symbol(&libs, b"aocl_znormfv_dynamic\0").map(|sym| *sym),
             bli_nthreads_l1: get_symbol(&libs, b"bli_nthreads_l1\0").map(|sym| *sym),
             bli_nthreads_l1f: get_symbol(&libs, b"bli_nthreads_l1f\0").map(|sym| *sym),
+            bli_nthreads_l2: get_symbol(&libs, b"bli_nthreads_l2\0").map(|sym| *sym),
             bli_gks_init: get_symbol(&libs, b"bli_gks_init\0").map(|sym| *sym),
             bli_gks_init_once: get_symbol(&libs, b"bli_gks_init_once\0").map(|sym| *sym),
             bli_gks_finalize: get_symbol(&libs, b"bli_gks_finalize\0").map(|sym| *sym),
@@ -3235,23 +3147,16 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             bli_info_get_trsm_impl_string: get_symbol(&libs, b"bli_info_get_trsm_impl_string\0")
                 .map(|sym| *sym),
-            bli_arch_query_id: get_symbol(&libs, b"bli_arch_query_id\0").map(|sym| *sym),
             bli_aocl_enable_instruction_query: get_symbol(
                 &libs,
                 b"bli_aocl_enable_instruction_query\0",
             )
             .map(|sym| *sym),
-            bli_arch_set_id_once: get_symbol(&libs, b"bli_arch_set_id_once\0").map(|sym| *sym),
-            bli_arch_set_id: get_symbol(&libs, b"bli_arch_set_id\0").map(|sym| *sym),
-            bli_arch_check_id_once: get_symbol(&libs, b"bli_arch_check_id_once\0").map(|sym| *sym),
-            bli_arch_check_id: get_symbol(&libs, b"bli_arch_check_id\0").map(|sym| *sym),
-            bli_arch_string: get_symbol(&libs, b"bli_arch_string\0").map(|sym| *sym),
-            bli_arch_set_logging: get_symbol(&libs, b"bli_arch_set_logging\0").map(|sym| *sym),
-            bli_arch_get_logging: get_symbol(&libs, b"bli_arch_get_logging\0").map(|sym| *sym),
-            bli_arch_log: get_symbol(&libs, b"bli_arch_log\0").map(|sym| *sym),
+            bli_arch_query_id: get_symbol(&libs, b"bli_arch_query_id\0").map(|sym| *sym),
             bli_model_query_id: get_symbol(&libs, b"bli_model_query_id\0").map(|sym| *sym),
             bli_init_model_query_id: get_symbol(&libs, b"bli_init_model_query_id\0")
                 .map(|sym| *sym),
+            bli_arch_string: get_symbol(&libs, b"bli_arch_string\0").map(|sym| *sym),
             bli_model_string: get_symbol(&libs, b"bli_model_string\0").map(|sym| *sym),
             bli_cpuid_query_id: get_symbol(&libs, b"bli_cpuid_query_id\0").map(|sym| *sym),
             bli_cpuid_query_model_id: get_symbol(&libs, b"bli_cpuid_query_model_id\0")
@@ -3272,10 +3177,9 @@ impl DyLoadLib {
             bli_cpuid_is_sandybridge: get_symbol(&libs, b"bli_cpuid_is_sandybridge\0")
                 .map(|sym| *sym),
             bli_cpuid_is_penryn: get_symbol(&libs, b"bli_cpuid_is_penryn\0").map(|sym| *sym),
+            bli_cpuid_is_zen6: get_symbol(&libs, b"bli_cpuid_is_zen6\0").map(|sym| *sym),
             bli_cpuid_is_zen5: get_symbol(&libs, b"bli_cpuid_is_zen5\0").map(|sym| *sym),
             bli_cpuid_is_zen4: get_symbol(&libs, b"bli_cpuid_is_zen4\0").map(|sym| *sym),
-            bli_cpuid_is_avx512_fallback: get_symbol(&libs, b"bli_cpuid_is_avx512_fallback\0")
-                .map(|sym| *sym),
             bli_cpuid_is_zen3: get_symbol(&libs, b"bli_cpuid_is_zen3\0").map(|sym| *sym),
             bli_cpuid_is_zen2: get_symbol(&libs, b"bli_cpuid_is_zen2\0").map(|sym| *sym),
             bli_cpuid_is_zen: get_symbol(&libs, b"bli_cpuid_is_zen\0").map(|sym| *sym),
@@ -3285,6 +3189,8 @@ impl DyLoadLib {
             bli_cpuid_is_piledriver: get_symbol(&libs, b"bli_cpuid_is_piledriver\0")
                 .map(|sym| *sym),
             bli_cpuid_is_bulldozer: get_symbol(&libs, b"bli_cpuid_is_bulldozer\0").map(|sym| *sym),
+            bli_cpuid_get_zen6_cpuid_model: get_symbol(&libs, b"bli_cpuid_get_zen6_cpuid_model\0")
+                .map(|sym| *sym),
             bli_cpuid_get_zen5_cpuid_model: get_symbol(&libs, b"bli_cpuid_get_zen5_cpuid_model\0")
                 .map(|sym| *sym),
             bli_cpuid_get_zen4_cpuid_model: get_symbol(&libs, b"bli_cpuid_get_zen4_cpuid_model\0")
@@ -3302,6 +3208,8 @@ impl DyLoadLib {
             bli_cpuid_check_datapath: get_symbol(&libs, b"bli_cpuid_check_datapath\0")
                 .map(|sym| *sym),
             bli_cpuid_check_cache: get_symbol(&libs, b"bli_cpuid_check_cache\0").map(|sym| *sym),
+            bli_cpuid_query_id_once: get_symbol(&libs, b"bli_cpuid_query_id_once\0")
+                .map(|sym| *sym),
             get_cpu_name: get_symbol(&libs, b"get_cpu_name\0").map(|sym| *sym),
             vpu_count: get_symbol(&libs, b"vpu_count\0").map(|sym| *sym),
             bli_cpuid_is_avx2fma3_supported: get_symbol(
@@ -3321,6 +3229,11 @@ impl DyLoadLib {
                 b"bli_cpuid_is_avx512bf16_supported\0",
             )
             .map(|sym| *sym),
+            bli_cpuid_is_avx512fp16_supported: get_symbol(
+                &libs,
+                b"bli_cpuid_is_avx512fp16_supported\0",
+            )
+            .map(|sym| *sym),
             bli_cpuid_check_avx2fma3_support: get_symbol(
                 &libs,
                 b"bli_cpuid_check_avx2fma3_support\0",
@@ -3336,6 +3249,11 @@ impl DyLoadLib {
             bli_cpuid_check_avx512bf16_support: get_symbol(
                 &libs,
                 b"bli_cpuid_check_avx512bf16_support\0",
+            )
+            .map(|sym| *sym),
+            bli_cpuid_check_avx512fp16_support: get_symbol(
+                &libs,
+                b"bli_cpuid_check_avx512fp16_support\0",
             )
             .map(|sym| *sym),
             bli_string_mkupper: get_symbol(&libs, b"bli_string_mkupper\0").map(|sym| *sym),
@@ -4933,7 +4851,9 @@ impl DyLoadLib {
             bli_dgemm_ker_var2: get_symbol(&libs, b"bli_dgemm_ker_var2\0").map(|sym| *sym),
             bli_cgemm_ker_var2: get_symbol(&libs, b"bli_cgemm_ker_var2\0").map(|sym| *sym),
             bli_zgemm_ker_var2: get_symbol(&libs, b"bli_zgemm_ker_var2\0").map(|sym| *sym),
+            bli_cgemm_tiny: get_symbol(&libs, b"bli_cgemm_tiny\0").map(|sym| *sym),
             bli_zgemm_tiny: get_symbol(&libs, b"bli_zgemm_tiny\0").map(|sym| *sym),
+            bli_sgemm_tiny: get_symbol(&libs, b"bli_sgemm_tiny\0").map(|sym| *sym),
             bli_sgemm_md_c2r_ref: get_symbol(&libs, b"bli_sgemm_md_c2r_ref\0").map(|sym| *sym),
             bli_dgemm_md_c2r_ref: get_symbol(&libs, b"bli_dgemm_md_c2r_ref\0").map(|sym| *sym),
             bli_cgemm_md_c2r_ref: get_symbol(&libs, b"bli_cgemm_md_c2r_ref\0").map(|sym| *sym),
@@ -5962,6 +5882,9 @@ impl DyLoadLib {
             CGEMMT: get_symbol(&libs, b"CGEMMT\0").map(|sym| *sym),
             cgemmt: get_symbol(&libs, b"cgemmt\0").map(|sym| *sym),
             CGEMMT_: get_symbol(&libs, b"CGEMMT_\0").map(|sym| *sym),
+            CGEMMTR: get_symbol(&libs, b"CGEMMTR\0").map(|sym| *sym),
+            cgemmtr: get_symbol(&libs, b"cgemmtr\0").map(|sym| *sym),
+            CGEMMTR_: get_symbol(&libs, b"CGEMMTR_\0").map(|sym| *sym),
             DAXPBY: get_symbol(&libs, b"DAXPBY\0").map(|sym| *sym),
             daxpby: get_symbol(&libs, b"daxpby\0").map(|sym| *sym),
             DAXPBY_: get_symbol(&libs, b"DAXPBY_\0").map(|sym| *sym),
@@ -5980,6 +5903,9 @@ impl DyLoadLib {
             DGEMMT: get_symbol(&libs, b"DGEMMT\0").map(|sym| *sym),
             dgemmt: get_symbol(&libs, b"dgemmt\0").map(|sym| *sym),
             DGEMMT_: get_symbol(&libs, b"DGEMMT_\0").map(|sym| *sym),
+            DGEMMTR: get_symbol(&libs, b"DGEMMTR\0").map(|sym| *sym),
+            dgemmtr: get_symbol(&libs, b"dgemmtr\0").map(|sym| *sym),
+            DGEMMTR_: get_symbol(&libs, b"DGEMMTR_\0").map(|sym| *sym),
             SAXPBY: get_symbol(&libs, b"SAXPBY\0").map(|sym| *sym),
             saxpby: get_symbol(&libs, b"saxpby\0").map(|sym| *sym),
             SAXPBY_: get_symbol(&libs, b"SAXPBY_\0").map(|sym| *sym),
@@ -5998,6 +5924,9 @@ impl DyLoadLib {
             SGEMMT: get_symbol(&libs, b"SGEMMT\0").map(|sym| *sym),
             sgemmt: get_symbol(&libs, b"sgemmt\0").map(|sym| *sym),
             SGEMMT_: get_symbol(&libs, b"SGEMMT_\0").map(|sym| *sym),
+            SGEMMTR: get_symbol(&libs, b"SGEMMTR\0").map(|sym| *sym),
+            sgemmtr: get_symbol(&libs, b"sgemmtr\0").map(|sym| *sym),
+            SGEMMTR_: get_symbol(&libs, b"SGEMMTR_\0").map(|sym| *sym),
             ZAXPBY: get_symbol(&libs, b"ZAXPBY\0").map(|sym| *sym),
             zaxpby: get_symbol(&libs, b"zaxpby\0").map(|sym| *sym),
             ZAXPBY_: get_symbol(&libs, b"ZAXPBY_\0").map(|sym| *sym),
@@ -6010,6 +5939,9 @@ impl DyLoadLib {
             ZGEMMT: get_symbol(&libs, b"ZGEMMT\0").map(|sym| *sym),
             zgemmt: get_symbol(&libs, b"zgemmt\0").map(|sym| *sym),
             ZGEMMT_: get_symbol(&libs, b"ZGEMMT_\0").map(|sym| *sym),
+            ZGEMMTR: get_symbol(&libs, b"ZGEMMTR\0").map(|sym| *sym),
+            zgemmtr: get_symbol(&libs, b"zgemmtr\0").map(|sym| *sym),
+            ZGEMMTR_: get_symbol(&libs, b"ZGEMMTR_\0").map(|sym| *sym),
             CIMATCOPY: get_symbol(&libs, b"CIMATCOPY\0").map(|sym| *sym),
             cimatcopy: get_symbol(&libs, b"cimatcopy\0").map(|sym| *sym),
             CIMATCOPY_: get_symbol(&libs, b"CIMATCOPY_\0").map(|sym| *sym),
@@ -6022,6 +5954,9 @@ impl DyLoadLib {
             COMATCOPY: get_symbol(&libs, b"COMATCOPY\0").map(|sym| *sym),
             comatcopy: get_symbol(&libs, b"comatcopy\0").map(|sym| *sym),
             COMATCOPY_: get_symbol(&libs, b"COMATCOPY_\0").map(|sym| *sym),
+            DIMATCOPY: get_symbol(&libs, b"DIMATCOPY\0").map(|sym| *sym),
+            dimatcopy: get_symbol(&libs, b"dimatcopy\0").map(|sym| *sym),
+            DIMATCOPY_: get_symbol(&libs, b"DIMATCOPY_\0").map(|sym| *sym),
             DOMATADD: get_symbol(&libs, b"DOMATADD\0").map(|sym| *sym),
             domatadd: get_symbol(&libs, b"domatadd\0").map(|sym| *sym),
             DOMATADD_: get_symbol(&libs, b"DOMATADD_\0").map(|sym| *sym),
@@ -6604,6 +6539,9 @@ impl DyLoadLib {
             CGEMMT_BLIS_IMPL: get_symbol(&libs, b"CGEMMT_BLIS_IMPL\0").map(|sym| *sym),
             cgemmt_blis_impl_: get_symbol(&libs, b"cgemmt_blis_impl_\0").map(|sym| *sym),
             CGEMMT_BLIS_IMPL_: get_symbol(&libs, b"CGEMMT_BLIS_IMPL_\0").map(|sym| *sym),
+            CGEMMTR_BLIS_IMPL: get_symbol(&libs, b"CGEMMTR_BLIS_IMPL\0").map(|sym| *sym),
+            cgemmtr_blis_impl_: get_symbol(&libs, b"cgemmtr_blis_impl_\0").map(|sym| *sym),
+            CGEMMTR_BLIS_IMPL_: get_symbol(&libs, b"CGEMMTR_BLIS_IMPL_\0").map(|sym| *sym),
             DAXPBY_BLIS_IMPL: get_symbol(&libs, b"DAXPBY_BLIS_IMPL\0").map(|sym| *sym),
             daxpby_blis_impl_: get_symbol(&libs, b"daxpby_blis_impl_\0").map(|sym| *sym),
             DAXPBY_BLIS_IMPL_: get_symbol(&libs, b"DAXPBY_BLIS_IMPL_\0").map(|sym| *sym),
@@ -6628,6 +6566,9 @@ impl DyLoadLib {
             DGEMMT_BLIS_IMPL: get_symbol(&libs, b"DGEMMT_BLIS_IMPL\0").map(|sym| *sym),
             dgemmt_blis_impl_: get_symbol(&libs, b"dgemmt_blis_impl_\0").map(|sym| *sym),
             DGEMMT_BLIS_IMPL_: get_symbol(&libs, b"DGEMMT_BLIS_IMPL_\0").map(|sym| *sym),
+            DGEMMTR_BLIS_IMPL: get_symbol(&libs, b"DGEMMTR_BLIS_IMPL\0").map(|sym| *sym),
+            dgemmtr_blis_impl_: get_symbol(&libs, b"dgemmtr_blis_impl_\0").map(|sym| *sym),
+            DGEMMTR_BLIS_IMPL_: get_symbol(&libs, b"DGEMMTR_BLIS_IMPL_\0").map(|sym| *sym),
             SAXPBY_BLIS_IMPL: get_symbol(&libs, b"SAXPBY_BLIS_IMPL\0").map(|sym| *sym),
             saxpby_blis_impl_: get_symbol(&libs, b"saxpby_blis_impl_\0").map(|sym| *sym),
             SAXPBY_BLIS_IMPL_: get_symbol(&libs, b"SAXPBY_BLIS_IMPL_\0").map(|sym| *sym),
@@ -6652,6 +6593,9 @@ impl DyLoadLib {
             SGEMMT_BLIS_IMPL: get_symbol(&libs, b"SGEMMT_BLIS_IMPL\0").map(|sym| *sym),
             sgemmt_blis_impl_: get_symbol(&libs, b"sgemmt_blis_impl_\0").map(|sym| *sym),
             SGEMMT_BLIS_IMPL_: get_symbol(&libs, b"SGEMMT_BLIS_IMPL_\0").map(|sym| *sym),
+            SGEMMTR_BLIS_IMPL: get_symbol(&libs, b"SGEMMTR_BLIS_IMPL\0").map(|sym| *sym),
+            sgemmtr_blis_impl_: get_symbol(&libs, b"sgemmtr_blis_impl_\0").map(|sym| *sym),
+            SGEMMTR_BLIS_IMPL_: get_symbol(&libs, b"SGEMMTR_BLIS_IMPL_\0").map(|sym| *sym),
             ZAXPBY_BLIS_IMPL: get_symbol(&libs, b"ZAXPBY_BLIS_IMPL\0").map(|sym| *sym),
             zaxpby_blis_impl_: get_symbol(&libs, b"zaxpby_blis_impl_\0").map(|sym| *sym),
             ZAXPBY_BLIS_IMPL_: get_symbol(&libs, b"ZAXPBY_BLIS_IMPL_\0").map(|sym| *sym),
@@ -6664,6 +6608,57 @@ impl DyLoadLib {
             ZGEMMT_BLIS_IMPL: get_symbol(&libs, b"ZGEMMT_BLIS_IMPL\0").map(|sym| *sym),
             zgemmt_blis_impl_: get_symbol(&libs, b"zgemmt_blis_impl_\0").map(|sym| *sym),
             ZGEMMT_BLIS_IMPL_: get_symbol(&libs, b"ZGEMMT_BLIS_IMPL_\0").map(|sym| *sym),
+            ZGEMMTR_BLIS_IMPL: get_symbol(&libs, b"ZGEMMTR_BLIS_IMPL\0").map(|sym| *sym),
+            zgemmtr_blis_impl_: get_symbol(&libs, b"zgemmtr_blis_impl_\0").map(|sym| *sym),
+            ZGEMMTR_BLIS_IMPL_: get_symbol(&libs, b"ZGEMMTR_BLIS_IMPL_\0").map(|sym| *sym),
+            CIMATCOPY_BLIS_IMPL: get_symbol(&libs, b"CIMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            cimatcopy_blis_impl_: get_symbol(&libs, b"cimatcopy_blis_impl_\0").map(|sym| *sym),
+            CIMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"CIMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            COMATADD_BLIS_IMPL: get_symbol(&libs, b"COMATADD_BLIS_IMPL\0").map(|sym| *sym),
+            comatadd_blis_impl_: get_symbol(&libs, b"comatadd_blis_impl_\0").map(|sym| *sym),
+            COMATADD_BLIS_IMPL_: get_symbol(&libs, b"COMATADD_BLIS_IMPL_\0").map(|sym| *sym),
+            COMATCOPY2_BLIS_IMPL: get_symbol(&libs, b"COMATCOPY2_BLIS_IMPL\0").map(|sym| *sym),
+            comatcopy2_blis_impl_: get_symbol(&libs, b"comatcopy2_blis_impl_\0").map(|sym| *sym),
+            COMATCOPY2_BLIS_IMPL_: get_symbol(&libs, b"COMATCOPY2_BLIS_IMPL_\0").map(|sym| *sym),
+            COMATCOPY_BLIS_IMPL: get_symbol(&libs, b"COMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            comatcopy_blis_impl_: get_symbol(&libs, b"comatcopy_blis_impl_\0").map(|sym| *sym),
+            COMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"COMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            DIMATCOPY_BLIS_IMPL: get_symbol(&libs, b"DIMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            dimatcopy_blis_impl_: get_symbol(&libs, b"dimatcopy_blis_impl_\0").map(|sym| *sym),
+            DIMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"DIMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            DOMATADD_BLIS_IMPL: get_symbol(&libs, b"DOMATADD_BLIS_IMPL\0").map(|sym| *sym),
+            domatadd_blis_impl_: get_symbol(&libs, b"domatadd_blis_impl_\0").map(|sym| *sym),
+            DOMATADD_BLIS_IMPL_: get_symbol(&libs, b"DOMATADD_BLIS_IMPL_\0").map(|sym| *sym),
+            DOMATCOPY2_BLIS_IMPL: get_symbol(&libs, b"DOMATCOPY2_BLIS_IMPL\0").map(|sym| *sym),
+            domatcopy2_blis_impl_: get_symbol(&libs, b"domatcopy2_blis_impl_\0").map(|sym| *sym),
+            DOMATCOPY2_BLIS_IMPL_: get_symbol(&libs, b"DOMATCOPY2_BLIS_IMPL_\0").map(|sym| *sym),
+            DOMATCOPY_BLIS_IMPL: get_symbol(&libs, b"DOMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            domatcopy_blis_impl_: get_symbol(&libs, b"domatcopy_blis_impl_\0").map(|sym| *sym),
+            DOMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"DOMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            SIMATCOPY_BLIS_IMPL: get_symbol(&libs, b"SIMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            simatcopy_blis_impl_: get_symbol(&libs, b"simatcopy_blis_impl_\0").map(|sym| *sym),
+            SIMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"SIMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            SOMATADD_BLIS_IMPL: get_symbol(&libs, b"SOMATADD_BLIS_IMPL\0").map(|sym| *sym),
+            somatadd_blis_impl_: get_symbol(&libs, b"somatadd_blis_impl_\0").map(|sym| *sym),
+            SOMATADD_BLIS_IMPL_: get_symbol(&libs, b"SOMATADD_BLIS_IMPL_\0").map(|sym| *sym),
+            SOMATCOPY2_BLIS_IMPL: get_symbol(&libs, b"SOMATCOPY2_BLIS_IMPL\0").map(|sym| *sym),
+            somatcopy2_blis_impl_: get_symbol(&libs, b"somatcopy2_blis_impl_\0").map(|sym| *sym),
+            SOMATCOPY2_BLIS_IMPL_: get_symbol(&libs, b"SOMATCOPY2_BLIS_IMPL_\0").map(|sym| *sym),
+            SOMATCOPY_BLIS_IMPL: get_symbol(&libs, b"SOMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            somatcopy_blis_impl_: get_symbol(&libs, b"somatcopy_blis_impl_\0").map(|sym| *sym),
+            SOMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"SOMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            ZIMATCOPY_BLIS_IMPL: get_symbol(&libs, b"ZIMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            zimatcopy_blis_impl_: get_symbol(&libs, b"zimatcopy_blis_impl_\0").map(|sym| *sym),
+            ZIMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"ZIMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
+            ZOMATADD_BLIS_IMPL: get_symbol(&libs, b"ZOMATADD_BLIS_IMPL\0").map(|sym| *sym),
+            zomatadd_blis_impl_: get_symbol(&libs, b"zomatadd_blis_impl_\0").map(|sym| *sym),
+            ZOMATADD_BLIS_IMPL_: get_symbol(&libs, b"ZOMATADD_BLIS_IMPL_\0").map(|sym| *sym),
+            ZOMATCOPY2_BLIS_IMPL: get_symbol(&libs, b"ZOMATCOPY2_BLIS_IMPL\0").map(|sym| *sym),
+            zomatcopy2_blis_impl_: get_symbol(&libs, b"zomatcopy2_blis_impl_\0").map(|sym| *sym),
+            ZOMATCOPY2_BLIS_IMPL_: get_symbol(&libs, b"ZOMATCOPY2_BLIS_IMPL_\0").map(|sym| *sym),
+            ZOMATCOPY_BLIS_IMPL: get_symbol(&libs, b"ZOMATCOPY_BLIS_IMPL\0").map(|sym| *sym),
+            zomatcopy_blis_impl_: get_symbol(&libs, b"zomatcopy_blis_impl_\0").map(|sym| *sym),
+            ZOMATCOPY_BLIS_IMPL_: get_symbol(&libs, b"ZOMATCOPY_BLIS_IMPL_\0").map(|sym| *sym),
             AOCL_BLIS_set_progress: get_symbol(&libs, b"AOCL_BLIS_set_progress\0").map(|sym| *sym),
             aocl_get_reorder_buf_size_f32f32f32of32: get_symbol(
                 &libs,
@@ -6702,6 +6697,11 @@ impl DyLoadLib {
             .map(|sym| *sym),
             aocl_reorder_f32f32f32of32: get_symbol(&libs, b"aocl_reorder_f32f32f32of32\0")
                 .map(|sym| *sym),
+            aocl_reorder_f32f32f32of32_reference: get_symbol(
+                &libs,
+                b"aocl_reorder_f32f32f32of32_reference\0",
+            )
+            .map(|sym| *sym),
             aocl_reorder_u8s8s32os32: get_symbol(&libs, b"aocl_reorder_u8s8s32os32\0")
                 .map(|sym| *sym),
             aocl_reorder_bf16bf16f32of32: get_symbol(&libs, b"aocl_reorder_bf16bf16f32of32\0")
@@ -6728,6 +6728,11 @@ impl DyLoadLib {
             aocl_unreorder_bf16bf16f32of32_reference: get_symbol(
                 &libs,
                 b"aocl_unreorder_bf16bf16f32of32_reference\0",
+            )
+            .map(|sym| *sym),
+            aocl_unreorder_f32f32f32of32_reference: get_symbol(
+                &libs,
+                b"aocl_unreorder_f32f32f32of32_reference\0",
             )
             .map(|sym| *sym),
             aocl_unreorder_s8s8s32os32_reference: get_symbol(
@@ -6915,9 +6920,64 @@ impl DyLoadLib {
                 b"lpgemm_rowvar_f32f32f32of32_6x16m\0",
             )
             .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x16m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x16m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x16m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x16m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x8m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x8m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x4m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x4m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x2m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x2m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x1m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x1m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_6x64m: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_6x64m\0",
+            )
+            .map(|sym| *sym),
             lpgemm_rowvar_f32f32f32of32_avx512_6x64m: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_f32f32f32of32_avx512_6x64m\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x64m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x64m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x64m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x64m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x48m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x48m_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x32m_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x32m_rd\0",
             )
             .map(|sym| *sym),
             lpgemm_rowvar_s8s8s32os32_6x64: get_symbol(&libs, b"lpgemm_rowvar_s8s8s32os32_6x64\0")
@@ -6930,6 +6990,131 @@ impl DyLoadLib {
             lpgemm_rowvar_s8s8s32os32_6x64m_sym_quant: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_s8s8s32os32_6x64m_sym_quant\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x64_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x64_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x64_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x64_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x64_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x64_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x64_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x64_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x64_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x64_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x48_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x48_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x48_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x48_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x48_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x48_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x48_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x48_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x48_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x48_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x32_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x32_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x32_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x32_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x32_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x32_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x32_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x32_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x32_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x32_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x16_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x16_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x16_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x16_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x8_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x8_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x8_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x8_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x4_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x4_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x4_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x4_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x2_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x2_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x1_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x1_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x2_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x2_rd\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x1_rd: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x1_rd\0",
             )
             .map(|sym| *sym),
             lpgemm_rowvar_u8s8s32o32_5x64: get_symbol(&libs, b"lpgemm_rowvar_u8s8s32o32_5x64\0")
@@ -7040,6 +7225,31 @@ impl DyLoadLib {
             lpgemm_rowvar_f32f32f32of32_avx512_1x32: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_f32f32f32of32_avx512_1x32\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x16\0",
             )
             .map(|sym| *sym),
             lpgemm_rowvar_f32f32f32of32_5x16: get_symbol(
@@ -7167,6 +7377,256 @@ impl DyLoadLib {
                 b"lpgemm_rowvar_f32f32f32of32_1x1\0",
             )
             .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x64_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x64_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x64_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x64_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x64_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x64_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x64_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x64_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x64_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x64_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x48_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x48_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x48_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x48_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x48_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x48_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x48_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x48_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x48_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x48_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x32_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x32_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x32_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x32_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x32_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x32_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x32_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x32_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x32_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x32_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5x8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5x8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4x8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4x8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3x8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3x8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5x4_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5x4_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4x4_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4x4_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3x4_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3x4_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x4_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x4_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x4_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x4_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5x2_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5x2_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4x2_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4x2_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3x2_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3x2_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x2_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x2_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x2_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x2_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5x1_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5x1_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4x1_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4x1_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3x1_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3x1_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2x1_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2x1_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1x1_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1x1_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_5x32: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_5x32\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_4x32: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_4x32\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_3x32: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_3x32\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_2x32: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_2x32\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_256_1x32: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_256_1x32\0",
+            )
+            .map(|sym| *sym),
             lpgemm_rowvar_s8s8s32os32_5x64: get_symbol(&libs, b"lpgemm_rowvar_s8s8s32os32_5x64\0")
                 .map(|sym| *sym),
             lpgemm_rowvar_s8s8s32os32_4x64: get_symbol(&libs, b"lpgemm_rowvar_s8s8s32os32_4x64\0")
@@ -7262,6 +7722,11 @@ impl DyLoadLib {
                 b"lpgemm_rowvar_f32f32f32of32_avx512_6x32m\0",
             )
             .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x16m: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x16m\0",
+            )
+            .map(|sym| *sym),
             lpgemm_rowvar_f32f32f32of32_6x8m: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_f32f32f32of32_6x8m\0",
@@ -7280,6 +7745,41 @@ impl DyLoadLib {
             lpgemm_rowvar_f32f32f32of32_6x1m: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_f32f32f32of32_6x1m\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x48m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x48m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x32m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x32m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6x16m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6x16m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x8m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x8m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x4m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x4m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x2m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x2m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6x1m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6x1m_np\0",
             )
             .map(|sym| *sym),
             lpgemm_rowvar_s8s8s32os32_6x16: get_symbol(&libs, b"lpgemm_rowvar_s8s8s32os32_6x16\0")
@@ -7336,6 +7836,26 @@ impl DyLoadLib {
             lpgemm_rowvar_bf16bf16f32of32_6xlt16: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_bf16bf16f32of32_6xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6xlt8m: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6xlt8m\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_6xlt8m_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_6xlt8m_np\0",
             )
             .map(|sym| *sym),
             lpgemm_rowvar_s8s8s32os32_6xlt16: get_symbol(
@@ -7708,6 +8228,106 @@ impl DyLoadLib {
                 b"lpgemm_rowvar_s8s8s32os32_1xlt16\0",
             )
             .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5xlt16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4xlt16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3xlt16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2xlt16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1xlt16: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1xlt16\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_5xlt16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_5xlt16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_4xlt16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_4xlt16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_3xlt16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_3xlt16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_2xlt16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_2xlt16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_avx512_1xlt16_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_avx512_1xlt16_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5xlt8: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5xlt8\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4xlt8: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4xlt8\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3xlt8: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3xlt8\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2xlt8: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2xlt8\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1xlt8: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1xlt8\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_5xlt8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_5xlt8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_4xlt8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_4xlt8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_3xlt8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_3xlt8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_2xlt8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_2xlt8_np\0",
+            )
+            .map(|sym| *sym),
+            lpgemm_rowvar_f32f32f32of32_1xlt8_np: get_symbol(
+                &libs,
+                b"lpgemm_rowvar_f32f32f32of32_1xlt8_np\0",
+            )
+            .map(|sym| *sym),
             lpgemm_rowvar_bf16s4f32of32_5xlt16: get_symbol(
                 &libs,
                 b"lpgemm_rowvar_bf16s4f32of32_5xlt16\0",
@@ -7760,20 +8380,50 @@ impl DyLoadLib {
             .map(|sym| *sym),
             lpgemv_m_one_f32f32f32of32: get_symbol(&libs, b"lpgemv_m_one_f32f32f32of32\0")
                 .map(|sym| *sym),
+            lpgemv_m_one_f32f32f32of32_avx2: get_symbol(
+                &libs,
+                b"lpgemv_m_one_f32f32f32of32_avx2\0",
+            )
+            .map(|sym| *sym),
+            lpgemv_m_one_f32f32f32of32_avx512_256: get_symbol(
+                &libs,
+                b"lpgemv_m_one_f32f32f32of32_avx512_256\0",
+            )
+            .map(|sym| *sym),
             lpgemv_m_one_bf16bf16f32of32: get_symbol(&libs, b"lpgemv_m_one_bf16bf16f32of32\0")
                 .map(|sym| *sym),
             lpgemv_m_one_u8s8s32os32: get_symbol(&libs, b"lpgemv_m_one_u8s8s32os32\0")
                 .map(|sym| *sym),
             lpgemv_m_one_s8s8s32os32: get_symbol(&libs, b"lpgemv_m_one_s8s8s32os32\0")
                 .map(|sym| *sym),
+            lpgemv_m_one_s8s8s32os32_sym_quant: get_symbol(
+                &libs,
+                b"lpgemv_m_one_s8s8s32os32_sym_quant\0",
+            )
+            .map(|sym| *sym),
             lpgemv_n_one_f32f32f32of32: get_symbol(&libs, b"lpgemv_n_one_f32f32f32of32\0")
                 .map(|sym| *sym),
+            lpgemv_n_one_f32f32f32of32_avx2: get_symbol(
+                &libs,
+                b"lpgemv_n_one_f32f32f32of32_avx2\0",
+            )
+            .map(|sym| *sym),
+            lpgemv_n_one_f32f32f32of32_avx512_256: get_symbol(
+                &libs,
+                b"lpgemv_n_one_f32f32f32of32_avx512_256\0",
+            )
+            .map(|sym| *sym),
             lpgemv_n_one_bf16bf16f32of32: get_symbol(&libs, b"lpgemv_n_one_bf16bf16f32of32\0")
                 .map(|sym| *sym),
             lpgemv_n_one_u8s8s32os32: get_symbol(&libs, b"lpgemv_n_one_u8s8s32os32\0")
                 .map(|sym| *sym),
             lpgemv_n_one_s8s8s32os32: get_symbol(&libs, b"lpgemv_n_one_s8s8s32os32\0")
                 .map(|sym| *sym),
+            lpgemv_n_one_s8s8s32os32_sym_quant: get_symbol(
+                &libs,
+                b"lpgemv_n_one_s8s8s32os32_sym_quant\0",
+            )
+            .map(|sym| *sym),
             lpgemm_eltwise_ops_kernel_bf16of32_6x64: get_symbol(
                 &libs,
                 b"lpgemm_eltwise_ops_kernel_bf16of32_6x64\0",
@@ -7878,6 +8528,10 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             unpackb_nr64_bf16_f32: get_symbol(&libs, b"unpackb_nr64_bf16_f32\0").map(|sym| *sym),
             cvt_bf16_f32: get_symbol(&libs, b"cvt_bf16_f32\0").map(|sym| *sym),
+            cvt_bf16_f32_gemv_row_major: get_symbol(&libs, b"cvt_bf16_f32_gemv_row_major\0")
+                .map(|sym| *sym),
+            unpackb_nr64_bf16_f32_gemv: get_symbol(&libs, b"unpackb_nr64_bf16_f32_gemv\0")
+                .map(|sym| *sym),
             packa_u8s8s32os32: get_symbol(&libs, b"packa_u8s8s32os32\0").map(|sym| *sym),
             packb_nr64_u8s8s32o32: get_symbol(&libs, b"packb_nr64_u8s8s32o32\0").map(|sym| *sym),
             packb_nr64_u8s4s32o32: get_symbol(&libs, b"packb_nr64_u8s4s32o32\0").map(|sym| *sym),
@@ -7886,6 +8540,11 @@ impl DyLoadLib {
             packa_mr16_f32f32f32of32_col_major: get_symbol(
                 &libs,
                 b"packa_mr16_f32f32f32of32_col_major\0",
+            )
+            .map(|sym| *sym),
+            packa_mr8_f32f32f32of32_col_major: get_symbol(
+                &libs,
+                b"packa_mr8_f32f32f32of32_col_major\0",
             )
             .map(|sym| *sym),
             packa_mr6_f32f32f32of32_avx512: get_symbol(&libs, b"packa_mr6_f32f32f32of32_avx512\0")
@@ -8265,6 +8924,14 @@ impl DyLoadLib {
             cgemmt_blis_impl: get_symbol(&libs, b"cgemmt_blis_impl\0").map(|sym| *sym),
             zgemmt_: get_symbol(&libs, b"zgemmt_\0").map(|sym| *sym),
             zgemmt_blis_impl: get_symbol(&libs, b"zgemmt_blis_impl\0").map(|sym| *sym),
+            sgemmtr_: get_symbol(&libs, b"sgemmtr_\0").map(|sym| *sym),
+            sgemmtr_blis_impl: get_symbol(&libs, b"sgemmtr_blis_impl\0").map(|sym| *sym),
+            dgemmtr_: get_symbol(&libs, b"dgemmtr_\0").map(|sym| *sym),
+            dgemmtr_blis_impl: get_symbol(&libs, b"dgemmtr_blis_impl\0").map(|sym| *sym),
+            cgemmtr_: get_symbol(&libs, b"cgemmtr_\0").map(|sym| *sym),
+            cgemmtr_blis_impl: get_symbol(&libs, b"cgemmtr_blis_impl\0").map(|sym| *sym),
+            zgemmtr_: get_symbol(&libs, b"zgemmtr_\0").map(|sym| *sym),
+            zgemmtr_blis_impl: get_symbol(&libs, b"zgemmtr_blis_impl\0").map(|sym| *sym),
             sgemm_compute_: get_symbol(&libs, b"sgemm_compute_\0").map(|sym| *sym),
             sgemm_compute_blis_impl: get_symbol(&libs, b"sgemm_compute_blis_impl\0")
                 .map(|sym| *sym),
@@ -8297,18 +8964,34 @@ impl DyLoadLib {
             domatadd_: get_symbol(&libs, b"domatadd_\0").map(|sym| *sym),
             comatadd_: get_symbol(&libs, b"comatadd_\0").map(|sym| *sym),
             zomatadd_: get_symbol(&libs, b"zomatadd_\0").map(|sym| *sym),
+            somatadd_blis_impl: get_symbol(&libs, b"somatadd_blis_impl\0").map(|sym| *sym),
+            domatadd_blis_impl: get_symbol(&libs, b"domatadd_blis_impl\0").map(|sym| *sym),
+            comatadd_blis_impl: get_symbol(&libs, b"comatadd_blis_impl\0").map(|sym| *sym),
+            zomatadd_blis_impl: get_symbol(&libs, b"zomatadd_blis_impl\0").map(|sym| *sym),
             somatcopy_: get_symbol(&libs, b"somatcopy_\0").map(|sym| *sym),
             domatcopy_: get_symbol(&libs, b"domatcopy_\0").map(|sym| *sym),
             comatcopy_: get_symbol(&libs, b"comatcopy_\0").map(|sym| *sym),
             zomatcopy_: get_symbol(&libs, b"zomatcopy_\0").map(|sym| *sym),
+            somatcopy_blis_impl: get_symbol(&libs, b"somatcopy_blis_impl\0").map(|sym| *sym),
+            domatcopy_blis_impl: get_symbol(&libs, b"domatcopy_blis_impl\0").map(|sym| *sym),
+            comatcopy_blis_impl: get_symbol(&libs, b"comatcopy_blis_impl\0").map(|sym| *sym),
+            zomatcopy_blis_impl: get_symbol(&libs, b"zomatcopy_blis_impl\0").map(|sym| *sym),
             somatcopy2_: get_symbol(&libs, b"somatcopy2_\0").map(|sym| *sym),
             domatcopy2_: get_symbol(&libs, b"domatcopy2_\0").map(|sym| *sym),
             comatcopy2_: get_symbol(&libs, b"comatcopy2_\0").map(|sym| *sym),
             zomatcopy2_: get_symbol(&libs, b"zomatcopy2_\0").map(|sym| *sym),
+            somatcopy2_blis_impl: get_symbol(&libs, b"somatcopy2_blis_impl\0").map(|sym| *sym),
+            domatcopy2_blis_impl: get_symbol(&libs, b"domatcopy2_blis_impl\0").map(|sym| *sym),
+            comatcopy2_blis_impl: get_symbol(&libs, b"comatcopy2_blis_impl\0").map(|sym| *sym),
+            zomatcopy2_blis_impl: get_symbol(&libs, b"zomatcopy2_blis_impl\0").map(|sym| *sym),
             simatcopy_: get_symbol(&libs, b"simatcopy_\0").map(|sym| *sym),
             dimatcopy_: get_symbol(&libs, b"dimatcopy_\0").map(|sym| *sym),
             cimatcopy_: get_symbol(&libs, b"cimatcopy_\0").map(|sym| *sym),
             zimatcopy_: get_symbol(&libs, b"zimatcopy_\0").map(|sym| *sym),
+            simatcopy_blis_impl: get_symbol(&libs, b"simatcopy_blis_impl\0").map(|sym| *sym),
+            dimatcopy_blis_impl: get_symbol(&libs, b"dimatcopy_blis_impl\0").map(|sym| *sym),
+            cimatcopy_blis_impl: get_symbol(&libs, b"cimatcopy_blis_impl\0").map(|sym| *sym),
+            zimatcopy_blis_impl: get_symbol(&libs, b"zimatcopy_blis_impl\0").map(|sym| *sym),
             bli_thread_set_ways_: get_symbol(&libs, b"bli_thread_set_ways_\0").map(|sym| *sym),
             bli_thread_set_num_threads_: get_symbol(&libs, b"bli_thread_set_num_threads_\0")
                 .map(|sym| *sym),
@@ -8321,6 +9004,7 @@ impl DyLoadLib {
                 .map(|sym| *sym),
             bli_info_get_info_value_: get_symbol(&libs, b"bli_info_get_info_value_\0")
                 .map(|sym| *sym),
+            bli_thread_reset_: get_symbol(&libs, b"bli_thread_reset_\0").map(|sym| *sym),
             scabs1_: get_symbol(&libs, b"scabs1_\0").map(|sym| *sym),
             dcabs1_: get_symbol(&libs, b"dcabs1_\0").map(|sym| *sym),
             scabs1_blis_impl: get_symbol(&libs, b"scabs1_blis_impl\0").map(|sym| *sym),
@@ -8468,6 +9152,7 @@ impl DyLoadLib {
             cblas_strmm: get_symbol(&libs, b"cblas_strmm\0").map(|sym| *sym),
             cblas_strsm: get_symbol(&libs, b"cblas_strsm\0").map(|sym| *sym),
             cblas_sgemmt: get_symbol(&libs, b"cblas_sgemmt\0").map(|sym| *sym),
+            cblas_sgemmtr: get_symbol(&libs, b"cblas_sgemmtr\0").map(|sym| *sym),
             cblas_dgemm: get_symbol(&libs, b"cblas_dgemm\0").map(|sym| *sym),
             cblas_dsymm: get_symbol(&libs, b"cblas_dsymm\0").map(|sym| *sym),
             cblas_dsyrk: get_symbol(&libs, b"cblas_dsyrk\0").map(|sym| *sym),
@@ -8475,6 +9160,7 @@ impl DyLoadLib {
             cblas_dtrmm: get_symbol(&libs, b"cblas_dtrmm\0").map(|sym| *sym),
             cblas_dtrsm: get_symbol(&libs, b"cblas_dtrsm\0").map(|sym| *sym),
             cblas_dgemmt: get_symbol(&libs, b"cblas_dgemmt\0").map(|sym| *sym),
+            cblas_dgemmtr: get_symbol(&libs, b"cblas_dgemmtr\0").map(|sym| *sym),
             cblas_cgemm: get_symbol(&libs, b"cblas_cgemm\0").map(|sym| *sym),
             cblas_csymm: get_symbol(&libs, b"cblas_csymm\0").map(|sym| *sym),
             cblas_csyrk: get_symbol(&libs, b"cblas_csyrk\0").map(|sym| *sym),
@@ -8482,6 +9168,7 @@ impl DyLoadLib {
             cblas_ctrmm: get_symbol(&libs, b"cblas_ctrmm\0").map(|sym| *sym),
             cblas_ctrsm: get_symbol(&libs, b"cblas_ctrsm\0").map(|sym| *sym),
             cblas_cgemmt: get_symbol(&libs, b"cblas_cgemmt\0").map(|sym| *sym),
+            cblas_cgemmtr: get_symbol(&libs, b"cblas_cgemmtr\0").map(|sym| *sym),
             cblas_zgemm: get_symbol(&libs, b"cblas_zgemm\0").map(|sym| *sym),
             cblas_zsymm: get_symbol(&libs, b"cblas_zsymm\0").map(|sym| *sym),
             cblas_zsyrk: get_symbol(&libs, b"cblas_zsyrk\0").map(|sym| *sym),
@@ -8489,6 +9176,7 @@ impl DyLoadLib {
             cblas_ztrmm: get_symbol(&libs, b"cblas_ztrmm\0").map(|sym| *sym),
             cblas_ztrsm: get_symbol(&libs, b"cblas_ztrsm\0").map(|sym| *sym),
             cblas_zgemmt: get_symbol(&libs, b"cblas_zgemmt\0").map(|sym| *sym),
+            cblas_zgemmtr: get_symbol(&libs, b"cblas_zgemmtr\0").map(|sym| *sym),
             cblas_chemm: get_symbol(&libs, b"cblas_chemm\0").map(|sym| *sym),
             cblas_cherk: get_symbol(&libs, b"cblas_cherk\0").map(|sym| *sym),
             cblas_cher2k: get_symbol(&libs, b"cblas_cher2k\0").map(|sym| *sym),

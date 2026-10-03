@@ -2,7 +2,7 @@
 2020-03-19 : Igor Pavlov : Public domain */
 
 /*
-* Modifications Copyright (C) 2022-24, Advanced Micro Devices. All rights reserved.
+* Modifications Copyright (C) 2022-2025, Advanced Micro Devices. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -157,8 +157,8 @@ typedef struct
                                 = kMatchSpecLen_Error_Data + [0 ... 273]  : LZMA Data Error */
 
     UInt32 numProbs;       /**< number of items in probs table */
-    unsigned tempBufSize;
-    Byte tempBuf[LZMA_REQUIRED_INPUT_MAX];
+    unsigned tempBufSize;  /**< size of temporary buffer used */
+    Byte tempBuf[LZMA_REQUIRED_INPUT_MAX]; /**< temporary workspace buffer */
 } CLzmaDec;
 
 /*! @brief First operation to call before setting up CLzmaDec

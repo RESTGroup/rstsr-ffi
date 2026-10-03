@@ -1,5 +1,5 @@
 /* ************************************************************************
- * Copyright (c) 2020-2025 Advanced Micro Devices, Inc.
+ * Copyright (c) 2020-2026 Advanced Micro Devices, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 #include <stdint.h>
 
 /*! \ingroup types_module
- *  \brief Macro for function attribute
+ *  \brief Macro for function attribute.
  *
  *  \details
  *  The macro specifies visibility attribute of public functions
@@ -69,7 +69,7 @@ typedef int32_t aoclsparse_int;
  * @brief
  * Default complex float type.
  * @details
- * User can redefine to accomodate custom complex float type definition.
+ * User can redefine to accommodate custom complex float type definition.
  *
  * @note The library expects that complex numbers real and imaginary parts
  * are contiguous in memory.
@@ -86,7 +86,7 @@ typedef struct alignas(2 * sizeof(float))
  * @brief
  * Default complex double type.
  * @details
- * User can redefine to accomodate custom complex double type definition.
+ * User can redefine to accommodate custom complex double type definition.
  *
  * @note The library expects that complex numbers real and imaginary parts
  * are contiguous in memory.
@@ -119,7 +119,7 @@ typedef struct _aoclsparse_mat_descr *aoclsparse_mat_descr;
  *  \details
  *  This structure holds the matrix data.
  *  It is initialized using e.g. \ref aoclsparse_create_scsr
- *  (or other variants, see table bellow). The returned
+ *  (or other variants, see table below). The returned
  *  matrix object needs be passed to all subsequent library calls that
  *  involve the matrix.
  *  It should be destroyed at the end using \ref aoclsparse_destroy.
@@ -161,10 +161,10 @@ typedef enum aoclsparse_operation_
  *  \details
  *  Indicate the base used on the matrix indices, either 0-base (C, C++) or 1-base (Fortran).
  *  The base is set using aoclsparse_set_mat_index_base.
- *  The current of a matrix object can be obtained by calling \ref aoclsparse_get_mat_index_base.
+ *  The current index base of a matrix object can be obtained by calling \ref aoclsparse_get_mat_index_base.
  *
- *  \note The base-indexing information is stored in two distinc locations: the matrix object
- *  \ref aoclsparse_matrix and the matrix object descriptior \ref aoclsparse_mat_descr, these \b must
+ *  @note The base-indexing information is stored in two distinct locations: the matrix object
+ *  \ref aoclsparse_matrix and the matrix object descriptor \ref aoclsparse_mat_descr, these \b must
  *  coincide, either be both zero or both one. Any function accepting both objects will fail if these
  *  do not match.
  */
@@ -238,10 +238,11 @@ typedef enum aoclsparse_matrix_format_type_
     aoclsparse_dia_mat     = 5, ///< @rst :ref:`DIAG<storage_dia>` format. @endrst
     aoclsparse_csr_mat_br4 = 6, ///< @rst :ref:`Optimized CSR<storage_csr_mat_br4>` format for
                                 ///< AVX2 double precision data type. @endrst
-    aoclsparse_csc_mat = 7, ///< @rst :ref:`CSC<storage_csc>` format. @endrst
-    aoclsparse_coo_mat = 8, ///< @rst :ref:`COO<storage_coo>` format. @endrst
-    aoclsparse_tcsr_mat = 9, ///< @rst :ref:`TCSR<storage_tcsr>` format. @endrst
-    aoclsparse_blkcsr_mat = 10 ///< @rst :ref:`BLKCSR<storage_blk_csr>` format. @endrst
+    aoclsparse_coo_mat = 7, ///< @rst :ref:`COO<storage_coo>` format. @endrst
+    aoclsparse_tcsr_mat = 8, ///< @rst :ref:`TCSR<storage_tcsr>` format. @endrst
+    aoclsparse_blkcsr_mat = 9, ///< @rst :ref:`BLKCSR<storage_blk_csr>` format. @endrst
+    aoclsparse_bsr_mat = 10, ///< @rst :ref:`BSR<storage_bsr>` format. @endrst
+    aoclsparse_uninitialized_mat ///< Uninitialized matrix format.
     // clang-format on
 } aoclsparse_matrix_format_type;
 

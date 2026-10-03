@@ -679,6 +679,10 @@ pub unsafe fn bli_thread_set_num_threads(value: dim_t) {
     dyload_lib().bli_thread_set_num_threads.unwrap()(value)
 }
 
+pub unsafe fn bli_thread_set_num_threads_local(value: dim_t) {
+    dyload_lib().bli_thread_set_num_threads_local.unwrap()(value)
+}
+
 pub unsafe fn bli_thread_init_rntm_from_env(rntm: *mut rntm_t) {
     dyload_lib().bli_thread_init_rntm_from_env.unwrap()(rntm)
 }
@@ -689,6 +693,22 @@ pub unsafe fn bli_thread_init_rntm_from_global_rntm(rntm: *mut rntm_t) {
 
 pub unsafe fn bli_thread_update_rntm_from_env(rntm: *mut rntm_t) {
     dyload_lib().bli_thread_update_rntm_from_env.unwrap()(rntm)
+}
+
+pub unsafe fn bli_thread_reset() {
+    dyload_lib().bli_thread_reset.unwrap()()
+}
+
+pub unsafe fn bli_cntx_init_zen6(cntx: *mut cntx_t) {
+    dyload_lib().bli_cntx_init_zen6.unwrap()(cntx)
+}
+
+pub unsafe fn bli_cntx_init_zen6_ref(cntx: *mut cntx_t) {
+    dyload_lib().bli_cntx_init_zen6_ref.unwrap()(cntx)
+}
+
+pub unsafe fn bli_cntx_init_zen6_ind(method: ind_t, cntx: *mut cntx_t) {
+    dyload_lib().bli_cntx_init_zen6_ind.unwrap()(method, cntx)
 }
 
 pub unsafe fn bli_cntx_init_zen5(cntx: *mut cntx_t) {
@@ -5977,7 +5997,19 @@ pub unsafe fn bli_dgemmsup_rd_haswell_asm_1x8n(
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x8m(
+pub unsafe fn bli_dcopyv_zen5_asm(
+    conjx: conj_t,
+    n: dim_t,
+    x: *mut f64,
+    incx: inc_t,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dcopyv_zen5_asm.unwrap()(conjx, n, x, incx, y, incy, cntx)
+}
+
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x8m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -5997,12 +6029,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x8m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x8m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x8m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x7m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x7m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6022,12 +6054,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x7m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x7m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x7m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x6m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x6m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6047,12 +6079,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x6m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x6m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x6m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x5m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x5m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6072,12 +6104,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x5m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x5m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x5m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x4m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x4m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6097,12 +6129,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x4m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x4m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x4m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x3m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x3m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6122,12 +6154,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x3m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x3m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x3m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x2m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x2m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6147,12 +6179,12 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x2m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x2m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x2m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x1m(
+pub unsafe fn bli_dgemmsup_cv_zen5_asm_24x1m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -6172,7 +6204,7 @@ pub unsafe fn bli_dgemmsup_rv_zen5_asm_24x1m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen5_asm_24x1m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen5_asm_24x1m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
@@ -6190,7 +6222,7 @@ pub unsafe fn bli_dynamic_blkszs_zen5(n_threads: dim_t, cntx: *mut cntx_t, dt: n
     dyload_lib().bli_dynamic_blkszs_zen5.unwrap()(n_threads, cntx, dt)
 }
 
-pub unsafe fn bli_trsm_small_ZEN5(
+pub unsafe fn bli_trsm_small_zen5(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -6199,90 +6231,90 @@ pub unsafe fn bli_trsm_small_ZEN5(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small_ZEN5.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen5.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
-pub unsafe fn bli_dtrsm_small_XAltB_XAuB_ZEN5(
+pub unsafe fn bli_dtrsm_small_zen5_int_XAltB_XAuB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_XAltB_XAuB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen5_int_XAltB_XAuB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_XAutB_XAlB_ZEN5(
+pub unsafe fn bli_dtrsm_small_zen5_int_XAutB_XAlB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_XAutB_XAlB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen5_int_XAutB_XAlB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_AltXB_AuXB_ZEN5(
+pub unsafe fn bli_dtrsm_small_zen5_int_AltXB_AuXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_AltXB_AuXB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen5_int_AltXB_AuXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_AutXB_AlXB_ZEN5(
+pub unsafe fn bli_dtrsm_small_zen5_int_AutXB_AlXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_AutXB_AlXB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen5_int_AutXB_AlXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_XAltB_XAuB_ZEN5(
+pub unsafe fn bli_ztrsm_small_zen5_int_XAltB_XAuB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_XAltB_XAuB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen5_int_XAltB_XAuB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_XAutB_XAlB_ZEN5(
+pub unsafe fn bli_ztrsm_small_zen5_int_XAutB_XAlB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_XAutB_XAlB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen5_int_XAutB_XAlB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_AltXB_AuXB_ZEN5(
+pub unsafe fn bli_ztrsm_small_zen5_int_AltXB_AuXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_AltXB_AuXB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen5_int_AltXB_AuXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_AutXB_AlXB_ZEN5(
+pub unsafe fn bli_ztrsm_small_zen5_int_AutXB_AlXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_AutXB_AlXB_ZEN5.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen5_int_AutXB_AlXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_trsm_small_mt_ZEN5(
+pub unsafe fn bli_trsm_small_zen5_mt(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -6291,17 +6323,31 @@ pub unsafe fn bli_trsm_small_mt_ZEN5(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small_mt_ZEN5.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen5_mt.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
-pub unsafe fn bli_zgemmtiny_avx512_ukr_info(
+pub unsafe fn bli_cgemmtiny_ukr_zen4_info(
     stor_id: stor3_t,
     fp_info: *mut gemmtiny_ukr_info_t,
 ) -> err_t {
-    dyload_lib().bli_zgemmtiny_avx512_ukr_info.unwrap()(stor_id, fp_info)
+    dyload_lib().bli_cgemmtiny_ukr_zen4_info.unwrap()(stor_id, fp_info)
 }
 
-pub unsafe fn bli_daddv_zen_int_avx512(
+pub unsafe fn bli_zgemmtiny_ukr_zen4_info(
+    stor_id: stor3_t,
+    fp_info: *mut gemmtiny_ukr_info_t,
+) -> err_t {
+    dyload_lib().bli_zgemmtiny_ukr_zen4_info.unwrap()(stor_id, fp_info)
+}
+
+pub unsafe fn bli_sgemmtiny_ukr_zen4_info(
+    stor_id: stor3_t,
+    fp_info: *mut gemmtiny_ukr_info_t,
+) -> err_t {
+    dyload_lib().bli_sgemmtiny_ukr_zen4_info.unwrap()(stor_id, fp_info)
+}
+
+pub unsafe fn bli_daddv_zen4_int(
     conjx: conj_t,
     n: dim_t,
     x: *mut f64,
@@ -6310,30 +6356,30 @@ pub unsafe fn bli_daddv_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daddv_zen_int_avx512.unwrap()(conjx, n, x, incx, y, incy, cntx)
+    dyload_lib().bli_daddv_zen4_int.unwrap()(conjx, n, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_samaxv_zen_int_avx512(
+pub unsafe fn bli_samaxv_zen4_int(
     n: dim_t,
     x: *mut f32,
     incx: inc_t,
     index: *mut dim_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_samaxv_zen_int_avx512.unwrap()(n, x, incx, index, cntx)
+    dyload_lib().bli_samaxv_zen4_int.unwrap()(n, x, incx, index, cntx)
 }
 
-pub unsafe fn bli_damaxv_zen_int_avx512(
+pub unsafe fn bli_damaxv_zen4_int(
     n: dim_t,
     x: *mut f64,
     incx: inc_t,
     index: *mut dim_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_damaxv_zen_int_avx512.unwrap()(n, x, incx, index, cntx)
+    dyload_lib().bli_damaxv_zen4_int.unwrap()(n, x, incx, index, cntx)
 }
 
-pub unsafe fn bli_sscalv_zen_int_avx512(
+pub unsafe fn bli_sscalv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -6341,10 +6387,10 @@ pub unsafe fn bli_sscalv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sscalv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_sscalv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_dscalv_zen_int_avx512(
+pub unsafe fn bli_dscalv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -6352,10 +6398,10 @@ pub unsafe fn bli_dscalv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dscalv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_dscalv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_cscalv_zen_int_avx512(
+pub unsafe fn bli_cscalv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut scomplex,
@@ -6363,10 +6409,10 @@ pub unsafe fn bli_cscalv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_cscalv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_cscalv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_zscalv_zen_int_avx512(
+pub unsafe fn bli_zscalv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -6374,10 +6420,10 @@ pub unsafe fn bli_zscalv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zscalv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_zscalv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_zdscalv_zen_int_avx512(
+pub unsafe fn bli_zdscalv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -6385,10 +6431,10 @@ pub unsafe fn bli_zdscalv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdscalv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_zdscalv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_ssetv_zen_int_avx512(
+pub unsafe fn bli_ssetv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -6396,10 +6442,10 @@ pub unsafe fn bli_ssetv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_ssetv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_ssetv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_dsetv_zen_int_avx512(
+pub unsafe fn bli_dsetv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -6407,10 +6453,10 @@ pub unsafe fn bli_dsetv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dsetv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_dsetv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_zsetv_zen_int_avx512(
+pub unsafe fn bli_zsetv_zen4_int(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -6418,10 +6464,10 @@ pub unsafe fn bli_zsetv_zen_int_avx512(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zsetv_zen_int_avx512.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_zsetv_zen4_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_sdotv_zen_int_avx512(
+pub unsafe fn bli_sdotv_zen4_int(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -6432,10 +6478,10 @@ pub unsafe fn bli_sdotv_zen_int_avx512(
     rho: *mut f32,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sdotv_zen_int_avx512.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_sdotv_zen4_int.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_ddotv_zen_int_avx512(
+pub unsafe fn bli_ddotv_zen4_int(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -6446,10 +6492,10 @@ pub unsafe fn bli_ddotv_zen_int_avx512(
     rho: *mut f64,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_ddotv_zen_int_avx512.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_ddotv_zen4_int.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_zdotv_zen_int_avx512(
+pub unsafe fn bli_zdotv_zen4_int(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -6460,10 +6506,10 @@ pub unsafe fn bli_zdotv_zen_int_avx512(
     rho: *mut dcomplex,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotv_zen_int_avx512.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_zdotv_zen4_int.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_zdotv_zen4_asm_avx512(
+pub unsafe fn bli_zdotv_zen4_asm(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -6474,10 +6520,10 @@ pub unsafe fn bli_zdotv_zen4_asm_avx512(
     rho: *mut dcomplex,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotv_zen4_asm_avx512.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_zdotv_zen4_asm.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_saxpyv_zen_int_avx512(
+pub unsafe fn bli_saxpyv_zen4_int(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -6487,10 +6533,10 @@ pub unsafe fn bli_saxpyv_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_saxpyv_zen_int_avx512.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_saxpyv_zen4_int.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_daxpyv_zen_int_avx512(
+pub unsafe fn bli_daxpyv_zen4_int(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -6500,10 +6546,10 @@ pub unsafe fn bli_daxpyv_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyv_zen_int_avx512.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_daxpyv_zen4_int.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_zaxpyv_zen_int_avx512(
+pub unsafe fn bli_zaxpyv_zen4_int(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -6513,10 +6559,10 @@ pub unsafe fn bli_zaxpyv_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zaxpyv_zen_int_avx512.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_zaxpyv_zen4_int.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_daxpbyv_zen_int_avx512(
+pub unsafe fn bli_daxpbyv_zen4_int(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -6527,10 +6573,10 @@ pub unsafe fn bli_daxpbyv_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpbyv_zen_int_avx512.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
+    dyload_lib().bli_daxpbyv_zen4_int.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
 }
 
-pub unsafe fn bli_zaxpyf_zen_int_2_avx512(
+pub unsafe fn bli_zaxpyf_zen4_int_2(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6545,12 +6591,12 @@ pub unsafe fn bli_zaxpyf_zen_int_2_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zaxpyf_zen_int_2_avx512.unwrap()(
+    dyload_lib().bli_zaxpyf_zen4_int_2.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_zaxpyf_zen_int_4_avx512(
+pub unsafe fn bli_zaxpyf_zen4_int_4(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6565,12 +6611,12 @@ pub unsafe fn bli_zaxpyf_zen_int_4_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zaxpyf_zen_int_4_avx512.unwrap()(
+    dyload_lib().bli_zaxpyf_zen4_int_4.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_zaxpyf_zen_int_8_avx512(
+pub unsafe fn bli_zaxpyf_zen4_int_8(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6585,12 +6631,12 @@ pub unsafe fn bli_zaxpyf_zen_int_8_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zaxpyf_zen_int_8_avx512.unwrap()(
+    dyload_lib().bli_zaxpyf_zen4_int_8.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int_avx512(
+pub unsafe fn bli_daxpyf_zen4_int(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6605,12 +6651,12 @@ pub unsafe fn bli_daxpyf_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int2_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_2(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6625,12 +6671,12 @@ pub unsafe fn bli_daxpyf_zen_int2_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int2_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_2.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int4_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_4(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6645,12 +6691,12 @@ pub unsafe fn bli_daxpyf_zen_int4_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int4_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_4.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int6_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_6(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6665,12 +6711,12 @@ pub unsafe fn bli_daxpyf_zen_int6_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int6_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_6.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int8_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_8(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6685,12 +6731,12 @@ pub unsafe fn bli_daxpyf_zen_int8_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int8_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_8.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int12_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_12(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6705,12 +6751,12 @@ pub unsafe fn bli_daxpyf_zen_int12_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int12_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_12.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int16_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_16(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6725,12 +6771,12 @@ pub unsafe fn bli_daxpyf_zen_int16_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int16_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_16.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int32_avx512(
+pub unsafe fn bli_daxpyf_zen4_int_32(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6745,12 +6791,12 @@ pub unsafe fn bli_daxpyf_zen_int32_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int32_avx512.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_32.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_daxpyf_zen_int32_avx512_mt(
+pub unsafe fn bli_daxpyf_zen4_int_32_mt(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6765,12 +6811,12 @@ pub unsafe fn bli_daxpyf_zen_int32_avx512_mt(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyf_zen_int32_avx512_mt.unwrap()(
+    dyload_lib().bli_daxpyf_zen4_int_32_mt.unwrap()(
         conja, conjx, m, b_n, alpha, a, inca, lda, x, incx, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_ddotxf_zen_int_avx512(
+pub unsafe fn bli_ddotxf_zen4_int(
     conjat: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6786,12 +6832,12 @@ pub unsafe fn bli_ddotxf_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_ddotxf_zen_int_avx512.unwrap()(
+    dyload_lib().bli_ddotxf_zen4_int.unwrap()(
         conjat, conjx, m, b_n, alpha, a, inca, lda, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_scopyv_zen4_asm_avx512(
+pub unsafe fn bli_scopyv_zen4_asm(
     conjx: conj_t,
     n: dim_t,
     x: *mut f32,
@@ -6800,10 +6846,10 @@ pub unsafe fn bli_scopyv_zen4_asm_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_scopyv_zen4_asm_avx512.unwrap()(conjx, n, x, incx, y, incy, cntx)
+    dyload_lib().bli_scopyv_zen4_asm.unwrap()(conjx, n, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_dcopyv_zen4_asm_avx512(
+pub unsafe fn bli_dcopyv_zen4_asm(
     conjx: conj_t,
     n: dim_t,
     x: *mut f64,
@@ -6812,10 +6858,22 @@ pub unsafe fn bli_dcopyv_zen4_asm_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dcopyv_zen4_asm_avx512.unwrap()(conjx, n, x, incx, y, incy, cntx)
+    dyload_lib().bli_dcopyv_zen4_asm.unwrap()(conjx, n, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_zcopyv_zen4_asm_avx512(
+pub unsafe fn bli_dcopyv_zen4_asm_biway(
+    conjx: conj_t,
+    n: dim_t,
+    x: *mut f64,
+    incx: inc_t,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dcopyv_zen4_asm_biway.unwrap()(conjx, n, x, incx, y, incy, cntx)
+}
+
+pub unsafe fn bli_zcopyv_zen4_asm(
     conjx: conj_t,
     n: dim_t,
     x: *mut dcomplex,
@@ -6824,10 +6882,10 @@ pub unsafe fn bli_zcopyv_zen4_asm_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zcopyv_zen4_asm_avx512.unwrap()(conjx, n, x, incx, y, incy, cntx)
+    dyload_lib().bli_zcopyv_zen4_asm.unwrap()(conjx, n, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_dscal2v_zen_int_avx512(
+pub unsafe fn bli_dscal2v_zen4_int(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -6837,10 +6895,10 @@ pub unsafe fn bli_dscal2v_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dscal2v_zen_int_avx512.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_dscal2v_zen4_int.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_zdotxv_zen_int_avx512(
+pub unsafe fn bli_zdotxv_zen4_int(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -6853,12 +6911,12 @@ pub unsafe fn bli_zdotxv_zen_int_avx512(
     rho: *mut dcomplex,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotxv_zen_int_avx512.unwrap()(
+    dyload_lib().bli_zdotxv_zen4_int.unwrap()(
         conjx, conjy, n, alpha, x, incx, y, incy, beta, rho, cntx,
     )
 }
 
-pub unsafe fn bli_zdotxf_zen_int_8_avx512(
+pub unsafe fn bli_zdotxf_zen4_int_8(
     conjat: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6874,12 +6932,12 @@ pub unsafe fn bli_zdotxf_zen_int_8_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotxf_zen_int_8_avx512.unwrap()(
+    dyload_lib().bli_zdotxf_zen4_int_8.unwrap()(
         conjat, conjx, m, b_n, alpha, a, inca, lda, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_zdotxf_zen_int_4_avx512(
+pub unsafe fn bli_zdotxf_zen4_int_4(
     conjat: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6895,12 +6953,12 @@ pub unsafe fn bli_zdotxf_zen_int_4_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotxf_zen_int_4_avx512.unwrap()(
+    dyload_lib().bli_zdotxf_zen4_int_4.unwrap()(
         conjat, conjx, m, b_n, alpha, a, inca, lda, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_zdotxf_zen_int_2_avx512(
+pub unsafe fn bli_zdotxf_zen4_int_2(
     conjat: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6916,12 +6974,12 @@ pub unsafe fn bli_zdotxf_zen_int_2_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotxf_zen_int_2_avx512.unwrap()(
+    dyload_lib().bli_zdotxf_zen4_int_2.unwrap()(
         conjat, conjx, m, b_n, alpha, a, inca, lda, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx8_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx8(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6937,12 +6995,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx8_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx8_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx8.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx7_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx7(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6958,12 +7016,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx7_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx7_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx7.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx6_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx6(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -6979,12 +7037,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx6_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx6_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx6.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx5_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx5(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7000,12 +7058,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx5_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx5_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx5.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx4_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx4(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7021,12 +7079,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx4_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx4_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx4.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx3_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx3(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7042,12 +7100,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx3_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx3_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx3.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx2_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx2(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7063,12 +7121,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx2_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx2_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx2.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16mx1_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16mx1(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7084,12 +7142,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16mx1_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16mx1_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16mx1.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_32x8n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x8n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7105,12 +7163,12 @@ pub unsafe fn bli_dgemv_n_zen_int_32x8n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_32x8n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x8n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16x8n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16x8n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7126,12 +7184,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16x8n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16x8n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16x8n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_8x8n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_8x8n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7147,12 +7205,12 @@ pub unsafe fn bli_dgemv_n_zen_int_8x8n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_8x8n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_8x8n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_m_leftx8n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_m_leftx8n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7168,12 +7226,12 @@ pub unsafe fn bli_dgemv_n_zen_int_m_leftx8n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_m_leftx8n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_m_leftx8n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_32x4n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x4n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7189,12 +7247,12 @@ pub unsafe fn bli_dgemv_n_zen_int_32x4n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_32x4n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x4n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16x4n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16x4n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7210,12 +7268,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16x4n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16x4n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16x4n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_8x4n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_8x4n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7231,12 +7289,12 @@ pub unsafe fn bli_dgemv_n_zen_int_8x4n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_8x4n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_8x4n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_m_leftx4n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_m_leftx4n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7252,12 +7310,12 @@ pub unsafe fn bli_dgemv_n_zen_int_m_leftx4n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_m_leftx4n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_m_leftx4n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_32x3n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x3n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7273,12 +7331,12 @@ pub unsafe fn bli_dgemv_n_zen_int_32x3n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_32x3n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x3n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16x3n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16x3n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7294,12 +7352,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16x3n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16x3n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16x3n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_8x3n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_8x3n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7315,12 +7373,12 @@ pub unsafe fn bli_dgemv_n_zen_int_8x3n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_8x3n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_8x3n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_m_leftx3n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_m_leftx3n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7336,12 +7394,12 @@ pub unsafe fn bli_dgemv_n_zen_int_m_leftx3n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_m_leftx3n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_m_leftx3n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_32x2n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x2n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7357,12 +7415,12 @@ pub unsafe fn bli_dgemv_n_zen_int_32x2n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_32x2n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x2n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16x2n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16x2n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7378,12 +7436,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16x2n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16x2n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16x2n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_8x2n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_8x2n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7399,12 +7457,12 @@ pub unsafe fn bli_dgemv_n_zen_int_8x2n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_8x2n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_8x2n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_m_leftx2n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_m_leftx2n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7420,12 +7478,12 @@ pub unsafe fn bli_dgemv_n_zen_int_m_leftx2n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_m_leftx2n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_m_leftx2n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_32x1n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x1n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7441,12 +7499,12 @@ pub unsafe fn bli_dgemv_n_zen_int_32x1n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_32x1n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x1n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_16x1n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_16x1n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7462,12 +7520,12 @@ pub unsafe fn bli_dgemv_n_zen_int_16x1n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_16x1n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_16x1n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_8x1n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_8x1n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7483,12 +7541,12 @@ pub unsafe fn bli_dgemv_n_zen_int_8x1n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_8x1n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_8x1n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_n_zen_int_m_leftx1n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_m_leftx1n(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7504,12 +7562,12 @@ pub unsafe fn bli_dgemv_n_zen_int_m_leftx1n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_zen_int_m_leftx1n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_m_leftx1n.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7525,12 +7583,12 @@ pub unsafe fn bli_dgemv_t_zen_int_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx8_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x7m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7546,12 +7604,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx8_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx8_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x7m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx7_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x6m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7567,12 +7625,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx7_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx7_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x6m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx6_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x5m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7588,12 +7646,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx6_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx6_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x5m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx5_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x4m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7609,12 +7667,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx5_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx5_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x4m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx4_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x3m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7630,12 +7688,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx4_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx4_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x3m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx3_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x2m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7651,12 +7709,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx3_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx3_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x2m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx2_avx512(
+pub unsafe fn bli_dgemv_t_zen4_int_32x1m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -7672,33 +7730,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx2_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx2_avx512.unwrap()(
+    dyload_lib().bli_dgemv_t_zen4_int_32x1m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx1_avx512(
-    conja: conj_t,
-    conjx: conj_t,
-    m: dim_t,
-    n: dim_t,
-    alpha: *mut f64,
-    a: *mut f64,
-    rs: inc_t,
-    cs: inc_t,
-    x: *mut f64,
-    incx: inc_t,
-    beta: *mut f64,
-    y: *mut f64,
-    incy: inc_t,
-    cntx: *mut cntx_t,
-) {
-    dyload_lib().bli_dgemv_t_zen_int_mx1_avx512.unwrap()(
-        conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
-    )
-}
-
-pub unsafe fn bli_dgemmtrsm_l_zen_asm_16x14(
+pub unsafe fn bli_dgemmtrsm_l_zen4_asm_16x14(
     k: dim_t,
     alpha: *mut f64,
     a1x: *mut f64,
@@ -7711,12 +7748,12 @@ pub unsafe fn bli_dgemmtrsm_l_zen_asm_16x14(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmtrsm_l_zen_asm_16x14.unwrap()(
+    dyload_lib().bli_dgemmtrsm_l_zen4_asm_16x14.unwrap()(
         k, alpha, a1x, a11, bx1, b11, c11, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmtrsm_u_zen_asm_16x14(
+pub unsafe fn bli_dgemmtrsm_u_zen4_asm_16x14(
     k: dim_t,
     alpha: *mut f64,
     a1x: *mut f64,
@@ -7729,7 +7766,7 @@ pub unsafe fn bli_dgemmtrsm_u_zen_asm_16x14(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmtrsm_u_zen_asm_16x14.unwrap()(
+    dyload_lib().bli_dgemmtrsm_u_zen4_asm_16x14.unwrap()(
         k, alpha, a1x, a11, bx1, b11, c11, rs_c, cs_c, data, cntx,
     )
 }
@@ -7901,6 +7938,44 @@ pub unsafe fn bli_dpackm_32xk_zen4_ref(
     )
 }
 
+pub unsafe fn bli_cpackm_zen4_asm_24xk(
+    conja: conj_t,
+    schema: pack_t,
+    cdim: dim_t,
+    n: dim_t,
+    n_max: dim_t,
+    kappa: *mut scomplex,
+    a: *mut scomplex,
+    inca: inc_t,
+    lda: inc_t,
+    p: *mut scomplex,
+    ldp: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cpackm_zen4_asm_24xk.unwrap()(
+        conja, schema, cdim, n, n_max, kappa, a, inca, lda, p, ldp, cntx,
+    )
+}
+
+pub unsafe fn bli_cpackm_zen4_asm_4xk(
+    conja: conj_t,
+    schema: pack_t,
+    cdim: dim_t,
+    n: dim_t,
+    n_max: dim_t,
+    kappa: *mut scomplex,
+    a: *mut scomplex,
+    inca: inc_t,
+    lda: inc_t,
+    p: *mut scomplex,
+    ldp: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cpackm_zen4_asm_4xk.unwrap()(
+        conja, schema, cdim, n, n_max, kappa, a, inca, lda, p, ldp, cntx,
+    )
+}
+
 pub unsafe fn bli_zpackm_zen4_asm_12xk(
     conja: conj_t,
     schema: pack_t,
@@ -7939,7 +8014,7 @@ pub unsafe fn bli_zpackm_zen4_asm_4xk(
     )
 }
 
-pub unsafe fn bli_dgemm_avx512_asm_8x24(
+pub unsafe fn bli_dgemm_zen4_asm_8x24(
     k: dim_t,
     alpha: *mut f64,
     a: *mut f64,
@@ -7951,7 +8026,7 @@ pub unsafe fn bli_dgemm_avx512_asm_8x24(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemm_avx512_asm_8x24.unwrap()(k, alpha, a, b, beta, c, rs_c, cs_c, data, cntx)
+    dyload_lib().bli_dgemm_zen4_asm_8x24.unwrap()(k, alpha, a, b, beta, c, rs_c, cs_c, data, cntx)
 }
 
 pub unsafe fn bli_dgemm_zen4_asm_32x6(
@@ -7999,7 +8074,37 @@ pub unsafe fn bli_zgemm_zen4_asm_4x12(
     dyload_lib().bli_zgemm_zen4_asm_4x12.unwrap()(k, alpha, a, b, beta, c, rs_c, cs_c, data, cntx)
 }
 
-pub unsafe fn bli_dgemm_avx512_asm_8x24_macro_kernel(
+pub unsafe fn bli_cgemm_zen4_asm_24x4(
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    b: *mut scomplex,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemm_zen4_asm_24x4.unwrap()(k, alpha, a, b, beta, c, rs_c, cs_c, data, cntx)
+}
+
+pub unsafe fn bli_cgemm_zen4_asm_4x24(
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    b: *mut scomplex,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemm_zen4_asm_4x24.unwrap()(k, alpha, a, b, beta, c, rs_c, cs_c, data, cntx)
+}
+
+pub unsafe fn bli_dgemm_zen4_asm_8x24_macro_kernel(
     n: dim_t,
     m: dim_t,
     k: dim_t,
@@ -8009,10 +8114,10 @@ pub unsafe fn bli_dgemm_avx512_asm_8x24_macro_kernel(
     ldc: dim_t,
     beta: *mut f64,
 ) {
-    dyload_lib().bli_dgemm_avx512_asm_8x24_macro_kernel.unwrap()(n, m, k, c, a, b, ldc, beta)
+    dyload_lib().bli_dgemm_zen4_asm_8x24_macro_kernel.unwrap()(n, m, k, c, a, b, ldc, beta)
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_6x64m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x64m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8032,12 +8137,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_6x64m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_6x64m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x64m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_6x48m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x48m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8057,12 +8162,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_6x48m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_6x48m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x48m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_6x32m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x32m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8082,12 +8187,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_6x32m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_6x32m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x32m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_6x16m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x16m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8107,12 +8212,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_6x16m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_6x16m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x16m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_4x64m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x64(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8132,12 +8237,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_4x64m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_4x64m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x64.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_4x48m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x48(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8157,12 +8262,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_4x48m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_4x48m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x48.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_4x32m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x32(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8182,12 +8287,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_4x32m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_4x32m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x32.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_4x16m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x16(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8207,12 +8312,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_4x16m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_4x16m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x16.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_2x64m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x64(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8232,12 +8337,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_2x64m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_2x64m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x64.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_2x48m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x48(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8257,12 +8362,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_2x48m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_2x48m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x48.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_2x32m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x32(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8282,12 +8387,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_2x32m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_2x32m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x32.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_2x16m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x16(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8307,12 +8412,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_2x16m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_2x16m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x16.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_1x64m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x64(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8332,12 +8437,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_1x64m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_1x64m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x64.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_1x48m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x48(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8357,12 +8462,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_1x48m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_1x48m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x48.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_1x32m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x32(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8382,12 +8487,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_1x32m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_1x32m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x32.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_1x16m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x16(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8407,12 +8512,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_1x16m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_1x16m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x16.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_6x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x16m_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8432,12 +8537,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_6x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_6x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x16m_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_5x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x16_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8457,12 +8562,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_5x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_5x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x16_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_4x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x16_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8482,12 +8587,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_4x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_4x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x16_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_3x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x16_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8507,12 +8612,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_3x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_3x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x16_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_2x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x8m_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8532,12 +8637,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_2x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_2x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x8m_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_1x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x8_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8557,12 +8662,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_1x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_1x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x8_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_5x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x8_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8582,12 +8687,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_5x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_5x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x8_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_5x32_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x8_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8607,12 +8712,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_5x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_5x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x8_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_5x16_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x4m_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8632,12 +8737,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_5x16_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_5x16_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x4m_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_3x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x4_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8657,12 +8762,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_3x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_3x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x4_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_3x32_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x4_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8682,12 +8787,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_3x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_3x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x4_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rv_zen_asm_3x16_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x4_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8707,12 +8812,12 @@ pub unsafe fn bli_sgemmsup_rv_zen_asm_3x16_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rv_zen_asm_3x16_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x4_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_6x64m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x4_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8732,12 +8837,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_6x64m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_6x64m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x4_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_6x48m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x4_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8757,12 +8862,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_6x48m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_6x48m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x4_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_6x32m_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_6x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8782,12 +8887,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_6x32m_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_6x32m_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_6x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_3x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8807,12 +8912,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_3x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_3x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_2x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_4x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8832,12 +8937,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_2x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_2x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_4x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_6x64n_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8857,12 +8962,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_6x64n_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_6x64n_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_5x64_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_2x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8882,12 +8987,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_5x64_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_5x64_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_2x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_4x64_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_1x64n(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8907,12 +9012,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_4x64_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_4x64_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_1x64n.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_3x64_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x48(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8932,12 +9037,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_3x64_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_3x64_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x48.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_2x64_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x32(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8957,12 +9062,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_2x64_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_2x64_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x32.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_1x64_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x16(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -8982,12 +9087,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_1x64_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_1x64_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x16.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_5x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x48(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9007,12 +9112,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_5x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_5x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x48.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_4x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x32(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9032,12 +9137,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_4x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_4x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x32.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_3x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x16(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9057,12 +9162,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_3x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_3x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x16.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_2x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x16_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9082,12 +9187,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_2x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_2x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x16_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_1x48_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_5x8_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9107,12 +9212,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_1x48_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_1x48_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_5x8_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_5x32_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x16_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9132,12 +9237,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_5x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_5x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x16_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_4x32_avx512(
+pub unsafe fn bli_sgemmsup_rv_zen4_asm_3x8_mask(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9157,12 +9262,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_4x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_4x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rv_zen4_asm_3x8_mask.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_3x32_avx512(
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_6x64m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9182,12 +9287,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_3x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_3x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_6x64m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_2x32_avx512(
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_6x48m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9207,12 +9312,12 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_2x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_2x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_6x48m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_sgemmsup_rd_zen_asm_1x32_avx512(
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_6x32m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9232,12 +9337,462 @@ pub unsafe fn bli_sgemmsup_rd_zen_asm_1x32_avx512(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sgemmsup_rd_zen_asm_1x32_avx512.unwrap()(
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_6x32m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_trsm_small_AVX512(
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_3x64n(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_3x64n.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_2x64n(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_2x64n.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_6x64n(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_6x64n.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_5x64(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_5x64.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_4x64(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_4x64.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_3x64(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_3x64.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_2x64(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_2x64.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_1x64(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_1x64.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_5x48(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_5x48.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_4x48(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_4x48.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_3x48(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_3x48.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_2x48(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_2x48.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_1x48(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_1x48.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_5x32(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_5x32.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_4x32(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_4x32.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_3x32(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_3x32.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_2x32(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_2x32.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_sgemmsup_rd_zen4_asm_1x32(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut f32,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut f32,
+    c: *mut f32,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemmsup_rd_zen4_asm_1x32.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_trsm_small_zen4(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -9246,90 +9801,90 @@ pub unsafe fn bli_trsm_small_AVX512(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small_AVX512.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen4.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
-pub unsafe fn bli_dtrsm_small_AutXB_AlXB_AVX512(
+pub unsafe fn bli_dtrsm_small_zen4_int_AutXB_AlXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_AutXB_AlXB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen4_int_AutXB_AlXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_XAltB_XAuB_AVX512(
+pub unsafe fn bli_dtrsm_small_zen4_int_XAltB_XAuB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_XAltB_XAuB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen4_int_XAltB_XAuB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_XAutB_XAlB_AVX512(
+pub unsafe fn bli_dtrsm_small_zen4_int_XAutB_XAlB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_XAutB_XAlB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen4_int_XAutB_XAlB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_dtrsm_small_AltXB_AuXB_AVX512(
+pub unsafe fn bli_dtrsm_small_zen4_int_AltXB_AuXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_dtrsm_small_AltXB_AuXB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_dtrsm_small_zen4_int_AltXB_AuXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_AutXB_AlXB_AVX512(
+pub unsafe fn bli_ztrsm_small_zen4_int_AutXB_AlXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_AutXB_AlXB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen4_int_AutXB_AlXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_XAltB_XAuB_AVX512(
+pub unsafe fn bli_ztrsm_small_zen4_int_XAltB_XAuB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_XAltB_XAuB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen4_int_XAltB_XAuB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_XAutB_XAlB_AVX512(
+pub unsafe fn bli_ztrsm_small_zen4_int_XAutB_XAlB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_XAutB_XAlB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen4_int_XAutB_XAlB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_ztrsm_small_AltXB_AuXB_AVX512(
+pub unsafe fn bli_ztrsm_small_zen4_int_AltXB_AuXB(
     AlphaObj: *mut obj_t,
     a: *mut obj_t,
     b: *mut obj_t,
     cntx: *mut cntx_t,
     cntl: *mut cntl_t,
 ) -> err_t {
-    dyload_lib().bli_ztrsm_small_AltXB_AuXB_AVX512.unwrap()(AlphaObj, a, b, cntx, cntl)
+    dyload_lib().bli_ztrsm_small_zen4_int_AltXB_AuXB.unwrap()(AlphaObj, a, b, cntx, cntl)
 }
 
-pub unsafe fn bli_trsm_small_mt_AVX512(
+pub unsafe fn bli_trsm_small_zen4_mt(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -9338,10 +9893,10 @@ pub unsafe fn bli_trsm_small_mt_AVX512(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small_mt_AVX512.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen4_mt.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9361,12 +9916,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x7m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9386,12 +9941,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x7m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x7m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x6m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9411,12 +9966,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x6m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x6m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x5m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9436,12 +9991,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x5m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x5m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x4m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9461,12 +10016,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x4m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x4m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x3m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9486,12 +10041,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x3m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x3m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x2m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9511,12 +10066,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x2m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x2m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x1m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9536,12 +10091,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x1m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x1m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9561,12 +10116,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x7m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9586,12 +10141,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x7m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x7m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x6m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9611,12 +10166,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x6m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x6m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x5m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9636,12 +10191,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x5m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x5m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x4m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9661,12 +10216,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x4m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x4m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x3m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9686,12 +10241,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x3m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x3m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x2m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9711,12 +10266,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x2m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x2m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1m_new(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x1m_new(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9736,12 +10291,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1m_new(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x1m_new.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x1m_new.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9761,12 +10316,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x8(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x8(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9786,12 +10341,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x8(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x8.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x8.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x8(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9811,12 +10366,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x8.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x8.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x8m(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9836,12 +10391,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x8m.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x8m.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m_lower(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x8m_lower(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9861,12 +10416,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m_lower(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x8m_lower.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x8m_lower.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m_upper(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x8m_upper(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9886,12 +10441,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x8m_upper(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x8m_upper.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x8m_upper.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_0(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_lower_0(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9911,12 +10466,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_0(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_lower_0.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_lower_0.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_1(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_lower_1(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9936,12 +10491,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_1(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_lower_1.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_lower_1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_2(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_lower_2(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9961,12 +10516,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_lower_2(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_lower_2.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_lower_2.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_0(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_upper_0(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -9986,12 +10541,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_0(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_upper_0.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_upper_0.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_1(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_upper_1(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10011,12 +10566,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_1(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_upper_1.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_upper_1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_2(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x8m_upper_2(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10036,7 +10591,7 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x8m_upper_2(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x8m_upper_2.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x8m_upper_2.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
@@ -10116,7 +10671,7 @@ pub unsafe fn bli_zgemmsup_rv_zen4_asm_4x4m_upper(
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x7(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10136,12 +10691,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x7(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x7.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x7.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x7(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x7(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10161,12 +10716,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x7(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x7.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x7.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x7(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x7(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10186,12 +10741,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x7(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x7.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x7.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x6(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10211,12 +10766,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x6(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x6.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x6.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x6(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x6(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10236,12 +10791,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x6(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x6.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x6.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x6(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x6(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10261,12 +10816,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x6(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x6.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x6.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x5(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10286,12 +10841,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x5(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x5.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x5.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x5(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x5(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10311,12 +10866,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x5(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x5.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x5.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x5(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x5(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10336,12 +10891,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x5(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x5.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x5.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x4(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10361,12 +10916,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x4(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x4.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x4.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x4(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x4(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10386,12 +10941,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x4(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x4.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x4.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x4(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x4(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10411,12 +10966,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x4(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x4.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x4.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x3(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10436,12 +10991,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x3(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x3.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x3.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x3(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x3(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10461,12 +11016,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x3(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x3.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x3.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x3(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x3(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10486,12 +11041,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x3(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x3.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x3.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x2(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10511,12 +11066,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x2(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x2.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x2.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x2(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x2(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10536,12 +11091,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x2(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x2.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x2.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x2(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x2(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10561,12 +11116,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x2(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x2.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x2.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_24x1(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10586,12 +11141,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_24x1(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_24x1.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_24x1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x1(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_16x1(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10611,12 +11166,12 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_16x1(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_16x1.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_16x1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
 
-pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x1(
+pub unsafe fn bli_dgemmsup_cv_zen4_asm_8x1(
     conja: conj_t,
     conjb: conj_t,
     m: dim_t,
@@ -10636,7 +11191,407 @@ pub unsafe fn bli_dgemmsup_rv_zen4_asm_8x1(
     data: *mut auxinfo_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemmsup_rv_zen4_asm_8x1.unwrap()(
+    dyload_lib().bli_dgemmsup_cv_zen4_asm_8x1.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_24x4m(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_24x4m.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_24x3m(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_24x3m.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_24x2m(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_24x2m.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_24x1m(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_24x1m.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_16x4(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_16x4.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_16x3(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_16x3.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_16x2(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_16x2.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_16x1(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_16x1.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_8x4(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_8x4.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_8x3(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_8x3.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_8x2(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_8x2.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_8x1(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_8x1.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_fx4(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_fx4.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_fx3(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_fx3.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_fx2(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_fx2.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_cgemmsup_cv_zen4_asm_fx1(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut scomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_cgemmsup_cv_zen4_asm_fx1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
@@ -10837,6 +11792,106 @@ pub unsafe fn bli_zgemmsup_cv_zen4_asm_8x1(
     cntx: *mut cntx_t,
 ) {
     dyload_lib().bli_zgemmsup_cv_zen4_asm_8x1.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_zgemmsup_cv_zen4_asm_fx4(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut dcomplex,
+    a: *mut dcomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut dcomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut dcomplex,
+    c: *mut dcomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_zgemmsup_cv_zen4_asm_fx4.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_zgemmsup_cv_zen4_asm_fx3(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut dcomplex,
+    a: *mut dcomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut dcomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut dcomplex,
+    c: *mut dcomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_zgemmsup_cv_zen4_asm_fx3.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_zgemmsup_cv_zen4_asm_fx2(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut dcomplex,
+    a: *mut dcomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut dcomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut dcomplex,
+    c: *mut dcomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_zgemmsup_cv_zen4_asm_fx2.unwrap()(
+        conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
+    )
+}
+
+pub unsafe fn bli_zgemmsup_cv_zen4_asm_fx1(
+    conja: conj_t,
+    conjb: conj_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut dcomplex,
+    a: *mut dcomplex,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    b: *mut dcomplex,
+    rs_b: inc_t,
+    cs_b: inc_t,
+    beta: *mut dcomplex,
+    c: *mut dcomplex,
+    rs_c: inc_t,
+    cs_c: inc_t,
+    data: *mut auxinfo_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_zgemmsup_cv_zen4_asm_fx1.unwrap()(
         conja, conjb, m, n, k, alpha, a, rs_a, cs_a, b, rs_b, cs_b, beta, c, rs_c, cs_c, data, cntx,
     )
 }
@@ -11241,7 +12296,7 @@ pub unsafe fn bli_zgemmsup_cd_zen4_asm_2x2(
     )
 }
 
-pub unsafe fn bli_dgemm_24x8_avx512_k1_nn(
+pub unsafe fn bli_dgemm_zen4_int_24x8_k1_nn(
     m: dim_t,
     n: dim_t,
     k: dim_t,
@@ -11254,10 +12309,12 @@ pub unsafe fn bli_dgemm_24x8_avx512_k1_nn(
     c: *mut f64,
     ldc: inc_t,
 ) -> err_t {
-    dyload_lib().bli_dgemm_24x8_avx512_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().bli_dgemm_zen4_int_24x8_k1_nn.unwrap()(
+        m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
 }
 
-pub unsafe fn bli_dgemm_tiny_24x8(
+pub unsafe fn bli_dgemm_tiny_zen4_24x8(
     conja: conj_t,
     conjb: conj_t,
     transa: trans_t,
@@ -11277,23 +12334,41 @@ pub unsafe fn bli_dgemm_tiny_24x8(
     rs_c0: inc_t,
     cs_c0: inc_t,
 ) -> err_t {
-    dyload_lib().bli_dgemm_tiny_24x8.unwrap()(
+    dyload_lib().bli_dgemm_tiny_zen4_24x8.unwrap()(
         conja, conjb, transa, transb, m, n, k, alpha, a, rs_a0, cs_a0, b, rs_b0, cs_b0, beta, c,
         rs_c0, cs_c0,
     )
 }
 
-pub unsafe fn bli_dnorm2fv_unb_var1_avx512(
+pub unsafe fn bli_dnorm2fv_zen4_int_unb_var1(
     n: dim_t,
     x: *mut f64,
     incx: inc_t,
     norm: *mut f64,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dnorm2fv_unb_var1_avx512.unwrap()(n, x, incx, norm, cntx)
+    dyload_lib().bli_dnorm2fv_zen4_int_unb_var1.unwrap()(n, x, incx, norm, cntx)
 }
 
-pub unsafe fn bli_zgemm_16x4_avx512_k1_nn(
+pub unsafe fn bli_cgemm_zen4_int_32x4_k1_nn(
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    alpha: *mut scomplex,
+    a: *mut scomplex,
+    lda: inc_t,
+    b: *mut scomplex,
+    ldb: inc_t,
+    beta: *mut scomplex,
+    c: *mut scomplex,
+    ldc: inc_t,
+) {
+    dyload_lib().bli_cgemm_zen4_int_32x4_k1_nn.unwrap()(
+        m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn bli_zgemm_zen4_int_16x4_k1_nn(
     m: dim_t,
     n: dim_t,
     k: dim_t,
@@ -11306,7 +12381,9 @@ pub unsafe fn bli_zgemm_16x4_avx512_k1_nn(
     c: *mut dcomplex,
     ldc: inc_t,
 ) -> err_t {
-    dyload_lib().bli_zgemm_16x4_avx512_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().bli_zgemm_zen4_int_16x4_k1_nn.unwrap()(
+        m, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
 }
 
 pub unsafe fn bli_cntx_gemmsup_thresh_is_met_zen4(
@@ -11326,7 +12403,7 @@ pub unsafe fn bli_zero_zmm() {
     dyload_lib().bli_zero_zmm.unwrap()()
 }
 
-pub unsafe fn bli_dgemv_n_avx512(
+pub unsafe fn bli_dgemv_n_zen4_int_32x8_st(
     transa: trans_t,
     conjx: conj_t,
     m: dim_t,
@@ -11342,7 +12419,154 @@ pub unsafe fn bli_dgemv_n_avx512(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_avx512.unwrap()(
+    dyload_lib().bli_dgemv_n_zen4_int_32x8_st.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_n_zen4_int(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_n_zen4_int.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_n_zen4_int_40x2_st(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_n_zen4_int_40x2_st.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_n_zen4_int_40x2_mt(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_n_zen4_int_40x2_mt.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_m_zen4_int_40x8_st(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_m_zen4_int_40x8_st.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_m_zen4_int_40x8_mt_Ndiv(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_m_zen4_int_40x8_mt_Ndiv.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_m_zen4_int_40x8_mt_Mdiv(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_m_zen4_int_40x8_mt_Mdiv.unwrap()(
+        transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv(
+    transa: trans_t,
+    conjx: conj_t,
+    m: dim_t,
+    n: dim_t,
+    alpha: *mut f64,
+    a: *mut f64,
+    rs_a: inc_t,
+    cs_a: inc_t,
+    x: *mut f64,
+    incx: inc_t,
+    beta: *mut f64,
+    y: *mut f64,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_dgemv_m_zen4_int_40x8_mt_Mdiv_Ndiv.unwrap()(
         transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
     )
 }
@@ -11387,11 +12611,25 @@ pub unsafe fn bli_daxpyf_zen_int_5(
     )
 }
 
-pub unsafe fn bli_zgemmtiny_avx2_ukr_info(
+pub unsafe fn bli_cgemmtiny_ukr_zen_info(
     stor_id: stor3_t,
     fp_info: *mut gemmtiny_ukr_info_t,
 ) -> err_t {
-    dyload_lib().bli_zgemmtiny_avx2_ukr_info.unwrap()(stor_id, fp_info)
+    dyload_lib().bli_cgemmtiny_ukr_zen_info.unwrap()(stor_id, fp_info)
+}
+
+pub unsafe fn bli_zgemmtiny_ukr_zen_info(
+    stor_id: stor3_t,
+    fp_info: *mut gemmtiny_ukr_info_t,
+) -> err_t {
+    dyload_lib().bli_zgemmtiny_ukr_zen_info.unwrap()(stor_id, fp_info)
+}
+
+pub unsafe fn bli_sgemmtiny_ukr_zen_info(
+    stor_id: stor3_t,
+    fp_info: *mut gemmtiny_ukr_info_t,
+) -> err_t {
+    dyload_lib().bli_sgemmtiny_ukr_zen_info.unwrap()(stor_id, fp_info)
 }
 
 pub unsafe fn bli_saddv_zen_int(
@@ -11518,7 +12756,7 @@ pub unsafe fn bli_zaxpbyv_zen_int(
     dyload_lib().bli_zaxpbyv_zen_int.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
 }
 
-pub unsafe fn bli_saxpbyv_zen_int10(
+pub unsafe fn bli_saxpbyv_zen_int_10(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -11529,10 +12767,10 @@ pub unsafe fn bli_saxpbyv_zen_int10(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_saxpbyv_zen_int10.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
+    dyload_lib().bli_saxpbyv_zen_int_10.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
 }
 
-pub unsafe fn bli_daxpbyv_zen_int10(
+pub unsafe fn bli_daxpbyv_zen_int_10(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -11543,7 +12781,7 @@ pub unsafe fn bli_daxpbyv_zen_int10(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpbyv_zen_int10.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
+    dyload_lib().bli_daxpbyv_zen_int_10.unwrap()(conjx, n, alpha, x, incx, beta, y, incy, cntx)
 }
 
 pub unsafe fn bli_saxpyv_zen_int(
@@ -11572,7 +12810,7 @@ pub unsafe fn bli_daxpyv_zen_int(
     dyload_lib().bli_daxpyv_zen_int.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_saxpyv_zen_int10(
+pub unsafe fn bli_saxpyv_zen_int_10(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -11582,10 +12820,10 @@ pub unsafe fn bli_saxpyv_zen_int10(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_saxpyv_zen_int10.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_saxpyv_zen_int_10.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_daxpyv_zen_int10(
+pub unsafe fn bli_daxpyv_zen_int_10(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -11595,10 +12833,10 @@ pub unsafe fn bli_daxpyv_zen_int10(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_daxpyv_zen_int10.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_daxpyv_zen_int_10.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_caxpyv_zen_int5(
+pub unsafe fn bli_caxpyv_zen_int_5(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut scomplex,
@@ -11608,10 +12846,10 @@ pub unsafe fn bli_caxpyv_zen_int5(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_caxpyv_zen_int5.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_caxpyv_zen_int_5.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_zaxpyv_zen_int5(
+pub unsafe fn bli_zaxpyv_zen_int_5(
     conjx: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -11621,7 +12859,7 @@ pub unsafe fn bli_zaxpyv_zen_int5(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zaxpyv_zen_int5.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
+    dyload_lib().bli_zaxpyv_zen_int_5.unwrap()(conjx, n, alpha, x, incx, y, incy, cntx)
 }
 
 pub unsafe fn bli_sdotv_zen_int(
@@ -11652,7 +12890,7 @@ pub unsafe fn bli_ddotv_zen_int(
     dyload_lib().bli_ddotv_zen_int.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_sdotv_zen_int10(
+pub unsafe fn bli_sdotv_zen_int_10(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -11663,10 +12901,10 @@ pub unsafe fn bli_sdotv_zen_int10(
     rho: *mut f32,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sdotv_zen_int10.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_sdotv_zen_int_10.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_ddotv_zen_int10(
+pub unsafe fn bli_ddotv_zen_int_10(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -11677,10 +12915,10 @@ pub unsafe fn bli_ddotv_zen_int10(
     rho: *mut f64,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_ddotv_zen_int10.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_ddotv_zen_int_10.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_cdotv_zen_int5(
+pub unsafe fn bli_cdotv_zen_int_5(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -11691,10 +12929,10 @@ pub unsafe fn bli_cdotv_zen_int5(
     rho: *mut scomplex,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_cdotv_zen_int5.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_cdotv_zen_int_5.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
-pub unsafe fn bli_zdotv_zen_int5(
+pub unsafe fn bli_zdotv_zen_int_5(
     conjx: conj_t,
     conjy: conj_t,
     n: dim_t,
@@ -11705,7 +12943,7 @@ pub unsafe fn bli_zdotv_zen_int5(
     rho: *mut dcomplex,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdotv_zen_int5.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
+    dyload_lib().bli_zdotv_zen_int_5.unwrap()(conjx, conjy, n, x, incx, y, incy, rho, cntx)
 }
 
 pub unsafe fn bli_sdotxv_zen_int(
@@ -11824,7 +13062,7 @@ pub unsafe fn bli_zscalv_zen_int(
     dyload_lib().bli_zscalv_zen_int.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_sscalv_zen_int10(
+pub unsafe fn bli_sscalv_zen_int_10(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f32,
@@ -11832,10 +13070,10 @@ pub unsafe fn bli_sscalv_zen_int10(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sscalv_zen_int10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_sscalv_zen_int_10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_dscalv_zen_int10(
+pub unsafe fn bli_dscalv_zen_int_10(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut f64,
@@ -11843,10 +13081,10 @@ pub unsafe fn bli_dscalv_zen_int10(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dscalv_zen_int10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_dscalv_zen_int_10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_zdscalv_zen_int10(
+pub unsafe fn bli_zdscalv_zen_int_10(
     conjalpha: conj_t,
     n: dim_t,
     alpha: *mut dcomplex,
@@ -11854,10 +13092,10 @@ pub unsafe fn bli_zdscalv_zen_int10(
     incx: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_zdscalv_zen_int10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
+    dyload_lib().bli_zdscalv_zen_int_10.unwrap()(conjalpha, n, alpha, x, incx, cntx)
 }
 
-pub unsafe fn bli_sswapv_zen_int8(
+pub unsafe fn bli_sswapv_zen_int_8(
     n: dim_t,
     x: *mut f32,
     incx: inc_t,
@@ -11865,10 +13103,10 @@ pub unsafe fn bli_sswapv_zen_int8(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_sswapv_zen_int8.unwrap()(n, x, incx, y, incy, cntx)
+    dyload_lib().bli_sswapv_zen_int_8.unwrap()(n, x, incx, y, incy, cntx)
 }
 
-pub unsafe fn bli_dswapv_zen_int8(
+pub unsafe fn bli_dswapv_zen_int_8(
     n: dim_t,
     x: *mut f64,
     incx: inc_t,
@@ -11876,7 +13114,7 @@ pub unsafe fn bli_dswapv_zen_int8(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dswapv_zen_int8.unwrap()(n, x, incx, y, incy, cntx)
+    dyload_lib().bli_dswapv_zen_int_8.unwrap()(n, x, incx, y, incy, cntx)
 }
 
 pub unsafe fn bli_scopyv_zen_int(
@@ -12514,7 +13752,7 @@ pub unsafe fn bli_zgemv_zen_int_4x4(
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_avx2(
+pub unsafe fn bli_dgemv_t_zen_int(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12530,12 +13768,12 @@ pub unsafe fn bli_dgemv_t_zen_int_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx7_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x7m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12551,12 +13789,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx7_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx7_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x7m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx6_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x6m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12572,12 +13810,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx6_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx6_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x6m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx5_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x5m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12593,12 +13831,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx5_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx5_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x5m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx4_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x4m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12614,12 +13852,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx4_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx4_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x4m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx3_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x3m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12635,12 +13873,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx3_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx3_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x3m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx2_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x2m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12656,12 +13894,12 @@ pub unsafe fn bli_dgemv_t_zen_int_mx2_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx2_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x2m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
 
-pub unsafe fn bli_dgemv_t_zen_int_mx1_avx2(
+pub unsafe fn bli_dgemv_t_zen_int_16x1m(
     conja: conj_t,
     conjx: conj_t,
     m: dim_t,
@@ -12677,7 +13915,7 @@ pub unsafe fn bli_dgemv_t_zen_int_mx1_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_t_zen_int_mx1_avx2.unwrap()(
+    dyload_lib().bli_dgemv_t_zen_int_16x1m.unwrap()(
         conja, conjx, m, n, alpha, a, rs, cs, x, incx, beta, y, incy, cntx,
     )
 }
@@ -15541,7 +16779,35 @@ pub unsafe fn bli_dgemm_tiny(
     )
 }
 
-pub unsafe fn bli_dgemm_tiny_6x8(
+pub unsafe fn bli_is_sgemm_tiny_zen(
+    stor_id: stor3_t,
+    transa: trans_t,
+    transb: trans_t,
+    m: dim_t,
+    n: dim_t,
+    k: dim_t,
+    is_parallel: bool,
+    NR: dim_t,
+    NUM_FLOATS_IN_CACHE_LINE: dim_t,
+    NUM_FLOATS_IN_L1: dim_t,
+    NUM_FLOATS_IN_L2: dim_t,
+) -> bool {
+    dyload_lib().bli_is_sgemm_tiny_zen.unwrap()(
+        stor_id,
+        transa,
+        transb,
+        m,
+        n,
+        k,
+        is_parallel,
+        NR,
+        NUM_FLOATS_IN_CACHE_LINE,
+        NUM_FLOATS_IN_L1,
+        NUM_FLOATS_IN_L2,
+    )
+}
+
+pub unsafe fn bli_dgemm_tiny_zen_6x8(
     conja: conj_t,
     conjb: conj_t,
     transa: trans_t,
@@ -15561,7 +16827,7 @@ pub unsafe fn bli_dgemm_tiny_6x8(
     rs_c0: inc_t,
     cs_c0: inc_t,
 ) -> err_t {
-    dyload_lib().bli_dgemm_tiny_6x8.unwrap()(
+    dyload_lib().bli_dgemm_tiny_zen_6x8.unwrap()(
         conja, conjb, transa, transb, m, n, k, alpha, a, rs_a0, cs_a0, b, rs_b0, cs_b0, beta, c,
         rs_c0, cs_c0,
     )
@@ -15615,7 +16881,7 @@ pub unsafe fn bli_zgemm_small_At(
     dyload_lib().bli_zgemm_small_At.unwrap()(alpha, a, b, beta, c, cntx, cntl)
 }
 
-pub unsafe fn bli_dgemm_8x6_avx2_k1_nn(
+pub unsafe fn bli_dgemm_zen_int_8x6_k1_nn(
     m: dim_t,
     n: dim_t,
     k: dim_t,
@@ -15628,10 +16894,10 @@ pub unsafe fn bli_dgemm_8x6_avx2_k1_nn(
     c: *mut f64,
     ldc: inc_t,
 ) -> err_t {
-    dyload_lib().bli_dgemm_8x6_avx2_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().bli_dgemm_zen_int_8x6_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn bli_zgemm_4x4_avx2_k1_nn(
+pub unsafe fn bli_zgemm_zen_int_4x4_k1_nn(
     m: dim_t,
     n: dim_t,
     k: dim_t,
@@ -15644,10 +16910,10 @@ pub unsafe fn bli_zgemm_4x4_avx2_k1_nn(
     c: *mut dcomplex,
     ldc: inc_t,
 ) -> err_t {
-    dyload_lib().bli_zgemm_4x4_avx2_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+    dyload_lib().bli_zgemm_zen_int_4x4_k1_nn.unwrap()(m, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
-pub unsafe fn bli_trsm_small(
+pub unsafe fn bli_trsm_small_zen(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -15656,10 +16922,10 @@ pub unsafe fn bli_trsm_small(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
-pub unsafe fn bli_trsm_small_mt(
+pub unsafe fn bli_trsm_small_zen_mt(
     side: side_t,
     alpha: *mut obj_t,
     a: *mut obj_t,
@@ -15668,7 +16934,7 @@ pub unsafe fn bli_trsm_small_mt(
     cntl: *mut cntl_t,
     is_parallel: bool,
 ) -> err_t {
-    dyload_lib().bli_trsm_small_mt.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
+    dyload_lib().bli_trsm_small_zen_mt.unwrap()(side, alpha, a, b, cntx, cntl, is_parallel)
 }
 
 pub unsafe fn bli_multi_sgemv_4x2(
@@ -15715,44 +16981,44 @@ pub unsafe fn bli_cntx_trsm_small_thresh_is_met_zen(a: *mut obj_t, m: dim_t, n: 
     dyload_lib().bli_cntx_trsm_small_thresh_is_met_zen.unwrap()(a, m, n)
 }
 
-pub unsafe fn bli_snorm2fv_unb_var1_avx2(
+pub unsafe fn bli_snorm2fv_zen_int_unb_var1(
     n: dim_t,
     x: *mut f32,
     incx: inc_t,
     norm: *mut f32,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_snorm2fv_unb_var1_avx2.unwrap()(n, x, incx, norm, cntx)
+    dyload_lib().bli_snorm2fv_zen_int_unb_var1.unwrap()(n, x, incx, norm, cntx)
 }
 
-pub unsafe fn bli_dnorm2fv_unb_var1_avx2(
+pub unsafe fn bli_dnorm2fv_zen_int_unb_var1(
     n: dim_t,
     x: *mut f64,
     incx: inc_t,
     norm: *mut f64,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dnorm2fv_unb_var1_avx2.unwrap()(n, x, incx, norm, cntx)
+    dyload_lib().bli_dnorm2fv_zen_int_unb_var1.unwrap()(n, x, incx, norm, cntx)
 }
 
-pub unsafe fn bli_scnorm2fv_unb_var1_avx2(
+pub unsafe fn bli_scnorm2fv_zen_int_unb_var1(
     n: dim_t,
     x: *mut scomplex,
     incx: inc_t,
     norm: *mut f32,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_scnorm2fv_unb_var1_avx2.unwrap()(n, x, incx, norm, cntx)
+    dyload_lib().bli_scnorm2fv_zen_int_unb_var1.unwrap()(n, x, incx, norm, cntx)
 }
 
-pub unsafe fn bli_dznorm2fv_unb_var1_avx2(
+pub unsafe fn bli_dznorm2fv_zen_int_unb_var1(
     n: dim_t,
     x: *mut dcomplex,
     incx: inc_t,
     norm: *mut f64,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dznorm2fv_unb_var1_avx2.unwrap()(n, x, incx, norm, cntx)
+    dyload_lib().bli_dznorm2fv_zen_int_unb_var1.unwrap()(n, x, incx, norm, cntx)
 }
 
 pub unsafe fn bli_zgemm_zen_asm_2x6(
@@ -15826,7 +17092,27 @@ pub unsafe fn bli_dgemv_zen_ref(
     )
 }
 
-pub unsafe fn bli_dgemv_n_avx2(
+pub unsafe fn bli_sgemv_zen_ref(
+    transa: trans_t,
+    m: dim_t,
+    b_n: dim_t,
+    alpha: *mut f32,
+    a: *mut f32,
+    inca: inc_t,
+    lda: inc_t,
+    x: *mut f32,
+    incx: inc_t,
+    beta: *mut f32,
+    y: *mut f32,
+    incy: inc_t,
+    cntx: *mut cntx_t,
+) {
+    dyload_lib().bli_sgemv_zen_ref.unwrap()(
+        transa, m, b_n, alpha, a, inca, lda, x, incx, beta, y, incy, cntx,
+    )
+}
+
+pub unsafe fn bli_dgemv_n_zen(
     transa: trans_t,
     conjx: conj_t,
     m: dim_t,
@@ -15842,7 +17128,7 @@ pub unsafe fn bli_dgemv_n_avx2(
     incy: inc_t,
     cntx: *mut cntx_t,
 ) {
-    dyload_lib().bli_dgemv_n_avx2.unwrap()(
+    dyload_lib().bli_dgemv_n_zen.unwrap()(
         transa, conjx, m, n, alpha, a, rs_a, cs_a, x, incx, beta, y, incy, cntx,
     )
 }
@@ -16463,6 +17749,20 @@ pub unsafe fn bli_nthreads_l1f(
         arch_id,
         n_elem,
         nt_ideal,
+    )
+}
+
+pub unsafe fn bli_nthreads_l2(
+    ker_id: l2kr_t,
+    data_type: num_t,
+    variant: trans_t,
+    arch_id: arch_t,
+    m_elem: dim_t,
+    n_elem: dim_t,
+    nt_ideal: *mut dim_t,
+) {
+    dyload_lib().bli_nthreads_l2.unwrap()(
+        ker_id, data_type, variant, arch_id, m_elem, n_elem, nt_ideal,
     )
 }
 
@@ -17787,44 +19087,12 @@ pub unsafe fn bli_info_get_trsm_impl_string(dt: num_t) -> *mut c_char {
     dyload_lib().bli_info_get_trsm_impl_string.unwrap()(dt)
 }
 
-pub unsafe fn bli_arch_query_id() -> arch_t {
-    dyload_lib().bli_arch_query_id.unwrap()()
-}
-
 pub unsafe fn bli_aocl_enable_instruction_query() -> bool {
     dyload_lib().bli_aocl_enable_instruction_query.unwrap()()
 }
 
-pub unsafe fn bli_arch_set_id_once() {
-    dyload_lib().bli_arch_set_id_once.unwrap()()
-}
-
-pub unsafe fn bli_arch_set_id() {
-    dyload_lib().bli_arch_set_id.unwrap()()
-}
-
-pub unsafe fn bli_arch_check_id_once() {
-    dyload_lib().bli_arch_check_id_once.unwrap()()
-}
-
-pub unsafe fn bli_arch_check_id() {
-    dyload_lib().bli_arch_check_id.unwrap()()
-}
-
-pub unsafe fn bli_arch_string(id: arch_t) -> *mut c_char {
-    dyload_lib().bli_arch_string.unwrap()(id)
-}
-
-pub unsafe fn bli_arch_set_logging(dolog: bool) {
-    dyload_lib().bli_arch_set_logging.unwrap()(dolog)
-}
-
-pub unsafe fn bli_arch_get_logging() -> bool {
-    dyload_lib().bli_arch_get_logging.unwrap()()
-}
-
-pub unsafe fn bli_arch_log(arg1: *mut c_char) {
-    dyload_lib().bli_arch_log.unwrap()(arg1)
+pub unsafe fn bli_arch_query_id() -> arch_t {
+    dyload_lib().bli_arch_query_id.unwrap()()
 }
 
 pub unsafe fn bli_model_query_id() -> model_t {
@@ -17833,6 +19101,10 @@ pub unsafe fn bli_model_query_id() -> model_t {
 
 pub unsafe fn bli_init_model_query_id() -> model_t {
     dyload_lib().bli_init_model_query_id.unwrap()()
+}
+
+pub unsafe fn bli_arch_string(id: arch_t) -> *mut c_char {
+    dyload_lib().bli_arch_string.unwrap()(id)
 }
 
 pub unsafe fn bli_model_string(id: model_t) -> *mut c_char {
@@ -17887,16 +19159,16 @@ pub unsafe fn bli_cpuid_is_penryn(family: u32, model: u32, features: u32) -> boo
     dyload_lib().bli_cpuid_is_penryn.unwrap()(family, model, features)
 }
 
+pub unsafe fn bli_cpuid_is_zen6(family: u32, model: u32, features: u32) -> bool {
+    dyload_lib().bli_cpuid_is_zen6.unwrap()(family, model, features)
+}
+
 pub unsafe fn bli_cpuid_is_zen5(family: u32, model: u32, features: u32) -> bool {
     dyload_lib().bli_cpuid_is_zen5.unwrap()(family, model, features)
 }
 
 pub unsafe fn bli_cpuid_is_zen4(family: u32, model: u32, features: u32) -> bool {
     dyload_lib().bli_cpuid_is_zen4.unwrap()(family, model, features)
-}
-
-pub unsafe fn bli_cpuid_is_avx512_fallback(family: u32, model: u32, features: u32) -> bool {
-    dyload_lib().bli_cpuid_is_avx512_fallback.unwrap()(family, model, features)
 }
 
 pub unsafe fn bli_cpuid_is_zen3(family: u32, model: u32, features: u32) -> bool {
@@ -17925,6 +19197,10 @@ pub unsafe fn bli_cpuid_is_piledriver(family: u32, model: u32, features: u32) ->
 
 pub unsafe fn bli_cpuid_is_bulldozer(family: u32, model: u32, features: u32) -> bool {
     dyload_lib().bli_cpuid_is_bulldozer.unwrap()(family, model, features)
+}
+
+pub unsafe fn bli_cpuid_get_zen6_cpuid_model(family: u32, model: u32, features: u32) -> model_t {
+    dyload_lib().bli_cpuid_get_zen6_cpuid_model.unwrap()(family, model, features)
 }
 
 pub unsafe fn bli_cpuid_get_zen5_cpuid_model(family: u32, model: u32, features: u32) -> model_t {
@@ -17971,12 +19247,16 @@ pub unsafe fn bli_cpuid_query(family: *mut u32, model: *mut u32, features: *mut 
     dyload_lib().bli_cpuid_query.unwrap()(family, model, features)
 }
 
-pub unsafe fn bli_cpuid_check_datapath(vendor: u32, features: u32) {
-    dyload_lib().bli_cpuid_check_datapath.unwrap()(vendor, features)
+pub unsafe fn bli_cpuid_check_datapath(vendor: u32) {
+    dyload_lib().bli_cpuid_check_datapath.unwrap()(vendor)
 }
 
 pub unsafe fn bli_cpuid_check_cache(vendor: u32) {
     dyload_lib().bli_cpuid_check_cache.unwrap()(vendor)
+}
+
+pub unsafe fn bli_cpuid_query_id_once() {
+    dyload_lib().bli_cpuid_query_id_once.unwrap()()
 }
 
 pub unsafe fn get_cpu_name(cpu_name: *mut c_char) {
@@ -18003,6 +19283,10 @@ pub unsafe fn bli_cpuid_is_avx512bf16_supported() -> bool {
     dyload_lib().bli_cpuid_is_avx512bf16_supported.unwrap()()
 }
 
+pub unsafe fn bli_cpuid_is_avx512fp16_supported() -> bool {
+    dyload_lib().bli_cpuid_is_avx512fp16_supported.unwrap()()
+}
+
 pub unsafe fn bli_cpuid_check_avx2fma3_support(family: u32, model: u32, features: u32) {
     dyload_lib().bli_cpuid_check_avx2fma3_support.unwrap()(family, model, features)
 }
@@ -18017,6 +19301,10 @@ pub unsafe fn bli_cpuid_check_avx512vnni_support(family: u32, model: u32, featur
 
 pub unsafe fn bli_cpuid_check_avx512bf16_support(family: u32, model: u32, features: u32) {
     dyload_lib().bli_cpuid_check_avx512bf16_support.unwrap()(family, model, features)
+}
+
+pub unsafe fn bli_cpuid_check_avx512fp16_support(family: u32, model: u32, features: u32) {
+    dyload_lib().bli_cpuid_check_avx512fp16_support.unwrap()(family, model, features)
 }
 
 pub unsafe fn bli_string_mkupper(s: *mut c_char) {
@@ -39989,6 +41277,46 @@ pub unsafe fn bli_zgemm_ker_var2(
     )
 }
 
+pub unsafe fn bli_cgemm_tiny(
+    transa: trans_t,
+    transb: trans_t,
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    rs_a0: inc_t,
+    cs_a0: inc_t,
+    b: *const scomplex,
+    rs_b0: inc_t,
+    cs_b0: inc_t,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    rs_c0: inc_t,
+    cs_c0: inc_t,
+    is_parallel: bool,
+) -> err_t {
+    dyload_lib().bli_cgemm_tiny.unwrap()(
+        transa,
+        transb,
+        m0,
+        n0,
+        k0,
+        alpha,
+        a,
+        rs_a0,
+        cs_a0,
+        b,
+        rs_b0,
+        cs_b0,
+        beta,
+        c,
+        rs_c0,
+        cs_c0,
+        is_parallel,
+    )
+}
+
 pub unsafe fn bli_zgemm_tiny(
     transa: trans_t,
     transb: trans_t,
@@ -40009,6 +41337,46 @@ pub unsafe fn bli_zgemm_tiny(
     is_parallel: bool,
 ) -> err_t {
     dyload_lib().bli_zgemm_tiny.unwrap()(
+        transa,
+        transb,
+        m0,
+        n0,
+        k0,
+        alpha,
+        a,
+        rs_a0,
+        cs_a0,
+        b,
+        rs_b0,
+        cs_b0,
+        beta,
+        c,
+        rs_c0,
+        cs_c0,
+        is_parallel,
+    )
+}
+
+pub unsafe fn bli_sgemm_tiny(
+    transa: trans_t,
+    transb: trans_t,
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    alpha: *const f32,
+    a: *const f32,
+    rs_a0: inc_t,
+    cs_a0: inc_t,
+    b: *const f32,
+    rs_b0: inc_t,
+    cs_b0: inc_t,
+    beta: *const f32,
+    c: *mut f32,
+    rs_c0: inc_t,
+    cs_c0: inc_t,
+    is_parallel: bool,
+) -> err_t {
+    dyload_lib().bli_sgemm_tiny.unwrap()(
         transa,
         transb,
         m0,
@@ -52764,6 +54132,60 @@ pub unsafe fn CGEMMT_(
     dyload_lib().CGEMMT_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
+pub unsafe fn CGEMMTR(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().CGEMMTR.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn cgemmtr(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().cgemmtr.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn CGEMMTR_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().CGEMMTR_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
 pub unsafe fn DAXPBY(
     n: *const f77_int,
     alpha: *const f64,
@@ -53080,6 +54502,60 @@ pub unsafe fn DGEMMT_(
     ldc: *const f77_int,
 ) {
     dyload_lib().DGEMMT_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn DGEMMTR(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().DGEMMTR.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn dgemmtr(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().dgemmtr.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn DGEMMTR_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().DGEMMTR_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
 pub unsafe fn SAXPBY(
@@ -53400,6 +54876,60 @@ pub unsafe fn SGEMMT_(
     dyload_lib().SGEMMT_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
+pub unsafe fn SGEMMTR(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().SGEMMTR.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn sgemmtr(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().sgemmtr.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn SGEMMTR_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().SGEMMTR_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
 pub unsafe fn ZAXPBY(
     n: *const f77_int,
     alpha: *const dcomplex,
@@ -53652,6 +55182,60 @@ pub unsafe fn ZGEMMT_(
     dyload_lib().ZGEMMT_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
 }
 
+pub unsafe fn ZGEMMTR(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().ZGEMMTR.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn zgemmtr(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().zgemmtr.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn ZGEMMTR_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().ZGEMMTR_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
 pub unsafe fn CIMATCOPY(
     trans: *mut f77_char,
     rows: *mut f77_int,
@@ -53827,6 +55411,42 @@ pub unsafe fn COMATCOPY_(
     ldb: *mut f77_int,
 ) {
     dyload_lib().COMATCOPY_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn DIMATCOPY(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DIMATCOPY.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn dimatcopy(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().dimatcopy.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn DIMATCOPY_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DIMATCOPY_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
 }
 
 pub unsafe fn DOMATADD(
@@ -61097,6 +62717,66 @@ pub unsafe fn CGEMMT_BLIS_IMPL_(
     )
 }
 
+pub unsafe fn CGEMMTR_BLIS_IMPL(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().CGEMMTR_BLIS_IMPL.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn cgemmtr_blis_impl_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().cgemmtr_blis_impl_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn CGEMMTR_BLIS_IMPL_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().CGEMMTR_BLIS_IMPL_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
 pub unsafe fn DAXPBY_BLIS_IMPL(
     n: *const f77_int,
     alpha: *const f64,
@@ -61427,6 +63107,66 @@ pub unsafe fn DGEMMT_BLIS_IMPL_(
     ldc: *const f77_int,
 ) {
     dyload_lib().DGEMMT_BLIS_IMPL_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn DGEMMTR_BLIS_IMPL(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().DGEMMTR_BLIS_IMPL.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn dgemmtr_blis_impl_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().dgemmtr_blis_impl_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn DGEMMTR_BLIS_IMPL_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().DGEMMTR_BLIS_IMPL_.unwrap()(
         uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
     )
 }
@@ -61765,6 +63505,66 @@ pub unsafe fn SGEMMT_BLIS_IMPL_(
     )
 }
 
+pub unsafe fn SGEMMTR_BLIS_IMPL(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().SGEMMTR_BLIS_IMPL.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn sgemmtr_blis_impl_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().sgemmtr_blis_impl_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn SGEMMTR_BLIS_IMPL_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().SGEMMTR_BLIS_IMPL_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
 pub unsafe fn ZAXPBY_BLIS_IMPL(
     n: *const f77_int,
     alpha: *const dcomplex,
@@ -62029,6 +63829,798 @@ pub unsafe fn ZGEMMT_BLIS_IMPL_(
     )
 }
 
+pub unsafe fn ZGEMMTR_BLIS_IMPL(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().ZGEMMTR_BLIS_IMPL.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn zgemmtr_blis_impl_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().zgemmtr_blis_impl_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn ZGEMMTR_BLIS_IMPL_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().ZGEMMTR_BLIS_IMPL_.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn CIMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *mut scomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().CIMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn cimatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *mut scomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().cimatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn CIMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *mut scomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().CIMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn COMATADD_BLIS_IMPL(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const scomplex,
+    A: *const scomplex,
+    lda: *mut f77_int,
+    beta: *const scomplex,
+    B: *mut scomplex,
+    ldb: *mut f77_int,
+    C: *mut scomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().COMATADD_BLIS_IMPL.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn comatadd_blis_impl_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const scomplex,
+    A: *const scomplex,
+    lda: *mut f77_int,
+    beta: *const scomplex,
+    B: *mut scomplex,
+    ldb: *mut f77_int,
+    C: *mut scomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().comatadd_blis_impl_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn COMATADD_BLIS_IMPL_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const scomplex,
+    A: *const scomplex,
+    lda: *mut f77_int,
+    beta: *const scomplex,
+    B: *mut scomplex,
+    ldb: *mut f77_int,
+    C: *mut scomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().COMATADD_BLIS_IMPL_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn COMATCOPY2_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().COMATCOPY2_BLIS_IMPL.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn comatcopy2_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().comatcopy2_blis_impl_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn COMATCOPY2_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().COMATCOPY2_BLIS_IMPL_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn COMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().COMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn comatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().comatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn COMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().COMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn DIMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DIMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn dimatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().dimatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn DIMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DIMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn DOMATADD_BLIS_IMPL(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f64,
+    A: *const f64,
+    lda: *mut f77_int,
+    beta: *const f64,
+    B: *const f64,
+    ldb: *mut f77_int,
+    C: *mut f64,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().DOMATADD_BLIS_IMPL.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn domatadd_blis_impl_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f64,
+    A: *const f64,
+    lda: *mut f77_int,
+    beta: *const f64,
+    B: *const f64,
+    ldb: *mut f77_int,
+    C: *mut f64,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().domatadd_blis_impl_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn DOMATADD_BLIS_IMPL_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f64,
+    A: *const f64,
+    lda: *mut f77_int,
+    beta: *const f64,
+    B: *const f64,
+    ldb: *mut f77_int,
+    C: *mut f64,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().DOMATADD_BLIS_IMPL_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn DOMATCOPY2_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().DOMATCOPY2_BLIS_IMPL.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn domatcopy2_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().domatcopy2_blis_impl_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn DOMATCOPY2_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().DOMATCOPY2_BLIS_IMPL_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn DOMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DOMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn domatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().domatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn DOMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().DOMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn SIMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *mut f32,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().SIMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn simatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *mut f32,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().simatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn SIMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *mut f32,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().SIMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn SOMATADD_BLIS_IMPL(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f32,
+    A: *const f32,
+    lda: *mut f77_int,
+    beta: *const f32,
+    B: *const f32,
+    ldb: *mut f77_int,
+    C: *mut f32,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().SOMATADD_BLIS_IMPL.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn somatadd_blis_impl_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f32,
+    A: *const f32,
+    lda: *mut f77_int,
+    beta: *const f32,
+    B: *const f32,
+    ldb: *mut f77_int,
+    C: *mut f32,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().somatadd_blis_impl_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn SOMATADD_BLIS_IMPL_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f32,
+    A: *const f32,
+    lda: *mut f77_int,
+    beta: *const f32,
+    B: *const f32,
+    ldb: *mut f77_int,
+    C: *mut f32,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().SOMATADD_BLIS_IMPL_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn SOMATCOPY2_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().SOMATCOPY2_BLIS_IMPL.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn somatcopy2_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().somatcopy2_blis_impl_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn SOMATCOPY2_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().SOMATCOPY2_BLIS_IMPL_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn SOMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().SOMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn somatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().somatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn SOMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().SOMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn ZIMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *mut dcomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().ZIMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn zimatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *mut dcomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().zimatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn ZIMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *mut dcomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().ZIMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn ZOMATADD_BLIS_IMPL(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const dcomplex,
+    A: *const dcomplex,
+    lda: *mut f77_int,
+    beta: *const dcomplex,
+    B: *mut dcomplex,
+    ldb: *mut f77_int,
+    C: *mut dcomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().ZOMATADD_BLIS_IMPL.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn zomatadd_blis_impl_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const dcomplex,
+    A: *const dcomplex,
+    lda: *mut f77_int,
+    beta: *const dcomplex,
+    B: *mut dcomplex,
+    ldb: *mut f77_int,
+    C: *mut dcomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().zomatadd_blis_impl_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn ZOMATADD_BLIS_IMPL_(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const dcomplex,
+    A: *const dcomplex,
+    lda: *mut f77_int,
+    beta: *const dcomplex,
+    B: *mut dcomplex,
+    ldb: *mut f77_int,
+    C: *mut dcomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().ZOMATADD_BLIS_IMPL_.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn ZOMATCOPY2_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().ZOMATCOPY2_BLIS_IMPL.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn zomatcopy2_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().zomatcopy2_blis_impl_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn ZOMATCOPY2_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().ZOMATCOPY2_BLIS_IMPL_.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn ZOMATCOPY_BLIS_IMPL(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().ZOMATCOPY_BLIS_IMPL.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn zomatcopy_blis_impl_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().zomatcopy_blis_impl_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn ZOMATCOPY_BLIS_IMPL_(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().ZOMATCOPY_BLIS_IMPL_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
 pub unsafe fn AOCL_BLIS_set_progress(func: AOCL_progress_callback) {
     dyload_lib().AOCL_BLIS_set_progress.unwrap()(func)
 }
@@ -62117,6 +64709,28 @@ pub unsafe fn aocl_reorder_f32f32f32of32(
     ldb: dim_t,
 ) {
     dyload_lib().aocl_reorder_f32f32f32of32.unwrap()(
+        order,
+        trans,
+        mat_type,
+        input_buf_addr,
+        reorder_buf_addr,
+        k,
+        n,
+        ldb,
+    )
+}
+
+pub unsafe fn aocl_reorder_f32f32f32of32_reference(
+    order: c_char,
+    trans: c_char,
+    mat_type: c_char,
+    input_buf_addr: *const f32,
+    reorder_buf_addr: *mut f32,
+    k: dim_t,
+    n: dim_t,
+    ldb: dim_t,
+) {
+    dyload_lib().aocl_reorder_f32f32f32of32_reference.unwrap()(
         order,
         trans,
         mat_type,
@@ -62336,6 +64950,26 @@ pub unsafe fn aocl_unreorder_bf16bf16f32of32_reference(
     ldb: dim_t,
 ) {
     dyload_lib().aocl_unreorder_bf16bf16f32of32_reference.unwrap()(
+        order,
+        mat_type,
+        reorder_buf_addr,
+        output_buf_addr,
+        k,
+        n,
+        ldb,
+    )
+}
+
+pub unsafe fn aocl_unreorder_f32f32f32of32_reference(
+    order: c_char,
+    mat_type: c_char,
+    reorder_buf_addr: *const f32,
+    output_buf_addr: *mut f32,
+    k: dim_t,
+    n: dim_t,
+    ldb: dim_t,
+) {
+    dyload_lib().aocl_unreorder_f32f32f32of32_reference.unwrap()(
         order,
         mat_type,
         reorder_buf_addr,
@@ -63050,40 +65684,42 @@ pub unsafe fn aocl_batch_gemm_bf16bf16f32of32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const f32,
     a: *mut *const bfloat16,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const bfloat16,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const f32,
     c: *mut *mut f32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_bf16bf16f32of32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63092,40 +65728,42 @@ pub unsafe fn aocl_batch_gemm_bf16bf16f32obf16(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const f32,
     a: *mut *const bfloat16,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const bfloat16,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const f32,
     c: *mut *mut bfloat16,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_bf16bf16f32obf16.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63134,40 +65772,42 @@ pub unsafe fn aocl_batch_gemm_bf16s4f32of32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const f32,
     a: *mut *const bfloat16,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const f32,
     c: *mut *mut f32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_bf16s4f32of32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63176,40 +65816,42 @@ pub unsafe fn aocl_batch_gemm_bf16s4f32obf16(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const f32,
     a: *mut *const bfloat16,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const f32,
     c: *mut *mut bfloat16,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_bf16s4f32obf16.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63218,40 +65860,42 @@ pub unsafe fn aocl_batch_gemm_f32f32f32of32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const f32,
     a: *mut *const f32,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const f32,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const f32,
     c: *mut *mut f32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_f32f32f32of32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63260,40 +65904,42 @@ pub unsafe fn aocl_batch_gemm_u8s8s32os32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const u8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut i32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_u8s8s32os32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63302,40 +65948,42 @@ pub unsafe fn aocl_batch_gemm_u8s8s32os8(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const u8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut i8,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_u8s8s32os8.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63344,40 +65992,42 @@ pub unsafe fn aocl_batch_gemm_u8s8s32of32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const u8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut f32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_u8s8s32of32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63386,40 +66036,42 @@ pub unsafe fn aocl_batch_gemm_u8s8s32obf16(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const u8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut bfloat16,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_u8s8s32obf16.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63428,40 +66080,42 @@ pub unsafe fn aocl_batch_gemm_u8s8s32ou8(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const u8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut u8,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_u8s8s32ou8.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63470,40 +66124,42 @@ pub unsafe fn aocl_batch_gemm_s8s8s32os32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const i8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut i32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_s8s8s32os32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63512,40 +66168,42 @@ pub unsafe fn aocl_batch_gemm_s8s8s32os8(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const i8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut i8,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_s8s8s32os8.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63554,40 +66212,42 @@ pub unsafe fn aocl_batch_gemm_s8s8s32of32(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const i8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut f32,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_s8s8s32of32.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63596,40 +66256,42 @@ pub unsafe fn aocl_batch_gemm_s8s8s32obf16(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const i8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut bfloat16,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_s8s8s32obf16.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -63638,40 +66300,42 @@ pub unsafe fn aocl_batch_gemm_s8s8s32ou8(
     order: *const c_char,
     transa: *const c_char,
     transb: *const c_char,
-    batch_size: dim_t,
     m: *const dim_t,
     n: *const dim_t,
     k: *const dim_t,
     alpha: *const i32,
     a: *mut *const i8,
     lda: *const dim_t,
-    mem_format_a: *const c_char,
     b: *mut *const i8,
     ldb: *const dim_t,
-    mem_format_b: *const c_char,
     beta: *const i32,
     c: *mut *mut u8,
     ldc: *const dim_t,
+    group_count: dim_t,
+    group_size: *const dim_t,
+    mem_format_a: *const c_char,
+    mem_format_b: *const c_char,
     post_op_unparsed: *mut *mut aocl_post_op,
 ) {
     dyload_lib().aocl_batch_gemm_s8s8s32ou8.unwrap()(
         order,
         transa,
         transb,
-        batch_size,
         m,
         n,
         k,
         alpha,
         a,
         lda,
-        mem_format_a,
         b,
         ldb,
-        mem_format_b,
         beta,
         c,
         ldc,
+        group_count,
+        group_size,
+        mem_format_a,
+        mem_format_b,
         post_op_unparsed,
     )
 }
@@ -64121,6 +66785,286 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x16m(
     )
 }
 
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x16m_np(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x16m_np.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x16m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x16m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x8m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x8m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x4m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x4m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x2m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x2m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x1m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x1m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_6x64m(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_6x64m.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
 pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x64m(
     m0: dim_t,
     n0: dim_t,
@@ -64141,6 +67085,166 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x64m(
     post_ops_attr: lpgemm_post_op_attr,
 ) {
     dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x64m.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x64m_np(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x64m_np.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x64m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x64m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x48m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x48m_rd.unwrap()(
+        m0,
+        n0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x32m_rd(
+    m0: dim_t,
+    n0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x32m_rd.unwrap()(
         m0,
         n0,
         k0,
@@ -64280,6 +67384,856 @@ pub unsafe fn lpgemm_rowvar_s8s8s32os32_6x64m_sym_quant(
         alpha,
         beta,
         grp_post_ops_attr,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x64_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x64_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x64_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x64_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x64_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x64_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x64_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x64_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x64_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x64_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x48_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x48_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x48_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x48_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x48_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x48_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x48_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x48_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x48_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x48_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x32_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x32_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x32_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x32_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x32_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x32_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x32_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x32_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x32_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x32_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x16_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x16_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x16_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x16_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x8_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x8_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x8_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x8_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x4_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x4_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x4_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x4_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x2_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x2_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x1_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x1_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x2_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x2_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x1_rd(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x1_rd.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
         post_ops_list,
         post_ops_attr,
     )
@@ -65085,6 +69039,166 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x32(
     )
 }
 
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
 pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x16(
     k0: dim_t,
     a: *const f32,
@@ -65869,6 +69983,1606 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x1(
     post_ops_attr: lpgemm_post_op_attr,
 ) {
     dyload_lib().lpgemm_rowvar_f32f32f32of32_1x1.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x64_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x64_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x64_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x64_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x64_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x64_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x64_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x64_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x64_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x64_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x48_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x48_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x48_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x48_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x48_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x48_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x48_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x48_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x48_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x48_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x32_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x32_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x32_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x32_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x32_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x32_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x32_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x32_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x32_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x32_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5x8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4x8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4x8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3x8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3x8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x4_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5x4_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4x4_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4x4_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3x4_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3x4_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x4_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x4_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x4_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x4_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x2_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5x2_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4x2_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4x2_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3x2_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3x2_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x2_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x2_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x2_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x2_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5x1_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5x1_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4x1_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4x1_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3x1_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3x1_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2x1_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2x1_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1x1_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1x1_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_5x32(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_5x32.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_4x32(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_4x32.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_3x32(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_3x32.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_2x32(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_2x32.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_256_1x32(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_256_1x32.unwrap()(
         k0,
         a,
         rs_a,
@@ -66745,6 +72459,42 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x32m(
     )
 }
 
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x16m(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x16m.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
 pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x8m(
     m0: dim_t,
     k0: dim_t,
@@ -66871,6 +72621,258 @@ pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x1m(
     post_ops_attr: lpgemm_post_op_attr,
 ) {
     dyload_lib().lpgemm_rowvar_f32f32f32of32_6x1m.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x48m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x48m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x32m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x32m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6x16m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6x16m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x8m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x8m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x4m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x4m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x2m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x2m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6x1m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6x1m_np.unwrap()(
         m0,
         k0,
         a,
@@ -67360,6 +73362,158 @@ pub unsafe fn lpgemm_rowvar_bf16bf16f32of32_6xlt16(
     post_ops_attr: lpgemm_post_op_attr,
 ) {
     dyload_lib().lpgemm_rowvar_bf16bf16f32of32_6xlt16.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6xlt8m(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6xlt8m.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_6xlt16m_np.unwrap()(
+        m0,
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        ps_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_6xlt8m_np(
+    m0: dim_t,
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    ps_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_6xlt8m_np.unwrap()(
         m0,
         k0,
         a,
@@ -70427,6 +76581,686 @@ pub unsafe fn lpgemm_rowvar_s8s8s32os32_1xlt16(
     )
 }
 
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5xlt16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5xlt16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4xlt16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4xlt16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3xlt16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3xlt16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2xlt16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2xlt16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1xlt16(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1xlt16.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_5xlt16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_5xlt16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_4xlt16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_4xlt16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_3xlt16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_3xlt16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_2xlt16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_2xlt16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_avx512_1xlt16_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_avx512_1xlt16_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5xlt8(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5xlt8.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4xlt8(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4xlt8.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3xlt8(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3xlt8.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2xlt8(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2xlt8.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1xlt8(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1xlt8.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_5xlt8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_5xlt8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_4xlt8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_4xlt8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_3xlt8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_3xlt8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_2xlt8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_2xlt8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
+pub unsafe fn lpgemm_rowvar_f32f32f32of32_1xlt8_np(
+    k0: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    c: *mut f32,
+    rs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    n0_rem: dim_t,
+    post_ops_list: *mut lpgemm_post_op,
+    post_ops_attr: lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemm_rowvar_f32f32f32of32_1xlt8_np.unwrap()(
+        k0,
+        a,
+        rs_a,
+        cs_a,
+        b,
+        rs_b,
+        cs_b,
+        c,
+        rs_c,
+        alpha,
+        beta,
+        n0_rem,
+        post_ops_list,
+        post_ops_attr,
+    )
+}
+
 pub unsafe fn lpgemm_rowvar_bf16s4f32of32_5xlt16(
     k0: dim_t,
     a: *const bfloat16,
@@ -70835,6 +77669,102 @@ pub unsafe fn lpgemv_m_one_f32f32f32of32(
     )
 }
 
+pub unsafe fn lpgemv_m_one_f32f32f32of32_avx2(
+    n0: dim_t,
+    k: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    NR: dim_t,
+    KC: dim_t,
+    n_sub_updated: dim_t,
+    jc_cur_loop_rem: dim_t,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_m_one_f32f32f32of32_avx2.unwrap()(
+        n0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        NR,
+        KC,
+        n_sub_updated,
+        jc_cur_loop_rem,
+        post_op,
+        post_op_attr,
+    )
+}
+
+pub unsafe fn lpgemv_m_one_f32f32f32of32_avx512_256(
+    n0: dim_t,
+    k: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    NR: dim_t,
+    KC: dim_t,
+    n_sub_updated: dim_t,
+    jc_cur_loop_rem: dim_t,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_m_one_f32f32f32of32_avx512_256.unwrap()(
+        n0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        NR,
+        KC,
+        n_sub_updated,
+        jc_cur_loop_rem,
+        post_op,
+        post_op_attr,
+    )
+}
+
 pub unsafe fn lpgemv_m_one_bf16bf16f32of32(
     n0: dim_t,
     k: dim_t,
@@ -70979,6 +77909,56 @@ pub unsafe fn lpgemv_m_one_s8s8s32os32(
     )
 }
 
+pub unsafe fn lpgemv_m_one_s8s8s32os32_sym_quant(
+    n0: dim_t,
+    k: dim_t,
+    a: *const i8,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const i8,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: i32,
+    beta: i32,
+    NR: dim_t,
+    KC: dim_t,
+    n_sub_updated: dim_t,
+    jc_cur_loop_rem: dim_t,
+    grp_post_ops_attr: lpgemm_grp_post_op_attr,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_m_one_s8s8s32os32_sym_quant.unwrap()(
+        n0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        NR,
+        KC,
+        n_sub_updated,
+        jc_cur_loop_rem,
+        grp_post_ops_attr,
+        post_op,
+        post_op_attr,
+    )
+}
+
 pub unsafe fn lpgemv_n_one_f32f32f32of32(
     m0: dim_t,
     k: dim_t,
@@ -71001,6 +77981,94 @@ pub unsafe fn lpgemv_n_one_f32f32f32of32(
     post_op_attr: *mut lpgemm_post_op_attr,
 ) {
     dyload_lib().lpgemv_n_one_f32f32f32of32.unwrap()(
+        m0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        MR,
+        KC,
+        post_op,
+        post_op_attr,
+    )
+}
+
+pub unsafe fn lpgemv_n_one_f32f32f32of32_avx2(
+    m0: dim_t,
+    k: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    MR: dim_t,
+    KC: dim_t,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_n_one_f32f32f32of32_avx2.unwrap()(
+        m0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        MR,
+        KC,
+        post_op,
+        post_op_attr,
+    )
+}
+
+pub unsafe fn lpgemv_n_one_f32f32f32of32_avx512_256(
+    m0: dim_t,
+    k: dim_t,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const f32,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: f32,
+    beta: f32,
+    MR: dim_t,
+    KC: dim_t,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_n_one_f32f32f32of32_avx512_256.unwrap()(
         m0,
         k,
         a,
@@ -71150,6 +78218,52 @@ pub unsafe fn lpgemv_n_one_s8s8s32os32(
         beta,
         MR,
         KC,
+        post_op,
+        post_op_attr,
+    )
+}
+
+pub unsafe fn lpgemv_n_one_s8s8s32os32_sym_quant(
+    m0: dim_t,
+    k: dim_t,
+    a: *const i8,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    mtag_a: AOCL_MEMORY_TAG,
+    b: *const i8,
+    rs_b: dim_t,
+    cs_b: dim_t,
+    mtag_b: AOCL_MEMORY_TAG,
+    c: *mut f32,
+    rs_c: dim_t,
+    cs_c: dim_t,
+    alpha: i32,
+    beta: i32,
+    MR: dim_t,
+    KC: dim_t,
+    grp_post_ops_attr: lpgemm_grp_post_op_attr,
+    post_op: *mut lpgemm_post_op,
+    post_op_attr: *mut lpgemm_post_op_attr,
+) {
+    dyload_lib().lpgemv_n_one_s8s8s32os32_sym_quant.unwrap()(
+        m0,
+        k,
+        a,
+        rs_a,
+        cs_a,
+        mtag_a,
+        b,
+        rs_b,
+        cs_b,
+        mtag_b,
+        c,
+        rs_c,
+        cs_c,
+        alpha,
+        beta,
+        MR,
+        KC,
+        grp_post_ops_attr,
         post_op,
         post_op_attr,
     )
@@ -71604,12 +78718,12 @@ pub unsafe fn unpackb_nr64_bf16bf16f32of32(
 pub unsafe fn unpackb_nr64_bf16_f32(
     b: *const bfloat16,
     unpack_b_buffer: *mut f32,
-    NC: dim_t,
     KC: dim_t,
+    NC: dim_t,
     rs_b: dim_t,
     cs_b: dim_t,
 ) {
-    dyload_lib().unpackb_nr64_bf16_f32.unwrap()(b, unpack_b_buffer, NC, KC, rs_b, cs_b)
+    dyload_lib().unpackb_nr64_bf16_f32.unwrap()(b, unpack_b_buffer, KC, NC, rs_b, cs_b)
 }
 
 pub unsafe fn cvt_bf16_f32(
@@ -71623,6 +78737,19 @@ pub unsafe fn cvt_bf16_f32(
     cs_p: dim_t,
 ) {
     dyload_lib().cvt_bf16_f32.unwrap()(cvt_buffer, a, rs_a, cs_a, MC, KC, rs_p, cs_p)
+}
+
+pub unsafe fn cvt_bf16_f32_gemv_row_major(
+    cvt_buffer: *mut f32,
+    a: *const bfloat16,
+    rs_a: dim_t,
+    MC: dim_t,
+) {
+    dyload_lib().cvt_bf16_f32_gemv_row_major.unwrap()(cvt_buffer, a, rs_a, MC)
+}
+
+pub unsafe fn unpackb_nr64_bf16_f32_gemv(b: *const bfloat16, unpack_b_buffer: *mut f32, KC: dim_t) {
+    dyload_lib().unpackb_nr64_bf16_f32_gemv.unwrap()(b, unpack_b_buffer, KC)
 }
 
 pub unsafe fn packa_u8s8s32os32(
@@ -71737,6 +78864,28 @@ pub unsafe fn packa_mr16_f32f32f32of32_col_major(
     cs_p: *mut dim_t,
 ) {
     dyload_lib().packa_mr16_f32f32f32of32_col_major.unwrap()(
+        pack_a_buffer,
+        a,
+        rs_a,
+        cs_a,
+        MC,
+        KC,
+        rs_p,
+        cs_p,
+    )
+}
+
+pub unsafe fn packa_mr8_f32f32f32of32_col_major(
+    pack_a_buffer: *mut f32,
+    a: *const f32,
+    rs_a: dim_t,
+    cs_a: dim_t,
+    MC: dim_t,
+    KC: dim_t,
+    rs_p: *mut dim_t,
+    cs_p: *mut dim_t,
+) {
+    dyload_lib().packa_mr8_f32f32f32of32_col_major.unwrap()(
         pack_a_buffer,
         a,
         rs_a,
@@ -76245,6 +83394,158 @@ pub unsafe fn zgemmt_blis_impl(
     )
 }
 
+pub unsafe fn sgemmtr_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().sgemmtr_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn sgemmtr_blis_impl(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f32,
+    a: *const f32,
+    lda: *const f77_int,
+    b: *const f32,
+    ldb: *const f77_int,
+    beta: *const f32,
+    c: *mut f32,
+    ldc: *const f77_int,
+) {
+    dyload_lib().sgemmtr_blis_impl.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn dgemmtr_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().dgemmtr_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn dgemmtr_blis_impl(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const f64,
+    a: *const f64,
+    lda: *const f77_int,
+    b: *const f64,
+    ldb: *const f77_int,
+    beta: *const f64,
+    c: *mut f64,
+    ldc: *const f77_int,
+) {
+    dyload_lib().dgemmtr_blis_impl.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn cgemmtr_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().cgemmtr_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn cgemmtr_blis_impl(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const scomplex,
+    a: *const scomplex,
+    lda: *const f77_int,
+    b: *const scomplex,
+    ldb: *const f77_int,
+    beta: *const scomplex,
+    c: *mut scomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().cgemmtr_blis_impl.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
+pub unsafe fn zgemmtr_(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().zgemmtr_.unwrap()(uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc)
+}
+
+pub unsafe fn zgemmtr_blis_impl(
+    uploc: *const f77_char,
+    transa: *const f77_char,
+    transb: *const f77_char,
+    n: *const f77_int,
+    k: *const f77_int,
+    alpha: *const dcomplex,
+    a: *const dcomplex,
+    lda: *const f77_int,
+    b: *const dcomplex,
+    ldb: *const f77_int,
+    beta: *const dcomplex,
+    c: *mut dcomplex,
+    ldc: *const f77_int,
+) {
+    dyload_lib().zgemmtr_blis_impl.unwrap()(
+        uploc, transa, transb, n, k, alpha, a, lda, b, ldb, beta, c, ldc,
+    )
+}
+
 pub unsafe fn sgemm_compute_(
     transa: *const f77_char,
     transb: *const f77_char,
@@ -76847,6 +84148,82 @@ pub unsafe fn zomatadd_(
     dyload_lib().zomatadd_.unwrap()(transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc)
 }
 
+pub unsafe fn somatadd_blis_impl(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f32,
+    A: *const f32,
+    lda: *mut f77_int,
+    beta: *const f32,
+    B: *const f32,
+    ldb: *mut f77_int,
+    C: *mut f32,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().somatadd_blis_impl.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn domatadd_blis_impl(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const f64,
+    A: *const f64,
+    lda: *mut f77_int,
+    beta: *const f64,
+    B: *const f64,
+    ldb: *mut f77_int,
+    C: *mut f64,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().domatadd_blis_impl.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn comatadd_blis_impl(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const scomplex,
+    A: *const scomplex,
+    lda: *mut f77_int,
+    beta: *const scomplex,
+    B: *mut scomplex,
+    ldb: *mut f77_int,
+    C: *mut scomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().comatadd_blis_impl.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
+pub unsafe fn zomatadd_blis_impl(
+    transa: *mut f77_char,
+    transb: *mut f77_char,
+    m: *mut f77_int,
+    n: *mut f77_int,
+    alpha: *const dcomplex,
+    A: *const dcomplex,
+    lda: *mut f77_int,
+    beta: *const dcomplex,
+    B: *mut dcomplex,
+    ldb: *mut f77_int,
+    C: *mut dcomplex,
+    ldc: *mut f77_int,
+) {
+    dyload_lib().zomatadd_blis_impl.unwrap()(
+        transa, transb, m, n, alpha, A, lda, beta, B, ldb, C, ldc,
+    )
+}
+
 pub unsafe fn somatcopy_(
     trans: *mut f77_char,
     rows: *mut f77_int,
@@ -76897,6 +84274,58 @@ pub unsafe fn zomatcopy_(
     ldb: *mut f77_int,
 ) {
     dyload_lib().zomatcopy_.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn somatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().somatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn domatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().domatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn comatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().comatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
+}
+
+pub unsafe fn zomatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().zomatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, bptr, ldb)
 }
 
 pub unsafe fn somatcopy2_(
@@ -76967,6 +84396,74 @@ pub unsafe fn zomatcopy2_(
     )
 }
 
+pub unsafe fn somatcopy2_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *const f32,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f32,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().somatcopy2_blis_impl.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn domatcopy2_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *const f64,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut f64,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().domatcopy2_blis_impl.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn comatcopy2_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *const scomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut scomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().comatcopy2_blis_impl.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
+pub unsafe fn zomatcopy2_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *const dcomplex,
+    lda: *mut f77_int,
+    stridea: *mut f77_int,
+    bptr: *mut dcomplex,
+    ldb: *mut f77_int,
+    strideb: *mut f77_int,
+) {
+    dyload_lib().zomatcopy2_blis_impl.unwrap()(
+        trans, rows, cols, alpha, aptr, lda, stridea, bptr, ldb, strideb,
+    )
+}
+
 pub unsafe fn simatcopy_(
     trans: *mut f77_char,
     rows: *mut f77_int,
@@ -77015,6 +84512,54 @@ pub unsafe fn zimatcopy_(
     dyload_lib().zimatcopy_.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
 }
 
+pub unsafe fn simatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f32,
+    aptr: *mut f32,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().simatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn dimatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const f64,
+    aptr: *mut f64,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().dimatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn cimatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const scomplex,
+    aptr: *mut scomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().cimatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
+pub unsafe fn zimatcopy_blis_impl(
+    trans: *mut f77_char,
+    rows: *mut f77_int,
+    cols: *mut f77_int,
+    alpha: *const dcomplex,
+    aptr: *mut dcomplex,
+    lda: *mut f77_int,
+    ldb: *mut f77_int,
+) {
+    dyload_lib().zimatcopy_blis_impl.unwrap()(trans, rows, cols, alpha, aptr, lda, ldb)
+}
+
 pub unsafe fn bli_thread_set_ways_(
     jc: *const f77_int,
     pc: *const f77_int,
@@ -77055,6 +84600,10 @@ pub unsafe fn bli_thread_get_num_threads_() -> f77_int {
 
 pub unsafe fn bli_info_get_info_value_() -> f77_int {
     dyload_lib().bli_info_get_info_value_.unwrap()()
+}
+
+pub unsafe fn bli_thread_reset_() {
+    dyload_lib().bli_thread_reset_.unwrap()()
 }
 
 pub unsafe fn scabs1_(z: *mut bla_scomplex) -> bla_real {
@@ -78700,6 +86249,27 @@ pub unsafe fn cblas_sgemmt(
     )
 }
 
+pub unsafe fn cblas_sgemmtr(
+    Order: CBLAS_ORDER,
+    Uplo: CBLAS_UPLO,
+    TransA: CBLAS_TRANSPOSE,
+    TransB: CBLAS_TRANSPOSE,
+    N: f77_int,
+    K: f77_int,
+    alpha: f32,
+    A: *const f32,
+    lda: f77_int,
+    B: *const f32,
+    ldb: f77_int,
+    beta: f32,
+    C: *mut f32,
+    ldc: f77_int,
+) {
+    dyload_lib().cblas_sgemmtr.unwrap()(
+        Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
+    )
+}
+
 pub unsafe fn cblas_dgemm(
     Order: CBLAS_ORDER,
     TransA: CBLAS_TRANSPOSE,
@@ -78826,6 +86396,27 @@ pub unsafe fn cblas_dgemmt(
     ldc: f77_int,
 ) {
     dyload_lib().cblas_dgemmt.unwrap()(
+        Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
+    )
+}
+
+pub unsafe fn cblas_dgemmtr(
+    Order: CBLAS_ORDER,
+    Uplo: CBLAS_UPLO,
+    TransA: CBLAS_TRANSPOSE,
+    TransB: CBLAS_TRANSPOSE,
+    N: f77_int,
+    K: f77_int,
+    alpha: f64,
+    A: *const f64,
+    lda: f77_int,
+    B: *const f64,
+    ldb: f77_int,
+    beta: f64,
+    C: *mut f64,
+    ldc: f77_int,
+) {
+    dyload_lib().cblas_dgemmtr.unwrap()(
         Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
     )
 }
@@ -78960,6 +86551,27 @@ pub unsafe fn cblas_cgemmt(
     )
 }
 
+pub unsafe fn cblas_cgemmtr(
+    Order: CBLAS_ORDER,
+    Uplo: CBLAS_UPLO,
+    TransA: CBLAS_TRANSPOSE,
+    TransB: CBLAS_TRANSPOSE,
+    N: f77_int,
+    K: f77_int,
+    alpha: *const c_void,
+    A: *const c_void,
+    lda: f77_int,
+    B: *const c_void,
+    ldb: f77_int,
+    beta: *const c_void,
+    C: *mut c_void,
+    ldc: f77_int,
+) {
+    dyload_lib().cblas_cgemmtr.unwrap()(
+        Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
+    )
+}
+
 pub unsafe fn cblas_zgemm(
     Order: CBLAS_ORDER,
     TransA: CBLAS_TRANSPOSE,
@@ -79086,6 +86698,27 @@ pub unsafe fn cblas_zgemmt(
     ldc: f77_int,
 ) {
     dyload_lib().cblas_zgemmt.unwrap()(
+        Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
+    )
+}
+
+pub unsafe fn cblas_zgemmtr(
+    Order: CBLAS_ORDER,
+    Uplo: CBLAS_UPLO,
+    TransA: CBLAS_TRANSPOSE,
+    TransB: CBLAS_TRANSPOSE,
+    N: f77_int,
+    K: f77_int,
+    alpha: *const c_void,
+    A: *const c_void,
+    lda: f77_int,
+    B: *const c_void,
+    ldb: f77_int,
+    beta: *const c_void,
+    C: *mut c_void,
+    ldc: f77_int,
+) {
+    dyload_lib().cblas_zgemmtr.unwrap()(
         Order, Uplo, TransA, TransB, N, K, alpha, A, lda, B, ldb, beta, C, ldc,
     )
 }
@@ -79542,7 +87175,7 @@ pub unsafe fn AOCL_FAL_Write(
     dyload_lib().AOCL_FAL_Write.unwrap()(pvBuffer, i32Size, iCount, fpFilePointer)
 }
 
-pub unsafe fn AOCL_FLIST_IsEmpty(plist: *mut AOCL_FLIST_Node) -> Bool {
+pub unsafe fn AOCL_FLIST_IsEmpty(plist: *mut AOCL_FLIST_Node) -> bool {
     dyload_lib().AOCL_FLIST_IsEmpty.unwrap()(plist)
 }
 

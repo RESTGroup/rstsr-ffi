@@ -30,6 +30,7 @@
 
 
 // Enabled sub-configurations (config_list)
+#define BLIS_CONFIG_ZEN6
 #define BLIS_CONFIG_ZEN5
 #define BLIS_CONFIG_ZEN4
 #define BLIS_CONFIG_ZEN3
@@ -39,6 +40,7 @@
 
 
 // Enabled kernel sets (kernel_list)
+#define BLIS_KERNELS_ZEN6
 #define BLIS_KERNELS_ZEN5
 #define BLIS_KERNELS_ZEN4
 #define BLIS_KERNELS_SKX
@@ -166,9 +168,33 @@
 #endif
 
 #if 1
+#define BLIS_ENABLE_MNK1_MATRIX
+#else
+#define BLIS_DISABLE_MNK1_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_TINY_MATRIX
+#else
+#define BLIS_DISABLE_TINY_MATRIX
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX
+#else
+#define BLIS_DISABLE_SMALL_MATRIX
+#endif
+
+#if 1
 #define BLIS_ENABLE_SUP_HANDLING
 #else
 #define BLIS_DISABLE_SUP_HANDLING
+#endif
+
+#if 1
+#define BLIS_ENABLE_SMALL_MATRIX_TRSM
+#else
+#define BLIS_DISABLE_SMALL_MATRIX_TRSM
 #endif
 
 #if 0
@@ -215,6 +241,16 @@
 #define __blis_arch_type_name "BLIS_ARCH_TYPE"
 #define __blis_model_type_name "BLIS_MODEL_TYPE"
 
+#if 0
+#define AOCL_DTL_TRACE_ENABLE 1
+#endif
+
+#if 0
+#define AOCL_DTL_LOG_ENABLE 1
+#endif
+
+#define AOCL_DTL_TRACE_LEVEL_NUMBER AOCL_DTL_LEVEL_TRACE_5
+
 #endif
 // end bli_config.h
 
@@ -246,7 +282,7 @@
 // accordingly.
 #if   defined(__ICC) || defined(__INTEL_COMPILER)
   #define BLIS_ICC
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   #define BLIS_CLANG
 #elif defined(__GNUC__)
   #define BLIS_GCC
@@ -297,13 +333,15 @@
   #define VC_EXTRALEAN
 #include <windows.h> // skipped
 
-  #if !defined(__clang__) && !defined(__GNUC__)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+  #if !defined(__clang__) && !defined(__GNUC__) && !defined(__INTEL_LLVM_COMPILER) && !defined(__INTEL_COMPILER)
     // Undefine attribute specifiers in Windows.
     #define __attribute__(x)
 
     // Undefine restrict.
     #define restrict
   #endif
+  #endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 
@@ -327,7 +365,6 @@
 #ifndef BLIS_LANG_DEFS_H
 #define BLIS_LANG_DEFS_H
 
-
 // -- Undefine restrict for C++ and C89/90 --
 
 #ifdef __cplusplus
@@ -344,6 +381,23 @@
   #endif
 #endif
 
+// -- BLIS Thread Local Storage Keyword --
+
+// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
+// There is a small risk here as __GNUC__ can also be defined by some other
+// compiler (other than ICC and CLANG which we know define it) that
+// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
+// But the possibility of someone using such non-main-stream compiler
+// for building BLIS is low.
+#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__) || defined(__INTEL_LLVM_COMPILER)
+  #define BLIS_THREAD_LOCAL __thread
+#elif defined(_MSC_VER) && _MSC_VER >= 1310
+  #define BLIS_THREAD_LOCAL __declspec(thread)
+#else
+  #define BLIS_THREAD_LOCAL
+#endif
+
+#ifdef BLIS_IS_BUILDING_LIBRARY
 
 // -- Define typeof() operator if using non-GNU compiler --
 
@@ -354,22 +408,6 @@
   #define typeof __typeof__
   #endif
 #endif
-
-
-// -- BLIS Thread Local Storage Keyword --
-
-// __thread for TLS is supported by GCC, CLANG, ICC, and IBMC.
-// There is a small risk here as __GNUC__ can also be defined by some other
-// compiler (other than ICC and CLANG which we know define it) that
-// doesn't support __thread, as __GNUC__ is not quite unique to GCC.
-// But the possibility of someone using such non-main-stream compiler
-// for building BLIS is low.
-#if defined(__GNUC__) || defined(__clang__) || defined(__ICC) || defined(__IBMC__)
-  #define BLIS_THREAD_LOCAL __thread
-#else
-  #define BLIS_THREAD_LOCAL
-#endif
-
 
 // -- BLIS constructor/destructor function attribute --
 
@@ -384,7 +422,7 @@
   // ICC defines __GNUC__ but doesn't support this
   #define BLIS_ATTRIB_CTOR
   #define BLIS_ATTRIB_DTOR
-#elif defined(__clang__)
+#elif defined(__clang__) || defined(__INTEL_LLVM_COMPILER)
   // CLANG supports __attribute__, but its documentation doesn't
   // mention support for constructor/destructor. Compiling with
   // clang and testing shows that it does support.
@@ -398,6 +436,7 @@
   #define BLIS_ATTRIB_DTOR
 #endif
 
+#endif // BLIS_IS_BUILDING_LIBRARY
 
 #endif
 // end bli_lang_defs.h
@@ -637,13 +676,35 @@
 
 
 #ifdef BLIS_OS_WINDOWS
-  #define BLIS_TLS_TYPE __declspec(thread)
+  #ifdef BLIS_IS_BUILDING_LIBRARY
+    #define BLIS_TLS_TYPE __declspec(thread)
+  #else
+    #define BLIS_TLS_TYPE
+  #endif
 #else
   #define BLIS_TLS_TYPE __thread
 #endif
 
 #endif
 
+// -- CODE PATH ENABLEMENT --------------------------------------------------
+#ifdef BLIS_ENABLE_MNK1_MATRIX
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_MNK1_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_TINY_MATRIX
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_TINY_MATRIX(...)
+#endif
+
+#ifdef BLIS_ENABLE_SMALL_MATRIX
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...) __VA_ARGS__
+#else
+  #define IF_BLIS_ENABLE_SMALL_MATRIX(...)
+#endif
 // end bli_config_macro_defs.h
 
 
@@ -1221,6 +1282,13 @@ typedef enum
 
 #define BLIS_NUM_LEVEL1F_KERS 5
 
+typedef enum
+{
+	BLIS_GEMV_KER = 0,
+	BLIS_TRSV_KER
+} l2kr_t;
+
+#define BLIS_NUM_LEVEL2_KERS 2
 
 typedef enum
 {
@@ -1515,6 +1583,7 @@ typedef enum
 	BLIS_ARCH_PENRYN,
 
 	// AMD
+	BLIS_ARCH_ZEN6,
 	BLIS_ARCH_ZEN5,
 	BLIS_ARCH_ZEN4,
 	BLIS_ARCH_ZEN3,
@@ -1556,6 +1625,10 @@ typedef enum
 
 	// Default model
 	BLIS_MODEL_DEFAULT,
+
+	// AMD Zen6
+	BLIS_MODEL_VENICE,
+	BLIS_MODEL_VENICE_DENSE,
 
 	// AMD Zen5
 	BLIS_MODEL_TURIN,
@@ -1830,7 +1903,9 @@ BLIS_EXPORT_BLIS int bli_pthread_barrier_wait
 typedef struct
 {
     void* ukr_fp;            // Generic function pointer for tiny(SUP) kernels
+    void* pack_fp;           // Generic function pointer for packing kernels
     bool stor_pref;          // Storage preference of the kernel
+    bool enable_pack;        // Enabling/Disabling packing of the load matrix
     dim_t MR;                // Blocking dimension MR
     dim_t NR;                // Blocking dimension NR
 } gemmtiny_ukr_info_t;
@@ -2324,11 +2399,21 @@ typedef struct cntx_s
 
 
 // -- Runtime type --
+#define BLIS_ALIGN 64
 
+#if defined(_WIN32)
+   #if defined(__clang__)
+       #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+   #else
+       #define BLIS_ATTRIB_ALIGN
+   #endif
+#else
+   #define BLIS_ATTRIB_ALIGN __attribute__((aligned(BLIS_ALIGN)))
+#endif
 // NOTE: The order of these fields must be kept consistent with the definition
 // of the BLIS_RNTM_INITIALIZER macro in bli_rntm.h.
 
-typedef struct __attribute__((aligned(64))) rntm_s
+typedef struct BLIS_ATTRIB_ALIGN rntm_s
 {
 	// "External" fields: these may be queried by the end-user.
 	bool      auto_factor;
@@ -2901,6 +2986,11 @@ void BLIS_EXPORT_BLAS cblas_sgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
          f77_int N, f77_int K, float alpha, const float *A,
                  f77_int lda, const float *B, f77_int ldb,
                  float beta, float *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_sgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, float alpha, const float *A,
+                 f77_int lda, const float *B, f77_int ldb,
+                 float beta, float *C, f77_int ldc);
 
 void BLIS_EXPORT_BLAS cblas_dgemm(enum CBLAS_ORDER Order, enum CBLAS_TRANSPOSE TransA,
                  enum CBLAS_TRANSPOSE TransB, f77_int M, f77_int N,
@@ -2935,8 +3025,13 @@ void BLIS_EXPORT_BLAS cblas_dtrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_dgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, double alpha, const double *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, double alpha, const double *A,
+                 f77_int lda, const double *B, f77_int ldb,
+                 double beta, double *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_dgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, double alpha, const double *A,
                  f77_int lda, const double *B, f77_int ldb,
                  double beta, double *C, f77_int ldc);
 
@@ -2973,8 +3068,13 @@ void BLIS_EXPORT_BLAS cblas_ctrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_cgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, const void *alpha, const void *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
+                 f77_int lda, const void *B, f77_int ldb,
+                 const void *beta, void *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_cgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
                  f77_int lda, const void *B, f77_int ldb,
                  const void *beta, void *C, f77_int ldc);
 
@@ -3011,8 +3111,13 @@ void BLIS_EXPORT_BLAS cblas_ztrsm(enum CBLAS_ORDER Order, enum CBLAS_SIDE Side,
 
 
 void BLIS_EXPORT_BLAS cblas_zgemmt(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
-         enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
-         f77_int N, f77_int K, const void *alpha, const void *A,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
+                 f77_int lda, const void *B, f77_int ldb,
+                 const void *beta, void *C, f77_int ldc);
+void BLIS_EXPORT_BLAS cblas_zgemmtr(enum CBLAS_ORDER Order, enum CBLAS_UPLO Uplo,
+                 enum CBLAS_TRANSPOSE TransA, enum CBLAS_TRANSPOSE TransB,
+                 f77_int N, f77_int K, const void *alpha, const void *A,
                  f77_int lda, const void *B, f77_int ldb,
                  const void *beta, void *C, f77_int ldc);
 
@@ -3054,7 +3159,6 @@ void BLIS_EXPORT_BLAS cblas_xerbla(f77_int p, const char *rout, const char *form
 
 BLIS_EXPORT_BLAS float  cblas_scabs1( const void *z);
 BLIS_EXPORT_BLAS double  cblas_dcabs1( const void *z);
-
 
 
 

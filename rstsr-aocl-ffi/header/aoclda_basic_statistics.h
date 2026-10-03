@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@ typedef enum da_axis_ da_axis;
  * \brief Defines the method used to compute quantiles in \ref da_quantile_s and \ref da_quantile_d.
  *
  * @rst
- * The available quantile types correspond to the 9 different quantile types commonly used (see :cite:t:`hyfa96` for further details). It is recommended to use type 6 or type 7 as a default.
+ * The available quantile types correspond to the 9 different quantile types commonly used (see cite:t:`da_hyfa96` for further details). It is recommended to use type 6 or type 7 as a default.
  * @endrst
  *
  * Notes about the available types:
@@ -90,7 +90,7 @@ typedef enum da_quantile_type_ da_quantile_type;
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size @f$p@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -116,7 +116,7 @@ da_status da_mean_s(da_order order, da_axis axis, da_int n_rows, da_int n_cols,
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] geometric_mean the array which will hold the computed geometric means. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] geometric_mean the array which will hold the computed geometric means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -144,7 +144,7 @@ da_status da_geometric_mean_s(da_order order, da_axis axis, da_int n_rows, da_in
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] harmonic_mean the array which will hold the computed harmonic means. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] harmonic_mean the array which will hold the computed harmonic means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -177,8 +177,8 @@ da_status da_harmonic_mean_s(da_order order, da_axis axis, da_int n_rows, da_int
  * - \p dof < 0 - the degrees of freedom will be set to the number of observations, where the number of observations is \p n_rows for column-wise variances, \p n_cols for row-wise variances and \p n_rows @f$\times @f$ \p n_cols for the overall variance.
  * - \p dof = 0 - the degrees of freedom will be set to the number of observations - 1.
  * - \p dof > 0 - the degrees of freedom will be set to the specified value.
- * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -197,7 +197,7 @@ da_status da_variance_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \brief Arithmetic mean, variance and skewness of a data matrix.
  *
  * @rst
- * The skewness is computed as the Fischer-Pearson coefficient of skewness (that is, with the central moments scaled by the number of observations, see :cite:t:`kozw2000`).
+ * The skewness is computed as the Fischer-Pearson coefficient of skewness (that is, with the central moments scaled by the number of observations, see cite:t:`da_kozw2000`).
  * @endrst
  * Thus, for a dataset  @f$\{x_1, \dots, x_n\}@f$, the skewness, @f$g_1@f$, is defined as
  * \f[
@@ -211,9 +211,9 @@ da_status da_variance_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] skewness the array which will hold the computed skewnesses. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] skewness the array which will hold the computed skewnesses. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -232,7 +232,7 @@ da_status da_skewness_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \brief Arithmetic mean, variance and kurtosis of a data matrix.
  *
  * @rst
- * The kurtosis is computed using Fischer's coefficient of excess kurtosis (that is, with the central moments scaled by the number of observations and 3 subtracted to ensure normally distributed data gives a value of 0, see :cite:t:`kozw2000`).
+ * The kurtosis is computed using Fischer's coefficient of excess kurtosis (that is, with the central moments scaled by the number of observations and 3 subtracted to ensure normally distributed data gives a value of 0, see cite:t:`da_kozw2000`).
  * @endrst
  * Thus, for a dataset  @f$\{x_1, \dots, x_n\}@f$, the kurtosis, @f$g_2@f$, is defined as
  * \f[
@@ -246,9 +246,9 @@ da_status da_skewness_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n.  If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] kurtosis the array which will hold the computed kurtoses. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] mean the array which will hold the computed means. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$.  If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] variance the array which will hold the computed variances. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] kurtosis the array which will hold the computed kurtoses. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -281,8 +281,8 @@ da_status da_kurtosis_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
  * \param[in] k the order of the moment to be computed. Constraint: k @f$>@f$ 0.
  * \param[in] use_precomputed_mean if nonzero, then means supplied by the calling program will be used. Otherwise means will be computed internally and returned to the calling program.
- * \param[inout] mean the array which will hold the computed means. If use_precomputed_mean is zero then this array need not be set on entry. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n.  If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] moment the array which will hold the computed moments. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[inout] mean the array which will hold the computed means. If \p use_precomputed_mean is zero then this array need not be set on entry. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$.  If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] moment the array which will hold the computed moments. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -311,7 +311,7 @@ da_status da_moment_s(da_order order, da_axis axis, da_int n_rows, da_int n_cols
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
  * \param[in] q the quantile required. Constraint: q must lie in the interval [0,1].
- * \param[out] quantile the array which will hold the computed quantiles. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] quantile the array which will hold the computed quantiles. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \param[in] quantile_type specifies the method used to compute the quantiles.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
@@ -340,11 +340,11 @@ da_status da_quantile_s(da_order order, da_axis axis, da_int n_rows, da_int n_co
  * \param[in] n_cols the number of columns in the data matrix. Constraint: \p n_cols @f$\ge 1@f$.
  * \param[in] X the \p n_rows @f$\times @f$ \p n_cols data matrix.
  * \param[in] ldx the leading dimension of the data matrix. Constraint: \p ldx @f$\ge@f$ \p n_rows if \p order = \p column_major, or \p ldx @f$\ge@f$ \p n_cols if \p order = \p row_major.
- * \param[out] minimum the array which will hold the computed minima. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] lower_hinge the array which will hold the computed lower_hinges. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n.  If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] median the array which will hold the computed medians. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] upper_hinge the array which will hold the computed upper_hinges. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n.  If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[out] maximum the array which will hold the computed maxima. If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] minimum the array which will hold the computed minima. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] lower_hinge the array which will hold the computed lower_hinges. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$.  If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] median the array which will hold the computed medians. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] upper_hinge the array which will hold the computed upper_hinges. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$.  If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[out] maximum the array which will hold the computed maxima. If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - the constraint on \p ldx was violated.
@@ -389,8 +389,8 @@ da_status da_five_point_summary_s(da_order order, da_axis axis, da_int n_rows,
  * \param[in] mode determines whether or not the standardization proceeds in reverse:
  * - \p mode = 0 - the data matrix will be shifted (by subtracting the values in \p shift) then scaled (by dividing by the values in \p scale).
  * - \p mode = 1 - the data matrix will be scaled (by multiplying by the values in \p scale) then shifted (by adding the values in \p shift).
- * \param[in] shift the array of values for shifting the data. Can be null (see above). If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
- * \param[in] scale the array of values for scaling the data. Can be null (see above). If \p axis = \ref da_axis_col the array must be at least of size p. If \p axis = \ref da_axis_row the array must be at least of size n. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[in] shift the array of values for shifting the data. Can be null (see above). If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
+ * \param[in] scale the array of values for scaling the data. Can be null (see above). If \p axis = \ref da_axis_col the array must be at least of size @f$n_cols@f$. If \p axis = \ref da_axis_row the array must be at least of size @f$n_rows@f$. If \p axis = \ref da_axis_all the array must be at least of size 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_input - \p mode must be either 0 or 1.
@@ -427,6 +427,7 @@ da_status da_standardize_s(da_order order, da_axis axis, da_int n_rows, da_int n
  * - \p dof > 0 - the degrees of freedom will be set to the specified value.
  * \param[out] cov the array which will hold the \p n_cols @f$\times @f$ \p n_cols covariance matrix. The matrix will be returned with the same storage order as the input data.
  * \param[in] ldcov the leading dimension of the covariance matrix. Constraint: \p ldcov @f$>@f$ \p n_cols.
+ * \param[in] assume_centered if equal to 1, assumes the input matrix \p X is already mean-centered and skips the centering step for computational efficiency. If equal to 0, centers the data by subtracting column means. Accepted values: 0 and 1.
  * \return \ref da_status. The function returns:
  * - \ref da_status_success - the operation was successfully completed.
  * - \ref da_status_invalid_leading_dimension - one of the constraints on \p ldx or \p ldcov was violated.
@@ -436,10 +437,10 @@ da_status da_standardize_s(da_order order, da_axis axis, da_int n_rows, da_int n
  */
 da_status da_covariance_matrix_d(da_order order, da_int n_rows, da_int n_cols,
                                  const double *X, da_int ldx, da_int dof, double *cov,
-                                 da_int ldcov);
+                                 da_int ldcov, da_int assume_centered);
 da_status da_covariance_matrix_s(da_order order, da_int n_rows, da_int n_cols,
                                  const float *X, da_int ldx, da_int dof, float *cov,
-                                 da_int ldcov);
+                                 da_int ldcov, da_int assume_centered);
 /** \} */
 
 /** \{

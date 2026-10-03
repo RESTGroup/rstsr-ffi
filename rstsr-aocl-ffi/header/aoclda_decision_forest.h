@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -47,6 +47,8 @@
  * @param[in] X array containing \p n_samples  @f$\times@f$ \p n_features data matrix. By default, it should be stored in column-major order, unless you have set the <em>storage order</em> option to <em>row-major</em>.
  * @param[in] ldx leading dimension of \p X. Constraint: \p ldx @f$\ge@f$ \p n_samples if \p X is stored in column-major order, or \p ldx @f$\ge@f$ \p n_features if \p X is stored in row-major order.
  * @param[in] y array containing the \p n_samples labels. The label values are expected to range from 0 to \p n_class - 1.
+ * @param[in] categorical_features integer array of size \p n_features specifying if each feature is categorical. If set to NULL, all features are considered continuous.
+ *            Otherwise, categorical_features[i] is expected to be set to the number of different categories for feature i (or to 0 if feature i is continuous).
  * @return @ref da_status.  The function returns:
  * - @ref da_status_success - the operation was successfully completed.
  * - @ref da_status_wrong_type - the floating point precision of the arguments is incompatible with the @p handle initialization.
@@ -57,10 +59,12 @@
 */
 da_status da_tree_set_training_data_d(da_handle handle, da_int n_samples,
                                       da_int n_features, da_int n_class, const double *X,
-                                      da_int ldx, const da_int *y);
+                                      da_int ldx, const da_int *y,
+                                      const da_int *categorical_features);
 da_status da_tree_set_training_data_s(da_handle handle, da_int n_samples,
                                       da_int n_features, da_int n_class, const float *X,
-                                      da_int ldx, const da_int *y);
+                                      da_int ldx, const da_int *y,
+                                      const da_int *categorical_features);
 /** \} */
 
 /** \{
@@ -74,6 +78,8 @@ da_status da_tree_set_training_data_s(da_handle handle, da_int n_samples,
  * @param[in] X array containing \p n_samples  @f$\times@f$ \p n_features data matrix. By default, it should be stored in column-major order, unless you have set the <em>storage order</em> option to <em>row-major</em>.
  * @param[in] ldx leading dimension of \p X. Constraint: \p ldx @f$\ge@f$ \p n_samples if \p X is stored in column-major order, or \p ldx @f$\ge@f$ \p n_features if \p X is stored in row-major order.
  * @param[in] y array containing the \p n_samples labels. The label values are expected to range from 0 to \p n_class - 1.
+ * @param[in] categorical_features integer array of size \p n_features specifying if each feature is categorical. If set to NULL, all features are considered continuous.
+ *            Otherwise, categorical_features[i] is expected to be set to the number of different categories for feature i (or to 0 if feature i is continuous).
  * @return @ref da_status.  The function returns:
  * - @ref da_status_success - the operation was successfully completed.
  * - @ref da_status_wrong_type - the floating point precision of the arguments is incompatible with the @p handle initialization.
@@ -83,10 +89,12 @@ da_status da_tree_set_training_data_s(da_handle handle, da_int n_samples,
  */
 da_status da_forest_set_training_data_d(da_handle handle, da_int n_samples,
                                         da_int n_features, da_int n_class,
-                                        const double *X, da_int ldx, const da_int *y);
+                                        const double *X, da_int ldx, const da_int *y,
+                                        const da_int *categorical_features);
 da_status da_forest_set_training_data_s(da_handle handle, da_int n_samples,
                                         da_int n_features, da_int n_class, const float *X,
-                                        da_int ldx, const da_int *y);
+                                        da_int ldx, const da_int *y,
+                                        const da_int *categorical_features);
 /** \} */
 
 /** \{
@@ -95,7 +103,7 @@ da_status da_forest_set_training_data_s(da_handle handle, da_int n_samples,
  * @rst
  * Compute the decision tree parameters given the data passed by :ref:`da_tree_set_training_data_? <da_tree_set_training_data>`.
  * Note that you can customize the model before using the fit function through the use of optional parameters,
- * see :ref:`this section <opts_decisionforests>` for a list of available options.
+ * see :ref:`this section <opts_decisiontrees>` for a list of available options.
  * @endrst
  *
  * @param[inout] handle a @ref da_handle object, initialized with type @ref da_handle_decision_tree.
@@ -124,7 +132,7 @@ da_status da_tree_fit_s(da_handle handle);
  * @rst
  * Compute the decision forest parameters given the data passed by :ref:`da_forest_set_training_data_? <da_forest_set_training_data>`.
  * Note that you can customize the model before using the fit function through the use of optional parameters,
- * see :ref:`this section <opts_decisiontrees>` for a list of available options.
+ * see :ref:`this section <opts_decisionforests>` for a list of available options.
  * @endrst
  *
  * @param[inout] handle a @ref da_handle object, initialized with type @ref da_handle_decision_forest.
@@ -336,9 +344,9 @@ da_status da_forest_predict_proba_s(da_handle handle, da_int n_samples, da_int n
  *
  * @rst
  * After a model has been fitted using :ref:`da_forest_fit_? <da_forest_fit>`, it can be used to generate predicted labels on new data. This
- * function returns the decision forest class log probabilities in the array ``y_pred``.
+ * function returns the decision forest class log probabilities in the array ``y_log_proba``.
  *
- * For each data point ``i``, and class ``j``, the ``(i,j)`` element of ``y_proba`` will contain the class log probability
+ * For each data point ``i``, and class ``j``, the ``(i,j)`` element of ``y_log_proba`` will contain the class log probability
  * according to the decision forest, and the ``(i,j)`` element of
  * ``X_test`` should contain the feature ``j`` for observation ``i``.
  * @endrst

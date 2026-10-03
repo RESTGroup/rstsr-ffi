@@ -2,7 +2,7 @@
 
 This crate contains AOCL (AMD Optimizing CPU Libraries) FFI bindings.
 
-Current FFI version is [AOCL 5.1](https://www.amd.com/en/developer/aocl.html), where codes are available in github organization [amd](https://github.com/amd). If you are using an older version of AOCL, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
+Current FFI version is [AOCL 5.3](https://www.amd.com/en/developer/aocl.html), where codes are available in github organization [amd](https://github.com/amd). If you are using an older version of AOCL, this crate should still work if you do not explicitly call the function that only occurs in higher version of BLIS.
 
 > **Feature Not Complete**: AOCL is a large collection of math functions. This crate currently only have following bindgens:
 > - blis (for blas, cblas utilities)
@@ -61,6 +61,13 @@ Optional features:
     - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
 
 ## Changelog
+
+- v0.3.0
+
+    - **API Breaking**: Updated vendored headers and bindings to AOCL 5.3.0. libflame types widened: `FLA_Error` and `FLA_Dimension` are now `int64_t` (was `int`), `fla_dim_t` is `int64_t`, and `logical` is an alias of `aocl_int_t`; the complex helper types are now aliases of `scomplex_`/`dcomplex_` structs (`complex`/`doublecomplex` renamed to `scomplex`/`dcomplex`). In `blis`, upstream removed or renamed 255 functions (Zen kernel renames such as `*_zen_int10` -> `*_zen_int_10`, AVX-512 kernel restructure, `bli_arch_*` query/logging moved to library-internal declarations) and dropped the `Bool` type, `dgemv_ker_ft` (split into `dgemv_ker_ft_conja`/`_transa`), `FEATURE_DATAPATH_FP128/256/512` and a few `AOCL_DTL_*`/`BLIS_SMALL_MATRIX_*` constants.
+    - **Enhancements**: Bindings now cover what AOCL 5.3 headers newly expose: `flame` gains the namespaced `aocl_lapack_*`/`aocl_blas_*` interfaces (about 8.4k functions, all resolved by `libflame`), `blis` gains the `lpgemm` (DLP) declarations and Zen 4/5 kernels. The `lpgemm` entry points are implemented in `libaocl-dlp`, not `libblis`; dynamic loading leaves them unresolved unless that library is loaded.
+    - **Fix**: `gen_flame.py` removed the generated `integer`/`uinteger` aliases by exact string match; AOCL 5.3 changed the typedef target (`int` -> `int32_t`), silently defeating that patch and shadowing the ILP64-aware aliases from `blis_types`. The patch is now a regex and asserts the aliases are gone.
+    - **Dev infrastructure**: Regenerated with `bindgen` 0.73.2 (was 0.71.1; the `__BindgenBitfieldUnit` helper it emits for glibc headers is covered by crate-level clippy allows).
 
 - v0.2.0
 
