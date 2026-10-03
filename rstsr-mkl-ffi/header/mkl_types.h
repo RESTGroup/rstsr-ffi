@@ -138,27 +138,17 @@ struct {
 #define MKL_CBWR_AUTO           2
 #define MKL_CBWR_COMPATIBLE     3
 #define MKL_CBWR_SSE2           4
-#define MKL_CBWR_SSSE3          6
-#define MKL_CBWR_SSE4_1         7
 #define MKL_CBWR_SSE4_2         8
-#define MKL_CBWR_AVX            9
 #define MKL_CBWR_AVX2          10
-#define MKL_CBWR_AVX512_MIC    11
 #define MKL_CBWR_AVX512        12
-#define MKL_CBWR_AVX512_MIC_E1 13
 #define MKL_CBWR_AVX512_E1     14
 #define MKL_CBWR_AVX10         15
 
 /* error codes */
 #define MKL_CBWR_SUCCESS                   0
-#define MKL_CBWR_ERR_INVALID_SETTINGS     -1
 #define MKL_CBWR_ERR_INVALID_INPUT        -2
 #define MKL_CBWR_ERR_UNSUPPORTED_BRANCH   -3
-#define MKL_CBWR_ERR_UNKNOWN_BRANCH       -4
 #define MKL_CBWR_ERR_MODE_CHANGE_FAILURE  -8
-
-/* obsolete */
-#define MKL_CBWR_SSE3           5
 
 typedef enum {
     MKL_ROW_MAJOR = 101,

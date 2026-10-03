@@ -2,7 +2,7 @@
 
 This crate contains Intel oneAPI MKL (Math Kernel Library) FFI bindings.
 
-Current FFI version is oneAPI MKL 2025.2 [(link to download page)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html). If you are using an older version of oneAPI MKL, this crate should still work if you do not explicitly call the function that only occurs in higher version of oneAPI MKL.
+Current FFI version is oneAPI MKL 2026.1 [(link to download page)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html). If you are using an older version of oneAPI MKL, this crate should still work if you do not explicitly call the function that only occurs in higher version of oneAPI MKL.
 
 > **Feature Not Complete**: oneAPI MKL is a large collection of math functions. This crate currently only have following bindgens:
 > - service (`mkl_service.h`)
@@ -43,6 +43,8 @@ If you encountered some functions not found when using dynamic linking, especial
 println!("cargo:rustc-link-arg=-Wl,--no-as-needed,-lm");
 ```
 
+If you encountered a symbol lookup error like `libmkl_intel_thread.so.3: undefined symbol: omp_get_num_procs` when calling the first threaded routine, the OpenMP runtime is not loaded: either preload it (`LD_PRELOAD=/path/to/libiomp5.so`) or select another threading layer via `MKL_THREADING_LAYER` (`SEQUENTIAL` or `GNU`).
+
 ## Cargo features
 
 Default features:
@@ -68,9 +70,16 @@ Optional features:
     - `dyload_struct.rs`: Struct `Lib` for dynamic loading.
     - `dyload_initializer.rs`: The initialization function of `Lib` for dynamic loading.
     - `dyload_compatible.rs`: Unsafe bindgen function that is compatible to that of `ffi_extern.rs`. Only activated when dynamic loading.
-    - special case of `cblas::ffi_base`: the enums `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc comes from crate `rstsr_lapack_ffi` for convenience. This crate depends on `rstsr_lapack_ffi` for those definitions of enums.
+    - special case of `cblas::ffi_base`: the enums `CBLAS_LAYOUT`, `CBLAS_TRANSPOSE`, `CBLAS_UPLO`, etc. come from crate `rstsr-cblas-base` for convenience, shared by the rstsr FFI crates.
 
 ## Changelog
+
+- v0.3.0
+
+    - **API Breaking**: Removed constants that upstream oneAPI MKL 2026.1 no longer declares: `MKL_CBWR_SSSE3`, `MKL_CBWR_SSE4_1`, `MKL_CBWR_AVX`, `MKL_CBWR_AVX512_MIC`, `MKL_CBWR_AVX512_MIC_E1`, `MKL_CBWR_SSE3`, `MKL_CBWR_ERR_INVALID_SETTINGS` and `MKL_CBWR_ERR_UNKNOWN_BRANCH` in `mkl_types`, plus `MKL_ENABLE_AVX`, `MKL_ENABLE_AVX512_MIC` and `MKL_ENABLE_AVX512_MIC_E1` in `service`. These covered CPU targets and error codes that upstream dropped; migrate to the remaining variants (e.g. `MKL_CBWR_AVX2`, `MKL_ENABLE_AVX2`).
+    - **Enhancements**: Updated vendored headers, symbol table and bindings to oneAPI MKL 2026.1 (LP64/ILP64); besides the removals above the symbol set is additive (new LAPACK `[sdcz]geqrf_batch_strided` family).
+    - **Dev infrastructure**: Regenerated with `bindgen` 0.73.2 (was 0.71.1; output is byte-identical apart from the version stamp); removed the vendored `header/symbol_table.txt` (2.5 MB) - `gen_lapack.py`'s library-coverage assert is replaced by an update-time check against the installed `libmkl_rt`.
+    - **Docs**: Corrected the crate-structure note (CBLAS enums come from `rstsr-cblas-base`; the crate does not depend on `rstsr-lapack-ffi`), and noted the OpenMP-runtime caveat of dynamic loading.
 
 - v0.2.0
 

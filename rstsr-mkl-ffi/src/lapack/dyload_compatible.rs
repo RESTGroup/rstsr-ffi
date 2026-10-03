@@ -4385,6 +4385,78 @@ pub unsafe fn ztrevc3_(
     )
 }
 
+pub unsafe fn sgeqrf_batch_strided_(
+    m: *const MKL_INT,
+    n: *const MKL_INT,
+    a: *mut f32,
+    lda: *const MKL_INT,
+    stride_a: *const MKL_INT,
+    tau: *mut f32,
+    stride_tau: *const MKL_INT,
+    work: *mut f32,
+    lwork: *const MKL_INT,
+    batch_size: *const MKL_INT,
+    info: *mut MKL_INT,
+) {
+    dyload_lib().sgeqrf_batch_strided_.unwrap()(
+        m, n, a, lda, stride_a, tau, stride_tau, work, lwork, batch_size, info,
+    )
+}
+
+pub unsafe fn dgeqrf_batch_strided_(
+    m: *const MKL_INT,
+    n: *const MKL_INT,
+    a: *mut f64,
+    lda: *const MKL_INT,
+    stride_a: *const MKL_INT,
+    tau: *mut f64,
+    stride_tau: *const MKL_INT,
+    work: *mut f64,
+    lwork: *const MKL_INT,
+    batch_size: *const MKL_INT,
+    info: *mut MKL_INT,
+) {
+    dyload_lib().dgeqrf_batch_strided_.unwrap()(
+        m, n, a, lda, stride_a, tau, stride_tau, work, lwork, batch_size, info,
+    )
+}
+
+pub unsafe fn cgeqrf_batch_strided_(
+    m: *const MKL_INT,
+    n: *const MKL_INT,
+    a: *mut MKL_Complex8,
+    lda: *const MKL_INT,
+    stride_a: *const MKL_INT,
+    tau: *mut MKL_Complex8,
+    stride_tau: *const MKL_INT,
+    work: *mut MKL_Complex8,
+    lwork: *const MKL_INT,
+    batch_size: *const MKL_INT,
+    info: *mut MKL_INT,
+) {
+    dyload_lib().cgeqrf_batch_strided_.unwrap()(
+        m, n, a, lda, stride_a, tau, stride_tau, work, lwork, batch_size, info,
+    )
+}
+
+pub unsafe fn zgeqrf_batch_strided_(
+    m: *const MKL_INT,
+    n: *const MKL_INT,
+    a: *mut MKL_Complex16,
+    lda: *const MKL_INT,
+    stride_a: *const MKL_INT,
+    tau: *mut MKL_Complex16,
+    stride_tau: *const MKL_INT,
+    work: *mut MKL_Complex16,
+    lwork: *const MKL_INT,
+    batch_size: *const MKL_INT,
+    info: *mut MKL_INT,
+) {
+    dyload_lib().zgeqrf_batch_strided_.unwrap()(
+        m, n, a, lda, stride_a, tau, stride_tau, work, lwork, batch_size, info,
+    )
+}
+
 pub unsafe fn sgetrf_batch_strided_(
     m: *const MKL_INT,
     n: *const MKL_INT,
@@ -41070,6 +41142,7 @@ pub use cgeqr2_ as CGEQR2;
 pub use cgeqr2p_ as CGEQR2P;
 pub use cgeqr_ as CGEQR;
 pub use cgeqrf_ as CGEQRF;
+pub use cgeqrf_batch_strided_ as CGEQRF_BATCH_STRIDED;
 pub use cgeqrfp_ as CGEQRFP;
 pub use cgeqrt2_ as CGEQRT2;
 pub use cgeqrt3_ as CGEQRT3;
@@ -41620,6 +41693,7 @@ pub use dgeqr2_ as DGEQR2;
 pub use dgeqr2p_ as DGEQR2P;
 pub use dgeqr_ as DGEQR;
 pub use dgeqrf_ as DGEQRF;
+pub use dgeqrf_batch_strided_ as DGEQRF_BATCH_STRIDED;
 pub use dgeqrfp_ as DGEQRFP;
 pub use dgeqrt2_ as DGEQRT2;
 pub use dgeqrt3_ as DGEQRT3;
@@ -42227,6 +42301,7 @@ pub use sgeqr2_ as SGEQR2;
 pub use sgeqr2p_ as SGEQR2P;
 pub use sgeqr_ as SGEQR;
 pub use sgeqrf_ as SGEQRF;
+pub use sgeqrf_batch_strided_ as SGEQRF_BATCH_STRIDED;
 pub use sgeqrfp_ as SGEQRFP;
 pub use sgeqrt2_ as SGEQRT2;
 pub use sgeqrt3_ as SGEQRT3;
@@ -42778,6 +42853,7 @@ pub use zgeqr2_ as ZGEQR2;
 pub use zgeqr2p_ as ZGEQR2P;
 pub use zgeqr_ as ZGEQR;
 pub use zgeqrf_ as ZGEQRF;
+pub use zgeqrf_batch_strided_ as ZGEQRF_BATCH_STRIDED;
 pub use zgeqrfp_ as ZGEQRFP;
 pub use zgeqrt2_ as ZGEQRT2;
 pub use zgeqrt3_ as ZGEQRT3;
@@ -43329,6 +43405,7 @@ pub use cgeqr2_ as cgeqr2;
 pub use cgeqr2p_ as cgeqr2p;
 pub use cgeqr_ as cgeqr;
 pub use cgeqrf_ as cgeqrf;
+pub use cgeqrf_batch_strided_ as cgeqrf_batch_strided;
 pub use cgeqrfp_ as cgeqrfp;
 pub use cgeqrt2_ as cgeqrt2;
 pub use cgeqrt3_ as cgeqrt3;
@@ -43879,6 +43956,7 @@ pub use dgeqr2_ as dgeqr2;
 pub use dgeqr2p_ as dgeqr2p;
 pub use dgeqr_ as dgeqr;
 pub use dgeqrf_ as dgeqrf;
+pub use dgeqrf_batch_strided_ as dgeqrf_batch_strided;
 pub use dgeqrfp_ as dgeqrfp;
 pub use dgeqrt2_ as dgeqrt2;
 pub use dgeqrt3_ as dgeqrt3;
@@ -44486,6 +44564,7 @@ pub use sgeqr2_ as sgeqr2;
 pub use sgeqr2p_ as sgeqr2p;
 pub use sgeqr_ as sgeqr;
 pub use sgeqrf_ as sgeqrf;
+pub use sgeqrf_batch_strided_ as sgeqrf_batch_strided;
 pub use sgeqrfp_ as sgeqrfp;
 pub use sgeqrt2_ as sgeqrt2;
 pub use sgeqrt3_ as sgeqrt3;
@@ -45037,6 +45116,7 @@ pub use zgeqr2_ as zgeqr2;
 pub use zgeqr2p_ as zgeqr2p;
 pub use zgeqr_ as zgeqr;
 pub use zgeqrf_ as zgeqrf;
+pub use zgeqrf_batch_strided_ as zgeqrf_batch_strided;
 pub use zgeqrfp_ as zgeqrfp;
 pub use zgeqrt2_ as zgeqrt2;
 pub use zgeqrt3_ as zgeqrt3;

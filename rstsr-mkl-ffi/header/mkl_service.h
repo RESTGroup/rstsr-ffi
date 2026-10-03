@@ -107,21 +107,18 @@ int     mkl_progress_( int* thread, int* step, char* stage, int lstage );
 #endif /* _MKL_PROGRESS_H_ */
 
 int     MKL_Enable_Instructions(int);
-#define  mkl_enable_instructions    MKL_Enable_Instructions
-#define  MKL_ENABLE_SSE4_2          0
-#define  MKL_ENABLE_AVX             1
-#define  MKL_ENABLE_AVX2            2
-#define  MKL_ENABLE_AVX512_MIC      3
-#define  MKL_ENABLE_AVX512          4
-#define  MKL_ENABLE_AVX512_MIC_E1   5
-#define  MKL_ENABLE_AVX512_E1       6
-#define  MKL_ENABLE_AVX512_E2       7
-#define  MKL_ENABLE_AVX512_E3       8
-#define  MKL_ENABLE_AVX512_E4       9
-#define  MKL_ENABLE_AVX2_E1         10
-#define  MKL_ENABLE_AVX512_E5       11
-#define  MKL_ENABLE_AVX10           12
-#define  MKL_SINGLE_PATH_ENABLE     0x0600
+#define mkl_enable_instructions    MKL_Enable_Instructions
+#define MKL_ENABLE_SSE4_2           0
+#define MKL_ENABLE_AVX2             2
+#define MKL_ENABLE_AVX512           4
+#define MKL_ENABLE_AVX512_E1        6
+#define MKL_ENABLE_AVX512_E2        7
+#define MKL_ENABLE_AVX512_E3        8
+#define MKL_ENABLE_AVX512_E4        9
+#define MKL_ENABLE_AVX2_E1          10
+#define MKL_ENABLE_AVX512_E5        11
+#define MKL_ENABLE_AVX10            12
+#define MKL_SINGLE_PATH_ENABLE     0x0600
 
 /* Single Dynamic library interface */
 #define MKL_INTERFACE_LP64          0

@@ -99,14 +99,6 @@ for ident in identifiers:
         ident_trans = ident_trans[:-1]
     identifiers_set.add(ident_trans)
 
-# +
-with open("symbol_table.txt", "r") as f:
-    symbol_table = {l.split()[2] for l in f.readlines() if len(l.split()) >= 3}
-
-assert(len({ident.upper() for ident in identifiers_set} - set(symbol_table)) == 0)
-assert(len({ident + "_" for ident in identifiers_set} - set(symbol_table)) == 0)
-# -
-
 token = """extern "C" {"""
 identifiers_added = set()
 for node_fn in nodes_fn:

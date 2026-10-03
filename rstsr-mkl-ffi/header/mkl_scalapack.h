@@ -589,8 +589,8 @@ void	pzlaswp(const char* direc, const char* rowcol, const MKL_INT* n, MKL_Comple
 
 float	pslatra(const MKL_INT* n, const float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
 double	pdlatra(const MKL_INT* n, const double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
-void	pclatra(MKL_Complex8 *, const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
-void	pzlatra(MKL_Complex16 *, const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex8 pclatra(const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex16 pzlatra(const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
 
 void	pslatrd(const char* uplo, const MKL_INT* n, const MKL_INT* nb, float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca, float* d, float* e, float* tau, float* w, const MKL_INT* iw, const MKL_INT* jw, const MKL_INT* descw, float* work);
 void	pdlatrd(const char* uplo, const MKL_INT* n, const MKL_INT* nb, double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca, double* d, double* e, double* tau, double* w, const MKL_INT* iw, const MKL_INT* jw, const MKL_INT* descw, double* work);
@@ -2377,16 +2377,16 @@ void	pzlaswp_(const char* direc, const char* rowcol, const MKL_INT* n, MKL_Compl
 
 float	PSLATRA(const MKL_INT* n, const float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
 double	PDLATRA(const MKL_INT* n, const double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
-void	PCLATRA(MKL_Complex8 *, const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
-void	PZLATRA(MKL_Complex16 *, const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex8	PCLATRA(const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex16	PZLATRA(const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
 float	PSLATRA_(const MKL_INT* n, const float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
 double	PDLATRA_(const MKL_INT* n, const double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
-void	PCLATRA_(MKL_Complex8 *, const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
-void	PZLATRA_(MKL_Complex16 *, const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia,const  MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex8	PCLATRA_(const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex16	PZLATRA_(const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia,const  MKL_INT *ja, const MKL_INT *desca);
 float	pslatra_(const MKL_INT* n, const float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
 double	pdlatra_(const MKL_INT* n, const double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca);
-void	pclatra_(MKL_Complex8 *, const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
-void	pzlatra_(MKL_Complex16 *, const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex8 pclatra_(const MKL_INT *n, const MKL_Complex8 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
+MKL_Complex16	pzlatra_(const MKL_INT *n, const MKL_Complex16 *a, const MKL_INT *ia, const MKL_INT *ja, const MKL_INT *desca);
 
 void	PSLATRD(const char* uplo, const MKL_INT* n, const MKL_INT* nb, float* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca, float* d, float* e, float* tau, float* w, const MKL_INT* iw, const MKL_INT* jw, const MKL_INT* descw, float* work);
 void	PDLATRD(const char* uplo, const MKL_INT* n, const MKL_INT* nb, double* a, const MKL_INT* ia, const MKL_INT* ja, const MKL_INT* desca, double* d, double* e, double* tau, double* w, const MKL_INT* iw, const MKL_INT* jw, const MKL_INT* descw, double* work);
